@@ -1,0 +1,240 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ─── Hero Section ───────────────────────────────────────────
+.section-hero-video {
+  position: relative;
+  background: $bone;
+  height: calc(100vh - var(--header-h, 102px)); // JS sets --header-h to full header including shop banner
+  box-sizing: border-box;
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ─── Video Frame (contained) ────────────────────────────────
+.hero-video-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  flex: 1 1 auto;
+  max-height: calc(100vh - 200px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid $bone-dark;
+  border-radius: $radius;
+  background: $charcoal;
+
+  @include mobile {
+    aspect-ratio: 4 / 3;
+    max-height: calc(100vh - 180px);
+  }
+}
+
+.hero-video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-video-placeholder {
+  background: $charcoal;
+}
+
+.hero-frame-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba($charcoal, 0.3);
+  z-index: 1;
+}
+
+// ─── Overlay image (centered inside the frame) ──────────────
+.hero-overlay-image {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 2rem;
+
+  img {
+    display: block;
+    max-width: 75%;
+    max-height: 55%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+
+    @include mobile {
+      max-width: 85%;
+      max-height: 45%;
+    }
+  }
+}
+
+// ─── Caption text inside the video frame ────────────────────
+.hero-overlay-caption {
+  text-align: center;
+  color: $bone;
+
+  * {
+    color: $bone;
+    font-family: $font-label;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+// ─── WYSIWYG content below the frame ────────────────────────
+.hero-wysiwyg {
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  padding-top: 2.5rem;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $charcoal;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  p {
+    font-family: $font-main;
+    font-size: 1.05rem;
+    color: rgba($charcoal, 0.55);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    max-width: 50ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  a {
+    color: $olive;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: none;
+
+    &:hover { color: $charcoal; }
+  }
+
+  ul, ol {
+    color: rgba($charcoal, 0.55);
+    padding-left: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  blockquote {
+    font-family: $font-serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: rgba($charcoal, 0.45);
+    border-left: 3px solid $olive;
+    padding-left: 1.25rem;
+    margin: 1.5rem auto;
+    max-width: 44ch;
+    text-align: left;
+  }
+}
+
+// ─── Handbuilt in Chicago ────────────────────────────────────
+.hero-handbuilt {
+  width: 100%;
+  max-width: 700px;
+  padding-top: 2.5rem;
+}
+
+.hero-handbuilt-rule {
+  width: 40px;
+  height: 2px;
+  background: $olive;
+  margin: 0 auto 2rem;
+}
+
+.hero-handbuilt-content {
+  text-align: center;
+}
+
+.hero-handbuilt-heading {
+  font-family: $font-heading;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $charcoal;
+  margin: 0 0 1rem;
+}
+
+.hero-handbuilt p {
+  font-family: $font-main;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba($charcoal, 0.55);
+  max-width: 50ch;
+  margin: 0 auto;
+}
+
+// ─── Scroll indicator ───────────────────────────────────────
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.3;
+}
+
+.hero-scroll-line {
+  display: block;
+  width: 1px;
+  height: 32px;
+  background: $charcoal;
+}
+
+.hero-scroll-label {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $charcoal;
+}

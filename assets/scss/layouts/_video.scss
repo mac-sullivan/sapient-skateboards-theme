@@ -1,0 +1,38 @@
+@use '../abstracts' as *;
+
+// ─── Video ────────────────────────────────────────────────────
+.section-video {
+  padding: clamp(4rem, 8vw, 7rem) 2rem;
+
+  .container { max-width: 1300px; width: 100%; }
+
+  &.bg-white { background: $bone; }
+  &.bg-light { background: $bone; }
+  &.bg-dark  { background: #282828; }
+
+  > .container > h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 800;
+    margin: 0 0 2rem;
+    text-align: center;
+  }
+
+  .video-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: $radius;
+    background: #282828;
+
+    iframe,
+    object,
+    embed {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+}

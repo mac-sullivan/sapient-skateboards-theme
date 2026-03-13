@@ -1,0 +1,152 @@
+@use '../abstracts' as *;
+
+// ─── Text + Image Split ──────────────────────────────────────
+.section-tis {
+  padding: $section-pad 0;
+
+  &--white { background: $bone; color: $charcoal; }
+  &--light { background: #f9f9f9; color: $charcoal; }
+  &--dark  { background: $charcoal; color: $bone; }
+}
+
+.tis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  &--img-left {
+    direction: rtl;
+    > * { direction: ltr; }
+  }
+
+  @include tablet { gap: 3rem; }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    direction: ltr !important;
+    > * { direction: ltr !important; }
+  }
+}
+
+// ─── Text column ─────────────────────────────────────────────
+.tis-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: $olive;
+    }
+
+    .section-tis--white &,
+    .section-tis--light & { color: $olive; }
+    .section-tis--dark &  { color: $olive; }
+  }
+}
+
+.tis-heading {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+
+  .section-tis--dark & { color: $bone; }
+}
+
+.tis-body {
+  font-family: $font-main;
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 48ch;
+  margin: 0;
+
+  .section-tis--white &,
+  .section-tis--light & { color: rgba($charcoal, 0.6); }
+  .section-tis--dark &  { color: rgba($bone, 0.6); }
+}
+
+// ─── Image column — offset accent block ─────────────────────
+.tis-image {
+  position: relative;
+  padding: 1.5rem;
+
+  // Decorative rectangle behind the image
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 75%;
+    height: 75%;
+    background: $olive;
+    opacity: 0.08;
+    z-index: 0;
+
+    .tis-grid--img-left & {
+      right: auto;
+      left: 0;
+    }
+  }
+
+  // Accent corner line
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 40%;
+    border-top: 2px solid $olive;
+    border-right: 2px solid $olive;
+    z-index: 0;
+    opacity: 0.3;
+
+    .tis-grid--img-left & {
+      right: auto;
+      left: 0;
+      border-right: none;
+      border-left: 2px solid $olive;
+    }
+  }
+
+  img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @include mobile {
+    padding: 1rem;
+
+    &::before {
+      width: 70%;
+      height: 70%;
+    }
+
+    &::after {
+      width: 35%;
+      height: 35%;
+    }
+  }
+}

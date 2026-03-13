@@ -1,0 +1,54 @@
+@use '../abstracts' as *;
+
+.section-text-block {
+  padding: clamp(5rem, 10vw, 8rem) 2rem;
+
+  .container { max-width: $max-width; }
+  .container--narrow { max-width: 860px; margin: 0 auto; }
+
+  h2 {
+    font-family: $font-heading;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+  }
+
+  .text-block-content {
+    p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      &:last-child { margin-bottom: 0; }
+    }
+  }
+
+  .text-block-cta { margin-top: 2.5rem; }
+
+  &.bg-white  { background: $bone; color: $charcoal; }
+  &.bg-light  { background: $bone; color: $charcoal; }
+
+  &.bg-dark {
+    background: $charcoal;
+    color: $bone;
+    .text-block-content p { color: rgba($bone, 0.72); }
+  }
+
+  &.bg-purple {
+    background: $ochre;
+    color: $bone;
+    .text-block-content p { color: rgba($bone, 0.85); }
+    .btn-primary {
+      background: $bone;
+      color: $ochre;
+      &:hover { background: $bone; }
+    }
+  }
+
+  &.align-center {
+    text-align: center;
+    .text-block-content { max-width: 780px; margin: 0 auto; text-align: left; }
+    h2 { max-width: 700px; margin-left: auto; margin-right: auto; }
+  }
+}

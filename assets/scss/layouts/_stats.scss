@@ -1,0 +1,105 @@
+@use '../abstracts' as *;
+
+.section-stats {
+  padding: clamp(5rem, 10vw, 8rem) 2rem;
+  position: relative;
+  overflow: hidden;
+
+  .container { max-width: $max-width; }
+
+  &.bg-dark {
+    background: $charcoal;
+    color: $bone;
+
+    // Subtle grid pattern
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba($bone, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba($bone, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+  }
+
+  &.bg-purple {
+    background: $ochre;
+    color: $bone;
+  }
+
+  &.bg-white  { background: $bone; }
+  &.bg-light  { background: $bone; }
+
+  .stats-heading {
+    text-align: center;
+    font-family: $font-heading;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 800;
+    margin-bottom: 3.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: rgba($bone, 0.06);
+    border-radius: $radius;
+    overflow: hidden;
+
+    .bg-white & {
+      background: $bone-dark;
+    }
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: $charcoal;
+    transition: none;
+
+    &:hover { background: #282828; }
+
+    .bg-white & {
+      background: $bone;
+      &:hover { background: $bone; }
+    }
+
+    .bg-purple & {
+      background: $ochre;
+      &:hover { background: $ochre-dark; }
+    }
+  }
+
+  .stat-number {
+    font-family: $font-heading;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: $grad-ochre;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+
+    .bg-purple & {
+      background: none;
+      -webkit-text-fill-color: $bone;
+    }
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.5;
+    font-family: $font-main;
+  }
+}

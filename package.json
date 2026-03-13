@@ -1,0 +1,13 @@
+{
+  "name": "sapient-skateboards",
+  "version": "1.0.0",
+  "description": "Sapient Skateboards — BlankSlate Child Theme",
+  "scripts": {
+    "sass:build": "sass assets/scss/main.scss assets/css/main.css --style=compressed --no-source-map",
+    "sass:watch": "sass assets/scss/main.scss assets/css/main.css --watch --style=expanded --source-map",
+    "build": "npm run sass:build"
+  },
+  "devDependencies": {
+    "sass": "^1.97.3"
+  }
+}

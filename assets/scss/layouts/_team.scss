@@ -1,0 +1,330 @@
+@use '../abstracts' as *;
+
+// ─── Team Grid Section ────────────────────────────────────────
+.section-team-grid {
+  padding: 6rem 0;
+}
+
+.team-grid-header {
+  margin-bottom: 4rem;
+
+  .section-eyebrow { display: block; margin-bottom: 0.75rem; }
+}
+
+.team-grid-heading {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: $charcoal;
+  margin: 0;
+}
+
+// ─── Grid ─────────────────────────────────────────────────────
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+
+  @include desktop { grid-template-columns: repeat(3, 1fr); }
+  @include tablet  { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  @include mobile  { grid-template-columns: 1fr; }
+}
+
+// ─── Card ─────────────────────────────────────────────────────
+.team-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+
+  &:hover .team-card-photo img { transform: scale(1.04); }
+
+  &:hover .team-card-name { color: $ochre; }
+}
+
+// Stretched invisible link covering the whole card
+.team-card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  text-decoration: none;
+}
+
+// Social links sit above the stretched card link
+.team-social-link {
+  position: relative;
+  z-index: 2;
+  color: rgba($charcoal, 0.3);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: none;
+
+  &:hover { color: $charcoal; text-decoration: none; }
+}
+
+// ─── Photo / skull ───────────────────────────────────────────
+.team-card-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: $charcoal;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: none;
+    padding: 2rem;
+    filter: invert(1);
+    opacity: 0.15;
+  }
+}
+
+.team-card-skull {
+  object-fit: contain !important;
+  padding: 2.5rem !important;
+  opacity: 0.18 !important;
+  filter: invert(1) !important;
+}
+
+
+// ─── Card body ────────────────────────────────────────────────
+.team-card-body {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  justify-content: space-between;
+
+  .team-card-socials {
+    margin-right: .5rem;
+  }
+}
+
+.team-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.team-card-name {
+  font-family: $font-heading;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: $charcoal;
+  margin: 0;
+  transition: none;
+}
+
+.team-card-position {
+  font-family: $font-label;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($charcoal, 0.4);
+}
+
+.team-card-socials {
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  a, span {
+    color: rgba($charcoal, 0.3);
+    display: flex;
+    align-items: center;
+  }
+}
+
+.team-empty {
+  font-family: $font-label;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: rgba($charcoal, 0.4);
+  a { color: $charcoal; }
+}
+
+
+// ══════════════════════════════════════════════════════════════
+// Single Team Member Page
+// ══════════════════════════════════════════════════════════════
+
+.single-team-hero {
+  padding-bottom: 4rem !important;
+}
+
+.single-team-back {
+  display: inline-block;
+  font-family: $font-label;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($bone, 0.35);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: none;
+
+  &:hover { color: rgba($bone, 0.7); text-decoration: none; }
+}
+
+.single-team-body {
+  background: $bone;
+  padding: calc(var(--header-h, 4rem) + 4rem) 0 8rem;
+}
+
+.single-team-inner {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 6rem;
+  align-items: start;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+// ─── Photo col ────────────────────────────────────────────────
+.single-team-photo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: sticky;
+  top: calc(var(--header-h, 4rem) + 2rem);
+
+  @include tablet { position: static; }
+}
+
+.single-team-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: rgba($charcoal, 0.06);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &--empty {
+    background: $charcoal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.single-team-skull-placeholder {
+  width: 60% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: invert(1);
+  opacity: 0.15;
+}
+
+// ─── GIF ──────────────────────────────────────────────────────
+.single-team-gif {
+  width: 100%;
+  overflow: hidden;
+  background: $charcoal;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.single-team-socials {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: $font-label;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba($charcoal, 0.45);
+    text-decoration: none;
+    transition: none;
+
+    &:hover { color: $charcoal; text-decoration: none; }
+  }
+}
+
+// ─── Info col ─────────────────────────────────────────────────
+.single-team-name-block {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba($charcoal, 0.1);
+}
+
+.single-team-name {
+  font-family: $font-heading;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: $charcoal;
+  margin: 0 0 0.75rem;
+}
+
+.single-team-position {
+  font-family: $font-label;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $ochre;
+}
+
+.single-team-bio {
+  font-family: $font-main;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba($charcoal, 0.7);
+  margin-bottom: 3rem;
+
+  p { margin: 0 0 1.25em; &:last-child { margin: 0; } }
+}
+
+.single-team-back-btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: $font-label;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($charcoal, 0.4);
+  text-decoration: none;
+  transition: none;
+  border-top: 1px solid rgba($charcoal, 0.1);
+  padding-top: 2rem;
+  margin-top: 1rem;
+
+  &:hover { color: $charcoal; text-decoration: none; }
+}

@@ -1,0 +1,130 @@
+@use '../abstracts' as *;
+
+// ─── Full-viewport video hero ─────────────────────────────────
+.section-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background: $charcoal;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+// ─── Background video ─────────────────────────────────────────
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  z-index: 0;
+}
+
+.hero-video-fallback {
+  position: absolute;
+  inset: 0;
+  background: $charcoal;
+  z-index: 0;
+}
+
+// ─── Gradient overlay ─────────────────────────────────────────
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.85) 0%,
+    rgba(10, 10, 10, 0.3) 60%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+// ─── Content block ────────────────────────────────────────────
+.hero-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 4rem 4rem 5rem;
+  z-index: 2;
+  max-width: 780px;
+}
+
+.hero-eyebrow {
+  display: block;
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba($bone, 0.65);
+  margin-bottom: 1.5rem;
+}
+
+.hero-heading {
+  font-family: $font-heading;
+  font-size: clamp(4rem, 9vw, 10vw);
+  font-weight: 800;
+  color: $bone;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+.hero-subtext {
+  font-family: $font-main;
+  font-size: 1rem;
+  color: rgba($bone, 0.6);
+  line-height: 1.65;
+  max-width: 40ch;
+  margin: 0 0 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+// ─── Scroll indicator ─────────────────────────────────────────
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+  opacity: 0.4;
+
+  span {
+    font-family: $font-label;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $bone;
+  }
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: rgba($bone, 0.5);
+  order: -1;
+}
+
+// ─── Mobile ───────────────────────────────────────────────────
+@include mobile {
+  .hero-content {
+    padding: 2rem 1.5rem 3.5rem;
+  }
+
+  .hero-heading { font-size: clamp(3rem, 12vw, 5rem); }
+}

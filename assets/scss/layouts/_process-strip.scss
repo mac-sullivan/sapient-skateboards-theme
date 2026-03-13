@@ -1,0 +1,104 @@
+@use '../abstracts' as *;
+
+// ─── Process Strip ────────────────────────────────────────────
+.section-process-strip {
+  background: $bone;
+  padding: 3rem 0;
+  position: relative;
+
+  .container { max-width: $max-width; padding: 0 2rem; }
+}
+
+.process-strip-top-rule,
+.process-strip-bottom-rule {
+  height: 1px;
+  background: $bone-dark;
+  margin: 0;
+}
+
+.process-strip-top-rule { margin-bottom: 2.5rem; }
+.process-strip-bottom-rule { margin-top: 2.5rem; }
+
+.process-eyebrow {
+  display: block;
+  margin-bottom: 1.75rem;
+}
+
+// ─── 3-column grid ────────────────────────────────────────────
+.process-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  @include tablet { grid-template-columns: 1fr; }
+}
+
+.process-step {
+  padding: 0 2rem 0 0;
+
+  &--border {
+    border-left: 1px solid $bone-dark;
+    padding-left: 2rem;
+  }
+
+  @include tablet {
+    padding: 0 0 1.5rem;
+    border-left: none !important;
+    padding-left: 0 !important;
+    border-top: 1px solid $bone-dark;
+    padding-top: 1.5rem;
+
+    &:first-child { border-top: none; padding-top: 0; }
+  }
+}
+
+.process-step-number {
+  display: block;
+  font-family: $font-heading;
+  font-size: 3rem;
+  font-weight: 800;
+  color: $ochre;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.process-step-title {
+  font-family: $font-heading;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $charcoal;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.6rem;
+}
+
+.process-step-desc {
+  font-family: $font-main;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: $crete;
+  margin: 0;
+}
+
+// ─── Footer link row ──────────────────────────────────────────
+.process-strip-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.process-link {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $ochre;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: none;
+
+  &:hover {
+    border-color: $ochre;
+    text-decoration: none;
+  }
+}

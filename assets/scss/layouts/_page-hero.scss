@@ -1,0 +1,151 @@
+@use '../abstracts' as *;
+
+// ─── Interior page hero animations ───────────────────────────
+@keyframes page-hero-card-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes page-hero-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Outer wrapper — floating inset card ─────────────────────
+.page-hero {
+  margin: calc(51px + 2rem) 1.5rem 0;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: #282828;
+  padding: 5rem 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    width: 60vw;
+    height: 60vw;
+    max-width: 600px;
+    background: radial-gradient(circle, rgba($ochre, 0.2) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .container { position: relative; z-index: 1; max-width: $max-width; }
+
+  @include mobile { margin: calc(51px + 1rem) 0.75rem 0; }
+}
+
+// ─── Content stagger ─────────────────────────────────────────
+.page-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $ochre-light;
+  margin-bottom: 1.25rem;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: $ochre-light;
+    flex-shrink: 0;
+  }
+}
+
+.page-hero-title {
+  font-family: $font-heading;
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  font-weight: 800;
+  color: $bone;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  margin: 0 0 1rem;
+}
+
+.page-hero-sub {
+  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  color: rgba($bone, 0.52);
+  max-width: 44ch;
+  line-height: 1.75;
+}
+
+// ─── Shared archive-style dark header (contact, donate) ───────
+@keyframes archive-header-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes archive-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-archive-header {
+  background: #282828;
+  margin: calc(51px + 2rem) 1.5rem 0;
+  border-radius: 20px;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    max-width: 600px;
+    background: radial-gradient(circle, rgba($ochre, 0.2) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .container { position: relative; z-index: 1; max-width: $max-width; }
+
+  @include mobile { margin: calc(51px + 1rem) 0.75rem 0; padding: 3.5rem 0; }
+}
+
+.page-archive-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $ochre-light;
+  margin-bottom: 1.25rem;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: $ochre-light;
+    flex-shrink: 0;
+  }
+}
+
+.page-archive-title {
+  font-family: $font-heading;
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  font-weight: 800;
+  color: $bone;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  margin: 0 0 1rem;
+}
+
+.page-archive-sub {
+  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  color: rgba($bone, 0.52);
+  max-width: 44ch;
+  line-height: 1.75;
+}

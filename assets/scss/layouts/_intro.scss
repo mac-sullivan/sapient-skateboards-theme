@@ -1,0 +1,142 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ─── Intro / Splash Page ──────────────────────────────────────
+
+.intro-wrap {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: $charcoal;
+}
+
+// ── Video ────────────────────────────────────────────────────
+
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
+  &--img {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+// ── Dark overlay ─────────────────────────────────────────────
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba($charcoal, 0.45);
+  pointer-events: none;
+}
+
+// ── Content ──────────────────────────────────────────────────
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+// ── Logo ─────────────────────────────────────────────────────
+
+.intro-logo {
+  svg, img {
+    width: auto;
+    height: clamp(8rem,13vw,13rem);
+    display: block;
+  }
+
+  // Make sure SVG paths are white
+  svg path, svg rect, svg polygon, svg g {
+    fill: $bone !important;
+  }
+}
+
+// ── WYSIWYG content ──────────────────────────────────────────
+
+.intro-wysiwyg {
+  color: rgba(#fff, 0.85);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  line-height: 1.7;
+  max-width: 52ch;
+  text-align: center;
+
+  h1, h2, h3 {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: #fff;
+    margin: 0 0 0.5em;
+  }
+
+  h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+  h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
+  h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
+
+  h4, h5, h6 {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    color: rgba(#fff, 0.55);
+    margin: 0 0 0.5em;
+  }
+
+  p {
+    margin: 0 0 0.75em;
+    &:last-child { margin-bottom: 0; }
+  }
+
+  a { color: $ochre; }
+  strong { color: #fff; font-weight: 700; }
+}
+
+// ── Enter button ──────────────────────────────────────────────
+
+.intro-enter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.1rem 2.75rem;
+  font-family: $font-main;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: $charcoal;
+  background: $bone;
+  border: 2px solid $bone;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: $radius;
+
+  &:hover {
+    background: $ochre;
+    border-color: $ochre;
+    color: $bone;
+  }
+
+  .intro-arrow {
+    display: block;
+    flex-shrink: 0;
+  }
+}
+

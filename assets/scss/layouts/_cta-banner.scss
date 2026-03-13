@@ -1,0 +1,169 @@
+@use '../abstracts' as *;
+
+// ─── CTA Banner — full-bleed dark industrial ─────────────────
+.section-cta-banner {
+  background: $charcoal;
+  position: relative;
+  overflow: hidden;
+  padding: 7rem 0;
+
+  // Grain texture
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Ochre glow top-left
+  &::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -5%;
+    width: 55vw;
+    height: 55vw;
+    max-width: 700px;
+    background: radial-gradient(circle, rgba($ochre, 0.18) 0%, transparent 65%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: $max-width;
+  }
+}
+
+.cta-banner-noise { display: none; } // legacy — handled by ::before now
+.cta-banner-glow  { display: none; }
+
+.cta-banner-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: end;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+}
+
+// ─── Eyebrow ──────────────────────────────────────────────────
+.cta-banner-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $font-label;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $ochre-light;
+  margin-bottom: 1.5rem;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: $ochre;
+    flex-shrink: 0;
+  }
+}
+
+// ─── Heading ──────────────────────────────────────────────────
+.cta-banner-text {
+  max-width: 820px;
+}
+
+.cta-banner-heading {
+  font-family: $font-heading;
+  font-size: clamp(3.5rem, 6vw, 7rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: $bone;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.5rem;
+
+  em {
+    font-style: normal;
+    color: $ochre-light;
+  }
+}
+
+// ─── Subtext ──────────────────────────────────────────────────
+.cta-banner-sub {
+  font-size: 0.9rem;
+  color: rgba($bone, 0.4);
+  max-width: 44ch;
+  line-height: 1.75;
+}
+
+// ─── Actions ──────────────────────────────────────────────────
+.cta-banner-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-shrink: 0;
+  padding-bottom: 0.25rem;
+
+  @include tablet {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.cta-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $font-label;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: $ochre;
+  color: $bone;
+  padding: 1.1rem 2.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: none;
+  border: 1px solid transparent;
+
+  svg { transition: none; flex-shrink: 0; }
+
+  &:hover {
+    background: $ochre-dark;
+    text-decoration: none;
+    svg { transform: translateX(4px); }
+  }
+}
+
+.btn-ghost {
+  font-family: $font-label;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($bone, 0.45);
+  text-decoration: none;
+  transition: none;
+  white-space: nowrap;
+
+  &:hover {
+    color: $bone;
+    text-decoration: none;
+  }
+}
+
+// ─── Bottom rule ──────────────────────────────────────────────
+.section-cta-banner::after ~ .cta-banner-rule { display: none; }

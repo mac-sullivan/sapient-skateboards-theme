@@ -1,0 +1,43 @@
+@use '../abstracts' as *;
+
+// ─── Marquee Strip ────────────────────────────────────────────
+.section-marquee {
+  overflow: hidden;
+  background: $ochre;
+  padding: 0.875rem 0;
+  position: relative;
+  z-index: 2;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+
+  &:hover { animation-play-state: paused; }
+}
+
+.marquee-item {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($bone, 0.9);
+  white-space: nowrap;
+  padding: 0 1.5rem;
+}
+
+.marquee-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba($bone, 0.5);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}

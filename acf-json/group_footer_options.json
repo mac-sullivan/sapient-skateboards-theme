@@ -1,0 +1,81 @@
+{
+  "key": "group_footer_options",
+  "title": "Footer Settings",
+  "fields": [
+    {
+      "key": "field_footer_tab_brand",
+      "label": "Brand",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_footer_description",
+      "label": "Tagline / Description",
+      "name": "footer_description",
+      "type": "textarea",
+      "instructions": "Short description shown under the logo in the footer.",
+      "rows": 3,
+      "default_value": "Handcrafted skateboards built with intention. Rooted in Chicago's manufacturing legacy."
+    },
+    {
+      "key": "field_footer_tab_social",
+      "label": "Social Media",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_footer_instagram",
+      "label": "Instagram URL",
+      "name": "footer_instagram",
+      "type": "url",
+      "instructions": "Full URL e.g. https://instagram.com/sapientskateboards",
+      "default_value": "https://instagram.com/sapientskateboards",
+      "placeholder": "https://instagram.com/..."
+    },
+    {
+      "key": "field_footer_tab_contact",
+      "label": "Contact Info",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_footer_contact_email",
+      "label": "Contact Email",
+      "name": "footer_contact_email",
+      "type": "email",
+      "default_value": "info@sapientskateboards.com"
+    },
+    {
+      "key": "field_footer_contact_location",
+      "label": "Location",
+      "name": "footer_contact_location",
+      "type": "text",
+      "default_value": "Chicago, IL"
+    },
+    {
+      "key": "field_footer_facebook",
+      "label": "Facebook URL",
+      "name": "footer_facebook",
+      "type": "url",
+      "default_value": ""
+    },
+    {
+      "key": "field_footer_youtube",
+      "label": "YouTube URL",
+      "name": "footer_youtube",
+      "type": "url",
+      "default_value": ""
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "options_page",
+        "operator": "==",
+        "value": "acf-options-footer"
+      }
+    ]
+  ],
+  "active": true,
+  "description": "Controls all footer content \u2014 brand tagline, social links, and contact info."
+}

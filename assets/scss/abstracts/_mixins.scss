@@ -1,0 +1,112 @@
+@use 'variables' as *;
+
+// ─── Responsive Breakpoints ───────────────────────────────────
+@mixin mobile {
+  @media (max-width: 768px) { @content; }
+}
+@mixin tablet {
+  @media (max-width: 1024px) { @content; }
+}
+@mixin desktop {
+  @media (min-width: 1025px) { @content; }
+}
+
+// ─── Container ────────────────────────────────────────────────
+@mixin container {
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+// ─── Section Padding ──────────────────────────────────────────
+@mixin section-padding {
+  padding-top: $section-pad;
+  padding-bottom: $section-pad;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+// ─── Section Eyebrow Label ────────────────────────────────────
+// Reusable: "SAPIENT MANUFACTURING CO." style uppercase labels
+@mixin eyebrow {
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $crete;
+  display: block;
+}
+
+// ─── Section Heading ──────────────────────────────────────────
+@mixin section-heading {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: $charcoal;
+}
+
+// ─── Spec Label (technical manual style) ─────────────────────
+@mixin spec-label {
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $crete;
+}
+
+// ─── Rule Line (industrial divider) ──────────────────────────
+@mixin rule-line {
+  border: none;
+  border-top: 1px solid $bone-dark;
+  margin: 0;
+}
+
+// ─── Accent Heading ──────────────────────────────────────────
+@mixin accent-heading {
+  em {
+    color: $ochre;
+    font-style: normal;
+  }
+}
+
+// ─── Flex Center ──────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ─── Absolute Fill ────────────────────────────────────────────
+@mixin absolute-fill {
+  position: absolute;
+  inset: 0;
+}
+
+// ─── Image Cover ──────────────────────────────────────────────
+@mixin img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+// ─── Industrial Border ────────────────────────────────────────
+@mixin industrial-border {
+  border: 1px solid $bone-dark;
+}
+
+// ─── Dark Section Text Defaults ──────────────────────────────
+@mixin dark-section {
+  background: $charcoal;
+  color: $bone;
+
+  .eyebrow { color: $crete; }
+  p { color: rgba($bone, 0.65); }
+}

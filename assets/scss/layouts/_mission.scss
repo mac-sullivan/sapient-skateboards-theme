@@ -1,0 +1,98 @@
+@use '../abstracts' as *;
+
+// ─── Mission — 50/50 dark split ───────────────────────────────
+.section-mission {
+  background: $bone;
+  padding: 4rem 0;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 600px;
+  border-radius: $radius;
+  overflow: hidden;
+  background: $charcoal;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── Left: text panel ─────────────────────────────────────────
+.mission-text {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  padding-right: 4rem;
+  // Align left edge with the container on any viewport
+  padding-left: max(1.5rem, calc((100vw - #{$max-width}) / 2 + 1.5rem));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include tablet {
+    padding: 3.5rem 1.5rem;
+    order: 2;
+  }
+}
+
+.mission-heading {
+  font-family: $font-heading;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $bone;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0.75rem 0 1.5rem;
+}
+
+.mission-body {
+  font-family: $font-main;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba($bone, 0.65);
+  max-width: 44ch;
+  margin: 0 0 2rem;
+}
+
+.mission-link {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $ochre;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  align-self: flex-start;
+  transition: none;
+
+  &:hover {
+    border-color: $ochre;
+    text-decoration: none;
+  }
+}
+
+// ─── Right: image panel ───────────────────────────────────────
+.mission-image-panel {
+  position: relative;
+  overflow: hidden;
+
+  @include tablet { order: 1; min-height: 300px; }
+}
+
+.mission-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+.mission-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #3a3a3a;
+  min-height: 400px;
+}

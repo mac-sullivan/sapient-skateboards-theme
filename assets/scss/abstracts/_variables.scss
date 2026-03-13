@@ -1,0 +1,97 @@
+// ─── Sapient Skateboards — Brand Colors ───────────────────────
+
+// Primary Palette
+$ochre:         #913832;  // Red Ochre — primary CTA/accent
+$ochre-dark:    #6F2C23;  // Dark Ochre — hover/deep red
+$ochre-light:   #994A3C;  // Pale Ochre — light states
+$bone:          #ffffff;  // White — primary background
+$olive:         #6A6A45;  // Olive Branch — secondary accent
+$tan:           #B69574;  // Tan — supporting warmth
+$charcoal:      #282828;  // Charcoal — primary text / dark sections
+$bone-white:    #D7D0C0;  // Bone WHite
+// Secondary Palette
+$crete:         #AAA79D;  // Crete — borders, dividers, mid-tone
+$moss:          #3C3B22;  // Moss — dark section backgrounds
+$moss-light:    #404627;  // Light Moss — alt dark bg
+$bark:          #3B3121;  // Peeling Bark — deep dark / footer
+$bark-fresh:    #574132;  // Fresh Bark — warm dark accent
+
+// Neutrals
+$white:         $bone;  // Use bone as our white throughout
+$black:         #282828;
+$bone-dark:     #e5e5e5;  // Light gray for borders
+
+// Utility
+$ochre-glow:    rgba(145, 56, 50, 0.2);
+$overlay-dark:  rgba(10, 10, 10, 0.7);
+
+// ─── Gradients ────────────────────────────────────────────────
+$grad-ochre:    linear-gradient(135deg, #913832 0%, #994A3C 100%);
+$grad-dark:     linear-gradient(180deg, #282828 0%, #3B3121 100%);
+$grad-bone:     linear-gradient(180deg, #D7D0C0 0%, #C8BFAC 100%);
+
+// ─── Spacing ──────────────────────────────────────────────────
+$nav-height:    104px; // two-row header: 60px top + 44px nav
+$radius:        0px;    // Industrial — zero rounding, raw edges
+$radius-sm:     0px;
+$radius-lg:     0px;
+$max-width:     1128px;
+$section-pad:   clamp(5rem, 10vw, 9rem);
+
+// ─── Typography ───────────────────────────────────────────────
+$font-heading:  'Noto Sans', Helvetica, sans-serif;
+$font-label:    'Noto Sans', Helvetica, sans-serif;
+$font-serif:    'Playfair Display', 'Georgia', serif;
+$font-main:     'Noto Sans', Helvetica, sans-serif;
+$font-mono:     'Courier New', 'Courier', monospace;  // For spec sheets
+
+// ─── Transitions (set to 0 — animations disabled site-wide) ──
+$transition: none;
+$transition-slow:  0s;
+
+// ─── CSS Custom Properties ────────────────────────────────────
+:root {
+  // Primary
+  --color-ochre:       #{$ochre};
+  --color-ochre-dark:  #{$ochre-dark};
+  --color-ochre-light: #{$ochre-light};
+  --color-bone:        #{$bone};
+  --color-olive:       #{$olive};
+  --color-tan:         #{$tan};
+  --color-charcoal:    #{$charcoal};
+
+  // Secondary
+  --color-crete:       #{$crete};
+  --color-moss:        #{$moss};
+  --color-moss-light:  #{$moss-light};
+  --color-bark:        #{$bark};
+  --color-bark-fresh:  #{$bark-fresh};
+
+  // Neutrals
+  --color-white:       #{$white};
+  --color-black:       #{$black};
+  --color-bone-dark:   #{$bone-dark};
+
+  // Semantic aliases
+  --color-bg:          #{$bone};
+  --color-bg-dark:     #{$charcoal};
+  --color-text:        #{$charcoal};
+  --color-text-muted:  #{$crete};
+  --color-accent:      #{$ochre};
+  --color-accent-dark: #{$ochre-dark};
+  --color-border:      #{$bone-dark};
+
+  // Layout
+  --radius:        #{$radius};
+  --radius-sm:     #{$radius-sm};
+  --radius-lg:     #{$radius-lg};
+  --max-width:     #{$max-width};
+  --nav-height:    #{$nav-height};
+
+  // Typography
+  --font-heading:  #{$font-heading};
+  --font-label:    #{$font-label};
+  --font-serif:    #{$font-serif};
+  --font-main:     #{$font-main};
+  --font-mono:     #{$font-mono};
+}

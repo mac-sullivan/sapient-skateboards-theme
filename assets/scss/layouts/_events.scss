@@ -1,0 +1,92 @@
+@use '../abstracts' as *;
+
+// ─── Events ───────────────────────────────────────────────────
+.section-events {
+  padding: clamp(4rem, 8vw, 7rem) 2rem;
+  background: $bone;
+
+  .container { max-width: $max-width; }
+
+  > .container > h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    margin: 0 0 2.5rem;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.75rem;
+  }
+
+  .event-card {
+    border: 1.5px solid $bone-dark;
+    border-radius: $radius;
+    overflow: hidden;
+    transition: none;
+
+    &:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+  }
+
+  .event-thumb {
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: none;
+    }
+  }
+
+  .event-card:hover .event-thumb img { transform: scale(1.04); }
+
+  .event-info {
+    padding: 1.5rem;
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+
+      a {
+        color: $charcoal;
+        &:hover { color: $ochre; text-decoration: none; }
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      color: $crete;
+      line-height: 1.6;
+      margin: 0 0 1rem;
+    }
+  }
+
+  .event-date {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $ochre;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.4rem;
+    display: block;
+  }
+
+  .event-location {
+    font-size: 1rem;
+    color: $crete;
+    margin: 0 0 0.75rem;
+    display: block;
+  }
+
+  .events-placeholder {
+    color: $crete;
+    font-style: italic;
+    padding: 2rem 0;
+  }
+}

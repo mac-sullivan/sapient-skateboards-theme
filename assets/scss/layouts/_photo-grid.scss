@@ -1,0 +1,117 @@
+@use '../abstracts' as *;
+
+// ─── Photo Grid / Journey Carousel ────────────────────────────
+.section-photo-grid {
+  padding: clamp(4rem, 8vw, 7rem) 2rem;
+  background: $bone;
+  overflow: hidden;
+
+  .container { max-width: $max-width; }
+
+  .photo-grid-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;   // centered heading
+    text-align: center;
+    margin-bottom: 2rem;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    h2 {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.15;
+
+      em {
+        color: $ochre;
+        font-style: normal;
+      }
+    }
+  }
+
+  .grid-handle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: $ochre;
+    font-size: 1rem;
+    font-weight: 600;
+
+    svg { flex-shrink: 0; }
+
+    &:hover {
+      text-decoration: none;
+      opacity: 0.8;
+    }
+  }
+
+  // ─── Swiper overrides ─────────────────────────────────────
+  .photo-swiper {
+    overflow: hidden;
+    padding-bottom: 3rem;
+  }
+
+  .swiper-slide {
+    height: auto;
+  }
+
+  .photo-grid-item {
+    overflow: hidden;
+    border-radius: $radius;
+
+    a { display: block; overflow: hidden; border-radius: $radius; }
+
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: none;
+
+      &:hover {
+        transform: scale(1.05);
+        opacity: 0.88;
+      }
+    }
+  }
+
+  // Swiper nav buttons
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: $ochre;
+    background: $bone;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    top: calc(50% - 1.5rem); // above pagination
+
+    &::after {
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    &:hover { background: $ochre; color: $bone; }
+  }
+
+  // Swiper pagination
+  .swiper-pagination-bullet {
+    background: $bone-dark;
+    opacity: 1;
+
+    &-active { background: $ochre; }
+  }
+
+  .photo-grid-cta {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .grid-placeholder {
+    color: $crete;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 0;
+  }
+}

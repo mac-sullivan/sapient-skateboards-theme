@@ -1,0 +1,259 @@
+@use '../abstracts' as *;
+
+// ─── Sponsors / Become a Sponsor ──────────────────────────────
+.section-sponsors {
+  background: #f8f7f5;
+  padding: clamp(5rem, 10vw, 8rem) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.sponsors-bg-glow {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+  height: 70vw;
+  max-width: 800px;
+  max-height: 800px;
+  background: radial-gradient(circle, rgba($ochre, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+// ─── Header ───────────────────────────────────────────────────
+.sponsors-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.sponsors-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $ochre;
+  margin-bottom: 1rem;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: $ochre;
+  }
+}
+
+.sponsors-headline {
+  font-family: $font-heading;
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: 800;
+  color: $charcoal;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 0 0 1.25rem;
+  display: block;
+
+  span {
+    display: block;
+  }
+}
+
+.sponsors-sub {
+  font-size: 1.05rem;
+  color: #5a5a5a;
+  max-width: 54ch;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+// ─── Impact stats row ─────────────────────────────────────────
+.sponsors-impact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: $bone;
+  border: 1px solid #e8e6e2;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 3.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+}
+
+.sponsors-impact-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  gap: 0.35rem;
+
+  .impact-number {
+    font-family: $font-heading;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, $ochre 0%, $ochre-light 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .impact-label {
+    font-family: $font-main;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+  }
+}
+
+.sponsors-impact-divider {
+  width: 1px;
+  height: 48px;
+  background: #e8e6e2;
+  flex-shrink: 0;
+}
+
+// ─── Tier cards ───────────────────────────────────────────────
+.sponsors-tiers {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+
+  @include tablet { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+}
+
+.sponsor-tier {
+  background: $bone;
+  border: 1.5px solid #e8e6e2;
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  transition: none;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  }
+
+  // Featured (silver/middle) — elevated
+  &--featured {
+    border-color: $ochre;
+    box-shadow: 0 8px 40px rgba($ochre, 0.12);
+    background: $bone;
+
+    .tier-amount {
+      background: linear-gradient(135deg, $ochre 0%, $ochre-light 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+}
+
+.tier-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, $ochre 0%, $ochre-light 100%);
+  color: $bone;
+  font-family: $font-main;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  margin-bottom: 1.25rem;
+}
+
+.tier-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eeeceb;
+}
+
+.tier-label {
+  font-family: $font-main;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #888;
+}
+
+.tier-amount {
+  font-family: $font-heading;
+  font-size: 2rem;
+  font-weight: 800;
+  color: $charcoal;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.tier-perks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-family: $font-main;
+    font-size: 1rem;
+    color: #4a4a4a;
+    line-height: 1.5;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: $ochre;
+    }
+  }
+}
+
+// ─── CTA ──────────────────────────────────────────────────────
+.sponsors-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.sponsors-cta-btn {
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  box-shadow: 0 4px 24px rgba($ochre, 0.35);
+
+  svg { flex-shrink: 0; transition: none; }
+  &:hover svg { transform: translateX(4px); }
+}
+
+.sponsors-cta-note {
+  font-size: 1rem;
+  color: #888;
+  margin: 0;
+  font-family: $font-main;
+}
+
+// ─── Mobile ───────────────────────────────────────────────────
+@include mobile {
+  .sponsors-impact-row {
+    flex-wrap: wrap;
+    border-radius: 12px;
+  }
+
+  .sponsors-impact-stat { flex: 1 1 40%; }
+  .sponsors-impact-divider { display: none; }
+}

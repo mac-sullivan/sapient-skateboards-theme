@@ -1,0 +1,278 @@
+@use '../abstracts' as *;
+
+// ─── Newsletter ───────────────────────────────────────────────
+.section-newsletter {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 8rem) 0;
+
+  // Deep rich gradient — full bleed, no border, no radius
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba($ochre, 0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 10% 100%, rgba($ochre-dark, 0.22) 0%, transparent 60%),
+    linear-gradient(160deg, #06020f 0%, #0e0520 40%, #08031a 100%);
+}
+
+// Noise texture overlay — adds depth
+.section-newsletter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// Glowing orb — top right
+.newsletter-glow {
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(circle, rgba($ochre, 0.45) 0%, rgba($ochre-dark, 0.2) 35%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+  z-index: 0;
+}
+
+// Second glow — bottom left accent
+.section-newsletter::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -5%;
+  width: 40vw;
+  height: 40vw;
+  max-width: 500px;
+  max-height: 500px;
+  background: radial-gradient(circle, rgba(#3b0764, 0.5) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+// ─── Two-column layout ────────────────────────────────────────
+.newsletter-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+// ─── Left: text ───────────────────────────────────────────────
+.newsletter-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: $font-main;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $ochre-light;
+  margin-bottom: 1.25rem;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: $ochre-light;
+  }
+}
+
+.newsletter-heading {
+  font-family: $font-heading;
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  font-weight: 800;
+  color: $bone;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  margin: 0 0 1.25rem;
+}
+
+.newsletter-sub {
+  font-size: 1rem;
+  color: rgba($bone, 0.6);
+  line-height: 1.75;
+  margin: 0 0 2.25rem;
+  max-width: 40ch;
+}
+
+.newsletter-perks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 1rem;
+    color: rgba($bone, 0.65);
+    font-family: $font-main;
+    line-height: 1.5;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: $ochre-light;
+    }
+  }
+}
+
+// ─── Right: form card ─────────────────────────────────────────
+.newsletter-form-wrap {
+  background: rgba($bone, 0.05);
+  border: 1px solid rgba($bone, 0.08);
+  border-radius: 20px;
+  padding: 2.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 0 1px rgba($ochre, 0.15),
+    0 24px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba($bone, 0.07);
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+// ─── Two-field row ────────────────────────────────────────────
+.newsletter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+
+  @include tablet { grid-template-columns: 1fr; }
+}
+
+.newsletter-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+
+  label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba($bone, 0.45);
+    letter-spacing: 0.07em;
+    font-family: $font-main;
+    text-transform: uppercase;
+
+    .required { color: $ochre-light; }
+  }
+
+  input {
+    background: rgba($bone, 0.06);
+    border: 1px solid rgba($bone, 0.12);
+    border-radius: 10px;
+    padding: 0.875rem 1rem;
+    color: $bone;
+    font-family: $font-main;
+    font-size: 1rem;
+    outline: none;
+    transition: none;
+    width: 100%;
+    box-sizing: border-box;
+
+    &::placeholder { color: rgba($bone, 0.25); }
+
+    &:focus {
+      border-color: rgba($ochre-light, 0.7);
+      background: rgba($bone, 0.09);
+      box-shadow: 0 0 0 3px rgba($ochre, 0.18);
+    }
+  }
+}
+
+// ─── Submit button ────────────────────────────────────────────
+.newsletter-submit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+
+  // Brighter gradient for contrast against dark card
+  background: linear-gradient(135deg, $ochre 0%, $ochre-light 100%);
+  box-shadow: 0 4px 24px rgba($ochre, 0.5), 0 1px 0 rgba($bone, 0.12) inset;
+
+  &:hover {
+    background: linear-gradient(135deg, $ochre-dark 0%, $ochre 100%);
+    box-shadow: 0 8px 32px rgba($ochre, 0.6);
+    transform: translateY(-1px);
+  }
+
+  .btn-icon { flex-shrink: 0; transition: none; }
+  &:hover .btn-icon { transform: translateX(4px); }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// ─── Privacy note ─────────────────────────────────────────────
+.newsletter-privacy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  color: rgba($bone, 0.28);
+  margin: 0;
+  font-family: $font-main;
+
+  svg { flex-shrink: 0; opacity: 0.45; }
+}
+
+// ─── Response message ─────────────────────────────────────────
+.newsletter-message {
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: $font-main;
+  font-weight: 500;
+  text-align: center;
+
+  &.is-success {
+    background: rgba(#22c55e, 0.12);
+    border: 1px solid rgba(#22c55e, 0.3);
+    color: #86efac;
+  }
+
+  &.is-error {
+    background: rgba(#ef4444, 0.1);
+    border: 1px solid rgba(#ef4444, 0.25);
+    color: #fca5a5;
+  }
+}
+
+// ─── Mobile ───────────────────────────────────────────────────
+@include mobile {
+  .newsletter-inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .newsletter-form-wrap { padding: 1.75rem 1.25rem; }
+  .newsletter-sub { max-width: none; }
+}

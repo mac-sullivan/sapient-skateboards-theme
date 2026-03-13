@@ -1,0 +1,223 @@
+@use '../abstracts' as *;
+
+// ─── Two-Col — editorial split layout ─────────────────────────
+.section-two-col {
+  position: relative;
+  overflow: hidden;
+
+  &--dark {
+    background: #282828;
+    color: $bone;
+  }
+
+  &--white {
+    background: $bone;
+    color: $charcoal;
+  }
+
+  &--light {
+    background: #f8f7f5;
+    color: $charcoal;
+  }
+}
+
+// Full-bleed flex layout — no container, panels handle their own padding
+.two-col-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 680px;
+  max-height: 800px;
+  border: 1px solid $bone-dark;
+  border-radius: $radius;
+  overflow: hidden;
+  margin: 0 1.5rem;
+
+  .img-left & { direction: rtl; > * { direction: ltr; } }
+
+  @include mobile { margin: 0; border-radius: 0; border-left: 0; border-right: 0; }
+}
+
+// ─── Image panel — fills full height ──────────────────────────
+.two-col-image-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.two-col-img-wrap {
+  position: absolute;
+  inset: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: none;
+  }
+
+  &:hover img { transform: scale(1.04); }
+}
+
+// Subtle vignette only — no edge gradient
+.two-col-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.1) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0,0,0,0.2) 100%
+  );
+}
+
+// Floating stat badge — bottom corner of image
+.two-col-stat-badge {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  background: rgba($bone, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba($bone, 0.15);
+  border-radius: 14px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  .img-left & { left: auto; right: 2rem; }
+
+  .badge-number {
+    font-family: $font-heading;
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: $bone;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, $bone 0%, rgba($bone, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .badge-label {
+    font-family: $font-main;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba($bone, 0.55);
+  }
+}
+
+// ─── Text panel ────────────────────────────────────────────────
+.two-col-text-panel {
+  display: flex;
+  align-items: center;
+  padding: 5rem 4rem 5rem 5rem;
+  position: relative;
+  z-index: 1;
+
+  .img-left & { padding: 5rem 5rem 5rem 4rem; }
+
+  @include tablet {
+    padding: 4rem 2.5rem;
+  }
+}
+
+.two-col-text-inner {
+  max-width: 520px;
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: $ochre-light;
+    }
+
+    .section-two-col--dark & { color: $ochre-light; }
+    .section-two-col--white &,
+    .section-two-col--light & { color: $ochre; }
+  }
+
+  h2 {
+    font-family: $font-heading;
+    font-size: clamp(2.25rem, 3.5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin: 0 0 1.5rem;
+
+    .section-two-col--dark & { color: $bone; }
+  }
+
+  .two-col-content {
+    p {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+
+      &:last-child { margin-bottom: 0; }
+
+      .section-two-col--dark & { color: rgba($bone, 0.65); }
+      .section-two-col--white &,
+      .section-two-col--light & { color: #4a4a4a; }
+    }
+  }
+
+  .btn {
+    margin-top: 2.25rem;
+
+    &.btn-outline {
+      border-color: rgba($bone, 0.45);
+      color: $bone;
+
+      &:hover {
+        background: $bone;
+        color: $charcoal;
+        border-color: $bone;
+      }
+    }
+  }
+}
+
+// ─── Mobile ───────────────────────────────────────────────────
+@include mobile {
+  .two-col-layout {
+    grid-template-columns: 1fr;
+    direction: ltr !important;
+    max-height: none;
+    min-height: auto;
+
+    > * { direction: ltr !important; }
+  }
+
+  .two-col-image-panel {
+    min-height: 320px;
+    max-height: 400px;
+  }
+
+  .two-col-img-wrap { position: relative; height: 360px; img { position: absolute; inset: 0; } }
+
+  .two-col-img-overlay {
+    background: linear-gradient(to top, rgba(#282828, 0.6) 0%, transparent 60%) !important;
+  }
+
+  .two-col-text-panel { padding: 3rem 1.5rem; }
+  .two-col-text-inner { max-width: none; }
+}

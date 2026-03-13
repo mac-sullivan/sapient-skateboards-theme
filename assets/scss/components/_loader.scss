@@ -1,0 +1,105 @@
+@use '../abstracts' as *;
+
+// ─── Page Loader ───────────────────────────────────────────────
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: $charcoal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  overflow: hidden;
+  transition: none;
+
+  // Grain texture on loader
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    width: 200%; height: 200%;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  // Exit — whole screen slides up
+  &.loaded {
+    transform: translateY(-100%);
+  }
+}
+
+// ─── Loader words ──────────────────────────────────────────────
+.loader-words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.loader-word {
+  font-family: $font-heading;
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: $bone;
+  overflow: hidden;
+
+  span {
+    display: block;
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+
+  &:last-child span {
+    transform: translateX(80px);
+  }
+
+  &.is-purple span {
+    background: $grad-ochre;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@keyframes word-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+// ─── Loader bar ────────────────────────────────────────────────
+.loader-bar {
+  width: 0;
+  height: 2px;
+  background: $grad-ochre;
+  border-radius: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bar-grow {
+  to { width: clamp(200px, 40vw, 500px); }
+}
+
+// ─── Loader tagline ────────────────────────────────────────────
+.loader-tagline {
+  font-family: $font-main;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba($bone, 0.35);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+}
+
+@keyframes tagline-in {
+  to { opacity: 1; }
+}

@@ -1,0 +1,245 @@
+@use '../abstracts' as *;
+
+// ─── Search Results Page ─────────────────────────────────────
+.section-search-results {
+  padding: calc($nav-height + 4rem) 0 $section-pad;
+  background: $bone;
+  min-height: 70vh;
+}
+
+.search-results-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-results-heading {
+  font-family: $font-heading;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: $charcoal;
+  margin: 0 0 1.5rem;
+}
+
+.search-query {
+  color: $olive;
+}
+
+// ─── Inline search form on results page ─────────────────────
+.search-results-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 480px;
+  border-bottom: 1px solid $bone-dark;
+  padding-bottom: 0.5rem;
+
+  input[type="search"] {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: $font-main;
+    font-size: 1rem;
+    color: $charcoal;
+    outline: none;
+    padding: 0.25rem 0;
+
+    &::placeholder {
+      color: rgba($charcoal, 0.35);
+    }
+
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: $olive;
+    display: flex;
+    align-items: center;
+
+    &:hover { color: $moss; }
+  }
+}
+
+// ─── Results count ──────────────────────────────────────────
+.search-results-count {
+  font-family: $font-main;
+  font-size: 1rem;
+  color: rgba($charcoal, 0.5);
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $bone-dark;
+}
+
+// ─── Results list ───────────────────────────────────────────
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.search-result-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid $bone-dark;
+
+  &:first-child { padding-top: 0; }
+}
+
+.search-result-thumb {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: $radius;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @include mobile { width: 80px; height: 80px; }
+}
+
+.search-result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+.search-result-type {
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $olive;
+}
+
+.search-result-title {
+  font-family: $font-heading;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+
+  a {
+    color: $charcoal;
+    text-decoration: none;
+    transition: none;
+
+    &:hover { color: $olive; }
+  }
+}
+
+.search-result-excerpt {
+  font-family: $font-main;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba($charcoal, 0.6);
+  margin: 0;
+}
+
+.search-result-link {
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: $olive;
+  text-decoration: none;
+  margin-top: 0.25rem;
+  transition: none;
+
+  &:hover { color: $moss; }
+}
+
+// ─── No results ─────────────────────────────────────────────
+.search-no-results {
+  padding: 3rem 0;
+
+  p {
+    font-family: $font-main;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba($charcoal, 0.6);
+    margin: 0 0 2rem;
+    max-width: 520px;
+  }
+}
+
+.search-suggestions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  a {
+    font-family: $font-label;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $charcoal;
+    text-decoration: none;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid $bone-dark;
+    border-radius: $radius-sm;
+    transition: none;
+
+    &:hover {
+      border-color: $olive;
+      color: $olive;
+    }
+  }
+}
+
+// ─── Pagination ─────────────────────────────────────────────
+.search-pagination {
+  margin-top: 3rem;
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  a, span {
+    font-family: $font-main;
+    font-size: 1rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid $bone-dark;
+    border-radius: $radius-sm;
+    color: $charcoal;
+    text-decoration: none;
+    transition: none;
+  }
+
+  a:hover {
+    border-color: $olive;
+    background: rgba($olive, 0.05);
+  }
+
+  .current {
+    background: $olive;
+    color: $bone;
+    border-color: $olive;
+  }
+}
+
+@include mobile {
+  .search-result-item {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,83 @@
+@use '../abstracts' as *;
+
+// ─── Button base ──────────────────────────────────────────────
+
+%btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: $font-label;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border-radius: $radius;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: none;
+  border: 1.5px solid transparent;
+  line-height: 1;
+
+  &:hover { text-decoration: none; }
+}
+
+// ─── Primary: solid charcoal → ochre on hover ─────────────────
+// Default button for most CTAs
+.btn-primary {
+  @extend %btn-base;
+  background: $charcoal;
+  color: $bone;
+  border-color: $charcoal;
+
+  &:hover {
+    background: $ochre;
+    border-color: $ochre;
+    color: $bone;
+  }
+}
+
+// ─── Outline: charcoal border → fills charcoal on hover ───────
+// Secondary actions, less prominent
+.btn-outline {
+  @extend %btn-base;
+  background: transparent;
+  color: $charcoal;
+  border-color: $charcoal;
+
+  &:hover {
+    background: $charcoal;
+    color: $bone;
+  }
+}
+
+// ─── Ghost: for dark backgrounds ──────────────────────────────
+.btn-ghost {
+  @extend %btn-base;
+  background: transparent;
+  color: $bone;
+  border-color: rgba($bone, 0.5);
+
+  &:hover {
+    background: $bone;
+    border-color: $bone;
+    color: $charcoal;
+  }
+}
+
+// ─── Accent: ochre fill — high-intent only ────────────────────
+// Use sparingly: CTAs like "Add to Cart", "Enter Site"
+.btn-accent {
+  @extend %btn-base;
+  background: $ochre;
+  color: $bone;
+  border-color: $ochre;
+
+  &:hover {
+    background: $ochre-dark;
+    border-color: $ochre-dark;
+    color: $bone;
+  }
+}

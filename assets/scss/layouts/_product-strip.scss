@@ -1,0 +1,157 @@
+@use '../abstracts' as *;
+
+// ─── Product Strip ────────────────────────────────────────────
+.section-product-strip {
+  background: $bone;
+  padding: 4rem 0;
+
+  .container {
+    max-width: $max-width;
+    padding: 2rem;
+    border: 1px solid $bone-dark;
+    border-radius: $radius;
+  }
+}
+
+// ─── Section header row ───────────────────────────────────────
+.product-strip-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-strip-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.product-strip-heading {
+  font-family: $font-heading;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $charcoal;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+}
+
+.product-strip-viewall {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $charcoal;
+  text-decoration: none;
+  flex-shrink: 0;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid $charcoal;
+  transition: none;
+
+  &:hover {
+    color: $ochre;
+    border-color: $ochre;
+    text-decoration: none;
+  }
+}
+
+// ─── Rule ─────────────────────────────────────────────────────
+.section-rule {
+  border: none;
+  border-top: 1px solid $bone-dark;
+  margin: 0 0 2rem;
+}
+
+// ─── Product grid ─────────────────────────────────────────────
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+
+  @include tablet { grid-template-columns: repeat(2, 1fr); }
+  @include mobile { grid-template-columns: 1fr; }
+}
+
+// ─── Product card ─────────────────────────────────────────────
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: $bone;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: none;
+
+  &:hover {
+    border-color: $ochre;
+    background: rgba($ochre, 0.02);
+    text-decoration: none;
+  }
+}
+
+.product-card-image {
+  aspect-ratio: 1 / 1;
+  background: #C4BAA7;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+.product-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #BDB39F;
+}
+
+.product-card-info {
+  padding: 0.875rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.product-name {
+  font-family: $font-heading;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $charcoal;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.product-colorway {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $crete;
+}
+
+.product-price {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: $ochre;
+  margin-top: 0.15rem;
+}
+
+.product-view-link {
+  font-family: $font-label;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $crete;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}

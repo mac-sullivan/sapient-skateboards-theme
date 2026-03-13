@@ -1,0 +1,31 @@
+{
+  "key": "group_section_spacing",
+  "title": "Section Spacing",
+  "fields": [
+    {
+      "key": "field_remove_top_padding",
+      "label": "Remove Top Padding",
+      "name": "remove_top_padding",
+      "type": "true_false",
+      "instructions": "Check to remove the top padding from this section.",
+      "default_value": 0,
+      "ui": 1,
+      "ui_on_text": "Yes",
+      "ui_off_text": "No"
+    },
+    {
+      "key": "field_remove_bottom_padding",
+      "label": "Remove Bottom Padding",
+      "name": "remove_bottom_padding",
+      "type": "true_false",
+      "instructions": "Check to remove the bottom padding from this section.",
+      "default_value": 0,
+      "ui": 1,
+      "ui_on_text": "Yes",
+      "ui_off_text": "No"
+    }
+  ],
+  "location": [],
+  "active": true,
+  "description": "Reusable spacing controls. Used via clone field in flex layouts."
+}

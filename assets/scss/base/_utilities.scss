@@ -1,0 +1,99 @@
+@use '../abstracts' as *;
+
+// ─── Film Grain Overlay ───────────────────────────────────────
+// Gives the whole site a premium editorial texture
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-3%, -6%); }
+  20%  { transform: translate(-9%, 2%); }
+  30%  { transform: translate(5%, -8%); }
+  40%  { transform: translate(-5%, 7%); }
+  50%  { transform: translate(-9%, -4%); }
+  60%  { transform: translate(5%, 5%); }
+  70%  { transform: translate(0, 8%); }
+  80%  { transform: translate(-7%, -4%); }
+  90%  { transform: translate(3%, 5%); }
+  100% { transform: translate(0, 0); }
+}
+
+// ─── Scroll Reveal ────────────────────────────────────────────
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: none;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: none;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: none;
+
+  &.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Stagger children delays
+.stagger > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger > *:nth-child(2) { transition-delay: 0.15s; }
+.stagger > *:nth-child(3) { transition-delay: 0.25s; }
+.stagger > *:nth-child(4) { transition-delay: 0.35s; }
+.stagger > *:nth-child(5) { transition-delay: 0.45s; }
+.stagger > *:nth-child(6) { transition-delay: 0.55s; }
+
+// ─── Utility Classes ──────────────────────────────────────────
+.container {
+  @include container;
+}
+
+// ─── Section spacing overrides (ACF flex field clone) ────────
+.no-pt { padding-top: 0 !important; }
+.no-pb { padding-bottom: 0 !important; }
+
+// Background variants
+.bg-white   { background: $bone; }
+.bg-light   { background: $bone; }
+.bg-dark    { background: $charcoal; color: $bone; }
+.bg-purple  { background: $ochre; color: $bone; }
+
+// Text alignment
+.align-center { text-align: center; }
+.align-left   { text-align: left; }
+
+// ─── Bordered section (industrial catalog style) ────────────
+// Adds a contained, framed look to any section's inner content
+.section-rule {
+  border: none;
+  border-top: 1px solid $bone-dark;
+  margin: 0;
+}

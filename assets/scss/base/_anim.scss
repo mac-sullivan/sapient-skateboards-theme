@@ -1,0 +1,104 @@
+@use '../abstracts' as *;
+
+// ─── Awwwards-style scroll animations ─────────────────────────
+// All driven by JS — classes added by IntersectionObserver
+
+// ── Heading word-split reveal ──────────────────────────────────
+// Each word wrapped in .aw-clip > .aw-word
+// Clip masks each word; inner span slides up into view
+
+.aw-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  // Prevent descender clipping
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+  line-height: inherit;
+}
+
+.aw-word {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: none;
+  line-height: inherit;
+
+  &.in { transform: translateY(0); }
+}
+
+// ── Image curtain reveal ──────────────────────────────────────
+// Pseudo-element slides from full height to 0, exposing image
+// Image simultaneously scales down from 1.08 → 1
+
+.aw-img {
+  position: relative !important;
+  overflow: hidden !important;
+
+  // Curtain overlay
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: #ebe8e2;          // light cream — works on white sections
+    transform-origin: top;
+    transform: scaleY(1);
+    transition: none;
+  }
+
+  // Image starts slightly zoomed
+  img, > * {
+    transform: scale(1.07) !important;
+    transition: none;
+    will-change: transform;
+  }
+
+  // Triggered: curtain slides off, image settles
+  &.in {
+    &::after { transform: scaleY(0); }
+    img, > * { transform: scale(1) !important; }
+  }
+
+  // Dark-context curtain (photos on dark backgrounds)
+  &.aw-img-dark::after { background: #282828; }
+  // Purple accent curtain (for featured / hero images)
+  &.aw-img-purple::after { background: $ochre; }
+}
+
+// ── Paragraph fade-up ─────────────────────────────────────────
+.aw-para {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: none;
+
+  &.in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ── Line/block reveal (eyebrows, labels, small elements) ─────
+.aw-line {
+  overflow: hidden;
+  display: block;
+
+  > span {
+    display: block;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: none;
+  }
+
+  &.in > span {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+// ── Reduced motion override ────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  .aw-word  { transform: none !important; transition: none; }
+  .aw-img::after { display: none !important; }
+  .aw-img img { transform: none !important; }
+  .aw-para  { opacity: 1 !important; transform: none !important; }
+}

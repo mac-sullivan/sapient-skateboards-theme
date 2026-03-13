@@ -1,0 +1,1391 @@
+{
+  "key": "group_page_sections",
+  "title": "Page Sections",
+  "fields": [
+    {
+      "key": "field_page_sections",
+      "label": "Page Sections",
+      "name": "page_sections",
+      "aria-label": "",
+      "type": "flexible_content",
+      "instructions": "Drag and drop sections to build any page layout.",
+      "required": false,
+      "conditional_logic": false,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "button_label": "Add Section",
+      "layouts": {
+        "hero_video": {
+          "key": "layout_hero_video",
+          "name": "hero_video",
+          "label": "Hero \u2014 Video Background",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_hero_video_file",
+              "label": "Background Video",
+              "name": "hero_video_file",
+              "aria-label": "",
+              "type": "file",
+              "instructions": "Upload an MP4 video for the background. Leave blank for a solid background.",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "return_format": "array",
+              "library": "all",
+              "min_size": "",
+              "max_size": "",
+              "mime_types": "mp4,webm"
+            },
+            {
+              "key": "field_69adf8e5fe642",
+              "label": "Overlay Image",
+              "name": "hero_overlay_image",
+              "aria-label": "",
+              "type": "image",
+              "instructions": "Image centered over the video (e.g. logo, badge, or hero graphic).",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "return_format": "array",
+              "library": "all",
+              "min_width": "",
+              "min_height": "",
+              "min_size": "",
+              "max_width": "",
+              "max_height": "",
+              "max_size": "",
+              "mime_types": "",
+              "allow_in_bindings": 0,
+              "preview_size": "medium"
+            },
+            {
+              "key": "field_hero_wysiwyg",
+              "label": "Content Below Image",
+              "name": "hero_content",
+              "aria-label": "",
+              "type": "wysiwyg",
+              "instructions": "Content displayed below the overlay image.",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "tabs": "all",
+              "toolbar": "full",
+              "media_upload": 1,
+              "default_value": "",
+              "delay": 0
+            },
+            {
+              "key": "field_spacing_clone_hero_video",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_hero_video_file"
+        },
+        "product_strip": {
+          "key": "layout_product_strip",
+          "name": "product_strip",
+          "label": "Product Strip",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_product_strip_eyebrow",
+              "label": "Eyebrow",
+              "name": "section_eyebrow",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_product_strip_heading",
+              "label": "Heading",
+              "name": "section_heading",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_product_count",
+              "label": "Product Count",
+              "name": "product_count",
+              "aria-label": "",
+              "type": "number",
+              "instructions": "Number of products to display.",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": 4,
+              "min": 1,
+              "max": 12,
+              "step": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_spacing_clone_product_strip",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_product_strip_eyebrow"
+        },
+        "mission": {
+          "key": "layout_mission",
+          "name": "mission",
+          "label": "Mission",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_mission_eyebrow",
+              "label": "Eyebrow",
+              "name": "mission_eyebrow",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_mission_heading",
+              "label": "Heading",
+              "name": "mission_heading",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_mission_body",
+              "label": "Body",
+              "name": "mission_body",
+              "aria-label": "",
+              "type": "textarea",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "rows": 4,
+              "default_value": "",
+              "new_lines": "",
+              "maxlength": "",
+              "placeholder": ""
+            },
+            {
+              "key": "field_mission_link_text",
+              "label": "Link Text",
+              "name": "mission_link_text",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_mission_link_url",
+              "label": "Link URL",
+              "name": "mission_link_url",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_mission_image",
+              "label": "Image",
+              "name": "mission_image",
+              "aria-label": "",
+              "type": "image",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "return_format": "array",
+              "preview_size": "medium",
+              "library": "all",
+              "min_width": 0,
+              "min_height": 0,
+              "min_size": 0,
+              "max_width": 0,
+              "max_height": 0,
+              "max_size": 0,
+              "mime_types": ""
+            },
+            {
+              "key": "field_spacing_clone_mission",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_mission_eyebrow"
+        },
+        "process_strip": {
+          "key": "layout_process_strip",
+          "name": "process_strip",
+          "label": "Process Strip",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_process_steps",
+              "label": "Process Steps",
+              "name": "process_steps",
+              "aria-label": "",
+              "type": "repeater",
+              "instructions": "Add each step in the process.",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "button_label": "Add Step",
+              "min": 0,
+              "max": 0,
+              "rows_per_page": 20,
+              "layout": "table",
+              "collapsed": "",
+              "sub_fields": [
+                {
+                  "key": "field_step_number",
+                  "label": "Step Number",
+                  "name": "step_number",
+                  "aria-label": "",
+                  "type": "text",
+                  "instructions": "",
+                  "required": false,
+                  "conditional_logic": false,
+                  "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                  },
+                  "placeholder": "01",
+                  "default_value": "",
+                  "maxlength": "",
+                  "prepend": "",
+                  "append": "",
+                  "parent_repeater": "field_process_steps"
+                },
+                {
+                  "key": "field_step_title",
+                  "label": "Step Title",
+                  "name": "step_title",
+                  "aria-label": "",
+                  "type": "text",
+                  "instructions": "",
+                  "required": false,
+                  "conditional_logic": false,
+                  "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                  },
+                  "default_value": "",
+                  "maxlength": "",
+                  "placeholder": "",
+                  "prepend": "",
+                  "append": "",
+                  "parent_repeater": "field_process_steps"
+                },
+                {
+                  "key": "field_step_description",
+                  "label": "Step Description",
+                  "name": "step_description",
+                  "aria-label": "",
+                  "type": "textarea",
+                  "instructions": "",
+                  "required": false,
+                  "conditional_logic": false,
+                  "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                  },
+                  "rows": 3,
+                  "default_value": "",
+                  "new_lines": "",
+                  "maxlength": "",
+                  "placeholder": "",
+                  "parent_repeater": "field_process_steps"
+                }
+              ]
+            },
+            {
+              "key": "field_spacing_clone_process_strip",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_process_steps"
+        },
+        "cta_banner": {
+          "key": "layout_cta_banner",
+          "name": "cta_banner",
+          "label": "CTA Banner",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_cta_heading",
+              "label": "Heading",
+              "name": "cta_heading",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_cta_button_text",
+              "label": "Button Text",
+              "name": "cta_button_text",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_cta_button_url",
+              "label": "Button URL",
+              "name": "cta_button_url",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_spacing_clone_cta_banner",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_cta_heading"
+        },
+        "text_block": {
+          "key": "layout_text_block",
+          "name": "text_block",
+          "label": "Text Block",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_text_block_content",
+              "label": "Content",
+              "name": "text_block_content",
+              "aria-label": "",
+              "type": "wysiwyg",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "tabs": "all",
+              "toolbar": "full",
+              "media_upload": 1,
+              "default_value": "",
+              "delay": 0
+            },
+            {
+              "key": "field_text_block_bg",
+              "label": "Background",
+              "name": "text_block_bg",
+              "aria-label": "",
+              "type": "select",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "bone": "Bone",
+                "charcoal": "Charcoal",
+                "ochre": "Ochre"
+              },
+              "default_value": "bone",
+              "allow_null": 0,
+              "multiple": 0,
+              "ui": 0,
+              "return_format": "value",
+              "ajax": 0,
+              "placeholder": "",
+              "create_options": 0,
+              "save_options": 0
+            },
+            {
+              "key": "field_text_block_align",
+              "label": "Alignment",
+              "name": "text_block_align",
+              "aria-label": "",
+              "type": "select",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "left": "Left",
+                "center": "Center"
+              },
+              "default_value": "left",
+              "allow_null": 0,
+              "multiple": 0,
+              "ui": 0,
+              "return_format": "value",
+              "ajax": 0,
+              "placeholder": "",
+              "create_options": 0,
+              "save_options": 0
+            },
+            {
+              "key": "field_spacing_clone_text_block",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_text_block_content"
+        },
+        "two_col": {
+          "key": "layout_two_col",
+          "name": "two_col",
+          "label": "Two Column",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_col_eyebrow",
+              "label": "Eyebrow",
+              "name": "col_eyebrow",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_col_heading",
+              "label": "Heading",
+              "name": "col_heading",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_col_body",
+              "label": "Body",
+              "name": "col_body",
+              "aria-label": "",
+              "type": "textarea",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "rows": 4,
+              "default_value": "",
+              "new_lines": "",
+              "maxlength": "",
+              "placeholder": ""
+            },
+            {
+              "key": "field_col_link_text",
+              "label": "Link Text",
+              "name": "col_link_text",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_col_link_url",
+              "label": "Link URL",
+              "name": "col_link_url",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_col_image",
+              "label": "Image",
+              "name": "col_image",
+              "aria-label": "",
+              "type": "image",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "return_format": "array",
+              "preview_size": "medium",
+              "library": "all",
+              "min_width": 0,
+              "min_height": 0,
+              "min_size": 0,
+              "max_width": 0,
+              "max_height": 0,
+              "max_size": 0,
+              "mime_types": ""
+            },
+            {
+              "key": "field_col_image_side",
+              "label": "Image Side",
+              "name": "col_image_side",
+              "aria-label": "",
+              "type": "select",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "left": "Left",
+                "right": "Right"
+              },
+              "default_value": "right",
+              "allow_null": 0,
+              "multiple": 0,
+              "ui": 0,
+              "return_format": "value",
+              "ajax": 0,
+              "placeholder": "",
+              "create_options": 0,
+              "save_options": 0
+            },
+            {
+              "key": "field_spacing_clone_two_col",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_col_eyebrow"
+        },
+        "text_image_split": {
+          "key": "layout_text_image_split",
+          "name": "text_image_split",
+          "label": "Text + Image Split",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_tis_eyebrow",
+              "label": "Eyebrow",
+              "name": "eyebrow",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "Small label above the heading (e.g. \"Our Process\", \"Made in Chicago\").",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_tis_heading",
+              "label": "Heading",
+              "name": "heading",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_tis_body",
+              "label": "Body Text",
+              "name": "body",
+              "aria-label": "",
+              "type": "textarea",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "rows": 4,
+              "placeholder": "",
+              "new_lines": "br"
+            },
+            {
+              "key": "field_tis_image",
+              "label": "Image",
+              "name": "image",
+              "aria-label": "",
+              "type": "image",
+              "instructions": "Clean, minimal image displayed beside the text.",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+              },
+              "return_format": "array",
+              "library": "all",
+              "min_width": "",
+              "min_height": "",
+              "min_size": "",
+              "max_width": "",
+              "max_height": "",
+              "max_size": "",
+              "mime_types": "",
+              "allow_in_bindings": 0,
+              "preview_size": "medium"
+            },
+            {
+              "key": "field_tis_image_position",
+              "label": "Image Position",
+              "name": "image_position",
+              "aria-label": "",
+              "type": "select",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "right": "Image Right",
+                "left": "Image Left"
+              },
+              "default_value": "right",
+              "return_format": "value",
+              "multiple": 0,
+              "allow_null": 0,
+              "ui": 0,
+              "ajax": 0,
+              "placeholder": ""
+            },
+            {
+              "key": "field_tis_theme",
+              "label": "Background Theme",
+              "name": "theme",
+              "aria-label": "",
+              "type": "select",
+              "instructions": "",
+              "required": false,
+              "conditional_logic": false,
+              "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "white": "White",
+                "light": "Light Gray",
+                "dark": "Dark"
+              },
+              "default_value": "white",
+              "return_format": "value",
+              "multiple": 0,
+              "allow_null": 0,
+              "ui": 0,
+              "ajax": 0,
+              "placeholder": ""
+            },
+            {
+              "key": "field_spacing_clone_text_image_split",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": "",
+          "collapsed": "field_tis_heading"
+        },
+        "featured_products_carousel": {
+          "key": "layout_featured_products_carousel",
+          "name": "featured_products_carousel",
+          "label": "Featured Products Carousel",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_fpc_eyebrow",
+              "label": "Eyebrow",
+              "name": "section_eyebrow",
+              "type": "text",
+              "default_value": "FEATURED",
+              "placeholder": "FEATURED"
+            },
+            {
+              "key": "field_fpc_heading",
+              "label": "Heading",
+              "name": "section_heading",
+              "type": "text",
+              "default_value": "SHOP BOARDS",
+              "placeholder": "SHOP BOARDS"
+            },
+            {
+              "key": "field_fpc_products",
+              "label": "Featured Products",
+              "name": "featured_products",
+              "type": "relationship",
+              "post_type": [
+                "product"
+              ],
+              "filters": [
+                "search"
+              ],
+              "elements": [
+                "featured_image"
+              ],
+              "min": "",
+              "max": "",
+              "return_format": "object"
+            },
+            {
+              "key": "field_spacing_clone_featured_products_carousel",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ]
+        },
+        "layout_team_grid": {
+          "key": "layout_team_grid",
+          "name": "team_grid",
+          "label": "Team Grid",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_team_grid_eyebrow",
+              "label": "Eyebrow",
+              "name": "eyebrow",
+              "type": "text",
+              "instructions": "Small label above heading (optional)",
+              "default_value": ""
+            },
+            {
+              "key": "field_team_grid_heading",
+              "label": "Heading",
+              "name": "heading",
+              "type": "text",
+              "default_value": ""
+            },
+            {
+              "key": "field_team_grid_mode",
+              "label": "Member Selection",
+              "name": "member_mode",
+              "type": "radio",
+              "choices": {
+                "all": "Show all team members",
+                "manual": "Manually select members"
+              },
+              "default_value": "all",
+              "layout": "horizontal"
+            },
+            {
+              "key": "field_team_grid_manual",
+              "label": "Select Members",
+              "name": "manual_members",
+              "type": "relationship",
+              "post_type": [
+                "team"
+              ],
+              "filters": [
+                "search"
+              ],
+              "return_format": "object",
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_team_grid_mode",
+                    "operator": "==",
+                    "value": "manual"
+                  }
+                ]
+              ]
+            },
+            {
+              "key": "field_team_grid_orderby",
+              "label": "Order By",
+              "name": "orderby",
+              "type": "select",
+              "choices": {
+                "menu_order": "Custom order (drag in admin)",
+                "title": "Name (A\u2013Z)",
+                "date": "Date added (newest first)"
+              },
+              "default_value": "menu_order",
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_team_grid_mode",
+                    "operator": "==",
+                    "value": "all"
+                  }
+                ]
+              ]
+            },
+            {
+              "key": "field_spacing_clone_layout_team_grid",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": ""
+        },
+        "layout_blog_posts": {
+          "key": "layout_blog_posts",
+          "name": "blog_posts",
+          "label": "Blog Posts Grid",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_blog_eyebrow",
+              "label": "Eyebrow",
+              "name": "eyebrow",
+              "type": "text",
+              "default_value": "Blog"
+            },
+            {
+              "key": "field_blog_heading",
+              "label": "Heading",
+              "name": "heading",
+              "type": "text",
+              "default_value": "Stories, Updates, and Community."
+            },
+            {
+              "key": "field_blog_subtext",
+              "label": "Subtext",
+              "name": "subtext",
+              "type": "text"
+            },
+            {
+              "key": "field_blog_mode",
+              "label": "Post Selection",
+              "name": "post_mode",
+              "type": "radio",
+              "choices": {
+                "all": "Show all posts",
+                "manual": "Manually select posts"
+              },
+              "default_value": "all",
+              "layout": "horizontal"
+            },
+            {
+              "key": "field_blog_manual_posts",
+              "label": "Select Posts",
+              "name": "manual_posts",
+              "type": "relationship",
+              "post_type": [
+                "post"
+              ],
+              "filters": [
+                "search"
+              ],
+              "return_format": "object",
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_blog_mode",
+                    "operator": "==",
+                    "value": "manual"
+                  }
+                ]
+              ]
+            },
+            {
+              "key": "field_blog_orderby",
+              "label": "Order By",
+              "name": "orderby",
+              "type": "select",
+              "choices": {
+                "date": "Date (newest first)",
+                "date_asc": "Date (oldest first)",
+                "title": "Title (A\u2013Z)",
+                "menu_order": "Custom order (drag in admin)"
+              },
+              "default_value": "date",
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_blog_mode",
+                    "operator": "==",
+                    "value": "all"
+                  }
+                ]
+              ]
+            },
+            {
+              "key": "field_blog_per_page",
+              "label": "Posts Per Page",
+              "name": "posts_per_page",
+              "type": "number",
+              "default_value": 9,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_blog_mode",
+                    "operator": "==",
+                    "value": "all"
+                  }
+                ]
+              ]
+            },
+            {
+              "key": "field_spacing_clone_layout_blog_posts",
+              "label": "Section Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "instructions": "",
+              "required": 0,
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              }
+            }
+          ],
+          "min": "",
+          "max": ""
+        },
+        "layout_faq_list": {
+          "key": "layout_faq_list",
+          "name": "faq_list",
+          "label": "FAQ List",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_faq_eyebrow",
+              "label": "Eyebrow",
+              "name": "eyebrow",
+              "type": "text",
+              "default_value": "FAQ"
+            },
+            {
+              "key": "field_faq_heading",
+              "label": "Heading",
+              "name": "heading",
+              "type": "text",
+              "default_value": "Frequently Asked Questions"
+            },
+            {
+              "key": "field_faq_spacing_clone",
+              "label": "Spacing",
+              "name": "section_spacing",
+              "type": "clone",
+              "clone": [
+                "group_section_spacing"
+              ],
+              "display": "seamless",
+              "layout": "block",
+              "prefix_label": 0,
+              "prefix_name": 0
+            }
+          ],
+          "min": "",
+          "max": ""
+        }
+      },
+      "layout": "block",
+      "min": 0,
+      "max": 0
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "page"
+      }
+    ],
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "product"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "Flexible content page builder. Drag and drop any section into any order.",
+  "show_in_rest": 0,
+  "display_title": "",
+  "modified": 1773313165
+}
