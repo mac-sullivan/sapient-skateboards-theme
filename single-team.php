@@ -2,7 +2,7 @@
 /**
  * Single Team Member page — /team/{slug}/
  */
-get_header();
+get_header('two');
 
 while ( have_posts() ) : the_post();
     $position = get_field( 'team_position' );

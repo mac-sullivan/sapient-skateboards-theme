@@ -1,4 +1,4 @@
-<?php get_header(); the_post();
+<?php get_header('two'); the_post();
 $thumb    = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 $cats     = get_the_category();
 $cat_name = $cats ? esc_html($cats[0]->name) : '';

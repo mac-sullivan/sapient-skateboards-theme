@@ -5,7 +5,7 @@
  * in the Sapient theme structure.
  */
 
-get_header();
+get_header('two');
 ?>
 <main id="main-content">
 

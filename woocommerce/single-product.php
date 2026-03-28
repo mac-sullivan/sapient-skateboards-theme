@@ -4,7 +4,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-get_header();
+get_header('two');
 
 while ( have_posts() ) : the_post();
   global $product;

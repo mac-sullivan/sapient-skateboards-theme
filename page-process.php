@@ -3,7 +3,7 @@
  * Template Name: Process Page
  * Slug: process
  */
-get_header();
+get_header('two');
 ?>
 
 <main id="main-content">

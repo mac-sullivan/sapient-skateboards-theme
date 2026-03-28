@@ -4,7 +4,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-get_header();
+get_header('two');
 
 // Build query args
 $query_args = [

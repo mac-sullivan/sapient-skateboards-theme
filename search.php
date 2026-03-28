@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header('two'); ?>
 
 <section class="section-search-results">
   <div class="container">

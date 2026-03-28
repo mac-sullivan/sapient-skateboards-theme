@@ -3,7 +3,7 @@
  * Template Name: Crew Page
  * Slug: crew
  */
-get_header();
+get_header('two');
 ?>
 
 <main id="main-content">

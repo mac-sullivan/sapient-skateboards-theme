@@ -2,7 +2,7 @@
 /**
  * Template for /donate/ — WordPress auto-loads page-donate.php
  */
-get_header();
+get_header('two');
 ?>
 
 

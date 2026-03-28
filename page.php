@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header('two'); ?>
 <main id="main-content">
   <?php if ( have_rows( 'page_sections' ) ) : ?>
 

@@ -3,7 +3,7 @@
  * Template Name: About Page
  * Slug: about
  */
-get_header();
+get_header('two');
 ?>
 
 <main id="main-content">
