@@ -1,34 +1,37 @@
 // ─── Sapient Skateboards — Brand Colors ───────────────────────
+// Strict black & white palette per client direction (Mar 2026)
 
-// Primary Palette
-$ochre:         #913832;  // Red Ochre — primary CTA/accent
-$ochre-dark:    #6F2C23;  // Dark Ochre — hover/deep red
-$ochre-light:   #994A3C;  // Pale Ochre — light states
-$bone:          #ffffff;  // White — primary background
-$olive:         #6A6A45;  // Olive Branch — secondary accent
-$tan:           #B69574;  // Tan — supporting warmth
-$charcoal:      #282828;  // Charcoal — primary text / dark sections
-$bone-white:    #D7D0C0;  // Bone WHite
-// Secondary Palette
-$crete:         #AAA79D;  // Crete — borders, dividers, mid-tone
-$moss:          #3C3B22;  // Moss — dark section backgrounds
-$moss-light:    #404627;  // Light Moss — alt dark bg
-$bark:          #3B3121;  // Peeling Bark — deep dark / footer
-$bark-fresh:    #574132;  // Fresh Bark — warm dark accent
+// Core Palette
+$black:         #000000;  // Pure black — primary text / dark sections
+$white:         #ffffff;  // Pure white — primary background
+$bone:          #ffffff;  // alias for white
+$charcoal:      #000000;  // alias for black
 
-// Neutrals
-$white:         $bone;  // Use bone as our white throughout
-$black:         #282828;
-$bone-dark:     #e5e5e5;  // Light gray for borders
+// UI accents (B&W only)
+$bone-dark:     #d9d9d9;  // Light gray — subtle borders / dividers
+$yellow:        #F5E100;  // Nav hover highlight (AWT-style yellow box)
+
+// Legacy aliases (kept for compatibility — all map to black or white)
+$ochre:         #000000;
+$ochre-dark:    #000000;
+$ochre-light:   #000000;
+$bone-white:    #ffffff;
+$olive:         #000000;
+$tan:           #000000;
+$crete:         #000000;
+$moss:          #000000;
+$moss-light:    #000000;
+$bark:          #000000;
+$bark-fresh:    #000000;
 
 // Utility
-$ochre-glow:    rgba(145, 56, 50, 0.2);
-$overlay-dark:  rgba(10, 10, 10, 0.7);
+$ochre-glow:    rgba(0, 0, 0, 0.08);
+$overlay-dark:  rgba(0, 0, 0, 0.55);
 
 // ─── Gradients ────────────────────────────────────────────────
-$grad-ochre:    linear-gradient(135deg, #913832 0%, #994A3C 100%);
-$grad-dark:     linear-gradient(180deg, #282828 0%, #3B3121 100%);
-$grad-bone:     linear-gradient(180deg, #D7D0C0 0%, #C8BFAC 100%);
+$grad-ochre:    none;
+$grad-dark:     linear-gradient(180deg, #000000 0%, #000000 100%);
+$grad-bone:     linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 
 // ─── Spacing ──────────────────────────────────────────────────
 $nav-height:    104px; // two-row header: 60px top + 44px nav
@@ -39,10 +42,11 @@ $max-width:     1128px;
 $section-pad:   clamp(5rem, 10vw, 9rem);
 
 // ─── Typography ───────────────────────────────────────────────
-$font-heading:  'Noto Sans', Helvetica, sans-serif;
-$font-label:    'Noto Sans', Helvetica, sans-serif;
-$font-serif:    'Playfair Display', 'Georgia', serif;
-$font-main:     'Noto Sans', Helvetica, sans-serif;
+// Engravers Gothic BT must be self-hosted or licensed (not on Google Fonts)
+$font-heading:  'Engravers Gothic BT', 'Futura', 'Century Gothic', Helvetica, sans-serif;
+$font-label:    'Engravers Gothic BT', 'Futura', 'Century Gothic', Helvetica, sans-serif;
+$font-serif:    'Times New Roman', Times, Georgia, serif;
+$font-main:     'Times New Roman', Times, Georgia, serif;
 $font-mono:     'Courier New', 'Courier', monospace;  // For spec sheets
 
 // ─── Transitions (set to 0 — animations disabled site-wide) ──
@@ -72,13 +76,16 @@ $transition-slow:  0s;
   --color-black:       #{$black};
   --color-bone-dark:   #{$bone-dark};
 
+  // Nav hover
+  --color-yellow:      #{$yellow};
+
   // Semantic aliases
-  --color-bg:          #{$bone};
-  --color-bg-dark:     #{$charcoal};
-  --color-text:        #{$charcoal};
-  --color-text-muted:  #{$crete};
-  --color-accent:      #{$ochre};
-  --color-accent-dark: #{$ochre-dark};
+  --color-bg:          #{$white};
+  --color-bg-dark:     #{$black};
+  --color-text:        #{$black};
+  --color-text-muted:  rgba(0,0,0,0.45);
+  --color-accent:      #{$black};
+  --color-accent-dark: #{$black};
   --color-border:      #{$bone-dark};
 
   // Layout

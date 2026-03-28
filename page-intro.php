@@ -10,7 +10,7 @@ $poster_url    = get_field( 'intro_video_poster' );
 $logo_img      = get_field( 'intro_logo_image' );
 $content       = get_field( 'intro_content' );
 $button        = get_field( 'intro_button' );
-$button_text   = $button['title']  ?? 'Enter Site';
+$button_text   = $button['title']  ?? 'ENTER WEBSITE';
 $button_url    = $button['url']    ?? home_url( '/shop/' );
 $button_target = ! empty( $button['target'] ) ? $button['target'] : '_self';
 ?><!DOCTYPE html>
@@ -59,11 +59,7 @@ $button_target = ! empty( $button['target'] ) ? $button['target'] : '_self';
     </div>
     <?php endif; ?>
 
-    <?php if ( $content ) : ?>
-    <div class="intro-wysiwyg">
-      <?php echo wp_kses_post( $content ); ?>
-    </div>
-    <?php endif; ?>
+    <?php /* intro_content intentionally hidden per client direction (Mar 2026) */ ?>
 
     <a
       href="<?php echo esc_url( $button_url ); ?>"

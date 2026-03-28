@@ -9,8 +9,6 @@
 <?php wp_body_open(); ?>
 
 <header id="site-header">
-  <div class="shop-banner">There is a 1.5 week lead time on all orders. Thank you for your support!</div>
-
   <!-- Row 1: Logo / Search / Actions -->
   <div class="header-top">
     <div class="container header-top-inner">
@@ -32,24 +30,45 @@
      <nav id="site-nav" class="nav-links-desktop" aria-label="Primary navigation">
         <?php
         $nav_pages = [
-          'HOME'    => '/',
-          'SHOP'    => '/shop',
-          'PROCESS' => '/process',
-          'ABOUT'   => '/about',
-          'ARCHIVE' => '/archive',
-          'CONTACT' => '/contact',
+          'WEB STORE' => '/shop',
+          'PROCESS'   => '/process',
+          'CREW'      => '/crew',
+          'ARCHIVE'   => '/archive',
+          'SUPPLIERS' => '/suppliers',
+          'CONTACT US'=> '/contact',
+        ];
+        $shop_children = [
+          'Skateboards' => '/shop/skateboards',
+          'Apparel'     => '/shop/apparel',
+          'Other'       => '/shop/other',
         ];
         wp_nav_menu( [
           'theme_location' => 'primary',
           'container'      => false,
           'menu_class'     => 'nav-links',
-          'fallback_cb'    => function() use ( $nav_pages ) {
+          'fallback_cb'    => function() use ( $nav_pages, $shop_children ) {
+            $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
             echo '<ul class="nav-links">';
             foreach ( $nav_pages as $label => $path ) {
               $url     = home_url( $path );
-              $current = untrailingslashit( $url ) === untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-              $active  = $current ? ' class="current-menu-item" aria-current="page"' : '';
-              echo '<li' . $active . '><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></li>';
+              $current = untrailingslashit( $url ) === $current_uri;
+              $has_children = ( $label === 'WEB STORE' );
+              $li_class = array_filter( [
+                $current ? 'current-menu-item' : '',
+                $has_children ? 'menu-item-has-children' : '',
+              ] );
+              $li_attr  = ! empty( $li_class ) ? ' class="' . implode( ' ', $li_class ) . '"' : '';
+              $aria     = $current ? ' aria-current="page"' : '';
+              echo '<li' . $li_attr . '>';
+              echo '<a href="' . esc_url( $url ) . '"' . $aria . '>' . esc_html( $label ) . '</a>';
+              if ( $has_children ) {
+                echo '<ul class="sub-menu">';
+                foreach ( $shop_children as $child_label => $child_path ) {
+                  echo '<li><a href="' . esc_url( home_url( $child_path ) ) . '">' . esc_html( $child_label ) . '</a></li>';
+                }
+                echo '</ul>';
+              }
+              echo '</li>';
             }
             echo '</ul>';
           },
@@ -111,13 +130,29 @@
     'theme_location' => 'primary',
     'container'      => false,
     'menu_class'     => 'nav-links-mobile-list',
-    'fallback_cb'    => function() use ( $nav_pages ) {
+    'fallback_cb'    => function() use ( $nav_pages, $shop_children ) {
+      $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
       echo '<ul class="nav-links-mobile-list">';
       foreach ( $nav_pages as $label => $path ) {
         $url     = home_url( $path );
-        $current = untrailingslashit( $url ) === untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-        $active  = $current ? ' class="current-menu-item" aria-current="page"' : '';
-        echo '<li' . $active . '><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></li>';
+        $current = untrailingslashit( $url ) === $current_uri;
+        $has_children = ( $label === 'WEB STORE' );
+        $li_class = array_filter( [
+          $current ? 'current-menu-item' : '',
+          $has_children ? 'menu-item-has-children' : '',
+        ] );
+        $li_attr  = ! empty( $li_class ) ? ' class="' . implode( ' ', $li_class ) . '"' : '';
+        $aria     = $current ? ' aria-current="page"' : '';
+        echo '<li' . $li_attr . '>';
+        echo '<a href="' . esc_url( $url ) . '"' . $aria . '>' . esc_html( $label ) . '</a>';
+        if ( $has_children ) {
+          echo '<ul class="sub-menu">';
+          foreach ( $shop_children as $child_label => $child_path ) {
+            echo '<li><a href="' . esc_url( home_url( $child_path ) ) . '">' . esc_html( $child_label ) . '</a></li>';
+          }
+          echo '</ul>';
+        }
+        echo '</li>';
       }
       echo '</ul>';
     },

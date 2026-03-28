@@ -1,6 +1,7 @@
 @use '../abstracts' as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+// Note: Engravers Gothic BT requires self-hosting or a licensed font service.
+// Times New Roman is a system font — no import needed.
 
 // ─── Global Type Scale ────────────────────────────────────────
 //
@@ -94,13 +95,13 @@ small, .text-small {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: $ochre;
+  color: $black;
   display: block;
   margin-bottom: 1rem;
 
   &::before {
     content: '— ';
-    opacity: 0.6;
+    opacity: 0.4;
   }
 }
 
@@ -122,13 +123,10 @@ h1 em, h2 em, h3 em {
 // ─── Utility ──────────────────────────────────────────────────
 
 .text-gradient {
-  background: $grad-ochre;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: $black;
 }
 
-.text-muted  { color: rgba($charcoal, 0.45); }
-.text-ochre  { color: $ochre; }
-.text-white  { color: $bone; }
+.text-muted  { color: rgba($black, 0.45); }
+.text-ochre  { color: $black; }
+.text-white  { color: $white; }
 .text-upper  { text-transform: uppercase; letter-spacing: 0.08em; }
