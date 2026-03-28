@@ -65,9 +65,9 @@
           'CONTACT US'=> '/contact',
         ];
         $shop_children = [
-          'Skateboards' => '/shop/skateboards',
-          'Apparel'     => '/shop/apparel',
-          'Other'       => '/shop/other',
+          'Skateboards' => '/product-category/skateboards',
+          'Apparel'     => '/product-category/apparel',
+          'Other'       => '/product-category/other',
         ];
         wp_nav_menu( [
           'theme_location' => 'primary',
