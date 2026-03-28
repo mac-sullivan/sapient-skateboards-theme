@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-// ─── Site Header — AWT-style classic layout ──────────────────
+// ─── Site Header — base ──────────────────────────────────────
 #site-header {
   position: fixed;
   top: 0;
@@ -8,11 +8,97 @@
   right: 0;
   z-index: 1000;
   background: $white;
+  border-bottom: 1px solid $black;
+  transition: none;
+
+  &.is-scrolled {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
 }
 
+// ─── Header V2 layout: Logo | Nav | Utilities ────────────────
+.h2-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 72px;
+  gap: 2rem;
+}
+
+.h2-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+
+  .ss-logo {
+    height: 28px !important;
+    width: auto;
+  }
+}
+
+.h2-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.h2-utilities {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.h2-cart {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: $black;
+  text-decoration: none;
+}
+
+.h2-search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  input[type="search"] {
+    width: 110px;
+    border: none;
+    border-bottom: 1px solid rgba($black, 0.25);
+    background: transparent;
+    font-family: $font-main;
+    font-size: 0.75rem;
+    color: $black;
+    outline: none;
+    padding: 2px 0;
+
+    &::placeholder { color: rgba($black, 0.35); }
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration { -webkit-appearance: none; }
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: $black;
+    display: flex;
+    align-items: center;
+  }
+}
+
+// Legacy inner wrappers (header.php v1)
 .header-inner {
-    max-width: 1000px;
-    margin: 0 auto;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .header-brand-inner {
