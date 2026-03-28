@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-// ─── Site Header — B&W industrial layout ─────────────────────
+// ─── Site Header — AWT-style classic layout ──────────────────
 #site-header {
   position: fixed;
   top: 0;
@@ -8,41 +8,37 @@
   right: 0;
   z-index: 1000;
   background: $white;
-  border: 1px solid $black;
-  transition: none;
-
-  &.is-scrolled {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-  }
 }
 
-.header-top-inner {
+.header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header-brand-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
-  height: 60px;
+  padding: 1rem 0;
 }
 
-// ─── Logo ─────────────────────────────────────────────────────
-.nav-logo {
-  flex-shrink: 0;
-
-  a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-  }
+.cart-text {
+  margin-right: .5rem;
 }
 
+.brand-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo .ss-logo,
 .ss-logo {
   display: block;
-  height: 32px !important;
-  width: auto;
+  max-width: 180px;
+  height: auto;
+  width: 100%;
   filter: brightness(0) saturate(0);
-  transition: none;
 
   &--footer {
     height: 26px;
@@ -51,11 +47,156 @@
   }
 }
 
-// ─── Inline expanding search ─────────────────────────────────
+// ─── Row 2: Navigation bar ──────────────────────────────────
+.header-nav {
+  border-bottom: 1px solid $black;
+}
+
+.header-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// ─── Desktop nav links ──────────────────────────────────────
+.nav-links-desktop {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li { position: relative; }
+
+  a {
+    font-family: $font-label;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: $black;
+    padding: 0.6rem 1rem;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+
+    &:hover {
+      color: $black;
+      border-color: $yellow;
+      background: rgba($yellow, 0.08);
+      text-decoration: none;
+    }
+  }
+
+  li.current-menu-item > a,
+  li[aria-current="page"] > a {
+    color: $black;
+    font-weight: 700;
+  }
+}
+
+// ─── Dropdown menus ──────────────────────────────────────────
+.nav-links {
+
+  .menu-item-has-children > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg) translateY(-2px);
+      flex-shrink: 0;
+    }
+  }
+
+  .menu-item-has-children.is-open > a::after,
+  .menu-item-has-children:focus-within > a::after {
+    transform: rotate(-135deg) translateY(-2px);
+  }
+
+  .sub-menu {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    min-width: 180px;
+    background: $white;
+    border: 1px solid $black;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    // Bridge so hover doesn't break
+    &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 8px;
+    }
+
+    li { position: relative; }
+
+    a {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: rgba($black, 0.7);
+      padding: 0.55rem 1rem;
+      white-space: nowrap;
+      display: block;
+      border: none;
+      border-bottom: 1px solid rgba($black, 0.06);
+
+      &:hover {
+        color: $black;
+        background: rgba($yellow, 0.1);
+        border-color: rgba($black, 0.06);
+      }
+    }
+
+    li:last-child a { border-bottom: none; }
+
+    li.current-menu-item > a { color: $black; }
+  }
+
+  .menu-item-has-children:hover > .sub-menu,
+  .menu-item-has-children.is-open > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+// ─── Utilities: search + cart ────────────────────────────────
+.nav-utilities {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+// ─── Always-visible search ───────────────────────────────────
 .search-inline {
   display: flex;
   align-items: center;
-  position: relative;
 }
 
 .search-toggle {
@@ -66,59 +207,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $charcoal;
-  transition: none;
-  position: relative;
-  z-index: 2;
+  color: $black;
 
-  &:hover { color: $olive; }
+  &:hover { opacity: 0.6; }
 }
 
 .search-inline-form {
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  overflow: hidden;
-  opacity: 0;
-  margin-right: 0.6rem;
-  transition: none;
-
-  .search-inline.is-open & {
-    width: 240px;
-    opacity: 1;
-  }
-
-  input[type="search"] {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid rgba($charcoal, 0.15);
-    background: transparent;
-    font-family: $font-main;
-    font-size: 1rem;
-    font-weight: 400;
-    color: $charcoal;
-    outline: none;
-    padding: 0.35rem 0;
-
-    &::placeholder {
-      color: rgba($charcoal, 0.3);
-    }
-
-    &::-webkit-search-cancel-button,
-    &::-webkit-search-decoration {
-      -webkit-appearance: none;
-    }
-  }
-}
-
-// ─── CTA + cart + hamburger ─────────────────────────────────
-.nav-cta-wrap {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  flex-shrink: 0;
+  margin-right: 0.4rem;
+
+  input[type="search"] {
+    width: 150px;
+    border: 1px solid rgba($black, 0.2);
+    background: transparent;
+    font-family: $font-main;
+    font-size: 0.8rem;
+    color: $black;
+    outline: none;
+    padding: 0.25rem 0.5rem;
+
+    &::placeholder { color: rgba($black, 0.35); }
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration { -webkit-appearance: none; }
+
+    &:focus {
+      border-color: $black;
+    }
+  }
 }
 
 // ─── Cart icon ──────────────────────────────────────────────
@@ -129,36 +245,32 @@
   justify-content: center;
   color: $black;
   text-decoration: none;
-  transition: none;
 
-  &:hover {
-    color: $black;
-    text-decoration: none;
-  }
+  &:hover { opacity: 0.6; text-decoration: none; }
 }
 
 .cart-count {
   position: absolute;
-  top: -6px;
-  right: -8px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
+  top: -5px;
+  right: -7px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
   font-family: $font-main;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  line-height: 18px;
+  line-height: 16px;
   text-align: center;
   color: $white;
   background: $black;
-  border-radius: 9px;
+  border-radius: 8px;
   display: block;
 }
 
 // ─── Nav CTA button ─────────────────────────────────────────
 .btn-nav-cta {
   font-family: $font-label;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -167,165 +279,13 @@
   padding: 0.5rem 1.2rem;
   border-radius: $radius-sm;
   text-decoration: none;
-  transition: none;
 
-  &:hover {
-    background: rgba($black, 0.75);
-    text-decoration: none;
-  }
+  &:hover { background: rgba($black, 0.75); text-decoration: none; }
 }
 
-// ─── Row 2: Navigation ──────────────────────────────────────
-.header-nav {
-  background: $bone;
-}
-
-.header-nav-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 44px;
-}
-
-// ─── Desktop nav links ──────────────────────────────────────
-.nav-links-desktop {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-}
-
-.nav-links {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 2.2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  li { position: relative; }
-
-  a {
-    font-family: $font-label;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: rgba($black, 0.6);
-    padding: 0.5rem 0.6rem;
-    display: block;
-    text-decoration: none;
-    transition: none;
-    border: 1px solid transparent;  // reserve space — no layout shift on hover
-
-    &:hover {
-      color: $black;
-      border-color: $yellow;
-      text-decoration: none;
-    }
-  }
-
-  li.current-menu-item > a,
-  li[aria-current="page"] > a {
-    color: $black;
-  }
-}
-// ─── Dropdown menus ──────────────────────────────────────────
-.nav-links {
-
-  // Parent toggle arrow
-  .menu-item-has-children > a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-
-    &::after {
-      content: '';
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
-      transform: rotate(45deg) translateY(-2px);
-      transition: none;
-      flex-shrink: 0;
-    }
-  }
-
-  .menu-item-has-children.is-open > a::after,
-  .menu-item-has-children:focus-within > a::after {
-    transform: rotate(-135deg) translateY(-2px);
-  }
-
-  // Dropdown panel
-  .sub-menu {
-    position: absolute;
-    top: calc(100% + 0.75rem);
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 200px;
-    background: $bone;
-    border: 1px solid rgba($charcoal, 0.1);
-    list-style: none;
-    padding: 0.5rem 0;
-    margin: 0;
-    z-index: 500;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateX(-50%) translateY(6px);
-    transition: none;
-
-    // Connecting bridge so hover doesn't break
-    &::before {
-      content: '';
-      position: absolute;
-      top: -12px;
-      left: 0;
-      right: 0;
-      height: 12px;
-    }
-
-    li { position: relative; }
-
-    a {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: rgba($charcoal, 0.6);
-      padding: 0.6rem 1.25rem;
-      white-space: nowrap;
-      display: block;
-      transition: none;
-
-      &:hover {
-        color: $charcoal;
-        background: rgba($charcoal, 0.04);
-      }
-    }
-
-    li.current-menu-item > a {
-      color: $charcoal;
-    }
-  }
-
-  // Show on hover (desktop)
-  .menu-item-has-children:hover > .sub-menu,
-  .menu-item-has-children.is-open > .sub-menu {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-.nav-underline {
-  position: absolute;
-}
-// ─── Sliding underline indicator (disabled — using box hover) ─
-.nav-indicator {
-  display: none;
-}
+// ─── Disabled indicators ─────────────────────────────────────
+.nav-underline { position: absolute; }
+.nav-indicator { display: none; }
 
 // ─── Hamburger toggle ───────────────────────────────────────
 .nav-toggle {
@@ -341,15 +301,14 @@
   width: 32px;
   height: 32px;
   position: relative;
-  z-index: 1001; // always above overlay
+  z-index: 1001;
 
   span {
     display: block;
     width: 20px;
     height: 1.5px;
-    background: $charcoal;
+    background: $black;
     transform-origin: center;
-    // exception: hamburger animation is UI feedback, not a page animation
     transition: transform 0.2s ease, opacity 0.15s ease;
   }
 
@@ -364,12 +323,12 @@
 .nav-mobile-overlay {
   display: none;
   position: fixed;
-  top: var(--header-h, 60px); // sits directly below the header
+  top: var(--header-h, 100px);
   left: 0;
   right: 0;
   bottom: 0;
-  background: $bone;
-  z-index: 998; // below header (1000) and toggle (1001)
+  background: $white;
+  z-index: 998;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -392,27 +351,25 @@
 
   a {
     font-family: $font-label;
-    font-size: 1rem;
+    font-size: 0.85rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba($charcoal, 0.6);
+    color: rgba($black, 0.6);
     display: block;
     padding: 1.1rem 2rem;
     text-decoration: none;
-    border-bottom: 1px solid rgba($charcoal, 0.08);
-    transition: none;
+    border-bottom: 1px solid rgba($black, 0.08);
 
     &:hover {
-      color: $charcoal;
-      background: rgba($charcoal, 0.03);
+      color: $black;
+      background: rgba($yellow, 0.08);
       text-decoration: none;
     }
   }
 
   li.current-menu-item > a,
-  li[aria-current="page"] > a { color: $black; }
+  li[aria-current="page"] > a { color: $black; font-weight: 700; }
 
-  // Mobile sub-menu
   .menu-item-has-children > a {
     display: flex;
     align-items: center;
@@ -427,7 +384,6 @@
       border-right: 1.5px solid currentColor;
       border-bottom: 1.5px solid currentColor;
       transform: rotate(45deg) translateY(-2px);
-      transition: none;
     }
   }
 
@@ -441,16 +397,15 @@
     margin: 0;
     max-height: 0;
     overflow: hidden;
-    transition: none;
-    background: rgba($charcoal, 0.03);
+    background: rgba($black, 0.03);
 
     &.is-open { max-height: 500px; }
 
     a {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       padding: 0.8rem 2rem;
-      color: rgba($charcoal, 0.5);
-      border-bottom: 1px solid rgba($charcoal, 0.05);
+      color: rgba($black, 0.5);
+      border-bottom: 1px solid rgba($black, 0.05);
     }
   }
 }
@@ -459,13 +414,11 @@
 
 // ─── Tablet / Mobile breakpoints ────────────────────────────
 @include tablet {
-  .header-top-inner { padding: 0 1.25rem; gap: 1rem; }
-  .header-nav-inner { padding: 0 1.25rem; }
-  .header-search { display: none; }
+  .header-brand-inner { padding: 0.75rem 1.25rem; }
   .nav-links-desktop { display: none; }
+  .search-inline { display: none; }
   .nav-toggle { display: flex; }
-  .nav-mobile-overlay { top: var(--header-h, 60px); }
-  .header-nav { display: none; } // hide nav row on mobile
+  .header-nav { display: none; }
 }
 
 @include desktop {

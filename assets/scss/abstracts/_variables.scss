@@ -34,11 +34,11 @@ $grad-dark:     linear-gradient(180deg, #000000 0%, #000000 100%);
 $grad-bone:     linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
 
 // ─── Spacing ──────────────────────────────────────────────────
-$nav-height:    104px; // two-row header: 60px top + 44px nav
+$nav-height:    110px; // two-row header: logo row + nav bar
 $radius:        0px;    // Industrial — zero rounding, raw edges
 $radius-sm:     0px;
 $radius-lg:     0px;
-$max-width:     1128px;
+$max-width:     1000px;
 $section-pad:   clamp(5rem, 10vw, 9rem);
 
 // ─── Typography ───────────────────────────────────────────────

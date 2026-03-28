@@ -117,6 +117,12 @@ if ( $has_uncategorized ) {
             data-cats="<?php echo esc_attr( $data_cats ); ?>"
           >
             <?php the_post_thumbnail( 'large', [ 'class' => 'shop-board-img', 'alt' => get_the_title() ] ); ?>
+            <div class="shop-product-info">
+              <span class="shop-product-name"><?php the_title(); ?></span>
+              <?php $product = wc_get_product( get_the_ID() ); if ( $product ) : ?>
+                <span class="shop-product-price"><?php echo $product->get_price_html(); ?></span>
+              <?php endif; ?>
+            </div>
           </a>
         <?php endwhile; wp_reset_postdata(); ?>
       <?php else : ?>

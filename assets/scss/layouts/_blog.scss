@@ -12,10 +12,11 @@
 
 .blog-archive-header {
   background: $charcoal;
-  margin: 0;
-  padding: calc(var(--header-h, 6rem) + 4rem) 0 4rem;
+  padding: 1rem;
   position: relative;
   overflow: hidden;
+  max-width: 1000px;
+  margin: 0 auto;
 
   // Grain texture
   &::after {

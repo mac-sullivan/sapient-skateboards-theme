@@ -42,7 +42,9 @@
       "Bash(\"/Users/macsullivan/Library/Application Support/Local/lightning-services/php-8.2.27+1/bin/darwin-arm64/bin/php\" \"/Applications/Local.app/Contents/Resources/extraResources/bin/wp-cli/wp-cli.phar\" option update woocommerce_coming_soon \"no\" --path=\"/Users/macsullivan/Local Sites/sapient-skateboards/app/public\" 2>&1)",
       "Bash(cd \"/Users/macsullivan/Local Sites/sapient-skateboards/app/public/wp-content/themes/sapient-skateboards\" && npm install 2>&1 | tail -5)",
       "Bash(curl -sk \"http://sapient-skateboards.local/\" 2>/dev/null | grep -E 'section-hero-video|site-header|site-footer|coming-soon' | head -5)",
-      "Bash(curl -sk \"http://sapient-skateboards.local/archive/\" 2>/dev/null | grep -E 'blog-card-title|blog-archive|Southside|Jaylen|Zine' | head -10)"
+      "Bash(curl -sk \"http://sapient-skateboards.local/archive/\" 2>/dev/null | grep -E 'blog-card-title|blog-archive|Southside|Jaylen|Zine' | head -10)",
+      "Bash(php -i 2>/dev/null | grep -E \"upload_max_filesize|post_max_size|max_execution_time|max_input_time|memory_limit\" | head -10)",
+      "Bash(\"/Users/macsullivan/Library/Application Support/Local/lightning-services/php-8.2.27+1/bin/darwin-arm64/bin/php\" \"/Applications/Local.app/Contents/Resources/extraResources/bin/wp-cli/wp-cli.phar\" --path=\"/Users/macsullivan/Local Sites/sapient-skateboards/app/public\" media import \"/Users/macsullivan/Local Sites/sapient-skateboards/app/public/wp-content/uploads/2026/03/sapient-x-fa_2-web.mp4\" 2>&1)"
     ]
   }
 }

@@ -4,6 +4,16 @@
  * functions.php
  */
 
+// ── Output buffer — prevent "headers already sent" issues ─────────────────────
+if ( ! ob_get_level() ) {
+    ob_start();
+}
+
+// ── Increase upload size limit ────────────────────────────────────────────────
+@ini_set( 'upload_max_filesize', '64M' );
+@ini_set( 'post_max_size',       '64M' );
+add_filter( 'upload_size_limit', function() { return 64 * 1024 * 1024; } );
+
 /**
  * Returns spacing modifier classes for a flex layout section.
  * Reads the cloned remove_top_padding / remove_bottom_padding sub-fields.
@@ -201,12 +211,28 @@ function pt_body_classes( $classes ) {
     return $classes;
 }
 
-// ── Allow SVG uploads ─────────────────────────────────────────────────────────
+// ── Allow SVG + video uploads ─────────────────────────────────────────────────
 add_filter( 'upload_mimes', 'pt_allow_svg' );
 function pt_allow_svg( $mimes ) {
     $mimes['svg']  = 'image/svg+xml';
     $mimes['svgz'] = 'image/svg+xml';
+    $mimes['mp4']  = 'video/mp4';
+    $mimes['m4v']  = 'video/mp4';
+    $mimes['mov']  = 'video/quicktime';
+    $mimes['webm'] = 'video/webm';
     return $mimes;
+}
+
+// ── Allow video MIME type verification to pass ────────────────────────────────
+add_filter( 'wp_check_filetype_and_ext', 'pt_fix_video_mime', 10, 5 );
+function pt_fix_video_mime( $data, $file, $filename, $mimes, $real_mime ) {
+    $video_exts = [ 'mp4', 'm4v', 'mov', 'webm' ];
+    $ext = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+    if ( in_array( $ext, $video_exts, true ) ) {
+        $data['ext']  = $ext;
+        $data['type'] = $ext === 'webm' ? 'video/webm' : ( $ext === 'mov' ? 'video/quicktime' : 'video/mp4' );
+    }
+    return $data;
 }
 
 // Fix SVG display in media library

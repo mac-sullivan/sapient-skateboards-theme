@@ -6,6 +6,7 @@ html {
   margin: 0 !important;
   padding: 0 !important;
   background: #f7f7f7;
+  scroll-padding-top: var(--header-offset, #{$nav-height + 30px});
 }
 
 body {
@@ -36,6 +37,13 @@ body.admin-bar {
 }
 
 #main-content { margin: 0; width: 100%; }
+
+// Push content below fixed header — JS sets --header-offset on <body>
+// !important needed to override the body { padding: 0 !important } reset above
+body:not(.intro-page) {
+  padding-top: var(--header-offset, #{$nav-height + 30px}) !important;
+  background: $white;
+}
 
 // ─── Scroll reveal — animations disabled, always visible ──────
 .reveal, .reveal-left, .reveal-right,
