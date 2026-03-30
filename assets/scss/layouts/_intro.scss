@@ -123,17 +123,17 @@ body.intro-page {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: $white;
+  color: $black;
   background: transparent;
-  border: 1px solid rgba($white, 0.65);
+  border: 1px solid $black;
   text-decoration: none;
   cursor: pointer;
   border-radius: $radius;
 
   &:hover {
-    background: $white;
-    color: $black;
-    border-color: $white;
+    background: $black;
+    color: $white;
+    border-color: $black;
     text-decoration: none;
   }
 }
