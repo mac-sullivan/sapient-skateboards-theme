@@ -41,6 +41,9 @@ if ( $post_mode === 'manual' && ! empty( $manual_posts ) ) {
         'order'          => $order,
     ] );
 }
+// Get all categories that have posts (for filter bar)
+$all_cats = get_categories( [ 'hide_empty' => true, 'orderby' => 'name', 'order' => 'ASC' ] );
+$active_cat = is_category() ? get_queried_object() : null;
 ?>
 
 <section class="section-blog-posts <?php echo pt_spacing_classes(); ?>">
@@ -60,6 +63,26 @@ if ( $post_mode === 'manual' && ! empty( $manual_posts ) ) {
       <?php endif; ?>
     </div>
   </div>
+
+  <!-- Category Filter -->
+  <?php if ( ! empty( $all_cats ) ) : ?>
+  <div class="blog-filter-wrap">
+    <div class="container">
+      <div class="blog-filter" role="group" aria-label="Filter by category">
+        <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>"
+           class="blog-filter-btn<?php echo ! $active_cat ? ' is-active' : ''; ?>">
+          All
+        </a>
+        <?php foreach ( $all_cats as $cat ) : ?>
+          <a href="<?php echo esc_url( get_category_link( $cat->term_id ) ); ?>"
+             class="blog-filter-btn<?php echo ( $active_cat && $active_cat->term_id === $cat->term_id ) ? ' is-active' : ''; ?>">
+            <?php echo esc_html( $cat->name ); ?>
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+  <?php endif; ?>
 
   <!-- Grid -->
   <div class="blog-archive-body">
