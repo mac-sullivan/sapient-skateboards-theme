@@ -3,7 +3,7 @@
  * Template for /contact/ — uses ACF flex field page builder
  */
 add_filter('body_class', function($classes) { $classes[] = 'page-contact'; return $classes; });
-get_header('two');
+get_header( sapient_get_active_header() );
 ?>
 
 <main id="main-content">

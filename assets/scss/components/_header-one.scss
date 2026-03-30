@@ -1,0 +1,111 @@
+@use '../abstracts' as *;
+
+// ═══════════════════════════════════════════════════════════════
+// HEADER ONE — Two-row layout (logo top, nav below)
+// ═══════════════════════════════════════════════════════════════
+
+// ─── Outer wrapper ───────────────────────────────────────────
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+// ─── Row 1: Logo + cart + toggle ─────────────────────────────
+.header-brand-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.cart-text {
+  margin-right: 0.5rem;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+// ─── Row 2: Navigation bar ───────────────────────────────────
+.header-nav {
+  border-bottom: none;
+}
+
+.header-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-links-desktop {
+  display: flex;
+  align-items: center;
+}
+
+// ─── Search bar ──────────────────────────────────────────────
+.search-inline {
+  display: flex;
+  align-items: center;
+}
+
+.search-inline-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid $black;
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+
+  &:focus-within {
+    border-color: $black;
+  }
+}
+
+.search-icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: $black;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+
+  .search-inline-form:focus-within & {
+    opacity: 1;
+  }
+}
+
+.search-inline-form input[type="search"] {
+  width: 140px;
+  border: none;
+  background: transparent;
+  font-family: $font-label;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: $black;
+  outline: none;
+  padding: 2px 0;
+
+  &::placeholder {
+    color: rgba($black, 0.35);
+    letter-spacing: 0.2em;
+  }
+
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-decoration { -webkit-appearance: none; }
+}
+
+// ─── Mobile: hide nav row, show toggle ───────────────────────
+@include tablet {
+  .header-brand-inner { padding: 0.75rem 1.25rem; }
+  .nav-links-desktop  { display: none; }
+  .search-inline      { display: none; }
+  .nav-toggle         { display: flex; }
+  .header-nav         { display: none; }
+}

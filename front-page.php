@@ -6,7 +6,7 @@ if ( $tpl === 'page-intro.php' ) {
     if ( $intro ) { load_template( $intro ); exit; }
 }
 ?>
-<?php get_header('two'); ?>
+<?php get_header( sapient_get_active_header() ); ?>
 <main id="main-content">
   <?php if ( have_rows( 'page_sections' ) ) : ?>
     <?php while ( have_rows( 'page_sections' ) ) : the_row(); ?>

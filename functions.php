@@ -546,7 +546,42 @@ add_action( 'acf/init', function() {
     ] );
 } );
 
-// ── Team Custom Post Type ─────────────────────────────────────
+// ── Team Custom Post Type + Category Taxonomy ─────────────────
+add_action( 'init', function() {
+    // Team Category taxonomy (for filtering crew grid)
+    register_taxonomy( 'team_category', 'team', [
+        'labels' => [
+            'name'              => 'Team Categories',
+            'singular_name'     => 'Team Category',
+            'search_items'      => 'Search Team Categories',
+            'all_items'         => 'All Team Categories',
+            'parent_item'       => 'Parent Category',
+            'parent_item_colon' => 'Parent Category:',
+            'edit_item'         => 'Edit Team Category',
+            'update_item'       => 'Update Team Category',
+            'add_new_item'      => 'Add New Team Category',
+            'new_item_name'     => 'New Team Category Name',
+            'menu_name'         => 'Categories',
+        ],
+        'hierarchical'      => true,
+        'show_ui'           => true,
+        'show_in_rest'      => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => [ 'slug' => 'team-category' ],
+    ] );
+} );
+
+// ── Redirect single team posts → crew page ────────────────────
+add_action( 'template_redirect', function() {
+    if ( is_singular( 'team' ) ) {
+        $crew_page = get_page_by_path( 'crew' ) ?: get_page_by_path( 'about/crew' );
+        $redirect  = $crew_page ? get_permalink( $crew_page ) : home_url( '/about/crew/' );
+        wp_redirect( $redirect, 301 );
+        exit;
+    }
+} );
+
 add_action( 'init', function() {
     register_post_type( 'team', [
         'labels' => [
@@ -567,7 +602,7 @@ add_action( 'init', function() {
         'show_in_rest'  => true,
         'menu_icon'     => 'dashicons-groups',
         'menu_position' => 5,
-        'supports'      => [ 'title', 'thumbnail', 'revisions' ],
+        'supports'      => [ 'title', 'thumbnail', 'revisions', 'page-attributes' ],
         'rewrite'       => [ 'slug' => 'team' ],
     ] );
 } );
@@ -642,6 +677,110 @@ add_action( 'acf/init', function() {
     ] );
 } );
 
+// ── Header Style Settings ─────────────────────────────────────
+function sapient_get_active_header() {
+    return get_option( 'sapient_header_style', 'one' ) === 'two' ? 'two' : '';
+}
+
+add_action( 'admin_menu', function() {
+    add_submenu_page(
+        'themes.php',
+        'Header Style',
+        'Header Style',
+        'manage_options',
+        'sapient-header-style',
+        'sapient_header_style_page'
+    );
+} );
+
+function sapient_header_style_page() {
+    if ( isset( $_POST['sapient_header_style'] ) && check_admin_referer( 'sapient_header_style_save' ) ) {
+        update_option( 'sapient_header_style', sanitize_text_field( $_POST['sapient_header_style'] ) );
+        echo '<div class="updated"><p>Header style saved.</p></div>';
+    }
+    $current = get_option( 'sapient_header_style', 'one' );
+    ?>
+    <div class="wrap">
+        <h1>Header Style</h1>
+        <p style="color:#666;margin-bottom:1.5rem;">Switch between the two header layouts sitewide.</p>
+        <form method="post">
+            <?php wp_nonce_field( 'sapient_header_style_save' ); ?>
+            <table class="form-table">
+                <tr>
+                    <th scope="row">Active Header</th>
+                    <td>
+                        <label style="display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:14px;">
+                            <input type="radio" name="sapient_header_style" value="one" <?php checked( $current, 'one' ); ?>>
+                            <strong>Header One</strong> — Logo top, navigation row below
+                        </label>
+                        <label style="display:flex;align-items:center;gap:10px;font-size:14px;">
+                            <input type="radio" name="sapient_header_style" value="two" <?php checked( $current, 'two' ); ?>>
+                            <strong>Header Two</strong> — Single row: logo left, nav center, search + cart right
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <?php submit_button( 'Save Header Style' ); ?>
+        </form>
+    </div>
+    <?php
+}
+
+// ── Suppliers Page ACF Fields ─────────────────────────────────
+add_action( 'acf/init', function() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+
+    acf_add_local_field_group( [
+        'key'      => 'group_suppliers_page',
+        'title'    => 'Suppliers',
+        'location' => [ [ [
+            'param'    => 'page_template',
+            'operator' => '==',
+            'value'    => 'page-suppliers.php',
+        ] ] ],
+        'fields' => [
+            [
+                'key'          => 'field_suppliers_list',
+                'label'        => 'Suppliers',
+                'name'         => 'suppliers',
+                'type'         => 'repeater',
+                'layout'       => 'block',
+                'button_label' => 'Add Supplier',
+                'sub_fields'   => [
+                    [
+                        'key'   => 'field_supplier_name',
+                        'label' => 'Store Name',
+                        'name'  => 'supplier_name',
+                        'type'  => 'text',
+                    ],
+                    [
+                        'key'         => 'field_supplier_address',
+                        'label'       => 'Address',
+                        'name'        => 'supplier_address',
+                        'type'        => 'text',
+                        'placeholder' => '123 Main St, Chicago, IL 60601',
+                    ],
+                    [
+                        'key'           => 'field_supplier_image',
+                        'label'         => 'Store Photo',
+                        'name'          => 'supplier_image',
+                        'type'          => 'image',
+                        'return_format' => 'array',
+                        'preview_size'  => 'medium',
+                    ],
+                    [
+                        'key'         => 'field_supplier_website',
+                        'label'       => 'Website URL',
+                        'name'        => 'supplier_website',
+                        'type'        => 'url',
+                        'placeholder' => 'https://',
+                    ],
+                ],
+            ],
+        ],
+    ] );
+} );
+
 // ── WooCommerce: show product_cat in Quick Edit ───────────────
 add_action( 'registered_taxonomy', function( $taxonomy ) {
     if ( $taxonomy !== 'product_cat' ) return;
@@ -650,3 +789,87 @@ add_action( 'registered_taxonomy', function( $taxonomy ) {
         $wp_taxonomies['product_cat']->show_in_quick_edit = true;
     }
 }, 99 );
+
+
+// ── Cart toast HTML ───────────────────────────────────────────
+add_action( 'wp_footer', function() {
+    $cart_url = function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart');
+    ?>
+    <div id="cart-toast" class="cart-toast" role="alert" aria-live="polite">
+      <div class="cart-toast-inner">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="cart-toast-msg">Item added to your cart</span>
+        <a href="<?php echo esc_url( $cart_url ); ?>" class="cart-toast-link">View Cart →</a>
+        <button class="cart-toast-close" aria-label="Dismiss">✕</button>
+      </div>
+    </div>
+    <?php
+} );
+
+// ── AJAX add to cart (single product page) ────────────────────
+add_action( 'wp_ajax_nopriv_sapient_add_to_cart', 'sapient_ajax_add_to_cart' );
+add_action( 'wp_ajax_sapient_add_to_cart',        'sapient_ajax_add_to_cart' );
+function sapient_ajax_add_to_cart() {
+    $product_id   = intval( $_POST['product_id'] ?? 0 );
+    $quantity     = max( 1, intval( $_POST['quantity'] ?? 1 ) );
+    $variation_id = intval( $_POST['variation_id'] ?? 0 );
+    $variation    = [];
+
+    foreach ( $_POST as $key => $val ) {
+        if ( strpos( $key, 'attribute_' ) === 0 ) {
+            $variation[ sanitize_text_field( $key ) ] = sanitize_text_field( $val );
+        }
+    }
+
+    $added = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation );
+
+    if ( $added ) {
+        WC()->cart->calculate_totals();
+        do_action( 'woocommerce_ajax_added_to_cart', $product_id );
+
+        $count      = WC()->cart->get_cart_contents_count();
+        $cart_items = WC()->cart->get_cart();
+
+        // Build cart preview HTML
+        ob_start();
+        if ( empty( $cart_items ) ) {
+            echo '<p class="cart-preview-empty">Your cart is empty.</p>';
+        } else {
+            echo '<table class="cart-preview-table"><thead><tr>';
+            echo '<th class="cpt-img"></th><th class="cpt-name">Product</th><th class="cpt-qty">Qty</th><th class="cpt-price">Price</th>';
+            echo '</tr></thead><tbody>';
+            foreach ( $cart_items as $item ) {
+                $p       = $item['data'];
+                $img_id  = $p->get_image_id();
+                $img_url = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : wc_placeholder_img_src();
+                echo '<tr class="cpt-row">';
+                echo '<td class="cpt-img"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $p->get_name() ) . '"></td>';
+                echo '<td class="cpt-name">' . esc_html( $p->get_name() ) . '</td>';
+                echo '<td class="cpt-qty">' . esc_html( $item['quantity'] ) . '</td>';
+                echo '<td class="cpt-price">' . wc_price( $p->get_price() ) . '</td>';
+                echo '</tr>';
+            }
+            echo '</tbody></table>';
+            echo '<div class="cart-preview-footer">';
+            echo '<span class="cart-preview-total">Total: ' . WC()->cart->get_cart_total() . '</span>';
+            echo '<a href="' . esc_url( wc_get_cart_url() ) . '" class="btn-primary cart-preview-btn">View Cart</a>';
+            echo '</div>';
+        }
+        $preview_html = ob_get_clean();
+
+        wp_send_json_success( [
+            'count'        => $count,
+            'cart_hash'    => WC()->cart->get_cart_hash(),
+            'preview_html' => $preview_html,
+        ] );
+    } else {
+        wp_send_json_error( [ 'message' => 'Could not add item to cart.' ] );
+    }
+}
+
+// Localise AJAX url for front-end
+add_action( 'wp_enqueue_scripts', function() {
+    wp_localize_script( 'sapient-main', 'sapientAjax', [
+        'url' => admin_url( 'admin-ajax.php' ),
+    ] );
+} );

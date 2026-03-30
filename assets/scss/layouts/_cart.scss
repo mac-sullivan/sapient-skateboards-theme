@@ -2,15 +2,13 @@
 
 // ─── Cart / Checkout page wrapper ────────────────────────────
 .wc-cart-page {
-  padding-top: calc(var(--header-h, 6rem) + 4rem);
+  padding-top: 2rem;
   padding-bottom: 10rem;
   min-height: 80vh;
 }
 
 .cart-page-header {
   margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  // border-bottom: 1px solid rgba($charcoal, 0.1);
 
   .section-eyebrow { display: block; margin-bottom: 0.5rem; }
 }
@@ -245,7 +243,11 @@
         text-transform: uppercase !important;
         cursor: pointer !important;
 
-        &:hover { border-color: $charcoal !important; }
+        &:hover {
+          background: $amber !important;
+          border-color: $amber !important;
+          color: $charcoal !important;
+        }
       }
     }
 
@@ -351,7 +353,8 @@
       transition: none;
 
       &:hover {
-        background: transparent !important;
+        background: $amber !important;
+        border-color: $amber !important;
         color: $charcoal !important;
       }
     }

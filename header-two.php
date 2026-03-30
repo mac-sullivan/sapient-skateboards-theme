@@ -72,24 +72,56 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
     <div class="h2-utilities">
 
       <!-- Cart -->
-      <?php if ( function_exists( 'WC' ) && WC()->cart ) : $count = WC()->cart->get_cart_contents_count(); ?>
-      <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="nav-cart h2-cart" aria-label="Cart">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 01-8 0"/>
-        </svg>
-        <span class="cart-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ); ?></span>
-      </a>
-      <?php elseif ( function_exists( 'WC' ) ) : ?>
-      <a href="<?php echo esc_url( home_url( '/cart' ) ); ?>" class="nav-cart h2-cart" aria-label="Cart">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 01-8 0"/>
-        </svg>
-        <span class="cart-count">0</span>
-      </a>
+      <?php if ( function_exists( 'WC' ) ) :
+        $cart       = WC()->cart;
+        $count      = $cart ? $cart->get_cart_contents_count() : 0;
+        $cart_items = $cart ? $cart->get_cart() : [];
+      ?>
+      <div class="nav-cart-wrap">
+        <button class="nav-cart h2-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
+        </button>
+
+        <div class="cart-preview" data-cart-preview>
+          <?php if ( empty( $cart_items ) ) : ?>
+            <p class="cart-preview-empty">Your cart is empty.</p>
+          <?php else : ?>
+            <table class="cart-preview-table">
+              <thead>
+                <tr>
+                  <th class="cpt-img"></th>
+                  <th class="cpt-name">Product</th>
+                  <th class="cpt-qty">Qty</th>
+                  <th class="cpt-price">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ( $cart_items as $item ) :
+                  $product  = $item['data'];
+                  $img_id   = $product->get_image_id();
+                  $img_url  = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : wc_placeholder_img_src();
+                ?>
+                <tr class="cpt-row">
+                  <td class="cpt-img"><img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>"></td>
+                  <td class="cpt-name"><?php echo esc_html( $product->get_name() ); ?></td>
+                  <td class="cpt-qty"><?php echo esc_html( $item['quantity'] ); ?></td>
+                  <td class="cpt-price"><?php echo wc_price( $product->get_price() ); ?></td>
+                </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+            <div class="cart-preview-footer">
+              <span class="cart-preview-total">Total: <?php echo WC()->cart->get_cart_total(); ?></span>
+              <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="btn-primary cart-preview-btn">View Cart</a>
+            </div>
+          <?php endif; ?>
+        </div>
+      </div>
       <?php endif; ?>
 
       <!-- Search (below cart) -->

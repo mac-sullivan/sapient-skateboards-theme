@@ -7,7 +7,7 @@
 // Load flex field data from the static posts page
 $posts_page_id = get_option( 'page_for_posts' );
 
-get_header('two');
+get_header( sapient_get_active_header() );
 ?>
 
 <main id="main-content">

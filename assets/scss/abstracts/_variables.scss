@@ -10,6 +10,8 @@ $charcoal:      #000000;  // alias for black
 // UI accents (B&W only)
 $bone-dark:     #d9d9d9;  // Light gray — subtle borders / dividers
 $yellow:        #F5E100;  // Nav hover highlight (AWT-style yellow box)
+$amber:         #E9A000;  // Button hover background (warm golden yellow)
+$amber-dark:    #C98800;  // Amber hover darkened state
 
 // Legacy aliases (kept for compatibility — all map to black or white)
 $ochre:         #000000;
@@ -38,7 +40,7 @@ $nav-height:    110px; // two-row header: logo row + nav bar
 $radius:        0px;    // Industrial — zero rounding, raw edges
 $radius-sm:     0px;
 $radius-lg:     0px;
-$max-width:     1000px;
+$max-width:     1080px;
 $section-pad:   clamp(5rem, 10vw, 9rem);
 
 // ─── Typography ───────────────────────────────────────────────

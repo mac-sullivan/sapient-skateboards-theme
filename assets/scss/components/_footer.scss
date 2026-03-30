@@ -2,9 +2,10 @@
 
 // ─── Footer ───────────────────────────────────────────────────
 #site-footer {
-  background: $charcoal;
-  color: $bone;
+  background: #f7f7f7;
+  color: $black;
   position: relative;
+  border-top: 1px solid rgba(#000, 0.12);
 }
 
 // ─── Grain texture ────────────────────────────────────────────
@@ -12,7 +13,6 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
 }
@@ -54,18 +54,19 @@
   text-decoration: none;
 }
 
-// Invert logo to white on dark bg
+// Black logo for light footer bg
 #site-footer .ss-logo--footer {
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  filter: brightness(0);
+  opacity: 1;
   height: 28px !important;
+  width: auto;
 }
 
 .footer-description {
   font-family: $font-main;
   font-size: 0.9rem;
   line-height: 1.75;
-  color: rgba($bone, 0.4);
+  color: rgba(#000, 0.55);
   margin: 0;
   max-width: 260px;
 }
@@ -80,12 +81,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba($bone, 0.35);
+    color: rgba(#000, 0.45);
     transition: none;
     text-decoration: none;
 
     &:hover {
-      color: $bone;
+      color: $black;
       text-decoration: none;
     }
   }
@@ -98,10 +99,10 @@
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba($bone, 0.28);
+  color: rgba(#000, 0.85);
   margin: 0 0 1.25rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba($bone, 0.08);
+  border-bottom: 1px solid rgba(#000, 0.12);
 }
 
 // ─── Nav links ───────────────────────────────────────────────
@@ -125,12 +126,12 @@
 .footer-menu a {
   font-family: $font-main;
   font-size: 0.9rem;
-  color: rgba($bone, 0.45);
+  color: rgba(#000, 0.5);
   text-decoration: none;
   transition: none;
 
   &:hover {
-    color: $bone;
+    color: rgba(#000, 0.85);
     text-decoration: none;
   }
 }
@@ -151,35 +152,35 @@
   }
 
   a {
-    color: rgba($bone, 0.45);
+    color: rgba(#000, 0.5);
     text-decoration: none;
     font-family: $font-main;
     font-size: 0.9rem;
     transition: none;
-    &:hover { color: $bone; text-decoration: none; }
+    &:hover { color: rgba(#000, 0.85); text-decoration: none; }
   }
 
   span {
     font-family: $font-main;
     font-size: 0.9rem;
-    color: rgba($bone, 0.45);
+    color: rgba(#000, 0.5);
   }
 }
 
 .footer-contact-label {
-  font-family: $font-label;
-  font-size: 0.6rem;
+  font-family: $font-label !important;
+  font-size: 0.65rem !important;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba($bone, 0.22);
+  color: rgba(#000, 0.9);
 }
 
 // ─── Bottom bar ──────────────────────────────────────────────
 .footer-bottom {
   position: relative;
   z-index: 1;
-  border-top: 1px solid rgba($bone, 0.07);
+  border-top: 1px solid rgba(#000, 0.12);
   padding: 1.25rem 0;
 }
 
@@ -189,11 +190,12 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.75rem;
+  position: relative;
 
   > span {
     font-family: $font-main;
     font-size: 0.75rem;
-    color: rgba($bone, 0.2);
+    color: rgba(#000, 0.35);
     letter-spacing: 0.05em;
   }
 }
@@ -205,11 +207,11 @@
   a {
     font-family: $font-main;
     font-size: 0.75rem;
-    color: rgba($bone, 0.22);
+    color: rgba(#000, 0.35);
     text-decoration: none;
     transition: none;
 
-    &:hover { color: rgba($bone, 0.6); text-decoration: none; }
+    &:hover { color: rgba(#000, 0.7); text-decoration: none; }
   }
 }
 
@@ -221,15 +223,16 @@
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba($bone, 0.18);
+  color: rgba(#000, 0.35);
 }
 
 .footer-chicago-flag {
   display: inline-block;
-  width: 22px;
+  width: 28px;
   height: auto;
-  opacity: 0.45;
+  opacity: 0.5;
   flex-shrink: 0;
+  filter: grayscale(1) brightness(3);
 }
 
 @include mobile {
@@ -240,3 +243,5 @@
 
   .footer-legal { justify-content: center; }
 }
+
+

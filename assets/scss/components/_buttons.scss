@@ -24,8 +24,7 @@
   &:hover { text-decoration: none; }
 }
 
-// ─── Primary: solid charcoal → ochre on hover ─────────────────
-// Default button for most CTAs
+// ─── Primary: solid charcoal → amber on hover ────────────────
 .btn-primary {
   @extend %btn-base;
   background: $charcoal;
@@ -33,14 +32,13 @@
   border-color: $charcoal;
 
   &:hover {
-    background: $ochre;
-    border-color: $ochre;
-    color: $bone;
+    background: $amber;
+    border-color: $amber;
+    color: $charcoal;
   }
 }
 
-// ─── Outline: charcoal border → fills charcoal on hover ───────
-// Secondary actions, less prominent
+// ─── Outline: charcoal border → amber on hover ────────────────
 .btn-outline {
   @extend %btn-base;
   background: transparent;
@@ -48,12 +46,13 @@
   border-color: $charcoal;
 
   &:hover {
-    background: $charcoal;
-    color: $bone;
+    background: $amber;
+    border-color: $amber;
+    color: $charcoal;
   }
 }
 
-// ─── Ghost: for dark backgrounds ──────────────────────────────
+// ─── Ghost: for dark backgrounds → amber on hover ─────────────
 .btn-ghost {
   @extend %btn-base;
   background: transparent;
@@ -61,23 +60,22 @@
   border-color: rgba($bone, 0.5);
 
   &:hover {
-    background: $bone;
-    border-color: $bone;
+    background: $amber;
+    border-color: $amber;
     color: $charcoal;
   }
 }
 
-// ─── Accent: ochre fill — high-intent only ────────────────────
-// Use sparingly: CTAs like "Add to Cart", "Enter Site"
+// ─── Accent: amber fill — high-intent only ────────────────────
 .btn-accent {
   @extend %btn-base;
-  background: $ochre;
-  color: $bone;
-  border-color: $ochre;
+  background: $amber;
+  color: $charcoal;
+  border-color: $amber;
 
   &:hover {
-    background: $ochre-dark;
-    border-color: $ochre-dark;
-    color: $bone;
+    background: $amber-dark;
+    border-color: $amber-dark;
+    color: $charcoal;
   }
 }

@@ -4,6 +4,7 @@
 .section-contact {
   min-height: 100vh;
   box-sizing: border-box;
+  padding: clamp(2rem, 4vw, 2rem) 0 clamp(6rem, 10vw, 9rem);
 }
 
 .contact-layout {
@@ -32,13 +33,14 @@
 
 .contact-title {
   font-family: $font-heading;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1;
   color: $charcoal;
   margin: 0 0 1.25rem;
+  white-space: nowrap;
 }
 
 .contact-sub {
@@ -108,7 +110,7 @@
   input[type="email"],
   textarea {
     width: 100%;
-    background: transparent;
+    background: #f4f4f4;
     border: 1.5px solid rgba($charcoal, 0.3);
     padding: 0.9rem 1rem;
     font-family: $font-main;
@@ -130,7 +132,6 @@
 
   input[type="submit"],
   .wpcf7-submit {
-    margin-top: 2.5rem;
     width: 100%;
     background: transparent;
     color: $charcoal;
@@ -146,8 +147,9 @@
     display: block;
 
     &:hover {
-      background: $charcoal;
-      color: $bone;
+      background: $amber;
+      border-color: $amber;
+      color: $charcoal;
     }
   }
 

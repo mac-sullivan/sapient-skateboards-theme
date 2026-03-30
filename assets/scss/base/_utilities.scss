@@ -97,3 +97,59 @@ body::after {
   border-top: 1px solid $bone-dark;
   margin: 0;
 }
+
+// ─── Breadcrumbs ──────────────────────────────────────────────
+.breadcrumbs {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 0.3rem;
+  margin-bottom: 1.25rem;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 0.875rem;
+  line-height: 1;
+  color: rgba(#282828, 0.38);
+
+  a {
+    font-family: inherit;
+    font-style: inherit;
+    font-size: inherit;
+    color: rgba(#282828, 0.38);
+    text-decoration: none;
+    transition: color 0.18s ease;
+
+    &:hover {
+      color: rgba(#282828, 0.75);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  span:last-child {
+    color: rgba(#282828, 0.55);
+    font-weight: 700;
+  }
+
+  // Override for dark hero backgrounds (single posts with image)
+  .single-post-hero.has-image & {
+    color: rgba(#D7D0C0, 0.5);
+
+    a {
+      color: rgba(#D7D0C0, 0.5);
+      &:hover { color: rgba(#D7D0C0, 0.9); }
+    }
+
+    span:last-child { color: rgba(#D7D0C0, 0.65); }
+  }
+}
+
+.breadcrumbs-sep {
+  color: rgba(#282828, 0.25);
+  font-style: normal;
+  font-size: 0.75rem;
+
+  .single-post-hero.has-image & {
+    color: rgba(#D7D0C0, 0.3);
+  }
+}

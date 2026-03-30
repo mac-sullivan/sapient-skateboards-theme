@@ -1,0 +1,93 @@
+@use '../abstracts' as *;
+
+// ═══════════════════════════════════════════════════════════════
+// HEADER TWO — Single-row layout (logo | nav | search+cart)
+// ═══════════════════════════════════════════════════════════════
+
+// ─── Single-row inner ────────────────────────────────────────
+.h2-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1168px;
+  margin: 0 auto;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+// ─── Logo (left) ─────────────────────────────────────────────
+.h2-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+
+  .ss-logo {
+    height: 35px !important;
+    width: auto;
+  }
+}
+
+// ─── Nav (center) ────────────────────────────────────────────
+.h2-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+// ─── Utilities: search + cart (right) ────────────────────────
+.h2-utilities {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 1rem;
+}
+
+.h2-cart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $black;
+  text-decoration: none;
+}
+
+.h2-search {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba($black, 0.8);
+  background-color: #f4f4f4;
+  padding: .4rem 0.5rem;
+
+  input[type="search"] {
+    width: 120px;
+    border: none;
+    background: transparent;
+    font-family: $font-main;
+    font-size: 0.75rem;
+    color: $black;
+    outline: none;
+    padding: 2px 0;
+
+    &::placeholder { color: rgba($black, 0.35); }
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration { -webkit-appearance: none; }
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: $black;
+    display: flex;
+    align-items: center;
+  }
+}
+
+// ─── Mobile: collapse to toggle ──────────────────────────────
+@include tablet {
+  .h2-nav      { display: none; }
+  .h2-search   { display: none; }
+  .nav-toggle  { display: flex; }
+}

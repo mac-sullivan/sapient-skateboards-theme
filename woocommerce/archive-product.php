@@ -4,7 +4,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-get_header('two');
+get_header( sapient_get_active_header() );
 
 // Build query args
 $query_args = [
@@ -38,8 +38,9 @@ $products = new WP_Query( $query_args );
 <?php if ( is_shop() ) : ?>
 <div class="blog-archive-header">
   <div class="container">
+    <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
     <span class="blog-eyebrow section-eyebrow">Sapient Skateboards</span>
-    <h1 class="blog-archive-title">Shop.</h1>
+    <h1 class="blog-archive-title">Shop All</h1>
   </div>
 </div>
 <?php elseif ( is_product_category() ) :
@@ -47,8 +48,9 @@ $products = new WP_Query( $query_args );
 ?>
 <div class="blog-archive-header">
   <div class="container">
+    <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
     <span class="blog-eyebrow section-eyebrow">— Shop</span>
-    <h1 class="blog-archive-title"><?php echo esc_html( $term->name ); ?>.</h1>
+    <h1 class="blog-archive-title"><?php echo esc_html( $term->name ); ?></h1>
   </div>
 </div>
 <?php endif; ?>

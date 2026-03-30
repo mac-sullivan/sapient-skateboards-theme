@@ -4,7 +4,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-get_header('two');
+get_header( sapient_get_active_header() );
 
 while ( have_posts() ) : the_post();
   global $product;
@@ -124,6 +124,10 @@ while ( have_posts() ) : the_post();
         <?php endif; ?>
 
         <?php woocommerce_template_single_add_to_cart(); ?>
+        <div class="cart-added-inline" id="cart-added-inline" aria-live="polite">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Item added to your cart — <a href="<?php echo esc_url( wc_get_cart_url() ); ?>">click here to view cart</a>
+        </div>
       <?php else : ?>
         <div class="product-sold-out">Sold Out</div>
       <?php endif; ?>

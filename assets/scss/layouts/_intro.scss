@@ -3,38 +3,71 @@
 
 // ─── Intro / Splash Page ──────────────────────────────────────
 
+html,
+body {
+  &:has(.intro-page) {
+    overflow: hidden;
+    background: $black;
+  }
+}
+
+body.intro-page {
+  margin: 0;
+  padding: 0;
+  background: $black;
+  overflow: hidden;
+}
+
 .intro-wrap {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+// ── Full-screen background video ──────────────────────────────
+
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: $black;
+  z-index: 0;
+
+  &--img {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+// ── Centered overlay: logo + enter button ─────────────────────
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-  padding: 3rem 2rem;
-  background: $white;
+  gap: 2.5rem;
 }
 
-// ── Video container ──────────────────────────────────────────
-
-.intro-video-wrap {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-}
-
-// ── Logo (centered over video) ───────────────────────────────
+// ── Logo ──────────────────────────────────────────────────────
 
 .intro-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
 
   svg, img {
     width: auto;
-    height: clamp(6rem, 10vw, 10rem);
+    height: clamp(7rem, 14vw, 16rem);
     display: block;
   }
 
@@ -43,25 +76,12 @@
   }
 }
 
-.intro-video {
-  width: 100%;
-  height: auto;
-  display: block;
-  background: $black;
-
-  &--img {
-    aspect-ratio: 16 / 9;
-    background-size: cover;
-    background-position: center;
-  }
-}
-
-// ── Video controls ───────────────────────────────────────────
+// ── Video controls (bottom-right) ─────────────────────────────
 
 .intro-video-controls {
   position: absolute;
-  bottom: 0.75rem;
-  right: 0.75rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
   display: flex;
   gap: 0.5rem;
   z-index: 3;
@@ -69,11 +89,11 @@
 
 .intro-btn-mute,
 .intro-btn-fullscreen {
-  background: rgba($black, 0.6);
+  background: rgba($black, 0.5);
   border: none;
   color: $white;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,20 +112,22 @@
   align-items: center;
   justify-content: center;
   padding: 0.9rem 2.5rem;
-  font-family: 'Times New Roman', Times, Georgia, serif;
-  font-size: 0.85rem;
+  font-family: $font-label;
+  font-size: 0.75rem;
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: $black;
+  letter-spacing: 0.25em;
+  color: $white;
   background: transparent;
-  border: 1px solid $black;
+  border: 1px solid rgba($white, 0.65);
   text-decoration: none;
   cursor: pointer;
   border-radius: $radius;
 
   &:hover {
-    background: $black;
-    color: $white;
+    background: $white;
+    color: $black;
+    border-color: $white;
+    text-decoration: none;
   }
 }

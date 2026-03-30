@@ -1,0 +1,58 @@
+
+@use '../abstracts/variables' as *;
+
+// ─── 404 Page ────────────────────────────────────────────────
+.error-404-page {
+  padding: clamp(5rem, 12vw, 10rem) 0 clamp(6rem, 14vw, 12rem);
+}
+
+.e404-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.e404-logo {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto 2.5rem;
+  opacity: 0.12;
+  filter: grayscale(1);
+}
+
+.e404-code {
+  font-family: $font-label;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba($charcoal, 0.3);
+  margin: 0 0 1.25rem;
+}
+
+.e404-heading {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $charcoal;
+  margin: 0 0 1.25rem;
+  line-height: 1.1;
+}
+
+.e404-sub {
+  font-family: $font-main;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba($charcoal, 0.55);
+  margin: 0 0 2.5rem;
+}
+
+.e404-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}

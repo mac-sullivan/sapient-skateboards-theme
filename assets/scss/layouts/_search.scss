@@ -2,7 +2,7 @@
 
 // ─── Search Results Page ─────────────────────────────────────
 .section-search-results {
-  padding: calc($nav-height + 4rem) 0 $section-pad;
+  padding: calc(2rem) 0 $section-pad;
   background: $bone;
   min-height: 70vh;
 }
@@ -167,19 +167,21 @@
 // ─── No results ─────────────────────────────────────────────
 .search-no-results {
   padding: 3rem 0;
+  text-align: center;
 
   p {
     font-family: $font-main;
     font-size: 1.1rem;
     line-height: 1.7;
     color: rgba($charcoal, 0.6);
-    margin: 0 0 2rem;
+    margin: 0 auto 2rem;
     max-width: 520px;
   }
 }
 
 .search-suggestions {
   display: flex;
+  justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 

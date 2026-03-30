@@ -1,8 +1,8 @@
 <?php
 /**
  * Flex layout: Team Grid
- * Cards link to individual team member pages.
- * Grid shows skull placeholder; real photo lives on single-team.php.
+ * Cards do NOT link to individual pages (single team pages removed).
+ * Filter by team_category taxonomy.
  */
 $eyebrow        = get_sub_field( 'eyebrow' );
 $heading        = get_sub_field( 'heading' );
@@ -34,6 +34,15 @@ if ( $member_mode === 'manual' && ! empty( $manual_members ) ) {
     ] );
 }
 
+// Get all team categories that have published posts
+$filter_terms = get_terms( [
+    'taxonomy'   => 'team_category',
+    'hide_empty' => true,
+    'orderby'    => 'name',
+    'order'      => 'ASC',
+] );
+$has_filter = ! is_wp_error( $filter_terms ) && ! empty( $filter_terms );
+
 ?>
 
 <section class="section-team-grid <?php echo pt_spacing_classes(); ?>">
@@ -50,27 +59,44 @@ if ( $member_mode === 'manual' && ! empty( $manual_members ) ) {
       </div>
     <?php endif; ?>
 
+    <?php if ( $has_filter ) : ?>
+    <div class="team-filter" role="group" aria-label="Filter by category">
+      <button class="team-filter-btn is-active" data-filter="all">All</button>
+      <?php foreach ( $filter_terms as $term ) : ?>
+        <button class="team-filter-btn" data-filter="<?php echo esc_attr( $term->slug ); ?>">
+          <?php echo esc_html( $term->name ); ?>
+        </button>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
     <?php if ( $members->have_posts() ) : ?>
       <div class="team-grid">
-        <?php while ( $members->have_posts() ) : $members->the_post(); ?>
-          <?php
-          $photo    = get_field( 'team_photo' );
+        <?php while ( $members->have_posts() ) : $members->the_post();
+          $photo    = get_field( 'team_image' );
+          $position = get_field( 'team_position' );
           $socials  = get_field( 'team_socials' );
-          // Find Instagram handle from socials
+
+          // Get this member's team_category slugs for JS filter
+          $member_cats = wp_get_post_terms( get_the_ID(), 'team_category', [ 'fields' => 'slugs' ] );
+          $cats_attr   = ( ! is_wp_error( $member_cats ) && ! empty( $member_cats ) )
+                           ? implode( ' ', $member_cats )
+                           : '';
+
+          // Instagram handle
           $ig_url    = '';
           $ig_handle = '';
           if ( $socials ) {
             foreach ( $socials as $link ) {
               if ( ( $link['platform'] ?? '' ) === 'instagram' && ! empty( $link['url'] ) ) {
-                $ig_url = $link['url'];
-                // Extract @handle from URL
+                $ig_url    = $link['url'];
                 $ig_handle = '@' . trim( parse_url( $link['url'], PHP_URL_PATH ), '/' );
                 break;
               }
             }
           }
-          ?>
-          <div class="team-card">
+        ?>
+          <div class="team-card" data-cats="<?php echo esc_attr( $cats_attr ); ?>">
 
             <div class="team-card-media">
               <?php if ( $photo ) : ?>
@@ -84,7 +110,10 @@ if ( $member_mode === 'manual' && ! empty( $manual_members ) ) {
 
             <div class="team-card-info">
               <h3 class="team-card-name"><?php the_title(); ?></h3>
-              <?php if ( $ig_handle ) : ?>
+              <?php if ( $position ) : ?>
+                <span class="team-card-position"><?php echo esc_html( $position ); ?></span>
+              <?php endif; ?>
+              <?php if ( $ig_handle && $ig_url ) : ?>
                 <a href="<?php echo esc_url( $ig_url ); ?>" class="team-card-handle" target="_blank" rel="noopener"><?php echo esc_html( $ig_handle ); ?></a>
               <?php endif; ?>
             </div>
@@ -98,3 +127,30 @@ if ( $member_mode === 'manual' && ! empty( $manual_members ) ) {
 
   </div>
 </section>
+
+<?php if ( $has_filter ) : ?>
+<script>
+(function() {
+  var btns  = document.querySelectorAll('.team-filter-btn');
+  var cards = document.querySelectorAll('.team-card');
+
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var filter = this.dataset.filter;
+
+      btns.forEach(function(b) { b.classList.remove('is-active'); });
+      this.classList.add('is-active');
+
+      cards.forEach(function(card) {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          var cats = (card.dataset.cats || '').split(' ');
+          card.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
+<?php endif; ?>

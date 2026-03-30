@@ -1,4 +1,4 @@
-<?php get_header('two'); ?>
+<?php get_header( sapient_get_active_header() ); ?>
 <main id="main-content">
   <?php if ( have_rows( 'page_sections' ) ) : ?>
 
@@ -18,7 +18,6 @@
     <section class="wc-cart-page">
       <div class="container">
         <div class="cart-page-header">
-          <span class="section-eyebrow"><?php echo is_checkout() ? 'Almost There' : 'Your Order'; ?></span>
           <h1 class="cart-page-title"><?php echo is_checkout() ? 'Checkout' : 'Cart'; ?></h1>
         </div>
         <?php woocommerce_output_all_notices(); ?>

@@ -3,15 +3,16 @@
  * Template Name: Process Page
  * Slug: process
  */
-get_header('two');
+get_header( sapient_get_active_header() );
 ?>
 
 <main id="main-content">
 
   <div class="blog-archive-header">
     <div class="container">
+      <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
       <span class="blog-eyebrow section-eyebrow">How It's Made</span>
-      <h1 class="blog-archive-title">The<br>Process.</h1>
+      <h1 class="blog-archive-title">The Process</h1>
     </div>
   </div>
 

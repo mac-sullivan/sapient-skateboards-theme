@@ -1,4 +1,4 @@
-<?php get_header('two'); ?>
+<?php get_header( sapient_get_active_header() ); ?>
 
 <section class="section-search-results">
   <div class="container">

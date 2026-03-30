@@ -49,7 +49,6 @@
   max-width: $max-width;
   width: 100%;
   margin: 0 auto;
-  padding-top: 3rem;
 
   @include mobile { padding: 2.5rem 0; }
 }
@@ -94,7 +93,7 @@
 // ─── Post body ────────────────────────────────────────────────
 .single-post-body {
   background: $bone;
-  padding: 4rem 0 6rem;
+  padding: 0rem 0 clamp(6rem, 10vw, 9rem);
 
   .container { max-width: $max-width; }
 }
@@ -205,16 +204,16 @@
   transition: none;
   margin-bottom: 2.5rem;
 
-  &:hover { color: $ochre; gap: 0.75rem; text-decoration: none; }
+  &:hover { color: $charcoal; text-decoration: none; }
 
-  svg { flex-shrink: 0; transition: none; }
-  &:hover svg { transform: translateX(-3px); }
+  svg { flex-shrink: 0; }
 }
 
 .single-post-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  margin-bottom: clamp(4rem, 8vw, 7rem);
 
   @include mobile { grid-template-columns: 1fr; }
 }
@@ -224,16 +223,18 @@
   flex-direction: column;
   gap: 0.3rem;
   padding: 1.25rem 1.5rem;
-  border-radius: 14px;
-  border: 1.5px solid #ebe9e5;
+  border-radius: 0;
+  border: 1.5px solid $charcoal;
   text-decoration: none;
   transition: none;
 
   &:hover {
-    border-color: rgba($ochre, 0.3);
-    box-shadow: 0 6px 24px rgba($ochre, 0.07);
-    transform: translateY(-2px);
+    background: $amber;
+    border-color: $amber;
     text-decoration: none;
+
+    .nav-direction,
+    .nav-title { color: $charcoal; }
   }
 
   &.post-nav-next { text-align: right; }
@@ -272,7 +273,6 @@
 }
 
 .sidebar-image {
-  border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 4 / 5;
   background: #0d0820;
@@ -284,13 +284,11 @@
     display: block;
     filter: brightness(0.92);
     transition: none;
-    &:hover { transform: scale(1.03); }
   }
 }
 
 .sidebar-meta-card {
   background: #f8f7f5;
-  border-radius: 14px;
   padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;

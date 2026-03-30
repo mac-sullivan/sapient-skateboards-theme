@@ -106,11 +106,9 @@ $footer_location    = get_field( 'footer_contact_location', 'option' )
         <a href="<?php echo esc_url( home_url( '/privacy-policy' ) ); ?>">Privacy Policy</a>
         <a href="<?php echo esc_url( home_url( '/terms' ) ); ?>">Terms of Service</a>
       </div>
-      <span class="footer-made-in">
-        Made in Chicago, USA
-        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/Chicago-01-1.svg" alt="Chicago flag" class="footer-chicago-flag" width="24" height="16" aria-hidden="true">
-      </span>
+      <span class="footer-made-in">Made in Chicago, USA</span>
     </div>
+
   </div>
 
 </footer>
