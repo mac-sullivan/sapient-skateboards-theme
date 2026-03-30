@@ -13,12 +13,16 @@ $button_text   = $button['title']  ?? 'ENTER WEBSITE';
 $button_url    = $button['url']    ?? home_url( '/shop/' );
 $button_target = ! empty( $button['target'] ) ? $button['target'] : '_self';
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> class="intro-page">
 <head>
   <meta charset="<?php bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php bloginfo( 'name' ); ?></title>
   <?php wp_head(); ?>
+  <style>
+    html.intro-page, body.intro-page { margin: 0 !important; padding: 0 !important; overflow: hidden !important; background: #000 !important; }
+    #wpadminbar { display: none !important; }
+  </style>
 </head>
 <body class="intro-page">
 

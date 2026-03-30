@@ -3,40 +3,43 @@
 
 // ─── Intro / Splash Page ──────────────────────────────────────
 
-html,
-body {
-  &:has(.intro-page) {
-    overflow: hidden;
-    background: $black;
-  }
-}
-
+html.intro-page,
 body.intro-page {
-  margin: 0;
-  padding: 0;
-  background: $black;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  background: $black;
 }
 
 .intro-wrap {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 // ── Full-screen background video ──────────────────────────────
 
 .intro-video {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   background: $black;
   z-index: 0;
+  margin: 0;
+  padding: 0;
 
   &--img {
     background-size: cover;
@@ -48,13 +51,16 @@ body.intro-page {
 
 .intro-overlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 // ── Logo ──────────────────────────────────────────────────────

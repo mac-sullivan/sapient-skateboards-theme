@@ -110,9 +110,6 @@ $has_filter = ! is_wp_error( $filter_terms ) && ! empty( $filter_terms );
 
             <div class="team-card-info">
               <h3 class="team-card-name"><?php the_title(); ?></h3>
-              <?php if ( $position ) : ?>
-                <span class="team-card-position"><?php echo esc_html( $position ); ?></span>
-              <?php endif; ?>
               <?php if ( $ig_handle && $ig_url ) : ?>
                 <a href="<?php echo esc_url( $ig_url ); ?>" class="team-card-handle" target="_blank" rel="noopener"><?php echo esc_html( $ig_handle ); ?></a>
               <?php endif; ?>
