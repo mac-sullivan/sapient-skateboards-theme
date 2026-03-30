@@ -74,6 +74,14 @@
   gap: 1rem;
   text-align: center;
   position: relative;
+  cursor: pointer;
+}
+
+.team-card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
 }
 
 // ─── GIF / Media ─────────────────────────────────────────────
@@ -101,7 +109,7 @@
 
 .team-card-name {
   font-family: $font-heading;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -119,12 +127,14 @@
 
 .team-card-handle {
   font-family: $font-main;
-  font-size: 0.78rem;
-  color: rgba($charcoal, 0.45);
+  font-size: 1rem;
+  color: rgba($charcoal, 0.5);
   text-decoration: none;
+  position: relative;
+  z-index: 4;
 
   &:hover {
-    color: $ochre;
+    color: $charcoal;
     text-decoration: none;
   }
 }

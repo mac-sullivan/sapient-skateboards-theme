@@ -98,6 +98,10 @@ $has_filter = ! is_wp_error( $filter_terms ) && ! empty( $filter_terms );
         ?>
           <div class="team-card" data-cats="<?php echo esc_attr( $cats_attr ); ?>">
 
+            <?php if ( $ig_url ) : ?>
+            <a href="<?php echo esc_url( $ig_url ); ?>" class="team-card-link" target="_blank" rel="noopener" aria-label="<?php the_title_attribute(); ?> on Instagram"></a>
+            <?php endif; ?>
+
             <div class="team-card-media">
               <?php if ( $photo ) : ?>
                 <img src="<?php echo esc_url( $photo['url'] ); ?>"
