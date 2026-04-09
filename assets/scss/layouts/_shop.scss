@@ -186,7 +186,8 @@
   transform: scale(1.04);
 }
 
-.shop-img-grid--apparel .shop-board-img {
+// Non-skateboard products — cap image height site-wide
+.shop-img-link--non-board .shop-board-img {
   max-height: 20rem;
   width: auto;
   margin: 0 auto;

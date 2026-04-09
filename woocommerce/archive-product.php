@@ -75,9 +75,10 @@ $products = new WP_Query( $query_args );
           if ( empty( $cat_slugs ) ) $cat_slugs[] = 'boards';
           $data_cats = implode( ' ', $cat_slugs );
         ?>
+          <?php $is_board = has_term( 'skateboards', 'product_cat', get_the_ID() ); ?>
           <a
             href="<?php the_permalink(); ?>"
-            class="shop-img-link"
+            class="shop-img-link<?php echo ! $is_board ? ' shop-img-link--non-board' : ''; ?>"
             data-cats="<?php echo esc_attr( $data_cats ); ?>"
           >
             <?php the_post_thumbnail( 'large', [ 'class' => 'shop-board-img', 'alt' => get_the_title() ] ); ?>
