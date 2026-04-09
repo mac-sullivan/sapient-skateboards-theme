@@ -40,6 +40,9 @@ max-width: 1268px;
   grid-template-columns: 1.6fr 1.2fr 1fr;
   gap: 4rem;
 
+  // Last col flush right
+  > *:last-child { justify-self: end; text-align: right; }
+
   @include tablet {
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
