@@ -135,6 +135,8 @@ max-width: 1268px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.25rem;
+
+  @include mobile { grid-template-columns: 1fr; }
 }
 
 .footer-links-col a,
