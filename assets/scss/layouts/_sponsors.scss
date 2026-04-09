@@ -48,7 +48,6 @@
   font-size: clamp(2.5rem, 5vw, 4.25rem);
   font-weight: 800;
   color: $charcoal;
-  letter-spacing: -0.04em;
   line-height: 1.05;
   margin: 0 0 1.25rem;
   display: block;
@@ -93,7 +92,6 @@
     font-family: $font-heading;
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 800;
-    letter-spacing: -0.03em;
     background: linear-gradient(135deg, $ochre 0%, $ochre-light 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -106,7 +104,6 @@
     font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: #888;
   }
 }
@@ -163,7 +160,6 @@
   font-family: $font-main;
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 0.3rem 0.75rem;
   border-radius: 100px;
@@ -184,7 +180,6 @@
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
   color: #888;
 }
 
@@ -193,7 +188,6 @@
   font-size: 2rem;
   font-weight: 800;
   color: $charcoal;
-  letter-spacing: -0.03em;
   line-height: 1;
 }
 

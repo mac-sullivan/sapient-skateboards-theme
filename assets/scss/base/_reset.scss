@@ -40,7 +40,7 @@ body.admin-bar {
 
 // Push content below fixed header — JS sets --header-offset on <body>
 // !important needed to override the body { padding: 0 !important } reset above
-body:not(.intro-page) {
+body:not(.intro-page):not(.page-template-page-process) {
   padding-top: var(--header-offset, #{$nav-height + 30px}) !important;
   background: $white;
 }

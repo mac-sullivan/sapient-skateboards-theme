@@ -56,6 +56,18 @@ function pt_logo_svg_mobile( $height = 32, $class = '' ) {
     return $svg;
 }
 
+// ── Process page fonts (Bebas Neue + Barlow) ─────────────────────────────────
+add_action( 'wp_enqueue_scripts', function() {
+    if ( is_page_template( 'page-process.php' ) ) {
+        wp_enqueue_style(
+            'process-fonts',
+            'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500&display=swap',
+            [],
+            null
+        );
+    }
+} );
+
 add_action( 'wp_enqueue_scripts', 'pt_enqueue_styles' );
 function pt_enqueue_styles() {
     // Parent theme (required for child theme)
@@ -362,7 +374,7 @@ add_action( 'init', function() {
     remove_action( 'woocommerce_after_shop_loop_item',       'woocommerce_template_loop_add_to_cart',   10 );
 } );
 
-// ── Product Size field (ACF) ──────────────────────────────────────────────────
+// ── Product Size field (ACF repeater) ────────────────────────────────────────
 add_action( 'acf/init', function() {
     if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
     acf_add_local_field_group( [
@@ -371,21 +383,116 @@ add_action( 'acf/init', function() {
         'location' => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'product' ] ] ],
         'fields'   => [ [
             'key'          => 'field_product_sizes',
-            'label'        => 'Available Sizes',
+            'label'        => 'Sizes',
             'name'         => 'product_sizes',
-            'type'         => 'checkbox',
-            'instructions' => 'Check the sizes available for this product.',
-            'choices'      => [
-                'XS'  => 'XS',
-                'S'   => 'Small',
-                'M'   => 'Medium',
-                'L'   => 'Large',
-                'XL'  => 'XL',
-                'XXL' => 'XXL',
-            ],
-            'layout'       => 'horizontal',
-            'return_format' => 'value',
+            'type'         => 'repeater',
+            'instructions' => 'Add sizes in order. Boards: 8.0, 8.25, 8.5 etc. Apparel: XS, S, M, L, XL.',
+            'button_label' => 'Add Size',
+            'layout'       => 'table',
+            'sub_fields'   => [ [
+                'key'          => 'field_size_value',
+                'label'        => 'Size',
+                'name'         => 'size_value',
+                'type'         => 'text',
+                'placeholder'  => 'e.g. 8.25 or M',
+                'column_width' => '100',
+            ] ],
         ] ],
+    ] );
+} );
+
+// ── Process Page ACF fields ───────────────────────────────────────────────────
+add_action( 'acf/init', function() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+    acf_add_local_field_group( [
+        'key'      => 'group_process_page',
+        'title'    => 'Process Page',
+        'location' => [ [ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-process.php' ] ] ],
+        'fields'   => [
+            [
+                'key'   => 'field_process_hero_image',
+                'label' => 'Hero Image',
+                'name'  => 'process_hero_image',
+                'type'  => 'image',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
+                'instructions'  => 'Full-viewport hero — wide warehouse/industrial shot.',
+            ],
+            [
+                'key'         => 'field_process_hero_headline',
+                'label'       => 'Hero Headline',
+                'name'        => 'process_hero_headline',
+                'type'        => 'text',
+                'default_value' => 'Built here. No exceptions.',
+                'instructions'  => 'Large overlaid headline on the hero image.',
+            ],
+            [
+                'key'          => 'field_process_hero_sub',
+                'label'        => 'Hero Subtext',
+                'name'         => 'process_hero_sub',
+                'type'         => 'textarea',
+                'rows'         => 3,
+                'default_value'=> 'We don\'t outsource the hard part.',
+            ],
+            [
+                'key'          => 'field_process_steps_repeater',
+                'label'        => 'Process Steps',
+                'name'         => 'process_steps_repeater',
+                'type'         => 'repeater',
+                'button_label' => 'Add Step',
+                'layout'       => 'block',
+                'sub_fields'   => [
+                    [
+                        'key'           => 'field_ps_number',
+                        'label'         => 'Step Number',
+                        'name'          => 'step_number',
+                        'type'          => 'text',
+                        'placeholder'   => '01',
+                        'wrapper'       => [ 'width' => '15' ],
+                    ],
+                    [
+                        'key'           => 'field_ps_eyebrow',
+                        'label'         => 'Eyebrow',
+                        'name'          => 'step_eyebrow',
+                        'type'          => 'text',
+                        'placeholder'   => 'The Wood',
+                        'wrapper'       => [ 'width' => '85' ],
+                    ],
+                    [
+                        'key'           => 'field_ps_headline',
+                        'label'         => 'Headline',
+                        'name'          => 'step_headline',
+                        'type'          => 'text',
+                        'placeholder'   => 'It starts in the Midwest.',
+                    ],
+                    [
+                        'key'           => 'field_ps_body',
+                        'label'         => 'Body',
+                        'name'          => 'step_body',
+                        'type'          => 'wysiwyg',
+                        'tabs'          => 'visual',
+                        'toolbar'       => 'basic',
+                        'media_upload'  => 0,
+                    ],
+                    [
+                        'key'           => 'field_ps_image',
+                        'label'         => 'Image',
+                        'name'          => 'step_image',
+                        'type'          => 'image',
+                        'return_format' => 'array',
+                        'preview_size'  => 'medium',
+                        'instructions'  => 'Raw, industrial — see copy doc for image notes.',
+                    ],
+                    [
+                        'key'           => 'field_ps_image_caption',
+                        'label'         => 'Image Caption',
+                        'name'          => 'step_image_caption',
+                        'type'          => 'text',
+                        'placeholder'   => 'Optional caption shown below image',
+                    ],
+                ],
+            ],
+        ],
     ] );
 } );
 
@@ -950,6 +1057,16 @@ add_action( 'wp_enqueue_scripts', function() {
         'url'              => admin_url( 'admin-ajax.php' ),
         'newsletter_nonce' => wp_create_nonce( 'sapient_newsletter' ),
     ] );
+} );
+
+// ── Hide shipping from cart (show only at checkout) ───────────
+add_filter( 'woocommerce_cart_ready_to_calc_shipping', '__return_false' );
+add_filter( 'woocommerce_shipping_show_delivery_times',  '__return_false' );
+remove_action( 'woocommerce_cart_totals_after_order_total', 'woocommerce_shipping_calculator' );
+add_action( 'wp_head', function() {
+    if ( is_cart() ) {
+        echo '<style>.cart-collaterals .shipping-calculator-form, .cart_totals .shipping, tr.shipping { display:none !important; }</style>';
+    }
 } );
 
 // ── Newsletter signup handler ──────────────────────────────────

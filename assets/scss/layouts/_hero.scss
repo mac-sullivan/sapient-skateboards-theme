@@ -59,7 +59,6 @@
   display: block;
   font-family: $font-label;
   font-size: 1rem;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba($bone, 0.65);
   margin-bottom: 1.5rem;
@@ -72,7 +71,6 @@
   color: $bone;
   text-transform: uppercase;
   line-height: 0.95;
-  letter-spacing: -0.02em;
   margin: 0 0 1.5rem;
 }
 
@@ -107,7 +105,6 @@
   span {
     font-family: $font-label;
     font-size: 1rem;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: $bone;
   }

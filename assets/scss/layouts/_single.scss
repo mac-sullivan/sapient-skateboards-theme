@@ -59,7 +59,6 @@
   gap: 0.5rem;
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: $ochre-light;
   margin-bottom: 1.25rem;
@@ -76,8 +75,6 @@
 
   &:hover { color: $bone; text-decoration: none; }
 }
-
-// .single-post-title now uses .blog-archive-title — no overrides needed
 
 .single-post-meta {
   display: flex;
@@ -127,7 +124,6 @@
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: 800;
     color: #0d0d0d;
-    letter-spacing: -0.03em;
     margin: 3rem 0 1rem;
   }
 
@@ -136,7 +132,6 @@
     font-size: 1.25rem;
     font-weight: 700;
     color: #0d0d0d;
-    letter-spacing: -0.02em;
     margin: 2.5rem 0 0.75rem;
   }
 
@@ -243,7 +238,6 @@
 .nav-direction {
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: $ochre;
   font-family: $font-main;
@@ -311,7 +305,6 @@
 .sidebar-meta-label {
   font-weight: 600;
   color: #aaa;
-  letter-spacing: 0.02em;
 }
 
 .sidebar-meta-val {
@@ -344,7 +337,6 @@
   font-family: $font-main;
   padding: 0.6rem 1.25rem;
   border-radius: 100px;
-  letter-spacing: 0.02em;
   transition: none;
 
   &:hover {

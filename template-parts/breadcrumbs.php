@@ -4,7 +4,8 @@
  * Uses product-breadcrumb styles (Engravers Gothic, uppercase).
  */
 
-$crumbs = [];
+$home   = '<a href="' . esc_url( home_url( '/' ) ) . '">Home</a>';
+$crumbs = [ $home ];
 
 // ── WooCommerce ───────────────────────────────────────────────
 if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {

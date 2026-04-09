@@ -24,7 +24,6 @@
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   color: $charcoal;
   margin: 0 0 2rem;
 }
@@ -40,7 +39,6 @@
   font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   line-height: 1;
   color: $charcoal;
   margin: 0 0 1rem;
@@ -80,7 +78,6 @@
   .woocommerce-ordering select {
     font-family: $font-label;
     font-size: 1rem;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: $charcoal;
     background: transparent;
@@ -131,7 +128,6 @@
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
   line-height: 1;
   color: rgba($charcoal, 0.4);
   cursor: pointer;
@@ -184,6 +180,12 @@
   object-fit: cover;
 }
 
+.shop-img-grid--apparel .shop-board-img {
+  max-height: 20rem;
+  width: auto;
+  margin: 0 auto;
+}
+
 .shop-product-info {
   display: flex;
   flex-direction: column;
@@ -197,7 +199,6 @@
   font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: $charcoal;
 }
 
@@ -286,7 +287,6 @@
   font-size: 1.1rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
   line-height: 1.2;
   margin: 0;
 }
@@ -294,7 +294,6 @@
 .product-colorway {
   font-family: $font-label;
   font-size: 1rem;
-  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
 }
@@ -313,7 +312,6 @@
   font-family: $font-label;
   font-size: 1rem;
   font-weight: 400;
-  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: $olive;
   border: 1px solid $olive;
@@ -471,9 +469,8 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 0;
+  margin-bottom: .5rem;
 
   a {
     color: rgba($charcoal, 0.4);
@@ -490,7 +487,6 @@
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
   color: $charcoal;
   line-height: 1.1;
   margin: 0;
@@ -499,7 +495,6 @@
 .product-single-sku {
   font-family: $font-label;
   font-size: 0.7rem;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
 }
@@ -597,7 +592,6 @@
     font-family: $font-label;
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     transition: none;
@@ -620,7 +614,6 @@
   font-family: $font-label;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
   border: 1px solid rgba($charcoal, 0.2);
@@ -642,7 +635,6 @@
   h1, h2, h3, h4 {
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
     color: $charcoal;
     margin: 1rem 0 0.4rem;
     font-size: 0.85rem;
@@ -677,7 +669,6 @@
     font-family: $font-label;
     font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba($charcoal, 0.3);
 
@@ -709,7 +700,6 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
 }
@@ -737,7 +727,6 @@
   font-family: $font-label !important;
   font-size: 0.75rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   cursor: pointer !important;
   box-shadow: none !important;
@@ -756,7 +745,6 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #000;
 }
@@ -785,7 +773,6 @@
   font-family: $font-label;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
   transition: none;
@@ -831,7 +818,6 @@
   font-family: $font-label;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
   transition: none;
@@ -899,7 +885,6 @@
   font-family: $font-label;
   font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.55);
   text-align: center;
@@ -915,7 +900,6 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
   color: $ochre;
   text-transform: uppercase;
   margin: 0;
@@ -925,7 +909,6 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
   color: $ochre;
   text-transform: uppercase;
   margin: 0;
@@ -944,7 +927,6 @@
     font-family: $font-heading;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: -0.01em;
     margin: 1.5em 0 0.5em;
     line-height: 1.1;
     color: $charcoal;
@@ -1006,7 +988,6 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: $charcoal;
 
@@ -1025,4 +1006,12 @@
 
   .woocommerce .blog-archive-header {
     display: none;
+  }
+
+
+
+  .term-apparel {
+.woocommerce img, .woocommerce-page img {
+    max-height: 20rem;
+  }
   }

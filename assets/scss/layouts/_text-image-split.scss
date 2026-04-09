@@ -42,7 +42,6 @@
     gap: 0.5rem;
     font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
     text-transform: uppercase;
     margin-bottom: 1rem;
 
@@ -65,7 +64,6 @@
   font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 800;
   line-height: 1.1;
-  letter-spacing: -0.02em;
   margin: 0 0 1.25rem;
 
   .section-tis--dark & { color: $bone; }

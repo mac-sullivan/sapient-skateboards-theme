@@ -99,8 +99,10 @@ while ( have_posts() ) : the_post();
           <span class="product-option-label">Size</span>
           <div class="product-size-choices">
             <input type="hidden" name="sapient_size" id="sapient_size_val" value="">
-            <?php foreach ( $available_sizes as $size ) : ?>
-              <button type="button" class="size-btn" data-value="<?php echo esc_attr( $size ); ?>">
+            <?php foreach ( $available_sizes as $row ) :
+                $size = esc_attr( $row['size_value'] );
+              ?>
+              <button type="button" class="size-btn" data-value="<?php echo $size; ?>">
                 <?php echo esc_html( $size ); ?>
               </button>
             <?php endforeach; ?>

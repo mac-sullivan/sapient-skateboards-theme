@@ -60,7 +60,7 @@ $products = new WP_Query( $query_args );
 
 
 
-    <div class="shop-img-grid">
+    <div class="shop-img-grid<?php if ( is_product_category( 'softgoods' ) ) echo ' shop-img-grid--apparel'; ?>">
       <?php if ( $products->have_posts() ) : ?>
         <?php while ( $products->have_posts() ) : $products->the_post();
           // Get category slugs for this product

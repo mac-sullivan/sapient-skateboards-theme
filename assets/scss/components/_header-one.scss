@@ -87,14 +87,12 @@
   background: transparent;
   font-family: $font-label;
   font-size: 0.6rem;
-  letter-spacing: 0.18em;
   color: $black;
   outline: none;
   padding: 2px 0;
 
   &::placeholder {
     color: rgba($black, 0.35);
-    letter-spacing: 0.2em;
   }
 
   &::-webkit-search-cancel-button,

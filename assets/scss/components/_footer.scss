@@ -25,12 +25,12 @@
   padding: 5rem 0 4rem;
 }
 .container.footer-grid {
-max-width: 1168px;
+max-width: 1268px;
 }
 
 .footer-bottom {
   .container.footer-bottom-inner {
-    max-width: 1168px;
+    max-width: 1268px;
   }
 }
 
@@ -106,7 +106,6 @@ max-width: 1168px;
   font-family: $font-label;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: rgba(#000, 0.85);
   margin: 0 0 .25rem;
@@ -175,7 +174,6 @@ max-width: 1168px;
   font-family: $font-label !important;
   font-size: 0.65rem !important;
   font-weight: 600;
-  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(#000, 0.9);
 }
@@ -202,7 +200,7 @@ max-width: 1168px;
 
 .container.footer-border-wrap {
   padding: 0 1.5rem;
-  max-width: 1168px;
+  max-width: 1268px;
   .footer-border {
       border-top: 1px solid rgba(#000, 0.12);
   }
@@ -256,7 +254,6 @@ max-width: 1168px;
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   background: $black;
   color: #fff;
@@ -301,7 +298,6 @@ max-width: 1168px;
     font-family: $font-main;
     font-size: 0.75rem;
     color: rgba(#000, 0.35);
-    letter-spacing: 0.05em;
   }
 }
 
@@ -337,7 +333,6 @@ max-width: 1168px;
   gap: 0.5rem;
   font-family: $font-main;
   font-size: 0.75rem;
-  letter-spacing: 0.05em;
   text-transform: none;
   color: rgba(#000, 0.35);
 }

@@ -16,7 +16,6 @@
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   line-height: 1;
   color: $charcoal;
   margin: 0;
@@ -34,7 +33,6 @@
   font-family: $font-label;
   font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.45);
   background: transparent;
@@ -112,7 +110,6 @@
   font-size: 1.2rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: $charcoal;
   margin: 0;
 }
@@ -120,7 +117,6 @@
 .team-card-position {
   font-family: $font-label;
   font-size: 0.58rem;
-  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
 }
@@ -142,7 +138,6 @@
 .team-empty {
   font-family: $font-label;
   font-size: 0.8rem;
-  letter-spacing: 0.1em;
   color: rgba($charcoal, 0.4);
   a { color: $charcoal; }
 }
@@ -161,7 +156,6 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($bone, 0.35);
   text-decoration: none;
@@ -266,7 +260,6 @@
     font-family: $font-label;
     font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba($charcoal, 0.45);
     text-decoration: none;
@@ -288,7 +281,6 @@
   font-size: clamp(2.5rem, 5vw, 5rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
   line-height: 0.95;
   color: $charcoal;
   margin: 0 0 0.75rem;
@@ -298,7 +290,6 @@
   font-family: $font-label;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: $ochre;
   display: block;
@@ -335,7 +326,6 @@
   font-family: $font-label;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
   text-decoration: none;

@@ -111,7 +111,6 @@
   gap: 0.5rem;
   font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: $ochre-light;
   margin-bottom: 1.25rem;
@@ -131,7 +130,6 @@
   font-size: clamp(3rem, 6vw, 6rem);
   font-weight: 800;
   color: $bone;
-  letter-spacing: -0.04em;
   line-height: 1.0;
   margin: 0 0 1.25rem;
 }
@@ -163,7 +161,6 @@
   padding: 0.35rem 0.85rem;
   background: rgba($bone, 0.07);
   backdrop-filter: blur(8px);
-  letter-spacing: 0.05em;
 
   svg { flex-shrink: 0; opacity: 0.7; }
 }
@@ -180,7 +177,6 @@
 
   span {
     font-size: 1rem;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba($bone, 0.3);
     writing-mode: vertical-rl;
@@ -256,7 +252,7 @@
   .badge-label {
     font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
+
     text-transform: uppercase;
     opacity: 0.8;
   }
@@ -271,7 +267,6 @@
     gap: 0.5rem;
     font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: $ochre;
     margin-bottom: 1.25rem;
@@ -292,7 +287,6 @@
   font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: 800;
   color: #0d0d0d;
-  letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0 0 1.5rem;
 }
@@ -330,7 +324,6 @@
     gap: 0.5rem;
     font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: $ochre-light;
     margin-bottom: 2rem;
@@ -351,7 +344,6 @@
   font-size: clamp(3rem, 7vw, 7rem);
   font-weight: 800;
   color: $bone;
-  letter-spacing: -0.04em;
   line-height: 1.0;
   margin: 0 0 2rem;
 
@@ -397,14 +389,12 @@
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 800;
   color: $bone;
-  letter-spacing: -0.03em;
   line-height: 1;
 }
 
 .about-stat-label {
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba($bone, 0.7);
 }
@@ -434,7 +424,6 @@
     gap: 0.5rem;
     font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: $ochre-light;
     margin-bottom: 1rem;
@@ -455,7 +444,6 @@
   font-size: clamp(2rem, 3.5vw, 3.5rem);
   font-weight: 800;
   color: $bone;
-  letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0;
 }
@@ -486,7 +474,6 @@
     font-weight: 700;
     color: $bone;
     margin: 1rem 0 0.75rem;
-    letter-spacing: -0.02em;
   }
 
   p {
@@ -554,7 +541,6 @@
   p {
     font-size: 1rem;
     color: rgba($bone, 0.3);
-    letter-spacing: 0.1em;
     text-transform: uppercase;
     margin: 0;
   }

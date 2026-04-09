@@ -25,7 +25,6 @@
   font-family: $font-label;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
   margin-bottom: 1rem;
@@ -36,7 +35,6 @@
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   line-height: 1;
   color: $charcoal;
   margin: 0 0 1.25rem;
@@ -70,7 +68,6 @@
     font-family: $font-label;
     font-size: 0.6rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba($charcoal, 0.35);
   }
@@ -140,7 +137,6 @@
     font-family: $font-label;
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     transition: none;
@@ -156,7 +152,6 @@
   .wpcf7-not-valid-tip {
     font-family: $font-label;
     font-size: 0.65rem;
-    letter-spacing: 0.1em;
     color: #c0392b;
     margin-top: 0.25rem;
     display: block;
@@ -167,7 +162,6 @@
     padding: 1rem;
     font-family: $font-label;
     font-size: 0.7rem;
-    letter-spacing: 0.1em;
     border: 1.5px solid rgba($charcoal, 0.2);
     color: $charcoal;
     border-radius: 0;
