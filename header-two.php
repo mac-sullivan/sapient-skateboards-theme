@@ -80,10 +80,11 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
       <div class="nav-cart-wrap">
         <button class="nav-cart h2-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
           <span class="money-bag-icon">
-            <svg class="money-bag-svg" width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 10 C5 12 2 17 2 22 C2 27.5 7.5 31 14 31 C20.5 31 26 27.5 26 22 C26 17 23 12 18 10 Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-              <path d="M10 10 L10 8 Q14 10.5 18 8 L18 10" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M11 8 C11 5 12.5 3 14 3 C15.5 3 17 5 17 8" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg class="money-bag-svg" width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Full silhouette: top bundle → pinched neck → wide body -->
+              <path d="M9 14 C6 13 5 10 7 7 C8 5 10 3 12 3 C14 3 16 5 17 7 C19 10 18 13 15 14 C19 15 23 18 23 23 C23 27 18 30 12 30 C6 30 1 27 1 23 C1 18 5 15 9 14 Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <!-- String tie / pinch line -->
+              <path d="M8.5 14 Q12 15.5 15.5 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
             </svg>
             <span class="money-bag-count"><?php echo esc_html( $count ?: 0 ); ?></span>
           </span>
