@@ -80,11 +80,7 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
       <div class="nav-cart-wrap">
         <button class="nav-cart h2-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
           <span class="money-bag-icon">
-            <svg class="money-bag-svg" width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 14 C6 13 5 10 7 7 C8 5 10 3 12 3 C14 3 16 5 17 7 C19 10 18 13 15 14 C19 15 23 18 23 23 C23 27 18 30 12 30 C6 30 1 27 1 23 C1 18 5 15 9 14 Z" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-              <path d="M8.5 14 Q12 15.5 15.5 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-              <text x="12" y="25" text-anchor="middle" font-family="serif" font-size="9" font-weight="700" fill="currentColor">$</text>
-            </svg>
+            <img class="money-bag-svg" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/money-bag.svg' ); ?>" width="32" height="40" alt="" aria-hidden="true">
             <span class="money-bag-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
           </span>
         </button>
