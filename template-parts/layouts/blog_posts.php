@@ -58,9 +58,7 @@ $active_cat = is_category() ? get_queried_object() : null;
       <?php if ( $heading ) : ?>
         <h1 class="blog-archive-title"><?php echo esc_html( $heading ); ?></h1>
       <?php endif; ?>
-      <?php if ( $subtext ) : ?>
-        <p class="blog-archive-sub"><?php echo esc_html( $subtext ); ?></p>
-      <?php endif; ?>
+
     </div>
   </div>
 

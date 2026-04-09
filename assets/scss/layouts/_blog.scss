@@ -12,7 +12,7 @@
 
 .blog-archive-header {
   padding: clamp(2rem, 4vw, 2rem) 0 0;
-  margin: 0 0 2rem;
+  margin: 0 0 0.75rem;
   // background: $charcoal;
   // padding: 1rem;
   // position: relative;
@@ -83,7 +83,7 @@
 // ─── Category Filter ─────────────────────────────────────────
 .blog-filter-wrap {
   background: $bone;
-  padding: 1.5rem 0 0;
+  padding: 0.75rem 0 0;
 
   .container { max-width: $max-width; }
 }
