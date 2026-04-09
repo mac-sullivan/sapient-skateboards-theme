@@ -184,6 +184,7 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
     var rect = header.getBoundingClientRect();
     document.body.style.setProperty('--header-offset', (rect.bottom + 16) + 'px');
     document.body.style.setProperty('--header-h', header.offsetHeight + 'px');
+    document.body.style.setProperty('--header-bottom', rect.bottom + 'px');
   }
   setHeaderOffset();
   window.addEventListener('resize', setHeaderOffset, { passive: true });

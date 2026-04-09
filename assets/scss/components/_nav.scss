@@ -268,16 +268,17 @@
 .nav-mobile-overlay {
   display: none;
   position: fixed;
-  top: var(--header-h, 100px);
+  top: var(--header-bottom, var(--header-h, 70px));
   left: 0;
   right: 0;
   bottom: 0;
   background: $white;
-  z-index: 998;
+  z-index: 9999;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   overflow-y: auto;
+  border-top: 1px solid rgba($black, 0.1);
 
   &.open { display: flex; }
 }
@@ -285,51 +286,52 @@
 .nav-links-mobile-list {
   list-style: none;
   margin: 0;
-  padding: 2rem 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0;
   width: 100%;
+  flex: 1;
 
-  li { width: 100%; text-align: center; }
+  li { width: 100%; }
 
-  a {
+  // top-level links
+  > li > a {
     font-family: $font-label;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     text-transform: uppercase;
-    color: rgba($black, 0.6);
-    display: block;
-    padding: 1.1rem 2rem;
+    letter-spacing: 0.04em;
+    color: $black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
     text-decoration: none;
     border-bottom: 1px solid rgba($black, 0.08);
 
-    &:hover {
-      color: $black;
-      background: rgba($yellow, 0.08);
-      text-decoration: none;
-    }
+    &:active { background: rgba($black, 0.04); }
   }
 
   li.current-menu-item > a,
-  li[aria-current="page"] > a { background: $amber; color: $charcoal; font-weight: 700; }
+  li[aria-current="page"] > a {
+    background: $amber;
+    color: $black;
+    border-bottom-color: rgba($black, 0.12);
+  }
 
   .menu-item-has-children > a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
     &::after {
       content: '';
       display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
       transform: rotate(45deg);
-      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
       transform-origin: 60% 60%;
+      opacity: 0.4;
     }
   }
 
@@ -343,20 +345,25 @@
     margin: 0;
     max-height: 0;
     overflow: hidden;
-    background: rgba($black, 0.03);
+    background: #f7f7f7;
 
     &.is-open { max-height: 500px; }
 
-    a {
-      font-size: 0.75rem;
-      padding: 0.8rem 2rem;
-      color: rgba($black, 0.5);
-      border-bottom: 1px solid rgba($black, 0.05);
+    li a {
+      font-family: $font-label;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: rgba($black, 0.55);
+      padding: 0.9rem 2rem;
+      display: block;
+      border-bottom: 1px solid rgba($black, 0.06);
     }
   }
 }
 
-.mobile-cta { margin-top: 2rem; }
+.mobile-cta { display: none; }
 
 // ─── Desktop: always hide mobile overlay ────────────────────
 @include desktop {
