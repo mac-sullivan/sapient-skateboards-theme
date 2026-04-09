@@ -377,6 +377,11 @@
   padding-bottom: 6rem;
   background: $bone;
 
+  @include mobile {
+    padding-top: var(--header-h, 3.5rem);
+    padding-bottom: 3rem;
+  }
+
   // When flex sections follow, reduce bottom padding — sections bring their own spacing
   &:has(+ .product-flex-sections) {
     padding-bottom: 3rem;
@@ -395,6 +400,11 @@
 
   @include tablet {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @include mobile {
+    gap: 1.5rem;
   }
 }
 
