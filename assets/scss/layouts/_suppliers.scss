@@ -72,27 +72,39 @@
 
     tbody tr {
       display: block;
+      position: relative;
       border-bottom: 2px solid rgba($black, 0.12);
-      padding: 0.5rem 0;
+      padding: 0.75rem 0 0.5rem;
 
       &:first-child { border-top: 1px solid rgba($black, 0.12); }
     }
 
-    tbody td {
+    // Hide the # row — number shows as top-right counter instead
+    tbody td:first-child {
+      display: block;
+      position: absolute;
+      top: 0.75rem;
+      right: 0;
+      border: none;
+      padding: 0;
+      font-size: 0.7rem;
+      color: rgba($black, 0.25);
+      text-align: right;
+
+      &::before { display: none; }
+    }
+
+    tbody td:not(:first-child) {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 0.55rem 0;
+      padding: 0.45rem 0;
       border-bottom: 1px solid rgba($black, 0.06);
       font-size: 0.9rem;
       text-align: right;
 
-      &:last-child {
-        border-bottom: none;
-        text-align: right;
-      }
+      &:last-child { border-bottom: none; }
 
-      // Label from data attribute
       &::before {
         content: attr(data-label);
         font-family: $font-label;
