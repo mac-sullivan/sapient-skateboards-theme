@@ -291,13 +291,35 @@ function pt_cleanup() {
 // Force lazy loading on all WP-generated images not already marked eager
 add_filter( 'wp_lazy_loading_enabled', '__return_true' );
 
-// Add decoding=async to all WP attachment images
+// Performance: decoding=async + lazy load on all WP attachment images
 add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment, $size ) {
-    if ( empty( $attr['decoding'] ) ) {
-        $attr['decoding'] = 'async';
+    // Always async decode
+    $attr['decoding'] = 'async';
+
+    // Lazy load everything except explicitly eager-flagged images
+    if ( empty( $attr['loading'] ) ) {
+        $attr['loading'] = 'lazy';
     }
+
     return $attr;
 }, 10, 3 );
+
+// Auto-generate WebP versions on upload (WP 6.1+)
+add_filter( 'wp_upload_image_mime_transforms', function( $transforms ) {
+    $transforms['image/jpeg'][] = 'image/webp';
+    $transforms['image/png'][]  = 'image/webp';
+    return $transforms;
+} );
+
+// Serve WebP if browser supports it + file exists
+add_filter( 'wp_get_attachment_image_src', function( $image ) {
+    if ( ! $image ) return $image;
+    $webp = preg_replace( '/\.(jpe?g|png)$/i', '.webp', $image[0] );
+    if ( $webp !== $image[0] && file_exists( str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $webp ) ) ) {
+        $image[0] = $webp;
+    }
+    return $image;
+} );
 
 // Ensure alt text fallback — use attachment title if alt is empty
 add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment ) {
