@@ -111,14 +111,10 @@
 .product-card:not(.product-card--placeholder),
 .shop-img-link {
   opacity: 0;
-  transform: translateY(14px);
 
   &.card-in {
     opacity: 1;
-    transform: translateY(0);
-    transition:
-      opacity  0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 200ms),
-      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 200ms);
+    transition: opacity 0.45s ease calc(var(--stagger-i, 0) * 180ms);
   }
 }
 
@@ -128,7 +124,6 @@
   .product-card:not(.product-card--placeholder),
   .shop-img-link {
     opacity: 1 !important;
-    transform: none !important;
     transition: none !important;
   }
 }
