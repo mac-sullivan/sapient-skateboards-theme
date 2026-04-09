@@ -108,7 +108,8 @@
 // JS sets --stagger-i per card; .card-in is added by IntersectionObserver.
 .blog-card,
 .team-card,
-.product-card:not(.product-card--placeholder) {
+.product-card:not(.product-card--placeholder),
+.shop-img-link {
   opacity: 0;
   transform: translateY(14px);
 
@@ -116,15 +117,16 @@
     opacity: 1;
     transform: translateY(0);
     transition:
-      opacity  0.75s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 300ms),
-      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 300ms);
+      opacity  0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 200ms),
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 200ms);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .blog-card,
   .team-card,
-  .product-card:not(.product-card--placeholder) {
+  .product-card:not(.product-card--placeholder),
+  .shop-img-link {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;

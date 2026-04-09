@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Must be in its own DOMContentLoaded so WooCommerce product
 // cards are in the DOM before we query and observe them.
 document.addEventListener('DOMContentLoaded', function () {
-  var cards = document.querySelectorAll('.blog-card, .team-card, .product-card:not(.product-card--placeholder)');
+  var cards = document.querySelectorAll('.blog-card, .team-card, .product-card:not(.product-card--placeholder), .shop-img-link');
   if (!cards.length) return;
 
   // Assign stagger index per card within its parent grid
