@@ -236,31 +236,28 @@
 .nav-toggle {
   display: none;
   background: none;
-  border: none;
+  border: 1.5px solid $black;
   cursor: pointer;
-  padding: 0.25rem;
-  flex-direction: column;
-  gap: 5px;
+  padding: 0.3rem 0.65rem;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
   position: relative;
-  z-index: 1001;
+  z-index: 10000;
 
-  span {
+  .nav-toggle-label {
+    font-family: $font-label;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $black;
+    line-height: 1;
     display: block;
-    width: 20px;
-    height: 1.5px;
-    background: $black;
-    transform-origin: center;
-    transition: transform 0.2s ease, opacity 0.15s ease;
   }
 
   &.is-open {
-    span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    border-color: $black;
+    .nav-toggle-label { color: $black; }
   }
 }
 

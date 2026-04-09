@@ -134,9 +134,9 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
         </button>
       </form>
 
-      <!-- Mobile hamburger -->
+      <!-- Mobile menu button -->
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span><span></span><span></span>
+        <span class="nav-toggle-label" data-open="MENU" data-close="CLOSE">MENU</span>
       </button>
 
     </div>
@@ -191,10 +191,16 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
   window.addEventListener('load',   setHeaderOffset);
 
   if (toggle && overlay) {
+    var toggleLabel = toggle.querySelector('.nav-toggle-label');
     toggle.addEventListener('click', function () {
       var open = overlay.classList.toggle('open');
       toggle.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (toggleLabel) {
+        toggleLabel.textContent = open
+          ? toggleLabel.getAttribute('data-close')
+          : toggleLabel.getAttribute('data-open');
+      }
     });
   }
 
