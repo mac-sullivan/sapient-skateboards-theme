@@ -79,12 +79,17 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
       ?>
       <div class="nav-cart-wrap">
         <button class="nav-cart h2-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 01-8 0"/>
-          </svg>
-          <span class="cart-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
+          <span class="money-bag-icon">
+            <svg class="money-bag-svg" width="32" height="36" viewBox="0 0 32 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Knot / tie at top -->
+              <path d="M12 6 C12 3 14 1 16 1 C18 1 20 3 20 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+              <!-- Neck -->
+              <path d="M11 6 C11 8 13 9.5 16 9.5 C19 9.5 21 8 21 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+              <!-- Bag body -->
+              <path d="M11 9.5 C5 11 2 16 2 21 C2 28.5 8 35 16 35 C24 35 30 28.5 30 21 C30 16 27 11 21 9.5 Z" fill="currentColor" opacity="0.12" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            <span class="money-bag-count"><?php echo esc_html( $count ?: 0 ); ?></span>
+          </span>
         </button>
 
         <div class="cart-preview" data-cart-preview>

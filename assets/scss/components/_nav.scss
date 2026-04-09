@@ -213,6 +213,31 @@
   display: block;
 }
 
+// ─── Money bag cart icon ─────────────────────────────────────
+.money-bag-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.money-bag-svg {
+  display: block;
+}
+
+.money-bag-count {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: $font-main;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: $black;
+  line-height: 1;
+  pointer-events: none;
+}
+
 // ─── Nav CTA button ─────────────────────────────────────────
 .btn-nav-cta {
   font-family: $font-label;

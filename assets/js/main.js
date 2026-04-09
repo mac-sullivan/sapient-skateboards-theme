@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateCartCount(count) {
-    document.querySelectorAll('.cart-count').forEach(function (el) {
+    document.querySelectorAll('.cart-count, .money-bag-count').forEach(function (el) {
       el.textContent = count;
       el.classList.toggle('has-items', count > 0);
     });
