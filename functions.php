@@ -389,6 +389,83 @@ add_action( 'acf/init', function() {
     ] );
 } );
 
+// ── Hide Griptape toggle (ACF) ────────────────────────────────────────────────
+add_action( 'acf/init', function() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+    acf_add_local_field_group( [
+        'key'      => 'group_product_griptape',
+        'title'    => 'Griptape Add-on',
+        'location' => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'product' ] ] ],
+        'fields'   => [ [
+            'key'          => 'field_hide_griptape',
+            'label'        => 'Hide Griptape Option',
+            'name'         => 'hide_griptape',
+            'type'         => 'true_false',
+            'instructions' => 'Check to remove the griptape selector from this product page.',
+            'ui'           => 1,
+            'default_value'=> 0,
+        ] ],
+    ] );
+} );
+
+// ── Product Color field (ACF repeater) ───────────────────────────────────────
+add_action( 'acf/init', function() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+    acf_add_local_field_group( [
+        'key'      => 'group_product_colors',
+        'title'    => 'Available Colors',
+        'location' => [ [ [ 'param' => 'post_type', 'operator' => '==', 'value' => 'product' ] ] ],
+        'fields'   => [ [
+            'key'          => 'field_product_colors',
+            'label'        => 'Colors',
+            'name'         => 'product_colors',
+            'type'         => 'repeater',
+            'instructions' => 'Add, reorder, or remove color options for this product.',
+            'button_label' => 'Add Color',
+            'layout'       => 'table',
+            'sub_fields'   => [
+                [
+                    'key'           => 'field_color_name',
+                    'label'         => 'Name',
+                    'name'          => 'color_name',
+                    'type'          => 'text',
+                    'placeholder'   => 'e.g. Midnight Black',
+                    'column_width'  => '50',
+                ],
+                [
+                    'key'           => 'field_color_hex',
+                    'label'         => 'Color',
+                    'name'          => 'color_hex',
+                    'type'          => 'color_picker',
+                    'default_value' => '#000000',
+                    'column_width'  => '50',
+                ],
+            ],
+        ] ],
+    ] );
+} );
+
+// ── Color add-on: save to cart ────────────────────────────────────────────────
+add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $product_id, $variation_id ) {
+    if ( ! empty( $_POST['sapient_color'] ) ) {
+        $cart_item_data['sapient_color'] = sanitize_text_field( $_POST['sapient_color'] );
+    }
+    return $cart_item_data;
+}, 10, 3 );
+
+add_filter( 'woocommerce_get_item_data', function( $item_data, $cart_item ) {
+    if ( ! empty( $cart_item['sapient_color'] ) ) {
+        $item_data[] = [ 'key' => 'Color', 'value' => wc_clean( $cart_item['sapient_color'] ) ];
+    }
+    return $item_data;
+}, 10, 2 );
+
+add_action( 'woocommerce_checkout_create_order_line_item', function( $item, $cart_item_key, $values, $order ) {
+    if ( ! empty( $values['sapient_color'] ) ) {
+        $item->add_meta_data( 'Color', $values['sapient_color'], true );
+    }
+}, 10, 4 );
+
 // ── Size add-on: save to cart ─────────────────────────────────────────────────
 add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $product_id, $variation_id ) {
     if ( ! empty( $_POST['sapient_size'] ) ) {
@@ -870,6 +947,48 @@ function sapient_ajax_add_to_cart() {
 // Localise AJAX url for front-end
 add_action( 'wp_enqueue_scripts', function() {
     wp_localize_script( 'sapient-main', 'sapientAjax', [
-        'url' => admin_url( 'admin-ajax.php' ),
+        'url'              => admin_url( 'admin-ajax.php' ),
+        'newsletter_nonce' => wp_create_nonce( 'sapient_newsletter' ),
     ] );
 } );
+
+// ── Newsletter signup handler ──────────────────────────────────
+add_action( 'wp_ajax_sapient_newsletter',        'sapient_newsletter_handler' );
+add_action( 'wp_ajax_nopriv_sapient_newsletter', 'sapient_newsletter_handler' );
+
+function sapient_newsletter_handler() {
+    if ( ! check_ajax_referer( 'sapient_newsletter', 'nonce', false ) ) {
+        wp_send_json_error( [ 'message' => 'Security check failed.' ], 403 );
+    }
+
+    $email = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+    $phone = isset( $_POST['phone'] ) ? sanitize_text_field( $_POST['phone'] ) : '';
+
+    if ( ! is_email( $email ) ) {
+        wp_send_json_error( [ 'message' => 'Please enter a valid email address.' ] );
+    }
+
+    // Store signups as a WP option (array)
+    $signups = get_option( 'sapient_newsletter_signups', [] );
+    foreach ( $signups as $existing ) {
+        if ( $existing['email'] === $email ) {
+            wp_send_json_success( [ 'message' => "You're already subscribed!" ] );
+        }
+    }
+
+    $signups[] = [
+        'email' => $email,
+        'phone' => $phone,
+        'date'  => current_time( 'Y-m-d H:i:s' ),
+    ];
+    update_option( 'sapient_newsletter_signups', $signups );
+
+    // Notify admin
+    wp_mail(
+        get_option( 'admin_email' ),
+        'New Sapient Newsletter Signup',
+        "Email: {$email}\nPhone: {$phone}"
+    );
+
+    wp_send_json_success( [ 'message' => "You're in! Thanks for signing up." ] );
+}

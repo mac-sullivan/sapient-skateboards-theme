@@ -225,4 +225,36 @@ document.addEventListener('DOMContentLoaded', function () {
     if (toast) toast.classList.remove('is-visible');
   });
 
+  // ── Newsletter signup form ────────────────────────────────
+  $('#footer-newsletter-form').on('submit', function (e) {
+    e.preventDefault();
+    var $form = $(this);
+    var $btn  = $form.find('.fnf-btn');
+    var $msg  = $form.find('.fnf-msg');
+
+    $btn.prop('disabled', true).text('Sending…');
+    $msg.removeClass('is-success is-error').text('');
+
+    $.post(sapientAjax.url, {
+      action: 'sapient_newsletter',
+      nonce:  sapientAjax.newsletter_nonce,
+      email:  $form.find('#fnf-email').val(),
+      phone:  $form.find('#fnf-phone').val(),
+    })
+    .done(function (res) {
+      if (res && res.success) {
+        $msg.addClass('is-success').text(res.data.message);
+        $form.find('.fnf-input').val('');
+      } else {
+        $msg.addClass('is-error').text(res.data ? res.data.message : 'Something went wrong.');
+      }
+    })
+    .fail(function () {
+      $msg.addClass('is-error').text('Could not connect. Please try again.');
+    })
+    .always(function () {
+      $btn.prop('disabled', false).text('Subscribe');
+    });
+  });
+
 }(jQuery));

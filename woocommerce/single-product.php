@@ -60,7 +60,6 @@ while ( have_posts() ) : the_post();
       $cats      = get_the_terms( get_the_ID(), 'product_cat' );
       $main_cat  = null;
       if ( $cats && ! is_wp_error( $cats ) ) {
-        // Prefer a non-uncategorized term
         foreach ( $cats as $cat ) {
           if ( $cat->slug !== 'uncategorized' ) { $main_cat = $cat; break; }
         }
@@ -71,7 +70,7 @@ while ( have_posts() ) : the_post();
         <a href="<?php echo esc_url( home_url('/shop/') ); ?>">Shop</a>
         <?php if ( $main_cat ) : ?>
           <span class="breadcrumb-sep">/</span>
-          <a href="<?php echo esc_url( home_url( '/shop/?cat=' . $main_cat->slug ) ); ?>"><?php echo esc_html( $main_cat->name ); ?></a>
+          <a href="<?php echo esc_url( get_term_link( $main_cat ) ); ?>"><?php echo esc_html( $main_cat->name ); ?></a>
         <?php endif; ?>
         <span class="breadcrumb-sep">/</span>
         <span class="breadcrumb-current"><?php echo esc_html( $title ); ?></span>
@@ -110,8 +109,38 @@ while ( have_posts() ) : the_post();
         </div>
         <?php endif; ?>
 
+        <!-- ── Color selector ────────────────────────── -->
+        <?php
+        $available_colors = get_field( 'product_colors', get_the_ID() );
+        if ( ! empty( $available_colors ) ) :
+        ?>
+        <div class="product-color-option">
+          <span class="product-option-label">Color</span>
+          <div class="product-color-choices">
+            <input type="hidden" name="sapient_color" id="sapient_color_val" value="">
+            <?php foreach ( $available_colors as $row ) :
+              $name = esc_attr( $row['color_name'] );
+              $hex  = esc_attr( $row['color_hex'] );
+            ?>
+              <span class="color-swatch-wrap">
+                <button type="button" class="color-btn"
+                  data-value="<?php echo $name; ?>"
+                  style="--swatch: <?php echo $hex; ?>"
+                  title="<?php echo $name; ?>">
+                </button>
+                <span class="color-swatch-label"><?php echo esc_html( $row['color_name'] ); ?></span>
+              </span>
+            <?php endforeach; ?>
+          </div>
+          <p class="color-required-msg" style="display:none;">Please select a color.</p>
+        </div>
+        <?php endif; ?>
+
         <!-- ── Griptape Option (Boards only) ──────── -->
-        <?php if ( ! has_term( 'softgoods', 'product_cat', get_the_ID() ) ) : ?>
+        <?php
+        $hide_griptape = get_field( 'hide_griptape', get_the_ID() );
+        if ( ! $hide_griptape && ! has_term( 'softgoods', 'product_cat', get_the_ID() ) ) :
+        ?>
         <div class="product-griptape-option">
           <span class="product-option-label">Griptape</span>
           <div class="product-griptape-choices">
@@ -184,6 +213,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Color selector
+  const colorBtns = document.querySelectorAll('.color-btn');
+  const colorVal  = document.getElementById('sapient_color_val');
+  const colorMsg  = document.querySelector('.color-required-msg');
+  colorBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      colorBtns.forEach(function(b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      if (colorVal) colorVal.value = btn.dataset.value;
+      if (colorMsg) colorMsg.style.display = 'none';
+    });
+  });
+
   // Griptape selector
   const gripBtns = document.querySelectorAll('.griptape-btn');
   const gripVal  = document.getElementById('sapient_griptape_val');
@@ -197,12 +239,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Block add-to-cart if size not chosen
   const form = document.querySelector('form.cart');
-  if (form && sizeBtns.length) {
+  if (form) {
     form.addEventListener('submit', function(e) {
-      if (!sizeVal || !sizeVal.value) {
+      let blocked = false;
+
+      if (sizeBtns.length && (!sizeVal || !sizeVal.value)) {
         e.preventDefault();
+        blocked = true;
         if (sizeMsg) sizeMsg.style.display = 'block';
         document.querySelector('.product-size-option')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      if (colorBtns.length && (!colorVal || !colorVal.value)) {
+        e.preventDefault();
+        blocked = true;
+        if (colorMsg) colorMsg.style.display = 'block';
+        if (!sizeBtns.length || (sizeVal && sizeVal.value)) {
+          document.querySelector('.product-color-option')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       }
     });
   }

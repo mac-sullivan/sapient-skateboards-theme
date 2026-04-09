@@ -452,7 +452,7 @@
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
   position: sticky;
   top: calc(var(--header-h, 6rem) + 2rem);
 
@@ -509,6 +509,7 @@
   font-size: 1.75rem;
   font-weight: 800;
   color: $charcoal;
+  line-height: normal;
 
   .woocommerce-Price-amount { color: $charcoal; }
 }
@@ -518,8 +519,8 @@
   font-size: 0.95rem;
   color: rgba($charcoal, 0.6);
   line-height: 1.75;
-  border-top: 1px solid rgba($charcoal, 0.1);
-  padding-top: 1.25rem;
+  // border-top: 1px solid rgba($charcoal, 0.1);
+  // padding-top: 1.25rem;
   text-wrap: balance;
 
   p { margin: 0; }
@@ -527,7 +528,7 @@
 
 // WooCommerce add to cart
 .product-single-details {
-  .cart { display: flex; flex-direction: column; gap: 0.75rem; }
+  .cart { display: flex; flex-direction: column; gap: 1.25rem; }
 
   .quantity {
     display: flex;
@@ -543,6 +544,7 @@
     align-items: center;
     gap: 0.25rem;
     width: fit-content;
+    margin: 0;
   }
 
   .qty-btn {
@@ -569,7 +571,7 @@
     width: 48px;
     height: 48px;
     padding: 0;
-    border: 1.5px solid $charcoal;
+    border: 1px solid rgba(0,0,0,.2);
     background: transparent;
     font-family: $font-heading;
     font-size: 1rem;
@@ -756,7 +758,11 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba($charcoal, 0.4);
+  color: #000;
+}
+
+.product-size-choices .size-btn {
+    color: rgba($charcoal, 0.4);
 }
 
 .product-griptape-option {
@@ -842,6 +848,77 @@
     color: $charcoal;
     border-color: $amber;
   }
+}
+
+// ─── Color swatches ──────────────────────────────────────────
+.product-color-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.product-color-choices {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.color-swatch-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.color-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-color: var(--swatch);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  position: relative;
+  transition: none;
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+
+  &:hover {
+    border-color: rgba(0,0,0,0.4);
+  }
+
+  &.is-active {
+    border-color: $black;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $black;
+  }
+}
+
+.color-swatch-label {
+  font-family: $font-label;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba($charcoal, 0.55);
+  text-align: center;
+  max-width: 52px;
+  line-height: 1.3;
+
+  .color-btn.is-active ~ & {
+    color: $black;
+  }
+}
+
+.color-required-msg {
+  font-family: $font-label;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: $ochre;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 .size-required-msg {

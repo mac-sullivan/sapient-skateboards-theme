@@ -1,14 +1,13 @@
 <?php
 // ── Footer options ─────────────────────────────────────────────
-$footer_description = get_field( 'footer_description', 'option' )
-    ?: "Handcrafted skateboards built with intention. Rooted in Chicago's manufacturing legacy.";
 $footer_instagram   = get_field( 'footer_instagram', 'option' ) ?: 'https://www.instagram.com/sapientskateboards/';
 $footer_facebook    = get_field( 'footer_facebook',  'option' ) ?: '';
 $footer_youtube     = get_field( 'footer_youtube',   'option' ) ?: '';
 $footer_email       = get_field( 'footer_contact_email', 'option' )
     ?: 'info@sapientskateboards.com';
-$footer_location    = get_field( 'footer_contact_location', 'option' )
-    ?: 'Chicago, IL';
+$footer_location    = get_field( 'footer_contact_location', 'option' ) ?: '';
+$footer_description = get_field( 'footer_description', 'option' )
+    ?: '';
 ?>
 <footer id="site-footer">
 
@@ -27,7 +26,11 @@ $footer_location    = get_field( 'footer_contact_location', 'option' )
             height="48"
           >
         </a>
+
+        <?php if ( $footer_description ) : ?>
         <p class="footer-description"><?php echo esc_html( $footer_description ); ?></p>
+        <?php endif; ?>
+
         <div class="footer-social">
           <?php if ( $footer_instagram ) : ?>
           <a href="<?php echo esc_url( $footer_instagram ); ?>" target="_blank" rel="noopener" aria-label="Instagram">
@@ -47,9 +50,10 @@ $footer_location    = get_field( 'footer_contact_location', 'option' )
         </div>
       </div>
 
-      <!-- Col 2: Navigate -->
+            <!-- Col 4: Navigate -->
+     
       <div class="footer-links-col">
-        <h4 class="footer-col-label">Navigate</h4>
+          <span class="footer-col-label">Navigation</span>
         <?php
         wp_nav_menu( [
           'theme_location' => 'footer',
@@ -76,23 +80,43 @@ $footer_location    = get_field( 'footer_contact_location', 'option' )
         ?>
       </div>
 
+
+
       <!-- Col 3: Contact -->
       <div class="footer-contact-col">
-        <h4 class="footer-col-label">Contact</h4>
         <ul class="footer-contact-list">
           <li>
-            <span class="footer-contact-label">Email</span>
+            <span class="footer-col-label">Email</span>
             <a href="mailto:<?php echo esc_attr( $footer_email ); ?>"><?php echo esc_html( $footer_email ); ?></a>
           </li>
           <li>
-            <span class="footer-contact-label">Phone</span>
+            <span class="footer-col-label">Phone</span>
             <a href="tel:+16306242595">(630) 624-2595</a>
           </li>
           <li>
-            <span class="footer-contact-label">Location</span>
-            <span><?php echo esc_html( $footer_location ); ?></span>
+            <span class="footer-col-label">Location</span>
+            <div class="footer-contact-value footer-location-wysiwyg"><?php echo wp_kses_post( $footer_location ); ?></div>
           </li>
         </ul>
+      </div>
+
+
+
+            <!-- Col 2: Newsletter -->
+      <div class="footer-newsletter-col">
+        <p class="footer-col-label">Stay in the loop</p>
+        <p class="footer-newsletter-desc">New boards, collabs &amp; drops — straight to you.</p>
+        <form class="footer-newsletter-form" id="footer-newsletter-form" novalidate>
+          <?php wp_nonce_field( 'sapient_newsletter', 'newsletter_nonce' ); ?>
+          <div class="fnf-field">
+            <input class="fnf-input" type="email" id="fnf-email" name="email" placeholder="Email address" required>
+          </div>
+          <div class="fnf-field">
+            <input class="fnf-input" type="tel" id="fnf-phone" name="phone" placeholder="Phone (optional)">
+          </div>
+          <button type="submit" class="fnf-btn">Subscribe</button>
+          <p class="fnf-msg" aria-live="polite"></p>
+        </form>
       </div>
 
     </div><!-- .footer-grid -->
@@ -101,14 +125,13 @@ $footer_location    = get_field( 'footer_contact_location', 'option' )
   <!-- ── Bottom bar ──────────────────────────────────────────── -->
   <div class="footer-bottom">
     <div class="container footer-bottom-inner">
-      <span>&copy; <?php echo date('Y'); ?> Sapient Manufacturing Co.</span>
-      <div class="footer-legal">
+        <div class="footer-legal">
+        <span>&copy; <?php echo date('Y'); ?> Sapient Manufacturing Co.</span>
         <a href="<?php echo esc_url( home_url( '/privacy-policy' ) ); ?>">Privacy Policy</a>
         <a href="<?php echo esc_url( home_url( '/terms' ) ); ?>">Terms of Service</a>
       </div>
       <span class="footer-made-in">Made in Chicago, USA</span>
     </div>
-
   </div>
 
 </footer>

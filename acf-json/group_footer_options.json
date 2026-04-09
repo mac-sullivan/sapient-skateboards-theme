@@ -49,8 +49,12 @@
       "key": "field_footer_contact_location",
       "label": "Location",
       "name": "footer_contact_location",
-      "type": "text",
-      "default_value": "Chicago, IL"
+      "type": "wysiwyg",
+      "default_value": "",
+      "tabs": "all",
+      "toolbar": "basic",
+      "media_upload": 0,
+      "delay": 0
     },
     {
       "key": "field_footer_facebook",
