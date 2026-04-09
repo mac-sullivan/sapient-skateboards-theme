@@ -467,7 +467,7 @@
   flex-wrap: wrap;
   gap: 0.35rem;
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: .8rem;
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: .5rem;
@@ -1009,9 +1009,12 @@
   }
 
 
-
-  .term-apparel {
-.woocommerce img, .woocommerce-page img {
+  body.term-apparel.woocommerce img, 
+  body.term-apparel.woocommerce-page img {
     max-height: 20rem;
+    object-fit: contain;
   }
+
+  body.term-apparel.woocommerce .shop-img-grid {
+    margin: 4rem 0;
   }
