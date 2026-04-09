@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ─── Listing card stagger animation ───────────────────────
   (function () {
-    var cards = document.querySelectorAll('.blog-card, .team-card, .product-card');
+    var cards = document.querySelectorAll('.blog-card, .team-card, .product-card:not(.product-card--placeholder)');
     if (!cards.length) return;
 
     // Assign stagger index per card within its parent grid

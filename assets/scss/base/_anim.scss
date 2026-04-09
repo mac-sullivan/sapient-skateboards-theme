@@ -108,7 +108,7 @@
 // JS sets --stagger-i per card; .card-in is added by IntersectionObserver.
 .blog-card,
 .team-card,
-.product-card {
+.product-card:not(.product-card--placeholder) {
   opacity: 0;
   transform: translateY(14px);
 
@@ -124,7 +124,7 @@
 @media (prefers-reduced-motion: reduce) {
   .blog-card,
   .team-card,
-  .product-card {
+  .product-card:not(.product-card--placeholder) {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
