@@ -5,7 +5,7 @@ $cat_name = $cats ? esc_html($cats[0]->name) : '';
 $cat_url  = $cats ? get_category_link($cats[0]->term_id) : '';
 ?>
 
-<article class="single-post">
+<article class="single-post container">
 
   <!-- Hero -->
   <div class="blog-archive-header single-post-hero">

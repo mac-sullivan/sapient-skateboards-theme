@@ -136,7 +136,8 @@ $proc-font-b:  'Barlow', system-ui, sans-serif;
 // ─── Single step ──────────────────────────────────────────────
 .process-step {
   border-top: 1px solid $proc-rule;
-  padding: clamp(3rem, 6vw, 5rem) 0;
+  // padding: clamp(3rem, 6vw, 5rem) 0;
+  padding: 2rem 0;
 
   &:nth-child(even) { background: $proc-bg-alt; }
 }
