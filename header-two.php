@@ -7,6 +7,7 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<?php include( get_template_directory() . '/template-parts/icons/money-bag-symbol.php' ); ?>
 
 <?php
 $nav_pages = [
