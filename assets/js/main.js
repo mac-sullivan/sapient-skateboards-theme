@@ -257,34 +257,36 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ─── Listing card stagger animation ───────────────────────
-  (function () {
-    var cards = document.querySelectorAll('.blog-card, .team-card, .product-card:not(.product-card--placeholder)');
-    if (!cards.length) return;
-
-    // Assign stagger index per card within its parent grid
-    var grids = new Map();
-    cards.forEach(function (card) {
-      var parent = card.parentElement;
-      if (!grids.has(parent)) grids.set(parent, []);
-      grids.get(parent).push(card);
-    });
-    grids.forEach(function (gridCards) {
-      gridCards.forEach(function (card, i) {
-        card.style.setProperty('--stagger-i', i);
-      });
-    });
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('card-in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-
-    cards.forEach(function (card) { observer.observe(card); });
-  }());
-
 }(jQuery));
+
+// ─── Listing card stagger animation ─────────────────────────
+// Must be in its own DOMContentLoaded so WooCommerce product
+// cards are in the DOM before we query and observe them.
+document.addEventListener('DOMContentLoaded', function () {
+  var cards = document.querySelectorAll('.blog-card, .team-card, .product-card:not(.product-card--placeholder)');
+  if (!cards.length) return;
+
+  // Assign stagger index per card within its parent grid
+  var grids = new Map();
+  cards.forEach(function (card) {
+    var parent = card.parentElement;
+    if (!grids.has(parent)) grids.set(parent, []);
+    grids.get(parent).push(card);
+  });
+  grids.forEach(function (gridCards) {
+    gridCards.forEach(function (card, i) {
+      card.style.setProperty('--stagger-i', i);
+    });
+  });
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('card-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  cards.forEach(function (card) { observer.observe(card); });
+});
