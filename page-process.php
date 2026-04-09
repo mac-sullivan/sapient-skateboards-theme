@@ -15,34 +15,33 @@ $steps     = get_field( 'process_steps_repeater' );
 
   <!-- ── Hero ──────────────────────────────────────────────── -->
   <section class="process-hero">
-    <div class="container">
-        <!-- Split: text left, image right -->
-        <div class="process-hero-bottom">
-          <div class="process-hero-left">
-            <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
-            <p class="process-hero-eyebrow">How It's Made</p>
-            <h1 class="process-hero-headline"><?php echo esc_html( $hero_head ); ?></h1>
-            <?php if ( $hero_sub ) : ?>
-              <p class="process-hero-sub"><?php echo esc_html( $hero_sub ); ?></p>
-            <?php endif; ?>
-          </div>
 
-          <div class="process-hero-right">
-            <?php
-            $hero_img_url = '';
-            if ( is_array( $hero_img ) ) { $hero_img_url = $hero_img['url']; }
-            elseif ( $hero_img ) { $hero_img_url = wp_get_attachment_url( $hero_img ); }
-            ?>
-            <?php if ( $hero_img_url ) : ?>
-              <div class="process-hero-visual">
-                <img src="<?php echo esc_url( $hero_img_url ); ?>" alt="Sapient warehouse" loading="eager" fetchpriority="high" decoding="async" class="process-hero-img">
-              </div>
-            <?php else : ?>
-              <div class="process-hero-visual"><div class="process-hero-img-placeholder"></div></div>
-            <?php endif; ?>
-          </div>
-        </div>
+    <?php
+    $hero_img_url = '';
+    if ( is_array( $hero_img ) ) { $hero_img_url = $hero_img['url']; }
+    elseif ( $hero_img ) { $hero_img_url = wp_get_attachment_url( $hero_img ); }
+    ?>
+    <div class="process-hero-visual">
+      <?php if ( $hero_img_url ) : ?>
+        <img src="<?php echo esc_url( $hero_img_url ); ?>" alt="Sapient warehouse" loading="eager" fetchpriority="high" decoding="async" class="process-hero-img">
+      <?php else : ?>
+        <div class="process-hero-img-placeholder"></div>
+      <?php endif; ?>
     </div>
+
+    <div class="container">
+      <div class="process-hero-bottom">
+        <div class="process-hero-left">
+          <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
+          <p class="process-hero-eyebrow">How It's Made</p>
+          <h1 class="process-hero-headline"><?php echo esc_html( $hero_head ); ?></h1>
+          <?php if ( $hero_sub ) : ?>
+            <p class="process-hero-sub"><?php echo esc_html( $hero_sub ); ?></p>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- ── Steps ─────────────────────────────────────────────── -->
