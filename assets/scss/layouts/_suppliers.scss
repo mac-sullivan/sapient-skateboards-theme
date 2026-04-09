@@ -121,11 +121,14 @@
     font-size: 1rem;
   }
 
-  // ── Mobile: stack address off
+  // ── Mobile: hide address + website cols, full-width name
   @include mobile {
     .col-address { display: none; }
     .col-web     { display: none; }
-    .col-name    { padding-right: 0; }
+    .col-name    { padding-right: 1rem; font-size: 1rem; }
+    .col-no      { font-size: 0.85rem; }
+    thead th.col-address,
+    thead th.col-web { display: none; }
   }
 }
 

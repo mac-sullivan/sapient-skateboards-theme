@@ -28,8 +28,8 @@ get_header( sapient_get_active_header() );
             <tr>
               <th class="col-no">#</th>
               <th class="col-heading">Store</th>
-              <th class="col-heading">Address</th>
-              <th class="col-heading">Website</th>
+              <th class="col-heading col-address">Address</th>
+              <th class="col-heading col-web">Website</th>
             </tr>
           </thead>
           <tbody>
