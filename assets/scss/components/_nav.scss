@@ -279,7 +279,7 @@
 
   .nav-toggle-label {
     font-family: $font-label;
-    font-size: 0.65rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -329,7 +329,7 @@
   border: none;
   background: transparent;
   font-family: $font-main;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: $black;
   padding: 0.2rem 0;
   outline: none;
@@ -363,7 +363,7 @@
   // top-level links
   > li > a {
     font-family: $font-label;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -418,7 +418,7 @@
 
     li a {
       font-family: $font-label;
-      font-size: 0.8rem;
+      font-size: 1rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.03em;

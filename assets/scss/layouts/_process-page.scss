@@ -159,6 +159,10 @@ $proc-font-b:  'Barlow', system-ui, sans-serif;
       .process-step-text { order: unset; }
     }
   }
+
+  @include mobile {
+    gap: 0;
+  }
 }
 
 // ─── Image side ───────────────────────────────────────────────
@@ -206,6 +210,10 @@ $proc-font-b:  'Barlow', system-ui, sans-serif;
   flex-direction: column;
   justify-content: center;
   padding: clamp(1rem, 2vw, 2rem) 0;
+
+  @include mobile {
+    padding-top: 2.5rem;
+  }
 }
 
 .process-step-eyebrow {
