@@ -137,9 +137,11 @@ main > div:last-child {
   padding-bottom: clamp(5rem, 8vw, 7rem);
 }
 
-// Exceptions: sections that intentionally touch the newsletter (dark BG, etc.)
+// Exceptions: sections with their own bottom spacing or that touch the newsletter
 .section-cta-banner:last-child,
 .section-newsletter:last-child,
-.section-hero-video:last-child {
-  padding-bottom: 0;
+.section-hero-video:last-child,
+.product-single-page:last-child,
+.product-flex-sections:last-child {
+  padding-bottom: revert;
 }
