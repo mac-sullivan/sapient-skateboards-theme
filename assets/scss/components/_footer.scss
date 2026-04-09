@@ -40,8 +40,12 @@ max-width: 1268px;
   grid-template-columns: 1.6fr 1.2fr 1fr;
   gap: 4rem;
 
-  // Last col flush right
+  // Last col flush right on desktop, left on mobile
   > *:last-child { justify-self: end; text-align: right; }
+
+  @include tablet {
+    > *:last-child { justify-self: start; text-align: left; }
+  }
 
   @include tablet {
     grid-template-columns: 1fr 1fr;
