@@ -102,3 +102,31 @@
   .aw-img img { transform: none !important; }
   .aw-para  { opacity: 1 !important; transform: none !important; }
 }
+
+// ── Listing card stagger fade-in ──────────────────────────────
+// Applies to blog, team, and shop listing cards.
+// JS sets --stagger-i per card; .card-in is added by IntersectionObserver.
+.blog-card,
+.team-card,
+.product-card {
+  opacity: 0;
+  transform: translateY(14px);
+
+  &.card-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity  0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) calc(var(--stagger-i, 0) * 75ms),
+      transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) calc(var(--stagger-i, 0) * 75ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-card,
+  .team-card,
+  .product-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
