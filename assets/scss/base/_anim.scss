@@ -116,8 +116,8 @@
     opacity: 1;
     transform: translateY(0);
     transition:
-      opacity  0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) calc(var(--stagger-i, 0) * 75ms),
-      transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) calc(var(--stagger-i, 0) * 75ms);
+      opacity  0.85s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 120ms),
+      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--stagger-i, 0) * 120ms);
   }
 }
 
