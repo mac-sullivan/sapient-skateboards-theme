@@ -74,7 +74,7 @@ $cat_url  = $cats ? get_category_link($cats[0]->term_id) : '';
           ?>
           <?php if ($sidebar_img) : ?>
             <div class="sidebar-image">
-              <img src="<?php echo esc_url($sidebar_img); ? loading="lazy" decoding="async">" alt="">
+              <img src="<?php echo esc_url($sidebar_img); ?>" loading="lazy" decoding="async" alt="">
             </div>
           <?php endif; ?>
 

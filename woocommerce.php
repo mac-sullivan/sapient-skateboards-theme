@@ -120,7 +120,7 @@ get_header( sapient_get_active_header() );
           <div class="product-single-gallery">
             <?php if ( ! empty($all_images) ) : ?>
               <div class="product-gallery-main">
-                <img src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'large') ); ? loading="lazy" decoding="async">"
+                <img src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'large') ); ?>" loading="lazy" decoding="async"
                      alt="<?php echo esc_attr($title); ?>"
                      class="product-gallery-main-img" id="product-main-img">
               </div>
@@ -130,7 +130,7 @@ get_header( sapient_get_active_header() );
                     <button class="product-thumb-btn <?php echo $i === 0 ? 'is-active' : ''; ?>"
                       data-src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'large') ); ?>"
                       aria-label="View image <?php echo $i + 1; ?>">
-                      <img src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'thumbnail') ); ? loading="lazy" decoding="async">" alt="">
+                      <img src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'thumbnail') ); ?>" loading="lazy" decoding="async" alt="">
                     </button>
                   <?php endforeach; ?>
                 </div>

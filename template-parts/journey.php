@@ -10,7 +10,7 @@ $ig_url  = pt_field( 'instagram_url', '#', 'option' );
     <?php if ( $photos ) : ?>
       <div class="journey-grid">
         <?php foreach ( array_slice( $photos, 0, 6 ) as $photo ) : ?>
-          <img src="<?php echo esc_url( $photo['url'] ); ? loading="lazy" decoding="async">"
+          <img src="<?php echo esc_url( $photo['url'] ); ?>" loading="lazy" decoding="async"
                alt="<?php echo esc_attr( $photo['alt'] ?: 'Sapient Skateboards' ); ?>"
                loading="lazy">
         <?php endforeach; ?>

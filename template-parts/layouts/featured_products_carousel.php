@@ -45,7 +45,7 @@ if ( empty($products) ) return;
             <a href="<?php echo esc_url($permalink); ?>" class="featured-product-card">
               <div class="featured-product-img-wrap">
                 <?php if ($thumb_url) : ?>
-                  <img src="<?php echo esc_url($thumb_url); ? loading="lazy" decoding="async">" alt="<?php echo esc_attr($title); ?>" class="featured-product-img">
+                  <img src="<?php echo esc_url($thumb_url); ?>" loading="lazy" decoding="async" alt="<?php echo esc_attr($title); ?>" class="featured-product-img">
                 <?php else : ?>
                   <div class="featured-product-img-placeholder"></div>
                 <?php endif; ?>
