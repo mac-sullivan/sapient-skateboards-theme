@@ -358,10 +358,14 @@ max-width: 1268px;
 @include mobile {
   .footer-bottom-inner {
     flex-direction: column;
-    text-align: center;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
-  .footer-legal { justify-content: center; }
+  .footer-legal {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }
 
 .location-wrapper {
