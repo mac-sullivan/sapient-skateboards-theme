@@ -314,9 +314,10 @@
 
   li.current-menu-item > a,
   li[aria-current="page"] > a {
-    background: $amber;
     color: $black;
-    border-bottom-color: rgba($black, 0.12);
+    font-weight: 700;
+    border-left: 3px solid $amber;
+    padding-left: calc(1.5rem - 3px);
   }
 
   .menu-item-has-children > a {

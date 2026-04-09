@@ -125,3 +125,21 @@ body::after {
   color: rgba($charcoal, 0.2);
   font-style: normal;
 }
+
+
+// ─── Consistent pre-footer spacing ──────────────────────────
+// Normalizes the gap between the last page section and the newsletter/footer
+// across every page without touching individual section styles.
+#main-content > section:last-child,
+#main-content > div:last-child,
+main > section:last-child,
+main > div:last-child {
+  padding-bottom: clamp(5rem, 8vw, 7rem);
+}
+
+// Exceptions: sections that intentionally touch the newsletter (dark BG, etc.)
+.section-cta-banner:last-child,
+.section-newsletter:last-child,
+.section-hero-video:last-child {
+  padding-bottom: 0;
+}
