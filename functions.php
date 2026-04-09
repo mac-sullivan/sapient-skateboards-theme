@@ -280,7 +280,63 @@ function pt_cleanup() {
     remove_action( 'wp_head', 'wp_generator' );
     remove_action( 'wp_head', 'wlwmanifest_link' );
     remove_action( 'wp_head', 'rsd_link' );
+    remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+    remove_action( 'wp_print_styles', 'print_emoji_styles' );
+    remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+    remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 }
+
+// ── Performance & Accessibility ───────────────────────────────────────────────
+
+// Force lazy loading on all WP-generated images not already marked eager
+add_filter( 'wp_lazy_loading_enabled', '__return_true' );
+
+// Add decoding=async to all WP attachment images
+add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment, $size ) {
+    if ( empty( $attr['decoding'] ) ) {
+        $attr['decoding'] = 'async';
+    }
+    return $attr;
+}, 10, 3 );
+
+// Ensure alt text fallback — use attachment title if alt is empty
+add_filter( 'wp_get_attachment_image_attributes', function( $attr, $attachment ) {
+    if ( empty( $attr['alt'] ) ) {
+        $attr['alt'] = trim( strip_tags( get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ) ) );
+        if ( empty( $attr['alt'] ) ) {
+            $attr['alt'] = trim( strip_tags( $attachment->post_title ) );
+        }
+    }
+    return $attr;
+}, 20, 2 );
+
+// Remove WooCommerce bloat scripts we don't use
+add_action( 'wp_enqueue_scripts', function() {
+    if ( ! is_checkout() && ! is_cart() ) {
+        wp_dequeue_style( 'wc-blocks-style' );
+    }
+}, 100 );
+
+// Add theme-color meta for mobile browsers
+add_action( 'wp_head', function() {
+    echo '<meta name="theme-color" content="#141414">' . "\n";
+    echo '<meta name="color-scheme" content="light">' . "\n";
+}, 1 );
+
+// SEO: canonical URLs (lightweight, no plugin needed)
+add_action( 'wp_head', function() {
+    if ( is_singular() ) {
+        echo '<link rel="canonical" href="' . esc_url( get_permalink() ) . '">' . "\n";
+    } elseif ( is_front_page() ) {
+        echo '<link rel="canonical" href="' . esc_url( home_url( '/' ) ) . '">' . "\n";
+    }
+}, 5 );
+
+// Preconnect to Google Fonts (process page loads them)
+add_action( 'wp_head', function() {
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+}, 2 );
 
 // ── Newsletter AJAX subscription ──────────────────────────────────────────────
 add_action( 'wp_ajax_pt_newsletter_subscribe',        'pt_newsletter_subscribe' );

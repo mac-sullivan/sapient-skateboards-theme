@@ -16,7 +16,7 @@ $events  = get_posts(['post_type'=>'pt_event','numberposts'=>$count,'orderby'=>'
           <article class="event-card">
             <?php if (has_post_thumbnail($event->ID)) : ?>
               <div class="event-thumb">
-                <img src="<?php echo get_the_post_thumbnail_url($event->ID, 'medium'); ?>" alt="<?php echo esc_attr($event->post_title); ?>">
+                <img src="<?php echo get_the_post_thumbnail_url($event- loading="lazy" decoding="async">ID, 'medium'); ?>" alt="<?php echo esc_attr($event->post_title); ?>">
               </div>
             <?php endif; ?>
             <div class="event-info">

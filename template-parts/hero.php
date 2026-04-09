@@ -9,7 +9,7 @@ $story_url    = pt_field( 'hero_story_url', home_url('/about') );
 <section class="hero">
 
   <?php if ( $hero_image ) : ?>
-    <img class="hero-bg"
+    <img loading="eager" fetchpriority="high" decoding="async" class="hero-bg"
          src="<?php echo esc_url( $hero_image['url'] ); ?>"
          alt="<?php echo esc_attr( $hero_image['alt'] ); ?>"
          loading="eager">

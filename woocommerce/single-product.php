@@ -33,7 +33,7 @@ while ( have_posts() ) : the_post();
             <img
               src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'large') ); ?>"
               alt="<?php echo esc_attr($title); ?>"
-              class="product-gallery-main-img"
+              loading="eager" fetchpriority="high" decoding="async" class="product-gallery-main-img"
               id="product-main-img"
             >
             <span class="product-zoom-icon" aria-hidden="true">
@@ -80,7 +80,7 @@ while ( have_posts() ) : the_post();
               <button class="product-thumb-btn <?php echo $i === 0 ? 'is-active' : ''; ?>"
                 data-src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'large') ); ?>"
                 aria-label="View image <?php echo $i + 1; ?>">
-                <img src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'thumbnail') ); ?>" alt="">
+                <img src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'thumbnail') ); ? loading="lazy" decoding="async">" alt="">
               </button>
             <?php endforeach; ?>
           </div>
@@ -254,7 +254,7 @@ if ( ! $is_softgoods && ! empty( $steps ) ) : ?>
       <div class="process-step-inner">
         <div class="process-step-media">
           <?php if ( $img_url ) : ?>
-            <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $step['step_eyebrow'] ?? '' ); ?>" class="process-step-img">
+            <img src="<?php echo esc_url( $img_url ); ? loading="lazy" decoding="async">" alt="<?php echo esc_attr( $step['step_eyebrow'] ?? '' ); ?>" class="process-step-img">
           <?php else : ?>
             <div class="process-step-img-placeholder"></div>
           <?php endif; ?>

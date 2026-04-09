@@ -107,7 +107,7 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
                   $img_url  = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : wc_placeholder_img_src();
                 ?>
                 <tr class="cpt-row">
-                  <td class="cpt-img"><img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>"></td>
+                  <td class="cpt-img"><img src="<?php echo esc_url( $img_url ); ? loading="lazy" decoding="async">" alt="<?php echo esc_attr( $product->get_name() ); ?>"></td>
                   <td class="cpt-name"><?php echo esc_html( $product->get_name() ); ?></td>
                   <td class="cpt-qty"><?php echo esc_html( $item['quantity'] ); ?></td>
                   <td class="cpt-price"><?php echo wc_price( $product->get_price() ); ?></td>

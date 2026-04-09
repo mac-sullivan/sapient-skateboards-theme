@@ -45,12 +45,12 @@ while ( have_posts() ) : the_post();
       <div class="single-team-photo-col">
         <?php if ( $photo ) : ?>
           <div class="single-team-photo">
-            <img src="<?php echo esc_url( $photo['url'] ); ?>"
+            <img src="<?php echo esc_url( $photo['url'] ); ? loading="lazy" decoding="async">"
                  alt="<?php echo esc_attr( $photo['alt'] ?: get_the_title() ); ?>">
           </div>
         <?php else : ?>
           <div class="single-team-photo single-team-photo--empty">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/skull.svg"
+            <img src="<?php echo get_stylesheet_directory_uri(); ? loading="lazy" decoding="async">/assets/images/skull.svg"
                  alt="<?php the_title(); ?>" class="single-team-skull-placeholder">
           </div>
         <?php endif; ?>

@@ -22,7 +22,7 @@ $footer_description = get_field( 'footer_description', 'option' )
           <img
             src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sapient-manufacturing-logo.webp"
             alt="Sapient Manufacturing Co."
-            class="ss-logo ss-logo--footer"
+            loading="lazy" decoding="async" class="ss-logo ss-logo--footer"
             width="200"
             height="48"
           >

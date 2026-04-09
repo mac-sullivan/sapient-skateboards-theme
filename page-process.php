@@ -35,7 +35,7 @@ $steps     = get_field( 'process_steps_repeater' );
             ?>
             <?php if ( $hero_img_url ) : ?>
               <div class="process-hero-visual">
-                <img src="<?php echo esc_url( $hero_img_url ); ?>" alt="Sapient warehouse" class="process-hero-img">
+                <img src="<?php echo esc_url( $hero_img_url ); ?>" alt="Sapient warehouse" loading="eager" fetchpriority="high" decoding="async" class="process-hero-img">
               </div>
             <?php else : ?>
               <div class="process-hero-visual"><div class="process-hero-img-placeholder"></div></div>
@@ -64,7 +64,7 @@ $steps     = get_field( 'process_steps_repeater' );
                 <img
                   src="<?php echo esc_url( $img_url ); ?>"
                   alt="<?php echo esc_attr( $img_alt ); ?>"
-                  class="process-step-img"
+                  loading="lazy" decoding="async" class="process-step-img"
                 >
                 <?php if ( ! empty( $step['step_image_caption'] ) ) : ?>
                   <p class="process-step-caption"><?php echo esc_html( $step['step_image_caption'] ); ?></p>
