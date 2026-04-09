@@ -373,13 +373,13 @@
 
 // ─── Single Product Page ─────────────────────────────────────
 .product-single-page {
-  padding-top: var(--header-h, 6rem);
-  padding-bottom: 6rem;
+  padding-top: 0;
+  padding-bottom: 0;
   background: $bone;
 
   @include mobile {
-    padding-top: var(--header-h, 3.5rem);
-    padding-bottom: 3rem;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   // When flex sections follow, reduce bottom padding — sections bring their own spacing
@@ -598,7 +598,7 @@
   top: calc(var(--header-h, 6rem) + 2rem);
 
   @include tablet {
-    padding: 2rem 1.5rem;
+    padding: 2rem 0rem;
     border-left: none;
     border-top: 1px solid rgba($charcoal, 0.1);
   }
