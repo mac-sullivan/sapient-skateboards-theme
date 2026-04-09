@@ -19,7 +19,7 @@
         <ul class="contact-details-list">
           <li>
             <span class="detail-label">Email</span>
-            <a href="mailto:info@sapientskateboards.com">info@sapientskateboards.com</a>
+            <a href="mailto:sapientskateboards@gmail.com">sapientskateboards@gmail.com</a>
           </li>
           <li>
             <span class="detail-label">Phone</span>

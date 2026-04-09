@@ -1,7 +1,13 @@
+<?php
+$newsletter_video = get_field( 'footer_newsletter_video', 'option' )
+    ?: 'http://sapient-skateboards.local/wp-content/uploads/2026/03/sapient-x-fa_2-web-1.mp4';
+?>
 <section class="newsletter-banner newsletter-banner--video">
+  <?php if ( $newsletter_video ) : ?>
   <video class="newsletter-banner-video" autoplay muted loop playsinline>
-    <source src="<?php echo get_stylesheet_directory_uri(); ?>/assets/videos/newsletter-bg.mp4" type="video/mp4">
+    <source src="<?php echo esc_url( $newsletter_video ); ?>" type="video/mp4">
   </video>
+  <?php endif; ?>
   <div class="newsletter-banner-overlay"></div>
   <div class="container newsletter-banner-inner">
     <div class="newsletter-banner-text">

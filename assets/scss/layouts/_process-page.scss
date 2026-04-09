@@ -220,3 +220,14 @@ $proc-font-b:  'Barlow', system-ui, sans-serif;
   p { margin: 0 0 1em; &:last-child { margin: 0; } }
   strong { color: $proc-text; font-weight: 500; }
 }
+
+.product-process-heading {
+  font-family: $proc-font-h;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: $proc-text;
+  margin: 0 0 clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $proc-rule;
+}

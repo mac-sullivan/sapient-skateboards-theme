@@ -33,6 +33,21 @@
       "placeholder": "https://instagram.com/..."
     },
     {
+      "key": "field_footer_tab_newsletter",
+      "label": "Newsletter Banner",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_footer_newsletter_video",
+      "label": "Background Video URL",
+      "name": "footer_newsletter_video",
+      "type": "url",
+      "instructions": "MP4 video URL for the newsletter banner background. Can be a WordPress media URL or external link.",
+      "default_value": "",
+      "placeholder": "https://..."
+    },
+    {
       "key": "field_footer_tab_contact",
       "label": "Contact Info",
       "type": "tab",

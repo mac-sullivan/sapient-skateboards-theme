@@ -60,12 +60,28 @@ body.intro-page {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.3);
+
+  // Dark scrim behind just the content — keeps grit, lifts legibility
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 55% at 50% 50%,
+      rgba(#000, 0.6) 0%,
+      rgba(#000, 0.1) 100%
+    );
+    pointer-events: none;
+  }
 }
 
 // ── Logo ──────────────────────────────────────────────────────
 
 .intro-logo {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,20 +130,24 @@ body.intro-page {
 // ── Enter button ─────────────────────────────────────────────
 
 .intro-enter-btn {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.9rem 2.5rem;
-  font-family: $font-label;
-  font-size: 0.75rem;
-  font-weight: 400;
+  padding: .8rem 2.5rem;
+  font-family: $font-heading;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 500;
   text-transform: uppercase;
-  color: $black;
+  color: #000;
   background: transparent;
-  border: 1px solid $black;
+  border: 2px solid #000;
   text-decoration: none;
   cursor: pointer;
-  border-radius: $radius;
+  border-radius: 0;
+  letter-spacing: .2rem;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 
   &:hover {
     background: $black;

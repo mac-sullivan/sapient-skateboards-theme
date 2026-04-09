@@ -29,12 +29,50 @@ while ( have_posts() ) : the_post();
     <div class="product-single-gallery">
       <?php if ( ! empty($all_images) ) : ?>
         <div class="product-gallery-main">
-          <img
-            src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'large') ); ?>"
-            alt="<?php echo esc_attr($title); ?>"
-            class="product-gallery-main-img"
-            id="product-main-img"
-          >
+          <button class="product-zoom-trigger" id="product-zoom-trigger" aria-label="Enlarge image">
+            <img
+              src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'large') ); ?>"
+              alt="<?php echo esc_attr($title); ?>"
+              class="product-gallery-main-img"
+              id="product-main-img"
+            >
+            <span class="product-zoom-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <!-- Lightbox -->
+        <?php
+        $lightbox_imgs = [];
+        foreach ( $all_images as $img_id ) {
+          $lightbox_imgs[] = wp_get_attachment_image_url( $img_id, 'full' );
+        }
+        ?>
+        <div class="product-lightbox" id="product-lightbox" role="dialog" aria-modal="true" aria-label="Image enlarged"
+             data-images="<?php echo esc_attr( json_encode( $lightbox_imgs ) ); ?>">
+          <button class="product-lightbox-close" id="product-lightbox-close" aria-label="Close">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+          <button class="product-lightbox-prev" id="product-lightbox-prev" aria-label="Previous image">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <div class="product-lightbox-inner">
+            <img src="" alt="" class="product-lightbox-img" id="product-lightbox-img">
+          </div>
+          <button class="product-lightbox-next" id="product-lightbox-next" aria-label="Next image">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+          <div class="product-lightbox-counter" id="product-lightbox-counter"></div>
         </div>
         <?php if ( count($all_images) > 1 ) : ?>
           <div class="product-gallery-thumbs">
@@ -189,6 +227,59 @@ while ( have_posts() ) : the_post();
   </div>
 <?php endif; ?>
 
+<?php
+// ── Process steps — pulled globally from the Process page ──────
+// Only show on deck products (not softgoods/apparel)
+$is_softgoods = has_term( 'softgoods', 'product_cat', get_the_ID() );
+$process_page_id = get_page_by_path( 'process' );
+$process_page_id = $process_page_id ? $process_page_id->ID : null;
+$steps = $process_page_id ? get_field( 'process_steps_repeater', $process_page_id ) : [];
+
+if ( ! $is_softgoods && ! empty( $steps ) ) : ?>
+<section class="product-process-steps">
+  <div class="container"></div>
+  <?php foreach ( $steps as $i => $step ) :
+    $flip      = ( $i % 2 !== 0 ) ? 'process-step--flip' : '';
+    $img_url   = '';
+    if ( ! empty( $step['step_image'] ) ) {
+      if ( is_array( $step['step_image'] ) ) {
+        $img_url = $step['step_image']['url'];
+      } else {
+        $img_url = wp_get_attachment_url( $step['step_image'] );
+      }
+    }
+  ?>
+  <div class="process-step <?php echo esc_attr( $flip ); ?>">
+    <div class="container">
+      <div class="process-step-inner">
+        <div class="process-step-media">
+          <?php if ( $img_url ) : ?>
+            <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $step['step_eyebrow'] ?? '' ); ?>" class="process-step-img">
+          <?php else : ?>
+            <div class="process-step-img-placeholder"></div>
+          <?php endif; ?>
+          <?php if ( ! empty( $step['step_image_caption'] ) ) : ?>
+            <p class="process-step-caption"><?php echo esc_html( $step['step_image_caption'] ); ?></p>
+          <?php endif; ?>
+        </div>
+        <div class="process-step-text">
+          <?php if ( ! empty( $step['step_eyebrow'] ) ) : ?>
+            <p class="process-step-eyebrow"><?php echo esc_html( $step['step_eyebrow'] ); ?></p>
+          <?php endif; ?>
+          <?php if ( ! empty( $step['step_headline'] ) ) : ?>
+            <p class="process-step-headline"><?php echo esc_html( $step['step_headline'] ); ?></p>
+          <?php endif; ?>
+          <?php if ( ! empty( $step['step_body'] ) ) : ?>
+            <div class="process-step-body"><?php echo wp_kses_post( $step['step_body'] ); ?></div>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php endforeach; ?>
+</section>
+<?php endif; ?>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   // Gallery thumbs
@@ -200,6 +291,149 @@ document.addEventListener('DOMContentLoaded', function () {
       thumbBtns.forEach(function(b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
     });
+  });
+
+  // Lightbox with carousel + zoom + pan
+  var lightbox    = document.getElementById('product-lightbox');
+  var lightboxImg = document.getElementById('product-lightbox-img');
+  var zoomTrigger = document.getElementById('product-zoom-trigger');
+  var closeBtn    = document.getElementById('product-lightbox-close');
+  var prevBtn     = document.getElementById('product-lightbox-prev');
+  var nextBtn     = document.getElementById('product-lightbox-next');
+  var counter     = document.getElementById('product-lightbox-counter');
+
+  var images   = lightbox ? JSON.parse(lightbox.dataset.images || '[]') : [];
+  var curIndex = 0;
+
+  var scale = 1, isDragging = false, dragStartX = 0, dragStartY = 0, panX = 0, panY = 0;
+
+  function applyTransform() {
+    lightboxImg.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
+  }
+  function resetZoom() {
+    scale = 1; panX = 0; panY = 0;
+    lightboxImg.style.cursor = 'default';
+    applyTransform();
+  }
+  function updateCounter() {
+    if (counter) counter.textContent = (curIndex + 1) + ' / ' + images.length;
+    if (prevBtn) prevBtn.style.display = images.length > 1 ? '' : 'none';
+    if (nextBtn) nextBtn.style.display = images.length > 1 ? '' : 'none';
+  }
+  function goTo(index) {
+    curIndex = (index + images.length) % images.length;
+    lightboxImg.src = images[curIndex];
+    resetZoom();
+    updateCounter();
+  }
+
+  function openLightbox(startIndex) {
+    curIndex = startIndex || 0;
+    lightboxImg.src = images[curIndex];
+    resetZoom();
+    updateCounter();
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(resetZoom, 250);
+  }
+
+  // Open from main image — find its index
+  if (zoomTrigger) {
+    zoomTrigger.addEventListener('click', function() {
+      var idx = images.indexOf(mainImg.src);
+      openLightbox(idx >= 0 ? idx : 0);
+    });
+  }
+
+  // Open from thumbs — pass index
+  thumbBtns.forEach(function(btn, i) {
+    btn.addEventListener('dblclick', function() { openLightbox(i); });
+  });
+
+  // Nav arrows
+  if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(curIndex - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(curIndex + 1); });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+  // Click backdrop to close
+  if (lightbox) {
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Scroll to zoom
+    lightbox.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var delta = e.deltaY > 0 ? -0.15 : 0.15;
+      scale = Math.min(Math.max(scale + delta, 1), 5);
+      lightboxImg.style.cursor = scale > 1 ? 'grab' : 'default';
+      if (scale === 1) { panX = 0; panY = 0; }
+      applyTransform();
+    }, { passive: false });
+
+    // Drag to pan
+    lightbox.addEventListener('mousedown', function(e) {
+      if (e.target === closeBtn || e.target === prevBtn || e.target === nextBtn || scale === 1) return;
+      isDragging = true;
+      dragStartX = e.clientX - panX;
+      dragStartY = e.clientY - panY;
+      lightboxImg.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      panX = e.clientX - dragStartX;
+      panY = e.clientY - dragStartY;
+      applyTransform();
+    });
+    window.addEventListener('mouseup', function() {
+      if (!isDragging) return;
+      isDragging = false;
+      lightboxImg.style.cursor = scale > 1 ? 'grab' : 'default';
+    });
+
+    // Double-click to toggle zoom
+    lightboxImg.addEventListener('dblclick', function() {
+      if (scale > 1) { resetZoom(); } else { scale = 2.5; lightboxImg.style.cursor = 'grab'; applyTransform(); }
+    });
+
+    // Touch pinch-to-zoom + swipe to navigate
+    var lastDist = 0, touchStartX = 0;
+    lightbox.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 2) {
+        lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      } else if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+    lightbox.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        scale = Math.min(Math.max(scale + (dist - lastDist) * 0.01, 1), 5);
+        lastDist = dist;
+        applyTransform();
+      }
+    }, { passive: false });
+    lightbox.addEventListener('touchend', function(e) {
+      if (scale === 1 && e.changedTouches.length === 1) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) goTo(dx < 0 ? curIndex + 1 : curIndex - 1);
+      }
+    }, { passive: true });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox || !lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') goTo(curIndex + 1);
+    if (e.key === 'ArrowLeft')  goTo(curIndex - 1);
+    if (e.key === '=' || e.key === '+') { scale = Math.min(scale + 0.25, 5); applyTransform(); }
+    if (e.key === '-') { scale = Math.max(scale - 0.25, 1); if(scale===1){panX=0;panY=0;} applyTransform(); }
   });
 
   // Size selector
