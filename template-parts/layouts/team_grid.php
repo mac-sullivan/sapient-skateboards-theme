@@ -104,7 +104,8 @@ $has_filter = ! is_wp_error( $filter_terms ) && ! empty( $filter_terms );
 
             <div class="team-card-media">
               <?php if ( $photo ) : ?>
-                <img src="<?php echo esc_url( $photo['url'] ); ? loading="lazy" decoding="async">"
+                <img src="<?php echo esc_url( $photo['url'] ); ?>"
+                     loading="lazy" decoding="async"
                      alt="<?php echo esc_attr( get_the_title() ); ?>"
                      class="team-card-gif">
               <?php elseif ( has_post_thumbnail() ) : ?>
