@@ -147,6 +147,14 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
 
 <!-- Mobile nav overlay -->
 <nav id="site-nav-mobile" class="nav-mobile-overlay" aria-label="Mobile navigation">
+
+  <form class="mobile-search-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+    <input class="mobile-search-input" type="search" name="s" placeholder="Search…" value="<?php echo get_search_query(); ?>" autocomplete="off">
+    <button class="mobile-search-btn" type="submit" aria-label="Search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </form>
+
   <ul class="nav-links-mobile-list">
     <?php foreach ( $nav_pages as $label => $path ) :
       $url          = home_url( $path );
