@@ -30,7 +30,7 @@
       color: $charcoal;
       &:hover { background: #e0ddd8; }
     }
-    .nbf-msg { color: rgba(#fff, 0.6); }
+    .nbf-msg { display: none; color: rgba(#fff, 0.6); }
   }
 }
 
@@ -83,7 +83,7 @@
 
 .newsletter-banner-sub {
   font-family: $font-main;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: rgba(#141414, 0.5);
   margin: 0;
 }
