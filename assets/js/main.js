@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 120px 0px' });
 
   cards.forEach(function (card) { observer.observe(card); });
 });

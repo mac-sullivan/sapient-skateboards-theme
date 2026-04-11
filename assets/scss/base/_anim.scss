@@ -114,7 +114,7 @@
 
   &.card-in {
     opacity: 1;
-    transition: opacity 0.3s ease calc(var(--stagger-i, 0) * 100ms);
+    transition: opacity 0.25s ease calc(var(--stagger-i, 0) * 55ms);
   }
 }
 
