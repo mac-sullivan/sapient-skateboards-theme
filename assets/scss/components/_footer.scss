@@ -23,6 +23,9 @@
   position: relative;
   z-index: 1;
   padding: 5rem 0 4rem;
+  @include mobile {
+    padding: 2.5rem 0 1.5rem;
+  }
 }
 .container.footer-grid {
 max-width: 1268px;
@@ -37,24 +40,21 @@ max-width: 1268px;
 // ─── 4-column grid ───────────────────────────────────────────
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1.2fr 1fr;
-  gap: 4rem;
-
-  // Last col flush right on desktop, left on mobile
-  > *:last-child { justify-self: end; text-align: right; }
+  grid-template-columns: 1.6fr 1fr 0.85fr;
+  gap: 4rem 2rem;
 
   @include tablet {
-    > *:last-child { justify-self: start; text-align: left; }
+    > *:nth-last-child(-n+2) { justify-self: start; text-align: left; }
   }
 
   @include tablet {
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   @include mobile {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 1.5rem;
   }
 }
 
@@ -134,7 +134,7 @@ max-width: 1268px;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.25rem;
+  gap: 0.6rem 2rem;
 
   @include mobile { grid-template-columns: 1fr; }
 }
@@ -161,12 +161,15 @@ max-width: 1268px;
   display: flex;
   flex-direction: column;
   gap: 0;
-
   li {
     display: flex;
     flex-direction: column;
     gap: 0;
     margin: 0 0 1rem;
+
+    &:last-child {
+      margin: 0;
+    }
   }
 
   a {
@@ -356,6 +359,10 @@ max-width: 1268px;
 }
 
 @include mobile {
+
+  .footer-bottom {
+    padding: 0 0 2.5rem;
+  }
   .footer-bottom-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -365,6 +372,15 @@ max-width: 1268px;
   .footer-legal {
     justify-content: flex-start;
     flex-wrap: wrap;
+    flex-direction: column-reverse;
+
+      a {
+    &::before {
+      content: "";
+      padding-left: 0;
+      border: none;
+    }
+  }
   }
 }
 
