@@ -798,6 +798,34 @@
 
   strong, b { color: $charcoal; font-weight: 700; }
   a { color: $ochre; text-decoration: underline; }
+
+  // ── Specs table ───────────────────────────────────────────
+  .product-specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.25rem;
+    font-family: $font-label;
+    font-size: 0.65rem;
+
+    thead th {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba($charcoal, 0.45);
+      padding: 0.4rem 0.75rem;
+      border-bottom: 1.5px solid rgba($charcoal, 0.12);
+      text-align: left;
+    }
+
+    tbody td {
+      padding: 0.5rem 0.75rem;
+      color: $charcoal;
+      border-bottom: 1px solid rgba($charcoal, 0.06);
+      font-size: 0.75rem;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+  }
 }
 
 .product-single-meta {
