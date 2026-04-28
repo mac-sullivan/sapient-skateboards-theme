@@ -11,12 +11,9 @@
 
 <?php
 $nav_pages = [
-  'WEB STORE' => '/shop',
-  'PROCESS'   => '/process',
-  'CREW'      => '/crew',
-  'ARCHIVE'   => '/archive',
+  'WEB STORE' => '/web-store',
   'SUPPLIERS' => '/suppliers',
-  'CONTACT US'=> '/contact',
+  'CONTACT US'=> '/contact-us',
 ];
 $shop_children = [
   'Skateboards' => '/product-category/skateboards',

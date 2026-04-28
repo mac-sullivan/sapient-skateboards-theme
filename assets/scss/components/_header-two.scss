@@ -56,14 +56,14 @@
   align-items: center;
   gap: 4px;
   border: 1px solid rgba($black, 0.8);
-  background-color: #f4f4f4;
+  background-color: #fff;
   padding: .4rem 0.5rem;
 
   input[type="search"] {
     width: 120px;
     border: none;
-    background: transparent;
-    font-family: $font-main;
+    background: #fff;
+    font-family: $font-label;
     font-size: 0.75rem;
     color: $black;
     outline: none;
