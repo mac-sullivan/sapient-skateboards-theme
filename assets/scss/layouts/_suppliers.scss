@@ -128,3 +128,53 @@
   color: rgba($black, 0.3);
   padding: 3rem 0;
 }
+
+// ─── Subheading ───────────────────────────────────────────────
+.suppliers-subheading {
+  font-family: $font-label;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba($black, 0.5);
+  margin: 0.35rem 0 0;
+}
+
+// ─── Supplier CTA ─────────────────────────────────────────────
+.section-supplier-cta {
+  padding: 5rem 0;
+  border-top: 1px solid rgba($black, 0.12);
+  background: $bone;
+}
+
+.supplier-cta-inner {
+  max-width: 760px;
+}
+
+.supplier-cta-title {
+  font-family: $font-heading;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $black;
+  margin: 0 0 2rem;
+}
+
+.supplier-cta-body {
+  p {
+    font-family: $font-main;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba($black, 0.75);
+    margin: 0 0 1.25rem;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  a {
+    color: $black;
+    font-weight: 600;
+
+    &:hover { opacity: 0.6; }
+  }
+}

@@ -53,19 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
     input.dispatchEvent(new Event('change', { bubbles: true }));
   });
 
-  // ─── Desktop nav: parent items open dropdown only ──────────
-  document.querySelectorAll('.nav-links-desktop .menu-item-has-children > a').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var item = link.parentElement;
-      var isOpen = item.classList.contains('is-open');
-      // Close all
-      document.querySelectorAll('.nav-links-desktop .menu-item-has-children.is-open').forEach(function (el) {
-        el.classList.remove('is-open');
-      });
-      // Toggle: only open if it was closed
-      if (!isOpen) item.classList.add('is-open');
+  // ─── Desktop nav: parent items navigate on click; dropdown on hover (CSS) ──
+  // Clicking a parent nav link navigates directly — no preventDefault
+  // Dropdown open/close is handled by CSS :hover and mouseleave cleanup
+  document.querySelectorAll('.nav-links-desktop .menu-item-has-children').forEach(function (item) {
+    item.addEventListener('mouseleave', function () {
+      item.classList.remove('is-open');
     });
   });
 

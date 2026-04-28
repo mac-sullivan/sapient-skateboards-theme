@@ -95,9 +95,6 @@
       <?php
         $nav_pages = [
           'WEB STORE' => '/shop',
-          'PROCESS'   => '/process',
-          'CREW'      => '/crew',
-          'ARCHIVE'   => '/archive',
           'SUPPLIERS' => '/suppliers',
           'CONTACT US'=> '/contact',
         ];

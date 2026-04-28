@@ -9,7 +9,7 @@ $footer_location    = get_field( 'footer_contact_location', 'option' ) ?: '';
 $footer_description = get_field( 'footer_description', 'option' )
     ?: '';
 ?>
-<?php get_template_part( 'template-parts/newsletter-banner' ); ?>
+<?php // newsletter-banner removed per Will 2026-04-28 ?>
 <footer id="site-footer">
 
   <!-- ── Main footer body ────────────────────────────────────── -->

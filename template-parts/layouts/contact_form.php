@@ -14,7 +14,7 @@
       <div class="contact-info">
         <!-- <span class="contact-eyebrow">Contact</span> -->
         <h1 class="contact-title">Contact Us</h1>
-        <p class="contact-sub">Questions about gear, wholesale, or team inquiries — we respond to every message.</p>
+        <p class="contact-sub">Please do not hesitate to reach out with any inquiries regarding our product line, wholesale opportunities, manufacturing capabilities, or general questions. We would be happy to connect.</p>
 
         <ul class="contact-details-list">
           <li>

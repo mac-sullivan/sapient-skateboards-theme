@@ -184,10 +184,10 @@ while ( have_posts() ) : the_post();
         <div class="product-griptape-option">
           <span class="product-option-label">Griptape</span>
           <div class="product-griptape-choices">
-            <input type="hidden" name="sapient_griptape" id="sapient_griptape_val" value="No griptape">
-            <button type="button" class="griptape-btn is-active" data-value="No griptape">None</button>
-            <button type="button" class="griptape-btn" data-value="Black griptape (+$5)">Black <span>+$5</span></button>
-            <button type="button" class="griptape-btn" data-value="Clear griptape (+$5)">Clear <span>+$5</span></button>
+            <input type="hidden" name="sapient_griptape" id="sapient_griptape_val" value="None">
+            <button type="button" class="griptape-btn is-active" data-value="None">None</button>
+            <button type="button" class="griptape-btn" data-value="Black (Applied) +$5">Black (Applied) <span>+$5</span></button>
+            <button type="button" class="griptape-btn" data-value="Black (On Side) +$5">Black (On Side) <span>+$5</span></button>
           </div>
         </div>
         <?php endif; ?>

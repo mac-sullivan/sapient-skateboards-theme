@@ -85,24 +85,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-
-    &::after {
-      content: '';
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
-      transform: rotate(225deg);
-      flex-shrink: 0;
-      transition: transform 0.3s ease !important;
-      transform-origin: 50% 50%;
-      will-change: transform;
-    }
-  }
-
-  .menu-item-has-children.is-open > a::after {
-    transform: rotate(45deg) !important;
+    // No dropdown arrow per Will 2026-04-28
   }
 
   .sub-menu {
@@ -154,6 +137,8 @@
     li.current-menu-item > a { background: $amber; color: $charcoal; font-weight: 700; }
   }
 
+  // Open on hover (desktop) OR when JS adds is-open class
+  .menu-item-has-children:hover > .sub-menu,
   .menu-item-has-children.is-open > .sub-menu {
     opacity: 1;
     visibility: visible;
@@ -193,6 +178,12 @@
   text-decoration: none;
 
   &:hover { opacity: 0.6; text-decoration: none; }
+}
+
+// Only show cart count badge when items are in cart
+.cart-count:not(.has-items),
+.money-bag-count:not(.has-items) {
+  display: none;
 }
 
 .cart-count {
