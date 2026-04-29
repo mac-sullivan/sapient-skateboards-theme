@@ -78,7 +78,7 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
       <div class="nav-cart-wrap">
         <button class="nav-cart h2-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
       
-       <img src="<?php echo get_template_directory_uri(); ?>/assets/images/cave-icon.jpg" alt="Cart" class="cave-cart-icon">
+       <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/cave-icon.jpg" alt="Cart" class="cave-cart-icon">
             <span class="money-bag-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
             <span class="cart-label sr-only">Cart</span>
             <span class="dollar-sign">$</span>
