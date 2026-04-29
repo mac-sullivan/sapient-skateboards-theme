@@ -110,7 +110,8 @@
 @include tablet {
   .h2-nav      { display: none; }
   .h2-search   { display: none; }
-  .nav-toggle  { display: flex; }
+  .nav-toggle  { display: flex; order: 1; }
+  .nav-cart-wrap { order: 2; }
 }
 
 // Cave cart icon
