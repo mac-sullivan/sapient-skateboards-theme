@@ -180,9 +180,13 @@
   &:hover { opacity: 0.6; text-decoration: none; }
 }
 
-// Only show cart count badge when items are in cart
+// Only show cart count badge + dollar sign when items are in cart
 .cart-count:not(.has-items),
 .money-bag-count:not(.has-items) {
+  display: none;
+}
+
+.money-bag-count:not(.has-items) ~ .dollar-sign {
   display: none;
 }
 
