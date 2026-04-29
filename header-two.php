@@ -50,7 +50,6 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
        <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/cave-icon-cart.png" alt="Cart" class="cave-cart-icon">
             <span class="money-bag-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
             <span class="cart-label">Cart</span>
-            <span class="dollar-sign">$</span>
         </button>
 
         <div class="cart-preview" data-cart-preview>
