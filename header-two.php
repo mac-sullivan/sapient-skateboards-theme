@@ -68,8 +68,18 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
       </ul>
     </nav>
 
-    <!-- Utilities: Cart + Search + mobile toggle -->
+    <!-- Utilities: Search + Cart + mobile toggle -->
     <div class="h2-utilities">
+
+      <!-- Search -->
+      <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="h2-search">
+        <input type="search" name="s" placeholder="Search…" value="<?php echo get_search_query(); ?>" autocomplete="off" aria-label="Search">
+        <button type="submit" aria-label="Submit search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </form>
 
       <!-- Cart -->
       <?php if ( function_exists( 'WC' ) ) :
@@ -120,16 +130,6 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
         </div>
       </div>
       <?php endif; ?>
-
-      <!-- Search -->
-      <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="h2-search">
-        <input type="search" name="s" placeholder="Search…" value="<?php echo get_search_query(); ?>" autocomplete="off" aria-label="Search">
-        <button type="submit" aria-label="Submit search">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-        </button>
-      </form>
 
       <!-- Mobile menu button -->
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
