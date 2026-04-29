@@ -15,10 +15,10 @@ $nav_pages = [
   'SUPPLIERS' => '/suppliers',
   'CONTACT US'=> '/contact-us',
 ];
-$shop_children = [
+$shop_children = [ // 'Other' removed per client request
   'Skateboards' => '/product-category/skateboards',
   'Apparel'     => '/product-category/apparel',
-  'Other'       => '/product-category/other',
+  // 'Other'    => '/product-category/other',
 ];
 $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 ?>
