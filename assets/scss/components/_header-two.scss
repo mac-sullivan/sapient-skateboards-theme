@@ -45,10 +45,21 @@
 
 .h2-cart {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
   color: $black;
   text-decoration: none;
+}
+
+.cart-label {
+  font-family: $font-label;
+  font-size: 0.45rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: $black;
+  line-height: 1;
 }
 
 .h2-search {
