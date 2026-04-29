@@ -15,12 +15,9 @@
   gap: 1rem;
 }
 
-// ─── Logo + Cart group (left) ────────────────────────────────
+// ─── Logo (left) ─────────────────────────────────────────────
 .h2-logo-group {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
 }
 
 .h2-logo {
@@ -40,7 +37,7 @@
   justify-content: center;
 }
 
-// ─── Utilities: search + mobile toggle (right) ───────────────
+// ─── Utilities: cart + search + mobile toggle (right) ────────
 .h2-utilities {
   flex-shrink: 0;
   display: flex;

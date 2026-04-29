@@ -38,8 +38,40 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
         height="63"
       >
     </a>
+    </div><!-- /.h2-logo-group -->
 
-      <!-- Cart (next to logo) -->
+    <!-- Nav (center) -->
+    <nav id="site-nav" class="h2-nav nav-links-desktop" aria-label="Primary navigation">
+      <ul class="nav-links">
+        <?php foreach ( $nav_pages as $label => $path ) :
+          $url          = home_url( $path );
+          $current      = strpos( $current_uri, untrailingslashit( $url ) ) === 0;
+          $has_children = ( $label === 'WEB STORE' );
+          $li_classes   = array_filter( [
+            $current      ? 'current-menu-item' : '',
+            $has_children ? 'menu-item-has-children' : '',
+          ] );
+        ?>
+        <li<?php echo $li_classes ? ' class="' . implode( ' ', $li_classes ) . '"' : ''; ?>>
+          <a href="<?php echo esc_url( $url ); ?>"<?php echo $current ? ' aria-current="page"' : ''; ?>>
+            <?php echo esc_html( $label ); ?>
+          </a>
+          <?php if ( $has_children ) : ?>
+          <ul class="sub-menu">
+            <?php foreach ( $shop_children as $child_label => $child_path ) : ?>
+            <li><a href="<?php echo esc_url( home_url( $child_path ) ); ?>"><?php echo esc_html( $child_label ); ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+          <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </nav>
+
+    <!-- Utilities: Cart + Search + mobile toggle -->
+    <div class="h2-utilities">
+
+      <!-- Cart -->
       <?php if ( function_exists( 'WC' ) ) :
         $cart       = WC()->cart;
         $count      = $cart ? $cart->get_cart_contents_count() : 0;
@@ -47,9 +79,9 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
       ?>
       <div class="nav-cart-wrap">
         <button class="nav-cart h2-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
-       <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/cave-icon-cart.png" alt="Cart" class="cave-cart-icon">
-            <span class="money-bag-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
-            <span class="cart-label">Cart</span>
+          <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/cave-icon-cart.png" alt="Cart" class="cave-cart-icon">
+          <span class="money-bag-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
+          <span class="cart-label">Cart</span>
         </button>
 
         <div class="cart-preview" data-cart-preview>
@@ -88,38 +120,6 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
         </div>
       </div>
       <?php endif; ?>
-    </div><!-- /.h2-logo-group -->
-
-    <!-- Nav (center) -->
-    <nav id="site-nav" class="h2-nav nav-links-desktop" aria-label="Primary navigation">
-      <ul class="nav-links">
-        <?php foreach ( $nav_pages as $label => $path ) :
-          $url          = home_url( $path );
-          $current      = strpos( $current_uri, untrailingslashit( $url ) ) === 0;
-          $has_children = ( $label === 'WEB STORE' );
-          $li_classes   = array_filter( [
-            $current      ? 'current-menu-item' : '',
-            $has_children ? 'menu-item-has-children' : '',
-          ] );
-        ?>
-        <li<?php echo $li_classes ? ' class="' . implode( ' ', $li_classes ) . '"' : ''; ?>>
-          <a href="<?php echo esc_url( $url ); ?>"<?php echo $current ? ' aria-current="page"' : ''; ?>>
-            <?php echo esc_html( $label ); ?>
-          </a>
-          <?php if ( $has_children ) : ?>
-          <ul class="sub-menu">
-            <?php foreach ( $shop_children as $child_label => $child_path ) : ?>
-            <li><a href="<?php echo esc_url( home_url( $child_path ) ); ?>"><?php echo esc_html( $child_label ); ?></a></li>
-            <?php endforeach; ?>
-          </ul>
-          <?php endif; ?>
-        </li>
-        <?php endforeach; ?>
-      </ul>
-    </nav>
-
-    <!-- Utilities: Search + mobile toggle -->
-    <div class="h2-utilities">
 
       <!-- Search -->
       <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="h2-search">
