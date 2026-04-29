@@ -88,7 +88,7 @@
     padding: 2px 0;
 
     &::placeholder {
-      color: rgba($black, 0.35);
+      color: rgba($black,  1);
       text-transform: uppercase;
     }
     &::-webkit-search-cancel-button,

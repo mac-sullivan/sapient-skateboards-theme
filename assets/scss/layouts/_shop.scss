@@ -653,10 +653,8 @@
 .product-single-short-desc {
   font-family: $font-main;
   font-size: 0.95rem;
-  color: rgba($charcoal, 0.8);
+  color: $charcoal;
   line-height: 1.75;
-  // border-top: 1px solid rgba($charcoal, 0.1);
-  // padding-top: 1.25rem;
   text-wrap: balance;
 
   p { margin: 0; }
@@ -775,11 +773,14 @@
 .product-single-description {
   font-family: $font-main;
   font-size: 0.9rem;
-  color: rgba($charcoal, 0.8);
+  color: $charcoal;
   line-height: 1.75;
   padding-top: 0;
 
-  p { margin: 0 0 0.75rem; }
+  p { 
+    margin: 0 0 0.75rem;
+    color: $charcoal;
+   }
 
   h1, h2, h3, h4 {
     font-weight: 700;
