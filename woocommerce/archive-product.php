@@ -81,7 +81,11 @@ $products = new WP_Query( $query_args );
             class="shop-img-link<?php echo ! $is_board ? ' shop-img-link--non-board' : ''; ?>"
             data-cats="<?php echo esc_attr( $data_cats ); ?>"
           >
-            <?php the_post_thumbnail( 'large', [ 'class' => 'shop-board-img', 'alt' => get_the_title() ] ); ?>
+            <?php if ( has_post_thumbnail() ) : ?>
+              <?php the_post_thumbnail( 'large', [ 'class' => 'shop-board-img', 'alt' => get_the_title() ] ); ?>
+            <?php else : ?>
+              <div class="shop-img-placeholder"><span>Photo Coming Soon</span></div>
+            <?php endif; ?>
             <div class="shop-product-info">
               <span class="shop-product-name"><?php the_title(); ?></span>
               <?php $product = wc_get_product( get_the_ID() ); if ( $product ) : ?>
