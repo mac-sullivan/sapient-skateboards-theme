@@ -145,3 +145,6 @@ main > div:last-child {
 .product-flex-sections:last-child {
   padding-bottom: revert;
 }
+
+// Hide breadcrumbs site-wide
+.product-breadcrumb { display: none !important; }
