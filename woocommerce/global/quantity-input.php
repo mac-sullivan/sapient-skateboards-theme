@@ -12,7 +12,9 @@ if ( $max_value && $min_value === $max_value ) : ?>
            class="qty">
   </div>
 <?php else : ?>
-  <div class="quantity sapient-qty">
+  <div class="quantity-wrap">
+    <span class="product-option-label">Quantity</span>
+    <div class="quantity sapient-qty">
     <button type="button" class="qty-btn qty-minus" aria-label="Decrease quantity">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><line x1="5" y1="12" x2="19" y2="12"/></svg>
     </button>
@@ -34,5 +36,6 @@ if ( $max_value && $min_value === $max_value ) : ?>
     <button type="button" class="qty-btn qty-plus" aria-label="Increase quantity">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     </button>
+  </div>
   </div>
 <?php endif; ?>
