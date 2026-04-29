@@ -15,9 +15,15 @@
   gap: 1rem;
 }
 
-// ─── Logo (left) ─────────────────────────────────────────────
-.h2-logo {
+// ─── Logo + Cart group (left) ────────────────────────────────
+.h2-logo-group {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.h2-logo {
   display: flex;
   align-items: center;
 
@@ -34,11 +40,10 @@
   justify-content: center;
 }
 
-// ─── Utilities: search + cart (right) ────────────────────────
+// ─── Utilities: search + mobile toggle (right) ───────────────
 .h2-utilities {
   flex-shrink: 0;
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   gap: 1rem;
 }
