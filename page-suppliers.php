@@ -72,7 +72,7 @@ get_header( sapient_get_active_header() );
   <section class="section-supplier-cta">
     <div class="container supplier-cta-inner">
       <div class="supplier-cta-image">
-        <?php echo wp_get_attachment_image( 234, 'large', false, [ 'class' => 'supplier-cta-photo', 'alt' => 'Sapient board manufacturing' ] ); ?>
+        <?php echo wp_get_attachment_image( 98, 'large', false, [ 'class' => 'supplier-cta-photo', 'alt' => 'Sapient skate warehouse' ] ); ?>
       </div>
       <div class="supplier-cta-content">
         <h2 class="supplier-cta-title">Interested in becoming a Sapient supplier?</h2>
