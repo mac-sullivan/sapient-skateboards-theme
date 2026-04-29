@@ -126,6 +126,12 @@ while ( have_posts() ) : the_post();
         <div class="product-single-short-desc"><?php echo wp_kses_post($short_desc); ?></div>
       <?php endif; ?>
 
+      <?php if ($description) : ?>
+        <div class="product-single-description">
+          <?php echo ($description); ?>
+        </div>
+      <?php endif; ?>
+
       <?php if ($in_stock) : ?>
 
         <!-- ── Size selector ──────────────────────────── -->
@@ -201,11 +207,6 @@ while ( have_posts() ) : the_post();
         <div class="product-sold-out">Sold Out</div>
       <?php endif; ?>
 
-      <?php if ($description) : ?>
-        <div class="product-single-description">
-          <?php echo ($description); ?>
-        </div>
-      <?php endif; ?>
 
     </div>
 
