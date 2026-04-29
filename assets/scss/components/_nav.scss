@@ -232,8 +232,10 @@
   font-family: $font-label;
   font-size: 0.6rem;
   font-weight: 700;
-  line-height: 20px;
-  text-align: center;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: $bone;
   background: $black;
   border: 2px solid $bone;
