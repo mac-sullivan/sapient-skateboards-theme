@@ -801,28 +801,37 @@
   .product-specs-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
     font-family: $font-label;
-    font-size: 0.65rem;
+    border: 2px solid $black;
+
+    thead tr {
+      background: $black;
+    }
 
     thead th {
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: rgba($charcoal, 0.45);
-      padding: 0.4rem 0.75rem;
-      border-bottom: 1.5px solid rgba($charcoal, 0.12);
+      letter-spacing: 0.08em;
+      font-size: 0.6rem;
+      color: $bone;
+      padding: 0.5rem 0.85rem;
       text-align: left;
+      border-right: 1px solid rgba(255,255,255,0.15);
+
+      &:last-child { border-right: none; }
     }
 
     tbody td {
-      padding: 0.5rem 0.75rem;
+      padding: 0.55rem 0.85rem;
       color: $charcoal;
-      border-bottom: 1px solid rgba($charcoal, 0.06);
-      font-size: 0.75rem;
-    }
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-right: 1px solid rgba($black, 0.12);
+      border-top: 1px solid rgba($black, 0.12);
 
-    tbody tr:last-child td { border-bottom: none; }
+      &:last-child { border-right: none; }
+    }
   }
 }
 
