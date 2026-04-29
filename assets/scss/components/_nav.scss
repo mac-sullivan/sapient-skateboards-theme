@@ -224,18 +224,19 @@
 
 .money-bag-count {
   position: absolute;
-  top: -4px;
-  right: -6px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
+  top: -6px;
+  right: -10px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
   font-family: $font-label;
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  line-height: 18px;
+  line-height: 20px;
   text-align: center;
   color: $bone;
   background: $black;
+  border: 2px solid $bone;
   border-radius: 999px;
   pointer-events: none;
   white-space: nowrap;
