@@ -71,12 +71,17 @@ get_header( sapient_get_active_header() );
 
   <section class="section-supplier-cta">
     <div class="container supplier-cta-inner">
-      <h2 class="supplier-cta-title">Interested in becoming a Sapient supplier?</h2>
-      <div class="supplier-cta-body">
-        <p>We firmly believe in the essential role of brick-and-mortar skate shops as cultural hubs that cultivate and sustain the longevity of skateboarding's rich history and authentic future. In an economy that prioritizes scale and speed at the expense of craft and community, it is our responsibility as skateboarders to invest in the local institutions truly committed to the growth and development of our scene on the ground level.</p>
-        <p>As an independent manufacturer, we understand there may be hesitations around product quality, scale, and consistency. If you are interested in carrying Sapient but would like to first experience the craftsmanship and feel of our boards, we are happy to offer a sample.</p>
-        <p>To request a sample, please reach out via an official shop email to <a href="mailto:info@sapientskateboards.com">info@sapientskateboards.com</a> with your shipping address and preferred shape from our current lineup. We will send a board at no cost for evaluation.</p>
-        <p>Thank you for your consideration. We look forward to the opportunity to work and skate together.</p>
+      <div class="supplier-cta-image">
+        <?php echo wp_get_attachment_image( 234, 'large', false, [ 'class' => 'supplier-cta-photo', 'alt' => 'Sapient board manufacturing' ] ); ?>
+      </div>
+      <div class="supplier-cta-content">
+        <h2 class="supplier-cta-title">Interested in becoming a Sapient supplier?</h2>
+        <div class="supplier-cta-body">
+          <p>We firmly believe in the essential role of brick-and-mortar skate shops as cultural hubs that cultivate and sustain the longevity of skateboarding's rich history and authentic future. In an economy that prioritizes scale and speed at the expense of craft and community, it is our responsibility as skateboarders to invest in the local institutions truly committed to the growth and development of our scene on the ground level.</p>
+          <p>As an independent manufacturer, we understand there may be hesitations around product quality, scale, and consistency. If you are interested in carrying Sapient but would like to first experience the craftsmanship and feel of our boards, we are happy to offer a sample.</p>
+          <p>To request a sample, please reach out via an official shop email to <a href="mailto:info@sapientskateboards.com">info@sapientskateboards.com</a> with your shipping address and preferred shape from our current lineup. We will send a board at no cost for evaluation.</p>
+          <p>Thank you for your consideration. We look forward to the opportunity to work and skate together.</p>
+        </div>
       </div>
     </div>
   </section>

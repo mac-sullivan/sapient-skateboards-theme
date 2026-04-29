@@ -142,31 +142,50 @@
 
 // ─── Supplier CTA ─────────────────────────────────────────────
 .section-supplier-cta {
-  padding: 5rem 0;
+  padding: 4rem 0;
   border-top: 1px solid rgba($black, 0.12);
   background: $bone;
 }
 
 .supplier-cta-inner {
-  max-width: 760px;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.supplier-cta-image {
+  .supplier-cta-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }
 
 .supplier-cta-title {
   font-family: $font-heading;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
   font-weight: 800;
   text-transform: uppercase;
   color: $black;
-  margin: 0 0 2rem;
+  margin: 0 0 1.5rem;
+  text-align: left;
 }
 
 .supplier-cta-body {
   p {
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.75;
     color: rgba($black, 0.75);
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.1rem;
+    text-align: left;
 
     &:last-child { margin-bottom: 0; }
   }
