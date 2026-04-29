@@ -91,3 +91,11 @@
   .h2-search   { display: none; }
   .nav-toggle  { display: flex; }
 }
+
+// Cave cart icon
+.cave-cart-icon {
+  width: 32px;
+  height: auto;
+  display: block;
+  filter: brightness(0); // Make it solid black to match nav
+}
