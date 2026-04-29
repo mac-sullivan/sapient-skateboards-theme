@@ -52,3 +52,8 @@ body:not(.intro-page):not(.page-template-page-process) {
   transform: none;
   transition: none;
 }
+
+// Force form elements to respect font declarations
+input, button, select, textarea {
+  font-family: inherit;
+}
