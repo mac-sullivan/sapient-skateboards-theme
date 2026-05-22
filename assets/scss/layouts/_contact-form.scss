@@ -69,12 +69,21 @@
     font-weight: 700;
     text-transform: uppercase;
     color: rgba($charcoal, 0.35);
+    text-decoration: none !important; // never underline the small heading
   }
 
-  a, span {
+  span:not(.detail-label) {
     font-family: $font-main;
     font-size: 0.95rem;
     color: $charcoal;
+    text-decoration: none;
+  }
+
+  // Email/phone links — explicit blue (matches the global main a rule)
+  a {
+    font-family: $font-main;
+    font-size: 0.95rem;
+    color: #0066cc;
     text-decoration: none;
 
     &:hover { text-decoration: underline; text-underline-offset: 3px; }

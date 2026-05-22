@@ -125,6 +125,22 @@ function pt_theme_setup() {
     ] );
 }
 
+// ── Add aria-current="page" to active nav menu links for accessibility ───────
+add_filter( 'nav_menu_link_attributes', function( $atts, $item ) {
+    if ( in_array( 'current-menu-item', (array) $item->classes, true ) ) {
+        $atts['aria-current'] = 'page';
+    }
+    return $atts;
+}, 10, 2 );
+
+// ── Body class on Events page so we can scope page-specific styles ──────────
+add_filter( 'body_class', function( $classes ) {
+    if ( is_page( 'events' ) ) {
+        $classes[] = 'page-events';
+    }
+    return $classes;
+} );
+
 // ── WooCommerce: cart fragment for AJAX cart count ────────────────────────────
 add_filter( 'woocommerce_add_to_cart_fragments', 'pt_cart_count_fragment' );
 function pt_cart_count_fragment( $fragments ) {
@@ -183,17 +199,18 @@ function pt_register_acf_blocks() {
 // ── Custom post types ─────────────────────────────────────────────────────────
 add_action( 'init', 'pt_register_post_types' );
 function pt_register_post_types() {
-    // Events
+    // Events (CPT kept for future use, but URL slug freed up so the
+    // /events/ page (post ID 270) can render the landing page).
     register_post_type( 'pt_event', [
         'labels'      => [
             'name'          => __( 'Events', 'sapient-skateboards' ),
             'singular_name' => __( 'Event',  'sapient-skateboards' ),
         ],
         'public'      => true,
-        'has_archive' => true,
+        'has_archive' => false,
         'supports'    => [ 'title', 'editor', 'thumbnail', 'excerpt' ],
         'menu_icon'   => 'dashicons-calendar-alt',
-        'rewrite'     => [ 'slug' => 'events' ],
+        'rewrite'     => [ 'slug' => 'event' ],
     ] );
 
     // Sponsors
@@ -1038,6 +1055,92 @@ add_action( 'acf/init', function() {
                         'placeholder' => 'https://',
                     ],
                 ],
+            ],
+        ],
+    ] );
+} );
+
+// ── Contact Us Page ACF Fields ────────────────────────────────
+add_action( 'acf/init', function() {
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+
+    acf_add_local_field_group( [
+        'key'      => 'group_contact_page',
+        'title'    => 'Contact Us — Page Content',
+        'location' => [ [ [
+            'param'    => 'post_type',
+            'operator' => '==',
+            'value'    => 'page',
+        ], [
+            'param'    => 'post',
+            'operator' => '==',
+            'value'    => 72,
+        ] ] ],
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'description'=> 'Editable content for the Contact Us page. Renders inside the Contact Form layout.',
+        'fields' => [
+            [
+                'key'         => 'field_contact_title',
+                'label'       => 'Title',
+                'name'        => 'contact_title',
+                'type'        => 'text',
+                'placeholder' => 'Contact Us',
+                'instructions'=> 'Heading shown next to the form. Defaults to "Contact Us" if blank.',
+            ],
+            [
+                'key'         => 'field_contact_content',
+                'label'       => 'Content (next to form)',
+                'name'        => 'contact_content',
+                'type'        => 'wysiwyg',
+                'tabs'        => 'all',
+                'toolbar'     => 'full',
+                'media_upload'=> 0,
+                'delay'       => 0,
+                'instructions'=> 'Main content block shown next to the contact form (intro paragraph, additional info, etc.).',
+            ],
+            [
+                'key'          => 'field_contact_email',
+                'label'        => 'Email Address',
+                'name'         => 'contact_email',
+                'type'         => 'email',
+                'wrapper'      => [ 'width' => '50' ],
+                'instructions' => 'Public contact email. Leave blank to hide the email row.',
+            ],
+            [
+                'key'          => 'field_contact_phone_display',
+                'label'        => 'Phone (display)',
+                'name'         => 'contact_phone_display',
+                'type'         => 'text',
+                'wrapper'      => [ 'width' => '50' ],
+                'instructions' => 'How the phone number is displayed (e.g. (630) 624-2595).',
+            ],
+            [
+                'key'          => 'field_contact_phone_link',
+                'label'        => 'Phone (link)',
+                'name'         => 'contact_phone_link',
+                'type'         => 'text',
+                'wrapper'      => [ 'width' => '50' ],
+                'instructions' => 'Digits-only for tel: link (e.g. +16306242595). Blank = display only, no link.',
+            ],
+            [
+                'key'          => 'field_contact_location',
+                'label'        => 'Address / Location',
+                'name'         => 'contact_location',
+                'type'         => 'wysiwyg',
+                'tabs'         => 'visual',
+                'toolbar'      => 'basic',
+                'media_upload' => 0,
+                'delay'        => 0,
+                'instructions' => 'Address, city, or location. Rich text supported.',
+            ],
+            [
+                'key'          => 'field_contact_form_shortcode',
+                'label'        => 'Form Shortcode',
+                'name'         => 'contact_form_shortcode',
+                'type'         => 'text',
+                'placeholder'  => '[gravityform id="1" title="false" description="false"]',
+                'instructions' => 'Paste any form shortcode here — Gravity Forms, Contact Form 7, Fluent Forms, etc. Leave blank to use Contact Form 7 (id=122).',
             ],
         ],
     ] );

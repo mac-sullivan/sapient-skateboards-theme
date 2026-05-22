@@ -74,7 +74,7 @@ max-width: 1268px;
 #site-footer .ss-logo--footer {
   filter: brightness(0);
   opacity: 1;
-  height: 35px !important;
+  height: 55px !important;
   width: auto;
 }
 
@@ -90,11 +90,12 @@ max-width: 1268px;
 // ─── Social icons ────────────────────────────────────────────
 .footer-social {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: 0.25rem;
 
   a {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     color: rgba(#000, 0.45);
@@ -105,6 +106,15 @@ max-width: 1268px;
       color: $black;
       text-decoration: none;
     }
+  }
+
+  // All icons render at the same visual HEIGHT. Width auto preserves
+  // each logo's natural aspect ratio (YouTube ends up wider, which is
+  // how it appears in their actual brand mark).
+  a svg {
+    height: 22px;
+    width: auto;
+    display: block;
   }
 }
 
@@ -133,7 +143,7 @@ max-width: 1268px;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 0.6rem 2rem;
 
   @include mobile { grid-template-columns: 1fr; }

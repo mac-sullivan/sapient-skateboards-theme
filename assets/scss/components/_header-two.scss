@@ -11,7 +11,7 @@
   justify-content: space-between;
   max-width: 1268px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: .5rem 1rem;
   gap: 1rem;
 }
 
@@ -25,7 +25,7 @@
   align-items: center;
 
   .ss-logo {
-    height: 35px !important;
+    height: 55px !important;
     width: auto;
   }
 }
@@ -47,77 +47,24 @@
 
 .h2-cart {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0;
   color: $black;
   text-decoration: none;
 }
 
-.cart-label {
-  font-family: $font-label;
-  font-size: 0.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: $black;
-  line-height: 1;
-  position: absolute;
-  bottom: -.075rem;
-  }
 
-.h2-search {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  border: 1px solid rgba($black, 0.8);
-  background-color: #fff;
-  padding: .4rem 0.5rem;
-
-  input[type="search"] {
-    width: 120px;
-    border: none;
-    background: #fff;
-    font-family: $font-label !important;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    color: $black;
-    outline: none;
-    padding: 2px 0;
-
-    &::placeholder {
-      color: rgba($black,  1);
-      text-transform: uppercase;
-    }
-    &::-webkit-search-cancel-button,
-    &::-webkit-search-decoration { -webkit-appearance: none; }
-  }
-
-  button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: $black;
-    display: flex;
-    align-items: center;
-  }
-}
+// .h2-search is just a positional wrapper now — visual styling
+// lives in _nav.scss under .search-inline (shared with header-one)
 
 // ─── Mobile: collapse to toggle ──────────────────────────────
+// The header itself stays position: fixed at top:0 (set globally),
+// which already serves as the positioning context for the search
+// dropdown (.search-inline-form uses position: absolute; top: 100%).
 @include tablet {
   .h2-nav      { display: none; }
-  .h2-search   { display: none; }
-  .nav-toggle  { display: flex; order: 1; }
-  .nav-cart-wrap { order: 2; }
+  // .h2-search stays visible on mobile — icon is in the header utilities
+  .nav-toggle  { display: flex; order: 2; }
+  .nav-cart-wrap { order: 3; }
+  .h2-search   { order: 1; }
 }
 
-// Cave cart icon
-.cave-cart-icon {
-  width: 48px;
-  height: auto;
-  display: block;
-  filter: brightness(0); // Make it solid black to match nav
-}

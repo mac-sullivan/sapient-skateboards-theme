@@ -2,6 +2,45 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  // ─── Expandable search ─────────────────────────────────────
+  // Behavior: icon click is the only thing that toggles state.
+  //   - closed              → open + focus input
+  //   - open + has text     → submit the form
+  //   - open + empty input  → close
+  document.querySelectorAll('[data-search-toggle]').forEach(function (btn) {
+    var wrap = btn.closest('[data-search]');
+    if (!wrap) return;
+    var input = wrap.querySelector('.search-input');
+    var form  = wrap.querySelector('form');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = wrap.classList.contains('is-open');
+      if (!open) {
+        wrap.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        if (input) {
+          // Focus must be SYNCHRONOUS within the user-gesture handler
+          // for iOS Safari to open the on-screen keyboard.
+          input.removeAttribute('tabindex');
+          input.focus();
+        }
+        return;
+      }
+      // Already open: submit if there's a query, otherwise close.
+      if (input && input.value.trim() !== '') {
+        if (form) form.submit();
+        return;
+      }
+      wrap.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (input) {
+        input.setAttribute('tabindex', '-1');
+        input.blur();
+      }
+    });
+  });
+
+
   // ─── Mobile nav toggle ─────────────────────────────────────
   const toggle      = document.querySelector('.nav-toggle');
   const mobileLinks = document.querySelector('.nav-links--mobile');

@@ -150,10 +150,8 @@
   strong { font-weight: 700; color: #0d0d0d; }
 
   a {
-    color: $ochre;
     text-decoration: underline;
     text-underline-offset: 3px;
-    &:hover { color: $ochre-dark; }
   }
 
   blockquote {

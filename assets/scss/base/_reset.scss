@@ -28,6 +28,27 @@ img { max-width: 100%; height: auto; display: block; }
 
 a { color: inherit; text-decoration: none; }
 
+// Content links (everything inside <main>, excluding header/footer)
+// use a classic blue. Exceptions (suppliers table, etc.) override below.
+main a {
+  color: #0066cc;
+
+  &:hover { text-decoration: underline; }
+}
+
+// Utility: black text by default, classic-blue + underline on hover.
+// Add class="link-hover-blue" on any anchor that should use this pattern.
+main a.link-hover-blue,
+.link-hover-blue {
+  color: #000;
+  text-decoration: none;
+
+  &:hover {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+}
+
 // WordPress admin bar
 body.admin-bar {
   #site-header { top: 32px; }

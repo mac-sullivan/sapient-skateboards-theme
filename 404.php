@@ -5,7 +5,7 @@
 
     <div class="e404-inner">
       <img
-        src="<?php echo get_template_directory_uri(); ?>/assets/images/Sapient_Outline.png"
+        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SapientSkateboardCoLogo.svg"
         alt="Sapient"
         class="e404-logo"
       >

@@ -143,12 +143,9 @@
   }
 
   a {
-    color: $olive;
     text-decoration: underline;
     text-underline-offset: 3px;
     transition: none;
-
-    &:hover { color: $charcoal; }
   }
 
   ul, ol {

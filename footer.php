@@ -20,11 +20,11 @@ $footer_description = get_field( 'footer_description', 'option' )
       <div class="footer-brand">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="footer-logo-link" aria-label="Sapient Skateboards">
           <img
-            src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sapient-manufacturing-logo.webp"
-            alt="Sapient Manufacturing Co."
+            src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SapientSkateboardCoLogo.svg"
+            alt="Sapient Skateboard Co."
             loading="lazy" decoding="async" class="ss-logo ss-logo--footer"
-            width="200"
-            height="48"
+            width="612"
+            height="216"
           >
         </a>
 

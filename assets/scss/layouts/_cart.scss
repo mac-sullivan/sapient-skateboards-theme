@@ -86,7 +86,6 @@
         font-size: 1rem;
         font-weight: 800;
         text-transform: uppercase;
-        color: $charcoal;
         text-decoration: none;
 
         &:hover { opacity: 0.6; }
@@ -430,10 +429,9 @@
   }
 
   a {
-    color: $charcoal !important;
-    font-weight: 600 !important;
-    text-decoration: underline !important;
-    text-underline-offset: 3px !important;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .button {

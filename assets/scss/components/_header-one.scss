@@ -45,65 +45,13 @@
   align-items: center;
 }
 
-// ─── Search bar ──────────────────────────────────────────────
-.search-inline {
-  display: flex;
-  align-items: center;
-}
-
-.search-inline-form {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-bottom: 1px solid $black;
-  padding-bottom: 2px;
-  transition: border-color 0.2s ease;
-
-  &:focus-within {
-    border-color: $black;
-  }
-}
-
-.search-icon-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: $black;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  opacity: 0.5;
-  transition: opacity 0.2s ease;
-
-  .search-inline-form:focus-within & {
-    opacity: 1;
-  }
-}
-
-.search-inline-form input[type="search"] {
-  width: 140px;
-  border: none;
-  background: #fff;
-  font-family: $font-label;
-  font-size: 0.6rem;
-  color: $black;
-  outline: none;
-  padding: 2px 0;
-
-  &::placeholder {
-    color: rgba($black, 0.35);
-  }
-
-  &::-webkit-search-cancel-button,
-  &::-webkit-search-decoration { -webkit-appearance: none; }
-}
+// Search bar styles live in _nav.scss (.search-inline — shared with header-two)
 
 // ─── Mobile: hide nav row, show toggle ───────────────────────
 @include tablet {
   .header-brand-inner { padding: 0.75rem 1.25rem; }
   .nav-links-desktop  { display: none; }
-  .search-inline      { display: none; }
+  // .search-inline is shared with header-two — don't hide it globally
   .nav-toggle         { display: flex; }
   .header-nav         { display: none; }
 }

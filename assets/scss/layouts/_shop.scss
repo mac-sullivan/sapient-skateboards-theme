@@ -614,9 +614,7 @@
   margin-bottom: .5rem;
 
   a {
-    color: rgba($charcoal, 0.4);
     text-decoration: none;
-    &:hover { color: $charcoal; }
   }
 
   .breadcrumb-sep { color: rgba($charcoal, 0.2); }
@@ -1132,7 +1130,6 @@
   ol { list-style: decimal; }
 
   a {
-    color: $charcoal;
     text-decoration: underline;
     text-underline-offset: 3px;
     &:hover { opacity: 0.6; }
@@ -1179,10 +1176,8 @@
   svg { color: $amber; flex-shrink: 0; }
 
   a {
-    color: $charcoal;
     text-decoration: underline;
     text-underline-offset: 3px;
-    &:hover { color: rgba($charcoal, 0.6); }
   }
 
   &.is-visible { display: flex; }

@@ -43,11 +43,7 @@ get_header( sapient_get_active_header() );
             <tr>
               <td data-label="#"><?php echo str_pad( $i + 1, 2, '0', STR_PAD_LEFT ); ?></td>
               <td data-label="Store">
-                <?php if ( $website ) : ?>
-                  <a href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $name ); ?></a>
-                <?php else : ?>
-                  <?php echo esc_html( $name ); ?>
-                <?php endif; ?>
+                <?php echo esc_html( $name ); ?>
               </td>
               <td data-label="Address"><?php echo esc_html( $address ?: '—' ); ?></td>
               <td data-label="Website">
@@ -69,18 +65,20 @@ get_header( sapient_get_active_header() );
     </div>
   </section>
 
+  <?php
+  $cta_title = get_field( 'supplier_cta_title' ) ?: 'Become a Supplier';
+  $cta_body  = get_field( 'supplier_cta_body' )
+      ?: '<p>We firmly believe in the essential role of brick-and-mortar skate shops as cultural hubs that cultivate and sustain the longevity of skateboarding\'s rich history and authentic future. In an economy that prioritizes scale and speed at the expense of craft and community, it is our responsibility as skateboarders to invest in the local institutions truly committed to the growth and development of our scene on the ground level.</p>
+<p>As an independent manufacturer, we understand there may be hesitations around product quality, scale, and consistency. If you are interested in carrying Sapient but would like to first experience the craftsmanship and feel of our boards, we are happy to offer a sample.</p>
+<p>To request a sample, please reach out via an official shop email to <a style="color: #0066cc;" href="mailto:info@sapientskateboards.com">info@sapientskateboards.com</a> with your shipping address and preferred shape from our current lineup. We will send a board at no cost for evaluation.</p>
+<p>Thank you for your consideration. We look forward to the opportunity to work and skate together.</p>';
+  ?>
   <section class="section-supplier-cta">
     <div class="container supplier-cta-inner">
-      <div class="supplier-cta-image">
-        <?php echo wp_get_attachment_image( 98, 'large', false, [ 'class' => 'supplier-cta-photo', 'alt' => 'Sapient skate warehouse' ] ); ?>
-      </div>
       <div class="supplier-cta-content">
-        <h2 class="supplier-cta-title">Interested in becoming a Sapient supplier?</h2>
+        <h2 class="supplier-cta-title"><?php echo esc_html( $cta_title ); ?></h2>
         <div class="supplier-cta-body">
-          <p>We firmly believe in the essential role of brick-and-mortar skate shops as cultural hubs that cultivate and sustain the longevity of skateboarding's rich history and authentic future. In an economy that prioritizes scale and speed at the expense of craft and community, it is our responsibility as skateboarders to invest in the local institutions truly committed to the growth and development of our scene on the ground level.</p>
-          <p>As an independent manufacturer, we understand there may be hesitations around product quality, scale, and consistency. If you are interested in carrying Sapient but would like to first experience the craftsmanship and feel of our boards, we are happy to offer a sample.</p>
-          <p>To request a sample, please reach out via an official shop email to <a href="mailto:info@sapientskateboards.com">info@sapientskateboards.com</a> with your shipping address and preferred shape from our current lineup. We will send a board at no cost for evaluation.</p>
-          <p>Thank you for your consideration. We look forward to the opportunity to work and skate together.</p>
+          <?php echo wp_kses_post( $cta_body ); ?>
         </div>
       </div>
     </div>

@@ -22,13 +22,13 @@
 .brand-logo .ss-logo,
 .ss-logo {
   display: block;
-  max-width: 180px;
+  max-width: 280px;
   height: auto;
   width: 100%;
   filter: brightness(0) saturate(0);
 
   &--footer {
-    height: 26px;
+    height: 40px;
     opacity: 0.6;
     filter: brightness(0) saturate(0);
   }
@@ -53,7 +53,7 @@
 
   a {
     font-family: $font-label;
-    font-size: .85rem;
+    font-size: 1rem;
     font-weight: 500;
     color: $black;
     padding: 0.5rem .75rem;
@@ -74,7 +74,6 @@
   li[aria-current="page"] > a {
     background: $amber;
     color: $charcoal;
-    font-weight: 700;
   }
 }
 
@@ -134,7 +133,7 @@
 
     li:last-child a { border-bottom: none; }
 
-    li.current-menu-item > a { background: $amber; color: $charcoal; font-weight: 700; }
+    li.current-menu-item > a { background: $amber; color: $charcoal; }
   }
 
   // Open on hover (desktop) OR when JS adds is-open class
@@ -154,17 +153,118 @@
   flex-shrink: 0;
 }
 
-// ─── Search toggle (header two uses this) ────────────────────
-.search-toggle {
+// ─── Expandable search (shared by both headers) ─────────────
+.search-inline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  // Mobile: don't act as the positioning context. The dropdown is
+  // absolute-positioned against the fixed #site-header so it spans
+  // the full header width as an extension below.
+  @include tablet {
+    position: static;
+  }
+}
+
+.search-inline-form {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 0.4rem;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  z-index: 5;
+
+  .search-inline.is-open & { width: 160px; }
+
+  // ── Mobile: drop the search bar as a full-width strip BELOW the
+  // header. Anchored to #site-header (position:relative on mobile)
+  // so the bar sits flush against the header's bottom edge — no
+  // overlap, an extension of the header.
+  @include tablet {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    margin: 0;
+    background: $bone;
+    border: none;
+    border-bottom: 1px solid rgba($black, 0.12);
+    box-shadow: none;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    z-index: 50;
+
+    .search-inline.is-open & {
+      width: 100%;
+      max-height: 4rem;
+      padding: 0.5rem 1.25rem;
+    }
+  }
+}
+
+.search-input {
+  display: block;
+  width: 160px;
+  border: none;
+  border-bottom: 1px solid $black;
+  background: $bone;
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: $black;
+  outline: none;
+  padding: 6px 8px;
+  box-shadow: none;
+
+  &::placeholder { color: rgba($black, 0.5); }
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-decoration { -webkit-appearance: none; }
+
+  @include tablet {
+    width: 100%;
+    padding: 10px 4px;
+    border-bottom: 1px solid rgba($black, 0.6); // visual affordance: looks like an editable input
+    background: transparent;
+  }
+}
+
+.search-toggle-btn {
+  -webkit-appearance: none;
+  appearance: none;
   background: none;
   border: none;
-  padding: 0;
+  box-shadow: none;
+  outline: none;
+  text-decoration: none;
+  padding: 0.4rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   color: $black;
 
+  &:focus { outline: none; box-shadow: none; }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
   &:hover { opacity: 0.6; }
 }
 
@@ -177,71 +277,44 @@
   color: $black;
   text-decoration: none;
 
+  // Desktop: match nav-link typography (no bold).
+  // Mobile/tablet: bumps to 700 + tracking to match the MENU button (see below).
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: normal;
+
+  @include tablet {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  line-height: 1;
+
   &:hover { opacity: 0.6; text-decoration: none; }
 }
 
-// Only show cart count badge + dollar sign when items are in cart
-.cart-count:not(.has-items),
-.money-bag-count:not(.has-items) {
-  display: none;
-}
-
-.money-bag-count:not(.has-items) ~ .dollar-sign {
+// Hide count when cart is empty — show just "Cart"
+.cart-count:not(.has-items) {
   display: none;
 }
 
 .cart-count {
-  position: absolute;
-  top: -6px;
-  right: -9px;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 4px;
-  font-family: $font-main;
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 20px;
-  text-align: center;
-  color: $charcoal;
-  background: $amber;
-  border-radius: 10px;
-  display: block;
-}
-
-// ─── Money bag cart icon ─────────────────────────────────────
-.money-bag-icon {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-.money-bag-svg {
-  display: block;
-  width: 26px;
-  height: 32px;
-}
-
-.money-bag-count {
-  position: absolute;
-  top: -6px;
-  right: -3px;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  font-family: $font-label;
-  font-size: 0.6rem;
-  font-weight: 700;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $bone;
-  background: $black;
-  border: 2px solid $bone;
+  margin-left: 0.5rem;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.4rem;
+  background: #f8ac00;
+  color: $charcoal;
   border-radius: 999px;
-  pointer-events: none;
-  white-space: nowrap;
+  font-family: $font-label;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
 }
 
 // ─── Nav CTA button ─────────────────────────────────────────
@@ -330,7 +403,7 @@
   border: none;
   background: transparent;
   font-family: $font-label !important;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 500;
   text-transform: uppercase;
   color: $black;
@@ -388,9 +461,6 @@
   li.current-menu-item > a,
   li[aria-current="page"] > a {
     color: $black;
-    font-weight: 700;
-    border-left: 3px solid $amber;
-    padding-left: calc(1.5rem - 3px);
   }
 
   .menu-item-has-children > a {
@@ -448,12 +518,6 @@
 .nav-cart-wrap {
   position: relative;
 
-.icon-money-bag-1 {
-  display: block;
-  width: 2.5rem;
-  height: 2.5rem;
-  fill: #000;
-}
 }
 
 .nav-cart {
@@ -673,13 +737,3 @@
   border: 0;
 }
 
-.dollar-sign {
-  position: absolute;
-  top: 64%;
-  left: 54%;
-  transform: translate(-63%, -50%);
-  font-size: .9rem;
-  text-align: center;
-  font-weight: 500;
-  font-family: "Times New Roman", Times, serif;
-}

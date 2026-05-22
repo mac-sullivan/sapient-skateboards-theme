@@ -9,20 +9,6 @@
 <?php wp_body_open(); ?>
 <?php include( get_template_directory() . '/template-parts/icons/money-bag-symbol.php' ); ?>
 
-<?php
-$nav_pages = [
-  'WEB STORE' => '/web-store',
-  'SUPPLIERS' => '/suppliers',
-  'CONTACT US'=> '/contact-us',
-];
-$shop_children = [ // 'Other' removed per client request
-  'Skateboards' => '/product-category/skateboards',
-  'Apparel'     => '/product-category/apparel',
-  // 'Other'    => '/product-category/other',
-];
-$current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-?>
-
 <header id="site-header" class="site-header-v2">
 
   <div class="h2-inner">
@@ -31,67 +17,51 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
     <div class="h2-logo-group">
     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="h2-logo" aria-label="Sapient Manufacturing Co.">
       <img
-        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sapient-manufacturing-logo.webp"
-        alt="Sapient Manufacturing Co."
+        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SapientSkateboardCoLogo.svg"
+        alt="Sapient Skateboard Co."
         class="ss-logo"
-        width="260"
-        height="63"
+        width="612"
+        height="216"
       >
     </a>
     </div><!-- /.h2-logo-group -->
 
     <!-- Nav (center) -->
     <nav id="site-nav" class="h2-nav nav-links-desktop" aria-label="Primary navigation">
-      <ul class="nav-links">
-        <?php foreach ( $nav_pages as $label => $path ) :
-          $url          = home_url( $path );
-          $current      = strpos( $current_uri, untrailingslashit( $url ) ) === 0;
-          $has_children = ( $label === 'WEB STORE' );
-          $li_classes   = array_filter( [
-            $current      ? 'current-menu-item' : '',
-            $has_children ? 'menu-item-has-children' : '',
-          ] );
-        ?>
-        <li<?php echo $li_classes ? ' class="' . implode( ' ', $li_classes ) . '"' : ''; ?>>
-          <a href="<?php echo esc_url( $url ); ?>"<?php echo $current ? ' aria-current="page"' : ''; ?>>
-            <?php echo esc_html( $label ); ?>
-          </a>
-          <?php if ( $has_children ) : ?>
-          <ul class="sub-menu">
-            <?php foreach ( $shop_children as $child_label => $child_path ) : ?>
-            <li><a href="<?php echo esc_url( home_url( $child_path ) ); ?>"><?php echo esc_html( $child_label ); ?></a></li>
-            <?php endforeach; ?>
-          </ul>
-          <?php endif; ?>
-        </li>
-        <?php endforeach; ?>
-      </ul>
+      <?php wp_nav_menu( [
+        'theme_location' => 'primary',
+        'menu_class'     => 'nav-links',
+        'container'      => false,
+        'fallback_cb'    => false,
+        'depth'          => 2,
+      ] ); ?>
     </nav>
 
     <!-- Utilities: Search + Cart + mobile toggle -->
     <div class="h2-utilities">
 
       <!-- Search -->
-      <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="h2-search">
-        <input type="search" name="s" placeholder="Search…" value="<?php echo get_search_query(); ?>" autocomplete="off" aria-label="Search">
-        <button type="submit" aria-label="Submit search">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="h2-search search-inline" data-search>
+        <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="search-inline-form">
+          <input class="search-input" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" autocomplete="off" tabindex="-1" aria-label="Search">
+        </form>
+        <button type="button" class="search-toggle-btn" aria-label="Search" aria-expanded="false" data-search-toggle>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
         </button>
-      </form>
+      </div>
 
       <!-- Cart -->
-      <?php if ( function_exists( 'WC' ) ) :
+      <?php if ( false && function_exists( 'WC' ) ) : // cart temporarily hidden — flip back to function_exists('WC') to re-enable
         $cart       = WC()->cart;
         $count      = $cart ? $cart->get_cart_contents_count() : 0;
         $cart_items = $cart ? $cart->get_cart() : [];
       ?>
       <div class="nav-cart-wrap">
         <button class="nav-cart h2-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
-          <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/cave-icon-cart.png" alt="Cart" class="cave-cart-icon">
-          <span class="money-bag-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
           <span class="cart-label">Cart</span>
+          <span class="cart-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
         </button>
 
         <div class="cart-preview" data-cart-preview>
@@ -145,37 +115,14 @@ $current_uri = untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERV
 <!-- Mobile nav overlay -->
 <nav id="site-nav-mobile" class="nav-mobile-overlay" aria-label="Mobile navigation">
 
-  <ul class="nav-links-mobile-list">
-    <?php foreach ( $nav_pages as $label => $path ) :
-      $url          = home_url( $path );
-      $current      = strpos( $current_uri, untrailingslashit( $url ) ) === 0;
-      $has_children = ( $label === 'WEB STORE' );
-      $li_classes   = array_filter( [
-        $current      ? 'current-menu-item' : '',
-        $has_children ? 'menu-item-has-children' : '',
-      ] );
-    ?>
-    <li<?php echo $li_classes ? ' class="' . implode( ' ', $li_classes ) . '"' : ''; ?>>
-      <a href="<?php echo esc_url( $url ); ?>"<?php echo $current ? ' aria-current="page"' : ''; ?>>
-        <?php echo esc_html( $label ); ?>
-      </a>
-      <?php if ( $has_children ) : ?>
-      <ul class="sub-menu">
-        <?php foreach ( $shop_children as $child_label => $child_path ) : ?>
-        <li><a href="<?php echo esc_url( home_url( $child_path ) ); ?>"><?php echo esc_html( $child_label ); ?></a></li>
-        <?php endforeach; ?>
-      </ul>
-      <?php endif; ?>
-    </li>
-    <?php endforeach; ?>
-  </ul>
+  <?php wp_nav_menu( [
+    'theme_location' => 'primary',
+    'menu_class'     => 'nav-links-mobile-list',
+    'container'      => false,
+    'fallback_cb'    => false,
+    'depth'          => 2,
+  ] ); ?>
 
-  <form class="mobile-search-form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-    <input class="mobile-search-input" type="search" name="s" placeholder="Search…" value="<?php echo get_search_query(); ?>" autocomplete="off">
-    <button class="mobile-search-btn" type="submit" aria-label="Search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </button>
-  </form>
 
 </nav>
 
