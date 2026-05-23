@@ -27,7 +27,6 @@ get_header( sapient_get_active_header() );
         <table class="suppliers-table">
           <thead>
             <tr>
-              <th>#</th>
               <th>Store</th>
               <th>Address</th>
               <th>Website</th>
@@ -41,7 +40,6 @@ get_header( sapient_get_active_header() );
               $host    = $website ? preg_replace('/^https?:\/\/(www\.)?/', '', rtrim($website, '/')) : '—';
             ?>
             <tr>
-              <td data-label="#"><?php echo str_pad( $i + 1, 2, '0', STR_PAD_LEFT ); ?></td>
               <td data-label="Store">
                 <?php echo esc_html( $name ); ?>
               </td>

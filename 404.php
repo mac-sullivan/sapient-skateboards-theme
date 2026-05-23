@@ -5,7 +5,7 @@
 
     <div class="e404-inner">
       <img
-        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SapientSkateboardCoLogo.svg"
+        src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sapient-skateboard-co-logo.svg"
         alt="Sapient"
         class="e404-logo"
       >
@@ -14,7 +14,6 @@
       <p class="e404-sub">The page you're looking for doesn't exist or may have moved.</p>
       <div class="e404-actions">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn-primary">Go Home</a>
-        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn-outline">Shop Boards</a>
       </div>
     </div>
 

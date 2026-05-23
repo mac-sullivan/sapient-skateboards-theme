@@ -41,7 +41,7 @@
     border: none;
     background: transparent;
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: $charcoal;
     outline: none;
     padding: 0.25rem 0;
@@ -72,7 +72,7 @@
 // ─── Results count ──────────────────────────────────────────
 .search-results-count {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: rgba($charcoal, 0.5);
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
@@ -121,7 +121,7 @@
 
 .search-result-type {
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 500;
   text-transform: uppercase;
   color: $olive;
@@ -141,7 +141,7 @@
 
 .search-result-excerpt {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.6;
   color: rgba($charcoal, 0.6);
   margin: 0;
@@ -149,7 +149,7 @@
 
 .search-result-link {
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 500;
   color: $olive;
   text-decoration: none;
@@ -166,23 +166,23 @@
 
   p {
     font-family: $font-main;
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     line-height: 1.7;
-    color: rgba($charcoal, 0.6);
+    color: $charcoal;
     margin: 0 auto 2rem;
     max-width: 520px;
   }
 }
 
 .search-suggestions {
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 
   a {
     font-family: $font-label;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 500;
     text-transform: uppercase;
     color: $charcoal;
@@ -212,7 +212,7 @@
 
   a, span {
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 1.125rem;
     padding: 0.5rem 0.85rem;
     border: 1px solid $bone-dark;
     border-radius: $radius-sm;

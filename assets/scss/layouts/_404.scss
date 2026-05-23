@@ -17,13 +17,11 @@
   width: 100%;
   max-width: 280px;
   margin: 0 auto 2.5rem;
-  opacity: 0.12;
-  filter: grayscale(1);
 }
 
 .e404-code {
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: rgba($charcoal, 0.3);
@@ -42,7 +40,7 @@
 
 .e404-sub {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.7;
   color: rgba($charcoal, 0.55);
   margin: 0 0 2.5rem;

@@ -33,7 +33,7 @@
 
     thead tr th {
       font-family: $font-label;
-      font-size: 0.65rem;
+      font-size: 1.125rem;
       font-weight: 700;
       text-transform: uppercase;
       color: rgba($charcoal, 0.4);
@@ -83,7 +83,7 @@
     td.product-name {
       a {
         font-family: $font-heading;
-        font-size: 1rem;
+        font-size: 1.125rem;
         font-weight: 800;
         text-transform: uppercase;
         text-decoration: none;
@@ -95,12 +95,12 @@
       dl.variation {
         margin-top: 0.35rem;
         font-family: $font-label;
-        font-size: 0.65rem;
+        font-size: 1.125rem;
         color: rgba($charcoal, 0.4);
 
         dt, dd { display: inline; margin: 0; }
         dd::after { content: ' '; }
-        p { margin: 0; font-size: 0.65rem; }
+        p { margin: 0; font-size: 1.125rem; }
       }
     }
 
@@ -108,7 +108,7 @@
     td.product-price,
     td.product-subtotal {
       font-family: $font-heading;
-      font-size: 1rem;
+      font-size: 1.125rem;
       font-weight: 700;
       color: $charcoal;
       white-space: nowrap;
@@ -151,7 +151,7 @@
         border: 1.5px solid $charcoal;
         background: transparent;
         font-family: $font-heading;
-        font-size: 1rem;
+        font-size: 1.125rem;
         font-weight: 700;
         color: $charcoal;
         text-align: center;
@@ -217,7 +217,7 @@
         border-bottom: 1.5px solid rgba($charcoal, 0.3);
         padding: 0.6rem 0;
         font-family: $font-main;
-        font-size: 0.9rem;
+        font-size: 1.125rem;
         color: $charcoal;
         outline: none;
         min-width: 160px;
@@ -232,7 +232,7 @@
         border: 1.5px solid rgba($charcoal, 0.4) !important;
         padding: 0.6rem 1.25rem !important;
         font-family: $font-label !important;
-        font-size: 0.65rem !important;
+        font-size: 1.125rem !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
         cursor: pointer !important;
@@ -251,7 +251,7 @@
       border: none !important;
       padding: 0.6rem 0 !important;
       font-family: $font-label !important;
-      font-size: 0.65rem !important;
+      font-size: 1.125rem !important;
       font-weight: 700 !important;
       text-transform: uppercase !important;
       cursor: pointer !important;
@@ -278,7 +278,7 @@
 
   h2 {
     font-family: $font-heading;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 800;
     text-transform: uppercase;
     color: $charcoal;
@@ -299,7 +299,7 @@
 
       th {
         font-family: $font-label;
-        font-size: 0.65rem;
+        font-size: 1.125rem;
         font-weight: 700;
         text-transform: uppercase;
         color: rgba($charcoal, 0.4);
@@ -308,7 +308,7 @@
 
       td {
         font-family: $font-heading;
-        font-size: 0.95rem;
+        font-size: 1.125rem;
         font-weight: 700;
         color: $charcoal;
         text-align: right;
@@ -317,7 +317,7 @@
       &.order-total {
         border-bottom: none;
 
-        th { color: $charcoal; font-size: 0.7rem; }
+        th { color: $charcoal; font-size: 1.125rem; }
         td { font-size: 1.2rem; }
       }
     }
@@ -334,7 +334,7 @@
       border: 1.5px solid $charcoal !important;
       padding: 1rem 2rem !important;
       font-family: $font-label !important;
-      font-size: 0.75rem !important;
+      font-size: 1.125rem !important;
       font-weight: 700 !important;
       text-transform: uppercase !important;
       text-align: center !important;
@@ -368,7 +368,7 @@
   border: 1.5px solid $charcoal !important;
   padding: 0.85rem 2rem !important;
   font-family: $font-label !important;
-  font-size: 0.75rem !important;
+  font-size: 1.125rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   text-decoration: none !important;
@@ -393,14 +393,14 @@
     border-left: 3px solid $charcoal;
     background: rgba($charcoal, 0.04);
     font-family: $font-main;
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     color: $charcoal;
     margin: 0 0 1rem;
 
     a.button {
       float: right;
       font-family: $font-label;
-      font-size: 0.65rem;
+      font-size: 1.125rem;
       font-weight: 700;
       text-transform: uppercase;
       color: $charcoal;
@@ -419,7 +419,7 @@
   border-left: 2px solid rgba($charcoal, 0.25) !important;
   color: $charcoal !important;
   font-family: $font-main !important;
-  font-size: 0.9rem !important;
+  font-size: 1.125rem !important;
   padding: 1rem 1.25rem !important;
   list-style: none !important;
 
@@ -440,7 +440,7 @@
     border: 1.5px solid $charcoal !important;
     padding: 0.5rem 1rem !important;
     font-family: $font-label !important;
-    font-size: 0.65rem !important;
+    font-size: 1.125rem !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     float: right !important;

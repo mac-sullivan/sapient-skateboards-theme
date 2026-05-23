@@ -15,11 +15,11 @@
     <div class="header-brand-inner">
       <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo" aria-label="Sapient Manufacturing Co.">
         <img
-          src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SapientSkateboardCoLogo.svg"
+          src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sapient-skateboard-co-logo.svg"
           alt="Sapient Skateboard Co."
           class="ss-logo"
-          width="612"
-          height="216"
+          width="535"
+          height="134"
         >
       </a>
               <?php if ( false && function_exists( 'WC' ) ) : // cart temporarily hidden — flip back to function_exists('WC') to re-enable

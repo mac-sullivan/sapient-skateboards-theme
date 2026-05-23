@@ -2,10 +2,10 @@
 
 // ─── Footer ───────────────────────────────────────────────────
 #site-footer {
-  background: #f7f7f7;
+  background: $bone;
   color: $black;
   position: relative;
-  border-top: 1px solid rgba(#000, 0.12);
+  box-shadow: 0 -4px 18px -8px rgba(0, 0, 0, 0.18);
 }
 
 // ─── Grain texture ────────────────────────────────────────────
@@ -28,19 +28,19 @@
   }
 }
 .container.footer-grid {
-max-width: 1268px;
+max-width: 1100px;
 }
 
 .footer-bottom {
   .container.footer-bottom-inner {
-    max-width: 1268px;
+    max-width: 1100px;
   }
 }
 
 // ─── 4-column grid ───────────────────────────────────────────
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 0.85fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 4rem 2rem;
 
   @include tablet {
@@ -74,7 +74,7 @@ max-width: 1268px;
 #site-footer .ss-logo--footer {
   filter: brightness(0);
   opacity: 1;
-  height: 55px !important;
+  height: 38px !important;
   width: auto;
 }
 
@@ -85,14 +85,20 @@ max-width: 1268px;
   color: rgba(#000, 0.5);
   margin: 0;
   max-width: 260px;
+  text-align: left;
 }
 
-// ─── Social icons ────────────────────────────────────────────
+// ─── Social links ────────────────────────────────────────────
+// Renders in one of three modes set by the ACF "Display Style" field:
+//   .footer-social--icons → SVG logos (default)
+//   .footer-social--short → "IG / FB / YT" abbreviations
+//   .footer-social--full  → "Instagram / Facebook / YouTube"
 .footer-social {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-top: 0.25rem;
+  flex-wrap: wrap;
 
   a {
     display: inline-flex;
@@ -111,17 +117,53 @@ max-width: 1268px;
   // All icons render at the same visual HEIGHT. Width auto preserves
   // each logo's natural aspect ratio (YouTube ends up wider, which is
   // how it appears in their actual brand mark).
-  a svg {
+  &--icons a svg {
     height: 22px;
     width: auto;
     display: block;
+  }
+
+  // Text variants — match the regular footer-menu link styling
+  // ($font-main, 1rem, muted charcoal). A thin pipe between each link
+  // keeps the trio readable as a single row of metadata.
+  // The divider lives in a ::before pseudo-element sitting in the flex
+  // gap (not as padding on the anchor) so the underline-wipe animation
+  // only spans the text — never the padding.
+  &--short,
+  &--full {
+    gap: 1.25rem;
+
+    a {
+      font-family: $font-main;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: normal;
+      text-transform: none;
+      color: rgba(#000, 0.5);
+      padding: 0;
+      position: relative;
+      @include link-underline-wipe;
+
+      &:hover { color: rgba(#000, 0.85); }
+    }
+
+    a + a::before {
+      content: '';
+      position: absolute;
+      left: -0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 0.9em;
+      background: rgba(#000, 0.2);
+    }
   }
 }
 
 // ─── Column labels ────────────────────────────────────────────
 .footer-col-label {
   font-family: $font-label;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   color: rgba(#000, 0.85);
@@ -132,9 +174,28 @@ max-width: 1268px;
 
 // ─── Nav links ───────────────────────────────────────────────
 .footer-links-col,
-.footer-contact-col {
+.footer-contact-col,
+.footer-social-col {
   display: flex;
   flex-direction: column;
+}
+
+// ─── Social column ────────────────────────────────────────────
+// When the social block lives in its own column (rather than under the
+// brand), stack the links vertically so they read like a menu list.
+.footer-social-col .footer-social {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0;
+
+  // No dividers when stacked — they only make sense in a row layout.
+  a + a::before { display: none; }
+  &--short a + a,
+  &--full  a + a {
+    padding-left: 0;
+    border-left: none;
+  }
 }
 
 .footer-links-col ul,
@@ -154,13 +215,9 @@ max-width: 1268px;
   font-family: $font-main;
   font-size: 1rem;
   color: rgba(#000, 0.5);
-  text-decoration: none;
-  transition: none;
+  @include link-underline-wipe;
 
-  &:hover {
-    color: rgba(#000, 0.85);
-    text-decoration: none;
-  }
+  &:hover { color: rgba(#000, 0.85); }
 }
 
 // ─── Contact col ─────────────────────────────────────────────
@@ -170,39 +227,48 @@ max-width: 1268px;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 0.6rem; // matches the Social + Navigation columns for consistent rhythm
   li {
     display: flex;
     flex-direction: column;
     gap: 0;
-    margin: 0 0 1rem;
-
-    &:last-child {
-      margin: 0;
-    }
+    margin: 0;
   }
 
   a {
     color: rgba(#000, 0.5);
-    text-decoration: none;
     font-family: $font-main;
     font-size: 1rem;
-    transition: none;
-    &:hover { color: rgba(#000, 0.85); text-decoration: none; }
+    align-self: flex-start; // stop the flex column from stretching the link to full row width
+    @include link-underline-wipe;
+    &:hover { color: rgba(#000, 0.85); }
   }
 }
 
 .footer-contact-label {
   font-family: $font-label !important;
-  font-size: 0.65rem !important;
+  font-size: 1rem !important;
   font-weight: 600;
   text-transform: uppercase;
   color: rgba(#000, 0.9);
 }
 
+// Sub-label inside the Contact column (smaller than the main column heading)
+// e.g. "Email" / "Phone" / "Location" beneath the "CONTACT" heading.
+.footer-sublabel {
+  display: block;
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(#000, 0.5);
+  margin-bottom: 0.15rem;
+}
+
 .footer-contact-value {
   font-family: $font-main;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: rgba(#000, 0.5);
 
 }
@@ -255,7 +321,7 @@ max-width: 1268px;
 
 .fnf-input {
   font-family: $font-main;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: $black;
   background: transparent;
   border: 1px solid rgba(#000, 0.2);
@@ -274,7 +340,7 @@ max-width: 1268px;
 
 .fnf-btn {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   background: $black;
@@ -293,7 +359,7 @@ max-width: 1268px;
 
 .fnf-msg {
   font-family: $font-main;
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin: 0.25rem 0 0;
   min-height: 1.2em;
 
@@ -301,60 +367,33 @@ max-width: 1268px;
   &.is-error   { color: #c0392b; }
 }
 
-// ─── Bottom bar ──────────────────────────────────────────────
+// Copyright row sits at the very bottom of the footer. On desktop it
+// centers in a full-width row; on mobile (where the 4 columns stack)
+// it naturally ends up dead-last in the DOM, satisfying "very bottom".
 .footer-bottom {
   position: relative;
   z-index: 1;
-  padding: 1.25rem 1rem;
+  padding: 1.25rem 0 1.5rem;
+
+  .container { text-align: center; }
 }
 
-.footer-bottom-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  position: relative;
-
-  > span {
-    font-family: $font-main;
-    font-size: 0.75rem;
-    color: rgba(#000, 0.35);
-  }
+.footer-copyright {
+  display: inline-block;
+  font-family: $font-main;
+  font-size: 1rem;
+  color: rgba(#000, 0.35);
 }
 
-.footer-legal {
-  display: flex;
-  gap: .5rem;
-
-  span {
-    font-family: $font-main;
-    font-size: 0.75rem;
-    color: rgba(#000, 0.35);
-  }
-  a {
-    font-family: $font-main;
-    font-size: 0.75rem;
-    color: rgba(#000, 0.35);
-    text-decoration: none;
-    transition: none;
-
-    &::before {
-      content: "";
-      padding-left: .5rem;
-      border-left: 1px solid rgba(0,0,0, 0.35);
-    }
-
-    &:hover { color: rgba(#000, 0.7); text-decoration: none; }
-  }
-}
-
+// "Made in Chicago, IL, USA" now lives inside the Brand column, under the
+// description. Small inline-flex of flag + text aligned to the left edge.
 .footer-made-in {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 0.5rem;
   font-family: $font-main;
-  font-size: 0.75rem;
+  font-size: 1rem;
   text-transform: none;
   color: rgba(#000, 0.35);
 }
@@ -363,35 +402,8 @@ max-width: 1268px;
   display: inline-block;
   width: 28px;
   height: auto;
-  opacity: 0.5;
+  opacity: 0.7;
   flex-shrink: 0;
-  filter: grayscale(1) brightness(3);
-}
-
-@include mobile {
-
-  .footer-bottom {
-    padding: 0 0 2.5rem;
-  }
-  .footer-bottom-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .footer-legal {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    flex-direction: column-reverse;
-
-      a {
-    &::before {
-      content: "";
-      padding-left: 0;
-      border: none;
-    }
-  }
-  }
 }
 
 .location-wrapper {

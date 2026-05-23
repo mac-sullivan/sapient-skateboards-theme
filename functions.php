@@ -14,6 +14,61 @@ if ( ! ob_get_level() ) {
 @ini_set( 'post_max_size',       '64M' );
 add_filter( 'upload_size_limit', function() { return 64 * 1024 * 1024; } );
 
+// ── Theme (light/dark): inline <head> script sets [data-theme] BEFORE
+// first paint so there's no flash of the wrong palette.
+//   • Light is the default for everyone — first-time visitors AND anyone
+//     whose stale localStorage from a previous visit still says 'dark'.
+//   • A version flag (ssThemeV) gates the one-time reset: when the
+//     stored version doesn't match the current one (bump it to force a
+//     reset for the whole user base), the saved theme is wiped.
+//   • After that, the toggle button still lets users opt into dark and
+//     their choice persists via localStorage as normal.
+add_action( 'wp_head', function() {
+    echo "<script>(function(){try{var V='1';if(localStorage.getItem('ssThemeV')!==V){localStorage.removeItem('ssTheme');localStorage.setItem('ssThemeV',V);}var s=localStorage.getItem('ssTheme')||'light';document.documentElement.setAttribute('data-theme',s);}catch(e){}})();</script>\n";
+}, 0 );
+
+// ── Page fade-in: inline <head> script gates the animation to the first
+// navigation in a session. Runs before any paint to avoid a flash.
+add_action( 'wp_head', function() {
+    echo "<script>(function(){try{if(!sessionStorage.getItem('ssFade')){document.documentElement.classList.add('fade-in');sessionStorage.setItem('ssFade','1');}}catch(e){}})();</script>\n";
+}, 1 );
+
+// ── Performance: ensure every <img> ships with loading="lazy" + decoding="async"
+// WP-generated images: hook the attachment-image attributes filter.
+add_filter( 'wp_get_attachment_image_attributes', function( $attr ) {
+    if ( empty( $attr['loading'] ) )  $attr['loading']  = 'lazy';
+    if ( empty( $attr['decoding'] ) ) $attr['decoding'] = 'async';
+    return $attr;
+}, 10, 1 );
+
+// Theme-template <img> tags: post-process the rendered HTML via an output
+// buffer (after PHP has been evaluated, so PHP tags don't confuse the regex).
+// Skips images that already declare loading / decoding, and skips the header
+// site logo + hero images so above-the-fold content stays priority.
+add_action( 'template_redirect', function() {
+    if ( is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+        return;
+    }
+    ob_start( function( $html ) {
+        return preg_replace_callback(
+            '/<img\b([^>]*)>/i',
+            function( $m ) {
+                $attrs = $m[1];
+                // Skip above-the-fold images (LCP) — heuristics: header logo,
+                // hero, brand logo, h2 logo, fetchpriority=high already set.
+                if ( preg_match( '/class="[^"]*(brand-logo|h2-logo|ss-logo--header|hero-image|hero-overlay|hero-video|fetchpriority)/i', $attrs )
+                  || stripos( $attrs, 'fetchpriority="high"' ) !== false ) {
+                    return $m[0];
+                }
+                if ( stripos( $attrs, 'loading=' ) === false )  $attrs .= ' loading="lazy"';
+                if ( stripos( $attrs, 'decoding=' ) === false ) $attrs .= ' decoding="async"';
+                return "<img{$attrs}>";
+            },
+            $html
+        );
+    });
+}, 1 );
+
 /**
  * Returns spacing modifier classes for a flex layout section.
  * Reads the cloned remove_top_padding / remove_bottom_padding sub-fields.

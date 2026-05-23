@@ -22,7 +22,7 @@
 .contact-eyebrow {
   display: block;
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
@@ -31,7 +31,7 @@
 
 .contact-title {
   font-family: $font-heading;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(2.25rem, 5vw, 3rem);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 1;
@@ -42,11 +42,17 @@
 
 .contact-sub {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.65;
   color: rgba($charcoal, 0.55);
   margin: 0 0 1rem;
   max-width: 32ch;
+}
+
+.contact-content {
+  margin: 0 0 1rem;
+
+  p:last-child { margin-bottom: 0; }
 }
 
 .contact-details-list {
@@ -65,28 +71,31 @@
 
   .detail-label {
     font-family: $font-label;
-    font-size: 0.6rem;
+    font-size: 1.125rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: rgba($charcoal, 0.35);
+    color: $charcoal;
     text-decoration: none !important; // never underline the small heading
   }
 
   span:not(.detail-label) {
     font-family: $font-main;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     color: $charcoal;
     text-decoration: none;
   }
 
-  // Email/phone links — explicit blue (matches the global main a rule)
+  // Email/phone links — explicit blue (matches the global main a rule).
+  // No hover underline rule here — the global link-underline-wipe handles
+  // it cleanly; adding text-decoration on top causes a doubled underline.
+  // align-self: flex-start prevents the link from stretching to the full
+  // row width (parent <li> is flex-direction: column), which would make
+  // the underline span the entire row instead of just the text.
   a {
     font-family: $font-main;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     color: #0066cc;
-    text-decoration: none;
-
-    &:hover { text-decoration: underline; text-underline-offset: 3px; }
+    align-self: flex-start;
   }
 }
 
@@ -120,7 +129,7 @@
 .contact-response-note {
   margin-top: 1.5rem;
   font-family: $font-main;
-  font-size: 0.8rem;
+  font-size: 1.125rem;
   color: rgba($charcoal, 0.4);
   line-height: 1.6;
 
@@ -159,7 +168,7 @@
     border: 1.5px solid rgba($charcoal, 0.3);
     padding: 0.9rem 1rem;
     font-family: $font-main;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     color: $charcoal;
     outline: none;
     display: block;
@@ -183,7 +192,7 @@
     border: 1.5px solid $charcoal;
     padding: 1rem 2rem;
     font-family: $font-label;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
@@ -199,7 +208,7 @@
 
   .wpcf7-not-valid-tip {
     font-family: $font-label;
-    font-size: 0.65rem;
+    font-size: 1.125rem;
     color: #c0392b;
     margin-top: 0.25rem;
     display: block;
@@ -209,7 +218,7 @@
     margin-top: 1.5rem;
     padding: 1rem;
     font-family: $font-label;
-    font-size: 0.7rem;
+    font-size: 1.125rem;
     border: 1.5px solid rgba($charcoal, 0.2);
     color: $charcoal;
     border-radius: 0;

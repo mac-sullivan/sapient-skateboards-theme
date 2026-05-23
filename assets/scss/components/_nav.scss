@@ -8,13 +8,14 @@
   right: 0;
   z-index: 1000;
   background: $white;
-  border-bottom: 1px solid $black;
+  box-shadow: 0 4px 18px -8px rgba(0, 0, 0, 0.18);
   transition: none;
 
   &.is-scrolled {
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 6px 22px -8px rgba(0, 0, 0, 0.22);
   }
 }
 
@@ -53,7 +54,7 @@
 
   a {
     font-family: $font-label;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 500;
     color: $black;
     padding: 0.5rem .75rem;
@@ -218,7 +219,7 @@
   border-bottom: 1px solid $black;
   background: $bone;
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: normal;
@@ -280,7 +281,7 @@
   // Desktop: match nav-link typography (no bold).
   // Mobile/tablet: bumps to 700 + tracking to match the MENU button (see below).
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: normal;
@@ -311,7 +312,7 @@
   color: $charcoal;
   border-radius: 999px;
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1;
@@ -320,7 +321,7 @@
 // ─── Nav CTA button ─────────────────────────────────────────
 .btn-nav-cta {
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 600;
   text-transform: uppercase;
   background: $black;
@@ -350,7 +351,7 @@
 
   .nav-toggle-label {
     font-family: $font-label;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -360,14 +361,18 @@
   }
 
   &.is-open {
+    background: $black;
     border-color: $black;
-    .nav-toggle-label { color: $black; }
+    .nav-toggle-label { color: $white; }
   }
 }
 
 // ─── Mobile overlay ─────────────────────────────────────────
+// Animation: fade-in/fade-out (Option 1 — matches the "snap, no slide" motion
+// language used elsewhere). Overlay stays in the DOM at all times so it can
+// transition; pointer-events + visibility keep it inert when closed.
 .nav-mobile-overlay {
-  display: none;
+  display: flex;
   position: fixed;
   top: var(--header-bottom, var(--header-h, 70px));
   left: 0;
@@ -381,7 +386,17 @@
   overflow-y: auto;
   border-top: 1px solid rgba($black, 0.1);
 
-  &.open { display: flex; }
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 200ms ease, visibility 0s linear 0s;
+  }
 }
 
 // ─── Mobile search ────────────────────────────────────────────
@@ -403,7 +418,7 @@
   border: none;
   background: transparent;
   font-family: $font-label !important;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 500;
   text-transform: uppercase;
   color: $black;
@@ -495,7 +510,7 @@
 
     li a {
       font-family: $font-label;
-      font-size: 1rem;
+      font-size: 1.125rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -543,7 +558,7 @@
 
 .cart-preview-empty {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   text-transform: uppercase;
   color: rgba($black, 0.35);
   text-align: center;
@@ -563,7 +578,7 @@
 
   thead th {
     font-family: $font-label;
-    font-size: 0.65rem;
+    font-size: 1.125rem;
     font-weight: 700;
     text-transform: uppercase;
     color: rgba($black, 0.65);
@@ -584,7 +599,7 @@
   tbody td {
     padding: 0.65rem 0.75rem;
     vertical-align: middle;
-    font-size: 0.65rem;
+    font-size: 1.125rem;
   }
 
   .cpt-img {
@@ -602,7 +617,7 @@
 
   .cpt-name {
     font-family: $font-heading;
-    font-size: 0.65rem;
+    font-size: 1.125rem;
     font-weight: 700;
     text-transform: uppercase;
     color: rgba($black, 0.5);
@@ -615,13 +630,13 @@
   .cpt-qty {
     text-align: center;
     color: rgba($black, 0.5);
-    font-size: 0.65rem;
+    font-size: 1.125rem;
   }
 
   .cpt-price {
     text-align: right;
     padding-right: 0.75rem;
-    font-size: 0.65rem;
+    font-size: 1.125rem;
     color: rgba($black, 0.5);
     white-space: nowrap;
   }
@@ -638,14 +653,14 @@
 
 .cart-preview-total {
   font-family: $font-heading;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $black;
 }
 
 .cart-preview-btn {
-  font-size: 0.6rem;
+  font-size: 1.125rem;
   padding: 0.6rem 1.25rem;
 }
 
@@ -692,7 +707,7 @@
 
 .cart-toast-msg {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $bone;
@@ -701,7 +716,7 @@
 
 .cart-toast-link {
   font-family: $font-label;
-  font-size: 0.6rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $amber;
@@ -717,7 +732,7 @@
   border: none;
   color: rgba($bone, 0.4);
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   padding: 0;
   line-height: 1;
   flex-shrink: 0;

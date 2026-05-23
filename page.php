@@ -31,8 +31,16 @@
     <section class="wc-page-section">
       <div class="container">
         <?php while ( have_posts() ) : the_post(); ?>
+          <h1 class="wc-page-heading"><?php the_title(); ?></h1>
           <div class="wc-page-content">
-            <?php the_content(); ?>
+            <?php
+            $page_content = trim( get_the_content() );
+            if ( $page_content !== '' ) {
+                the_content();
+            } else {
+                echo '<p class="wc-page-empty">This page is being finalized. Please check back soon, or <a href="' . esc_url( home_url( '/contact-us/' ) ) . '">contact us</a> for any questions.</p>';
+            }
+            ?>
           </div>
         <?php endwhile; ?>
       </div>

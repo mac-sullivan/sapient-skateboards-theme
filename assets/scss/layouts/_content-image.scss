@@ -2,8 +2,7 @@
 
 // ─── Content + Image ─────────────────────────────────────────
 .section-cai {
-  @include section-padding;
-  padding-top: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 3rem) 0 $section-pad;
 }
 
 .cai-grid {
@@ -67,13 +66,18 @@
     line-height: 1.15;
   }
 
-  // Smaller in-content headings (global h1/h2 clamps are way too big
-  // for an inline content block).
+  // H1 unified to the global homepage size for site-wide consistency.
+  // text-wrap: pretty overrides the global h1 balance — balance prefers
+  // evenly-sized lines and was forcing "PRODUCTION RUN 001 — 2026" onto
+  // three lines on mobile. Smaller mobile font ensures a clean 2-line wrap.
   h1 {
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-size: clamp(2.5rem, 5vw, 3.25rem);
     font-weight: 900;
+    text-wrap: pretty;
 
-    @include mobile { font-size: 1.5rem; }
+    @include mobile {
+      font-size: 2rem;
+    }
   }
   h2 {
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);

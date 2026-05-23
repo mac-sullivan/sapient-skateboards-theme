@@ -57,7 +57,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $ochre-light;
@@ -80,7 +80,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: rgba($bone, 0.4);
   font-family: $font-main;
 
@@ -190,7 +190,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #6b6b6b;
   font-family: $font-main;
@@ -234,7 +234,7 @@
 }
 
 .nav-direction {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $ochre;
@@ -242,7 +242,7 @@
 }
 
 .nav-title {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #0d0d0d;
   font-family: $font-heading;
@@ -291,7 +291,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-family: $font-main;
 
   &:not(:last-child) {
@@ -316,7 +316,7 @@
   padding: 1.5rem;
 
   p {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: #aaa;
     line-height: 1.65;
     margin: 0 0 1.25rem;
@@ -330,7 +330,7 @@
   gap: 0.4rem;
   background: $ochre;
   color: $bone;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   font-family: $font-main;
   padding: 0.6rem 1.25rem;

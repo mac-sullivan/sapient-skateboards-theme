@@ -31,7 +31,60 @@
 .wc-page-content {
   font-family: $font-main;
   color: $charcoal;
-  line-height: 1.65;
+  line-height: 1.7;
+  font-size: 1.125rem;
+  max-width: 70ch;
+
+  h2, .wp-block-heading {
+    font-family: $font-heading;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: $charcoal;
+    margin: 2.5rem 0 1rem;
+    line-height: 1.2;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  h3 {
+    font-family: $font-heading;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $charcoal;
+    margin: 2rem 0 0.75rem;
+  }
+
+  p {
+    margin: 0 0 1.25rem;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  a {
+    color: #0066cc;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover { text-decoration: none; }
+  }
+
+  ul, ol {
+    margin: 0 0 1.25rem 1.25rem;
+    padding: 0;
+
+    li { margin-bottom: 0.5rem; }
+  }
+
+  // Hide WordPress's "Suggested text:" tutorial prompts on the
+  // auto-generated Privacy Policy page.
+  .privacy-policy-tutorial { display: none; }
+}
+
+.wc-page-empty {
+  font-style: italic;
+  color: rgba($charcoal, 0.6);
 }
 
 .shop-hero-heading {
@@ -70,14 +123,14 @@
 
   .woocommerce-result-count {
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: rgba($charcoal, 0.5);
     margin: 0;
   }
 
   .woocommerce-ordering select {
     font-family: $font-label;
-    font-size: 1rem;
+    font-size: 1.125rem;
     text-transform: uppercase;
     color: $charcoal;
     background: transparent;
@@ -125,7 +178,7 @@
   border-right: 1px solid rgba($charcoal, 0.12);
   padding: 0.9rem 1.75rem;
   font-family: $font-main;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1;
@@ -209,7 +262,7 @@
 
 .shop-product-price {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: rgba($charcoal, 0.6);
 }
 
@@ -298,7 +351,7 @@
 
 .product-colorway {
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
 }
@@ -315,7 +368,7 @@
   display: inline-block;
   margin-top: 0.75rem;
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 400;
   text-transform: uppercase;
   color: $olive;
@@ -346,7 +399,7 @@
         width: 40px;
         height: 40px;
         font-family: $font-main;
-        font-size: 1rem;
+        font-size: 1.125rem;
         font-weight: 600;
         color: $charcoal;
         border: 1px solid $bone-dark;
@@ -549,7 +602,7 @@
   transform: translateX(-50%);
   color: rgba(#fff, 0.5);
   font-family: $font-label;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 500;
   white-space: nowrap;
   pointer-events: none;
@@ -633,7 +686,7 @@
 
 .product-single-sku {
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
 }
@@ -650,7 +703,7 @@
 
 .product-single-short-desc {
   font-family: $font-main;
-  font-size: 0.95rem;
+  font-size: 1.125rem;
   color: $charcoal;
   line-height: 1.75;
   text-wrap: balance;
@@ -715,7 +768,7 @@
     border-right: 1px solid $black;
     background: transparent;
     font-family: $font-heading;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: $charcoal;
     text-align: center;
@@ -736,7 +789,7 @@
     border: 1.5px solid $charcoal;
     padding: 1rem 2rem;
     font-family: $font-label;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
@@ -758,7 +811,7 @@
 
 .product-sold-out {
   font-family: $font-label;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
@@ -770,7 +823,7 @@
 
 .product-single-description {
   font-family: $font-main;
-  font-size: 0.9rem;
+  font-size: 1.125rem;
   color: $charcoal;
   line-height: 1.75;
   padding-top: 0;
@@ -785,7 +838,7 @@
     text-transform: uppercase;
     color: $charcoal;
     margin: 1rem 0 0.4rem;
-    font-size: 0.85rem;
+    font-size: 1.125rem;
   }
 
   ul, ol {
@@ -813,7 +866,7 @@
 
     thead th {
       font-family: $font-label;
-      font-size: 0.48rem;
+      font-size: 1.125rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.14em;
@@ -827,7 +880,7 @@
 
     tbody td {
       font-family: $font-mono;
-      font-size: 1rem;
+      font-size: 1.125rem;
       font-weight: 700;
       color: $black;
       padding: 0.15rem 1rem 0.75rem;
@@ -848,7 +901,7 @@
 
   span {
     font-family: $font-label;
-    font-size: 0.65rem;
+    font-size: 1.125rem;
     font-weight: 600;
     text-transform: uppercase;
     color: rgba($charcoal, 0.3);
@@ -879,7 +932,7 @@
 
 .product-attr-label {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
@@ -887,7 +940,7 @@
 
 .product-attr-value {
   font-family: $font-main;
-  font-size: 0.85rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: $charcoal;
 }
@@ -906,7 +959,7 @@
   width: 100% !important;
   padding: 1rem 2rem !important;
   font-family: $font-label !important;
-  font-size: 0.75rem !important;
+  font-size: 1.125rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   cursor: pointer !important;
@@ -924,7 +977,7 @@
 // ─── Option labels (Color, Griptape, Size) ───────────────────
 .product-option-label {
   font-family: $font-label;
-  font-size: 0.55rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -954,7 +1007,7 @@
   border: 1px solid rgba($charcoal, 0.2);
   padding: 0.55rem 1rem;
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
@@ -999,7 +1052,7 @@
   padding: 0.55rem 0.9rem;
   min-width: 3rem;
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
@@ -1066,7 +1119,7 @@
 
 .color-swatch-label {
   font-family: $font-label;
-  font-size: 0.6rem;
+  font-size: 1.125rem;
   font-weight: 600;
   text-transform: uppercase;
   color: rgba($charcoal, 0.55);
@@ -1081,7 +1134,7 @@
 
 .color-required-msg {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: $ochre;
   text-transform: uppercase;
@@ -1090,7 +1143,7 @@
 
 .size-required-msg {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: $ochre;
   text-transform: uppercase;
@@ -1100,7 +1153,7 @@
 // ─── WYSIWYG / Rich text in product descriptions ─────────────
 .wysiwyg {
   font-family: $font-main;
-  font-size: 0.9rem;
+  font-size: 1.125rem;
   line-height: 1.7;
   color: $charcoal;
 
@@ -1116,7 +1169,7 @@
   }
   h2 { font-size: 1.4rem; }
   h3 { font-size: 1.1rem; }
-  h4 { font-size: 0.9rem; }
+  h4 { font-size: 1.125rem; }
 
   strong, b { font-weight: 700; }
   em, i { font-style: italic; }
@@ -1168,7 +1221,7 @@
   gap: 0.5rem;
   margin-top: 0.85rem;
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $charcoal;
@@ -1210,7 +1263,7 @@
 
   span {
     font-family: $font-label;
-    font-size: 0.7rem;
+    font-size: 1.125rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;

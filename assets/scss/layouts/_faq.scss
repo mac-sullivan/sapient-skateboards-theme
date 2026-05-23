@@ -73,7 +73,7 @@
   transition: none;
 
   @include mobile {
-    font-size: 0.95rem;
+    font-size: 1.125rem;
   }
 }
 
@@ -105,7 +105,7 @@
   padding: 0 0 2rem;
   padding-right: 4rem;
   color: rgba($charcoal, 0.75);
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.75;
   max-width: 100ch;
 

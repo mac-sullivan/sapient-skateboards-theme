@@ -58,7 +58,7 @@
 .hero-eyebrow {
   display: block;
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   text-transform: uppercase;
   color: rgba($bone, 0.65);
   margin-bottom: 1.5rem;
@@ -66,7 +66,7 @@
 
 .hero-heading {
   font-family: $font-heading;
-  font-size: clamp(4rem, 9vw, 10vw);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 800;
   color: $bone;
   text-transform: uppercase;
@@ -76,7 +76,7 @@
 
 .hero-subtext {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: rgba($bone, 0.6);
   line-height: 1.65;
   max-width: 40ch;
@@ -104,7 +104,7 @@
 
   span {
     font-family: $font-label;
-    font-size: 1rem;
+    font-size: 1.125rem;
     text-transform: uppercase;
     color: $bone;
   }
@@ -123,5 +123,5 @@
     padding: 2rem 1.5rem 3.5rem;
   }
 
-  .hero-heading { font-size: clamp(3rem, 12vw, 5rem); }
+  .hero-heading { font-size: clamp(2.5rem, 5vw, 4.5rem); }
 }

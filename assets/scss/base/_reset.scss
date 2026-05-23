@@ -29,24 +29,22 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 
 // Content links (everything inside <main>, excluding header/footer)
-// use a classic blue. Exceptions (suppliers table, etc.) override below.
-main a {
+// use a classic blue with a subtle left→right underline wipe on hover.
+// Exclusions: anchors wrapping images, buttons, and known UI link patterns
+// where the wipe shouldn't apply.
+main a:not(.btn):not([class*="btn-"]):not(.brand-logo):not(.h2-logo):not(.footer-logo-link) {
   color: #0066cc;
-
-  &:hover { text-decoration: underline; }
+  @include link-underline-wipe;
 }
 
-// Utility: black text by default, classic-blue + underline on hover.
+// Utility: black text by default, classic-blue + animated underline on hover.
 // Add class="link-hover-blue" on any anchor that should use this pattern.
 main a.link-hover-blue,
 .link-hover-blue {
   color: #000;
-  text-decoration: none;
+  @include link-underline-wipe;
 
-  &:hover {
-    color: #0066cc;
-    text-decoration: underline;
-  }
+  &:hover { color: #0066cc; }
 }
 
 // WordPress admin bar

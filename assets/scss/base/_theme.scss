@@ -1,0 +1,381 @@
+@use '../abstracts' as *;
+
+// ═══════════════════════════════════════════════════════════════
+// Dark mode
+// Activated by [data-theme="dark"] on the <html> element. The choice
+// is set by an inline <head> script (pt_inline_theme_init in
+// functions.php) so it lands before first paint — no flash of light
+// content. Toggle handler in main.js writes the user choice to
+// localStorage and updates <html data-theme="..."> at runtime.
+//
+// First-visit default: matches the OS via prefers-color-scheme.
+// ═══════════════════════════════════════════════════════════════
+
+[data-theme="dark"] {
+
+  // ── Foundation — body sits ONE TICK LIGHTER than the header/footer
+  // for visual separation. Header + footer stay at #000000 (near-black);
+  // body, html, and section backgrounds are #222222 (a touch lighter).
+  // !important needed because _reset.scss has a higher-specificity rule:
+  // body:not(.intro-page):not(.page-template-page-process) that sets
+  // background: #fff. Without !important the white wins.
+  body {
+    background: #222222 !important;
+    color: #ebe5d6;
+  }
+  html { background: #222222; }
+  #main-content { background: #222222; }
+
+  // ── Header
+  #site-header {
+    background: #000000 !important;
+    box-shadow: 0 4px 18px -8px rgba(0, 0, 0, 0.55);
+  }
+  #site-header.is-scrolled {
+    background: rgba(22, 22, 22, 0.92) !important;
+  }
+
+  // Nav links
+  .nav-links > li > a { color: #ebe5d6; }
+  .nav-links > li > a:hover {
+    background-color: #f8ac00;
+    border-color: #f8ac00;
+    color: #000000;
+  }
+  .nav-links li.current-menu-item > a,
+  .nav-links li[aria-current="page"] > a {
+    background: #f8ac00;
+    color: #000000;
+  }
+
+  // Header utilities: search input, toggle button, mobile menu button
+  .search-input {
+    background: transparent;
+    color: #ebe5d6;
+    border-bottom-color: rgba(235, 229, 214, 0.5);
+    &::placeholder { color: rgba(235, 229, 214, 0.45); }
+    &:focus { border-bottom-color: #ebe5d6; }
+  }
+  .search-toggle-btn { color: #ebe5d6; }
+
+  // Mobile dropdown form sits below the header as a full-width strip —
+  // match the header bg (pure black) so it reads as a header extension.
+  .search-inline-form {
+    background: #000000;
+    border-bottom-color: rgba(235, 229, 214, 0.15);
+  }
+  .nav-toggle {
+    border-color: #ebe5d6;
+    .nav-toggle-label { color: #ebe5d6; }
+  }
+  .nav-toggle.is-open {
+    background: #ebe5d6;
+    border-color: #ebe5d6;
+    .nav-toggle-label { color: #000000; }
+  }
+
+  // Logos — invert the brightness(0) filter so the wordmark shows in warm bone
+  .ss-logo,
+  #site-footer .ss-logo--footer { filter: brightness(0) invert(0.92); }
+
+  // ── Mobile nav overlay
+  .nav-mobile-overlay {
+    background: #000000;
+    border-top-color: rgba(235, 229, 214, 0.1);
+  }
+  .nav-links-mobile-list > li > a {
+    color: #ebe5d6;
+    border-bottom-color: rgba(235, 229, 214, 0.08);
+    &:active { background: rgba(235, 229, 214, 0.06); }
+  }
+  .nav-links-mobile-list .sub-menu {
+    background: #1f1f1f;
+    li a {
+      color: rgba(235, 229, 214, 0.6);
+      border-bottom-color: rgba(235, 229, 214, 0.06);
+    }
+  }
+  .mobile-search-form { background: #000000; border-top-color: rgba(235, 229, 214, 0.08); }
+  .mobile-search-input {
+    color: #ebe5d6;
+    &::placeholder { color: #ebe5d6; }
+  }
+  .mobile-search-btn { color: #ebe5d6; }
+
+  // ── Footer
+  #site-footer {
+    background: #000000;
+    color: #ebe5d6;
+    box-shadow: 0 -4px 18px -8px rgba(0, 0, 0, 0.55);
+  }
+  .footer-description,
+  .footer-made-in,
+  .footer-copyright,
+  .footer-contact-value,
+  .footer-location-wysiwyg p {
+    color: rgba(235, 229, 214, 0.6);
+  }
+  .footer-col-label { color: rgba(235, 229, 214, 0.92); }
+  .footer-links-col a,
+  .footer-menu a,
+  .footer-contact-list a,
+  .footer-social a,
+  .footer-social--short a,
+  .footer-social--full a {
+    color: rgba(235, 229, 214, 0.6);
+    &:hover { color: rgba(235, 229, 214, 0.95); }
+  }
+  .footer-social--short a + a::before,
+  .footer-social--full  a + a::before {
+    background: rgba(235, 229, 214, 0.2);
+  }
+
+  // ── Section backgrounds (anything that sets a $bone bg in light mode)
+  .section-suppliers,
+  .section-supplier-cta,
+  .section-contact,
+  .section-countdown,
+  .section-cai,
+  .section-tis,
+  .section-full-photo,
+  .section-photo-grid,
+  .section-events,
+  .section-sponsors,
+  .section-cta-banner,
+  .section-newsletter,
+  .wc-page-section,
+  .shop-main,
+  .shop-products,
+  .shop-hero { background: #222222; }
+
+  // ── Section text + headings
+  .wc-page-heading,
+  .wc-page-content,
+  .blog-archive-title,
+  .blog-card-title,
+  .contact-title,
+  .contact-content,
+  .countdown-heading,
+  .countdown-value,
+  .supplier-cta-title,
+  .shop-product-name,
+  .product-name,
+  .hero-heading,
+  .e404-heading,
+  .e404-code,
+  .e404-sub { color: #ebe5d6; }
+
+  // Lighter secondary text
+  .blog-archive-sub,
+  .contact-sub,
+  .countdown-label,
+  .e404-sub,
+  .suppliers-subheading,
+  .supplier-cta-body p,
+  .shop-hero-sub,
+  .shop-product-price,
+  .wc-page-content p,
+  .wc-page-empty { color: rgba(235, 229, 214, 0.6); }
+
+  // Countdown meta line ("Launching June 22…") — full bone, !important.
+  // Targets both the .countdown-meta class AND the bare h3 inside
+  // .section-countdown (the class is optional in the markup).
+  .countdown-meta,
+  .section-countdown h3:not(.countdown-heading) { color: #ebe5d6 !important; }
+
+  // Countdown cards
+  .countdown-unit {
+    border-color: rgba(235, 229, 214, 0.18);
+    background: rgba(235, 229, 214, 0.03);
+  }
+
+  // Suppliers table
+  .suppliers-table {
+    thead {
+      border-top-color: rgba(235, 229, 214, 0.4);
+      border-bottom-color: rgba(235, 229, 214, 0.4);
+      background: rgba(235, 229, 214, 0.05);
+    }
+    thead th { color: rgba(235, 229, 214, 0.5); }
+    tbody tr { border-bottom-color: rgba(235, 229, 214, 0.08); }
+    tbody tr:hover { background: rgba(235, 229, 214, 0.03); }
+    tbody td { color: #ebe5d6; }
+    a { color: #ebe5d6; }
+    .supplier-url { color: #ebe5d6; text-decoration-color: #ebe5d6; }
+
+    @include mobile {
+      tbody tr { border-bottom-color: rgba(235, 229, 214, 0.12); }
+      tbody tr:first-child { border-top-color: rgba(235, 229, 214, 0.12); }
+      tbody td { border-bottom-color: rgba(235, 229, 214, 0.06); }
+      tbody td::before { color: rgba(235, 229, 214, 0.4); }
+    }
+  }
+
+  // Contact details list
+  .contact-details-list {
+    border-top-color: rgba(235, 229, 214, 0.15);
+    li { border-bottom-color: rgba(235, 229, 214, 0.15); }
+    .detail-label { color: #ebe5d6; }
+    span:not(.detail-label) { color: #ebe5d6; }
+    .contact-location,
+    .contact-location p,
+    .contact-location * { color: #ebe5d6 !important; }
+  }
+
+  // Contact intro paragraph (WYSIWYG content inside .contact-content)
+  // and any nested elements — force the bone palette so paragraphs
+  // rendered from the editor are readable.
+  .contact-content,
+  .contact-content p,
+  .contact-content * { color: #ebe5d6 !important; }
+
+  // Forms
+  .contact-form-wrap {
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      background: #1f1f1f;
+      border-color: rgba(235, 229, 214, 0.3);
+      color: #ebe5d6;
+      &::placeholder { color: rgba(235, 229, 214, 0.45); }
+      &:focus { border-color: #ebe5d6; }
+    }
+    input[type="submit"],
+    .wpcf7-submit {
+      border-color: #ebe5d6;
+      color: #ebe5d6;
+      &:hover { background: #f8ac00; border-color: #f8ac00; color: #000000; }
+    }
+    .wpcf7-response-output { border-color: rgba(235, 229, 214, 0.25); color: #ebe5d6; }
+  }
+
+  // Newsletter inputs
+  .fnf-input {
+    color: #ebe5d6;
+    border-color: rgba(235, 229, 214, 0.25);
+    &::placeholder { color: rgba(235, 229, 214, 0.4); }
+    &:focus { border-color: rgba(235, 229, 214, 0.7); }
+  }
+  .fnf-btn {
+    background: #ebe5d6;
+    color: #000000;
+  }
+
+  // Content links (main a)
+  main a:not(.btn):not([class*="btn-"]):not(.brand-logo):not(.h2-logo):not(.footer-logo-link) {
+    color: #7cb1ff;
+  }
+
+  // Hide light-mode tutorial markers properly
+  .privacy-policy-tutorial { display: none; }
+
+  // Image lift shadow needs more weight on a dark bg
+  .section-full-photo img,
+  .section-photo-grid img,
+  .section-cai img,
+  .section-tis img {
+    box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  // Buttons
+  .btn-primary,
+  .btn-outline,
+  [class*="btn-"] {
+    border-color: #ebe5d6;
+    color: #ebe5d6;
+    background: transparent;
+    &:hover { background: #ebe5d6; color: #000000; }
+  }
+
+  // Homepage – Countdown page nav: the page-scoped override in
+  // _countdown.scss forces color: $charcoal (black) on nav links, which
+  // is invisible against the dark header in dark mode. Re-override here
+  // so the bone palette wins, plus the underline pseudo-element.
+  &.page-template-page-homepage-countdown,
+  body.page-template-page-homepage-countdown {
+    .nav-links > li > a,
+    .nav-links li.current-menu-item > a,
+    .nav-links li[aria-current="page"] > a {
+      color: #ebe5d6 !important;
+    }
+    .nav-links > li > a::after { background: #ebe5d6; }
+  }
+
+  // Content + Image layout (.cai-content) — used on the homepage for
+  // the Production Run announcement. Hardcoded color: $charcoal won't
+  // switch on its own.
+  .cai-content,
+  .cai-content h1,
+  .cai-content h2,
+  .cai-content h3,
+  .cai-content h4,
+  .cai-content h5,
+  .cai-content h6,
+  .cai-content p { color: #ebe5d6; }
+
+  // Events page (.page-events .cai-content) — uses many hardcoded
+  // rgba($charcoal, X) values that don't auto-switch. Override here.
+  .page-events {
+    .cai-content {
+      color: #ebe5d6;
+
+      > h1:first-child,
+      > h2,
+      > h3,
+      h1, h2, h3 { color: #ebe5d6; }
+
+      > h1:first-child + h2 { color: rgba(235, 229, 214, 0.85); }
+      > h1:first-child + h2 + h3,
+      > h1:first-child + h2 + h3 + h3 { color: rgba(235, 229, 214, 0.6); }
+      > h1:first-child + h2 + h3 + h3::after { background: rgba(235, 229, 214, 0.3); }
+
+      > h2::before { background: #ebe5d6; }
+      > h3 { border-top-color: rgba(235, 229, 214, 0.18); }
+
+      p, li { color: #ebe5d6; }
+      > h3 + p strong:only-child,
+      > h3 + p:first-of-type strong:only-child { color: rgba(235, 229, 214, 0.7); }
+
+      > h3 ~ ul li::before { background: #ebe5d6; }
+
+      > p:last-child em {
+        color: rgba(235, 229, 214, 0.6);
+        border-top-color: rgba(235, 229, 214, 0.18);
+      }
+    }
+  }
+}
+
+// Bigger sun/moon SVGs so they match the search icon's display size (22px).
+.theme-toggle svg {
+  width: 22px;
+  height: 22px;
+}
+
+// ─── Theme toggle button ─────────────────────────────────────
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: $charcoal;
+  transition: opacity 0.15s ease;
+
+  &:hover { opacity: 0.65; }
+
+  // Show the correct icon for the current theme.
+  // Both icons live in the DOM; we toggle visibility via [data-theme].
+  .theme-icon-moon { display: block; }
+  .theme-icon-sun  { display: none; }
+
+  [data-theme="dark"] & {
+    color: #ebe5d6;
+    .theme-icon-moon { display: none; }
+    .theme-icon-sun  { display: block; }
+  }
+}

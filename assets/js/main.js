@@ -2,6 +2,56 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  // ─── Theme toggle (light / dark) ───────────────────────────
+  // Initial theme is set by the inline <head> script in functions.php
+  // (pt_inline_theme_init). This handler just flips the value on click,
+  // writes the choice to localStorage, and updates <html data-theme>.
+  document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next    = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('ssTheme', next); } catch (e) {}
+    });
+  });
+
+  // ─── Countdown clock ───────────────────────────────────────
+  // Drives any [data-countdown] section. Reads target datetime from
+  // data-target (ISO 8601), updates the four data-d/h/m/s slots every
+  // second. Stops at 00:00:00:00 when the deadline passes.
+  document.querySelectorAll('[data-countdown]').forEach(function (el) {
+    var target = new Date(el.getAttribute('data-target'));
+    if (isNaN(target.getTime())) return;
+    var dEl = el.querySelector('[data-d]');
+    var hEl = el.querySelector('[data-h]');
+    var mEl = el.querySelector('[data-m]');
+    var sEl = el.querySelector('[data-s]');
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+    var timer;
+    function tick() {
+      var diff = Math.max(0, target - new Date());
+      var secs = Math.floor(diff / 1000);
+      var days = Math.floor(secs / 86400);
+      var hrs  = Math.floor((secs % 86400) / 3600);
+      var mins = Math.floor((secs % 3600) / 60);
+      var s    = secs % 60;
+      if (dEl) dEl.textContent = pad(days);
+      if (hEl) hEl.textContent = pad(hrs);
+      if (mEl) mEl.textContent = pad(mins);
+      if (sEl) sEl.textContent = pad(s);
+      if (diff === 0 && timer) clearInterval(timer);
+    }
+    tick();
+    timer = setInterval(tick, 1000);
+  });
+
+  // ─── Page fade-in ──────────────────────────────────────────
+  // Only runs on the first navigation in a session — the inline <head>
+  // script (see pt_inline_fade_in_init in functions.php) adds the
+  // `fade-in` class to <html> on first visit. We flip `.loaded` here on
+  // a paint boundary so the transition plays smoothly.
+  requestAnimationFrame(function () { document.documentElement.classList.add('loaded'); });
+
   // ─── Expandable search ─────────────────────────────────────
   // Behavior: icon click is the only thing that toggles state.
   //   - closed              → open + focus input
@@ -14,6 +64,22 @@ document.addEventListener('DOMContentLoaded', function () {
     var form  = wrap.querySelector('form');
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
+
+      // If the mobile menu is open, close it first so search can take focus.
+      var navOverlay = document.getElementById('site-nav-mobile');
+      if (navOverlay && navOverlay.classList.contains('open')) {
+        navOverlay.classList.remove('open');
+        var navBtn = document.querySelector('.nav-toggle');
+        if (navBtn) {
+          navBtn.classList.remove('is-open');
+          navBtn.setAttribute('aria-expanded', 'false');
+          var navLabel = navBtn.querySelector('.nav-toggle-label');
+          if (navLabel && navLabel.getAttribute('data-open')) {
+            navLabel.textContent = navLabel.getAttribute('data-open');
+          }
+        }
+      }
+
       var open = wrap.classList.contains('is-open');
       if (!open) {
         wrap.classList.add('is-open');

@@ -42,7 +42,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $ochre-light;
@@ -68,7 +68,7 @@
 }
 
 .page-hero-sub {
-  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  font-size: clamp(1.125rem, 1.3vw, 1.125rem);
   color: rgba($bone, 0.52);
   max-width: 44ch;
   line-height: 1.75;
@@ -114,7 +114,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $ochre-light;
@@ -140,7 +140,7 @@
 }
 
 .page-archive-sub {
-  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  font-size: clamp(1.125rem, 1.3vw, 1.125rem);
   color: rgba($bone, 0.52);
   max-width: 44ch;
   line-height: 1.75;

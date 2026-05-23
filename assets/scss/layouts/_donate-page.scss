@@ -69,7 +69,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $ochre-light;
@@ -88,7 +88,7 @@
 }
 
 .donate-hero-sub {
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: clamp(1.125rem, 1.5vw, 1.15rem);
   color: rgba($bone, 0.55);
   max-width: 40ch;
   line-height: 1.7;
@@ -105,7 +105,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: rgba($bone, 0.6);
   border: 1px solid rgba($bone, 0.15);
@@ -138,7 +138,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   color: $ochre;
@@ -197,21 +197,21 @@
   gap: 0.2rem;
 
   strong {
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: $charcoal;
     font-family: $font-main;
   }
 
   span {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: #888;
     line-height: 1.5;
   }
 }
 
 .donate-legal {
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #aaa;
   line-height: 1.7;
   padding-top: 1.5rem;
@@ -268,7 +268,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     text-transform: uppercase;
     color: $ochre-light;
@@ -289,7 +289,7 @@
 
 .donate-breakdown-header p {
   color: rgba($bone, 0.45);
-  font-size: 1rem;
+  font-size: 1.125rem;
   max-width: 44ch;
   line-height: 1.7;
 }
@@ -315,7 +315,7 @@
 
 .donate-bar-label {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: rgba($bone, 0.75);
 }
@@ -400,7 +400,7 @@
   }
 
   p {
-    font-size: 1rem;
+    font-size: 1.125rem;
     line-height: 1.7;
     color: #666;
     margin: 0;
@@ -421,7 +421,7 @@
 }
 
 .donate-other-link {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: $ochre;
   font-family: $font-main;

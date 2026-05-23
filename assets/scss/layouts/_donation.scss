@@ -87,7 +87,7 @@ input#give-amount.give-amount-top {
   border-radius: 10px !important;
   font-family: $font-heading !important;
   font-weight: 700 !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
   color: $charcoal !important;
   background: $bone !important;
   padding: 0.65rem 0.5rem !important;
@@ -117,7 +117,7 @@ button.give-btn:not(.give-submit):not(#give-purchase-button) {
 
 .give-payment-mode-label {
   font-family: $font-main !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   color: #aaa !important;
@@ -156,7 +156,7 @@ button.give-btn:not(.give-submit):not(#give-purchase-button) {
   border: 2px solid #e8e6e2 !important;
   border-radius: 10px !important;
   font-family: $font-main !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
   font-weight: 600 !important;
   color: #888 !important;
   cursor: pointer !important;
@@ -184,7 +184,7 @@ button.give-btn:not(.give-submit):not(#give-purchase-button) {
 
 #give_checkout_user_info legend {
   font-family: $font-main !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   color: #aaa !important;
@@ -231,7 +231,7 @@ button.give-btn:not(.give-submit):not(#give-purchase-button) {
 // Labels
 .give-label {
   font-family: $font-main !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
   font-weight: 600 !important;
   color: #666 !important;
   display: flex !important;
@@ -245,7 +245,7 @@ button.give-btn:not(.give-submit):not(#give-purchase-button) {
 // Required asterisk
 .give-required-indicator {
   color: $ochre !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
 }
 
 // Inputs
@@ -255,7 +255,7 @@ button.give-btn:not(.give-submit):not(#give-purchase-button) {
   border-radius: 10px !important;
   padding: 0.7rem 0.9rem !important;
   font-family: $font-main !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
   color: $charcoal !important;
   background: #f8f7f5 !important;
   transition: none;
@@ -293,7 +293,7 @@ button.give-btn:not(.give-submit):not(#give-purchase-button) {
   background: linear-gradient(135deg, $ochre 0%, $ochre-dark 100%) !important;
   color: $bone !important;
   font-family: $font-main !important;
-  font-size: 1rem !important;
+  font-size: 1.125rem !important;
   font-weight: 700 !important;
   padding: 1rem 2rem !important;
   cursor: pointer !important;
