@@ -287,6 +287,81 @@
     &:hover { background: #ebe5d6; color: #000000; }
   }
 
+  // ── 404 page (error-404-page)
+  .error-404-page { background: #222222; }
+  .e404-heading,
+  .e404-code      { color: #ebe5d6; }
+  .e404-sub,
+  .e404-empty     { color: rgba(235, 229, 214, 0.6); }
+  .e404-logo      { filter: brightness(0) invert(0.92); }
+
+  // ── Search results page (.section-search-results)
+  .section-search-results { background: #222222; }
+
+  .search-results-heading,
+  .search-result-title,
+  .search-result-title a,
+  .search-query,
+  .search-no-results h2,
+  .search-no-results p strong { color: #ebe5d6 !important; }
+
+  .search-results-form {
+    background: transparent;
+    input {
+      background: transparent;
+      color: #ebe5d6;
+      border-color: rgba(235, 229, 214, 0.25);
+      &::placeholder { color: rgba(235, 229, 214, 0.45); }
+      &:focus { border-color: #ebe5d6; }
+    }
+    button { color: #ebe5d6; }
+  }
+
+  // Muted secondary text — count, type label, excerpt, no-results copy
+  .search-results-count,
+  .search-result-type,
+  .search-result-excerpt,
+  .search-result-meta,
+  .search-no-results p { color: rgba(235, 229, 214, 0.6) !important; }
+
+  // "View →" link
+  .search-result-link {
+    color: #ebe5d6;
+    &:hover { color: rgba(235, 229, 214, 0.7); }
+  }
+
+  // Result row separator (correct class: .search-result-item)
+  .search-result-item {
+    border-bottom-color: rgba(235, 229, 214, 0.12);
+  }
+
+  // Suggested-pages buttons on the no-results state
+  .search-suggestions a {
+    color: #ebe5d6;
+    border-color: rgba(235, 229, 214, 0.25);
+    &:hover {
+      background: #ebe5d6;
+      color: #000000;
+      border-color: #ebe5d6;
+    }
+  }
+
+  .search-no-results .btn-outline,
+  .search-no-results .btn-primary {
+    border-color: #ebe5d6;
+    color: #ebe5d6;
+    &:hover { background: #ebe5d6; color: #000000; }
+  }
+
+  // Pagination on the search page
+  .search-pagination,
+  .search-pagination a,
+  .search-pagination .page-numbers {
+    color: #ebe5d6;
+    border-color: rgba(235, 229, 214, 0.25);
+    &.current { background: #ebe5d6; color: #000000; }
+  }
+
   // Homepage – Countdown page nav: the page-scoped override in
   // _countdown.scss forces color: $charcoal (black) on nav links, which
   // is invisible against the dark header in dark mode. Re-override here

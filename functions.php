@@ -14,6 +14,18 @@ if ( ! ob_get_level() ) {
 @ini_set( 'post_max_size',       '64M' );
 add_filter( 'upload_size_limit', function() { return 64 * 1024 * 1024; } );
 
+// ── Search query: never surface drafts/private/pending posts on the
+// frontend, even when the viewer is logged in as admin. WP's default
+// includes those statuses for editors/admins, which is what was causing
+// in-progress entries (e.g. a placeholder "TEAM MEMBER NAME") to leak
+// into search results on the live preview.
+add_action( 'pre_get_posts', function( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || ! $query->is_search() ) {
+        return;
+    }
+    $query->set( 'post_status', 'publish' );
+} );
+
 // ── Theme (light/dark): inline <head> script sets [data-theme] BEFORE
 // first paint so there's no flash of the wrong palette.
 //   • Light is the default for everyone — first-time visitors AND anyone

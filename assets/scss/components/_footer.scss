@@ -55,6 +55,13 @@ max-width: 1100px;
   @include mobile {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+
+    // On mobile, every column (Brand, Navigation, Social, Contact)
+    // stays left-aligned. Only the bottom copyright row may center.
+    > * {
+      justify-self: start;
+      text-align: left;
+    }
   }
 }
 
