@@ -63,9 +63,8 @@
 // dropdown (.search-inline-form uses position: absolute; top: 100%).
 @include tablet {
   // Drop the desktop 3-col grid and use a simple two-end flex layout on
-  // mobile: logo on the left, search + theme toggle + menu grouped
-  // tightly together on the right. Shrink logo + tighten gaps so we
-  // never overflow the viewport.
+  // mobile: logo on the left, search + menu grouped tightly on the right.
+  // Shrink logo + tighten gaps so we never overflow the viewport.
   .h2-inner {
     display: flex;
     justify-content: space-between;
@@ -79,12 +78,11 @@
   }
 
   .h2-utilities {
-    gap: 0.5rem; // tighter than desktop's 1rem — search + sun/moon + menu sit close together
+    gap: 0.5rem; // tighter than desktop's 1rem — search + menu sit close together
   }
 
-  // Tighten the search icon's padding so it nests right next to the theme toggle.
+  // Tighten the search icon's padding so it nests right next to the menu button.
   .search-toggle-btn { padding: 0.25rem; }
-  .theme-toggle { width: auto; height: auto; padding: 0.25rem; }
 
   // Smaller MENU button label so the whole utilities cluster fits.
   .nav-toggle .nav-toggle-label { font-size: 1rem; }
@@ -93,8 +91,7 @@
   .h2-nav      { display: none; }
   // .h2-search stays visible on mobile — icon is in the header utilities
   .h2-search     { order: 1; }
-  .theme-toggle  { order: 2; }
-  .nav-toggle    { display: flex; order: 3; }
-  .nav-cart-wrap { order: 4; }
+  .nav-toggle    { display: flex; order: 2; }
+  .nav-cart-wrap { order: 3; }
 }
 

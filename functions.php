@@ -14,6 +14,37 @@ if ( ! ob_get_level() ) {
 @ini_set( 'post_max_size',       '64M' );
 add_filter( 'upload_size_limit', function() { return 64 * 1024 * 1024; } );
 
+// ── Default social share image. When the URL is pasted into iMessage,
+// Slack, Facebook, Twitter/X, LinkedIn, WhatsApp, etc., this is the
+// preview thumbnail. Pages that set their own og:image elsewhere (via
+// SEO Framework or another plugin) will still take precedence on those
+// platforms that respect last-tag-wins; the rest get this fallback.
+add_action( 'wp_head', function() {
+    $img = get_stylesheet_directory_uri() . '/assets/images/sapient-share-image.jpg';
+    $alt = 'Sapient Skateboards — Handcrafted boards made in Chicago';
+    echo "<meta property=\"og:image\" content=\"{$img}\">\n";
+    echo "<meta property=\"og:image:secure_url\" content=\"{$img}\">\n";
+    echo "<meta property=\"og:image:type\" content=\"image/jpeg\">\n";
+    echo "<meta property=\"og:image:width\" content=\"1080\">\n";
+    echo "<meta property=\"og:image:height\" content=\"864\">\n";
+    echo "<meta property=\"og:image:alt\" content=\"" . esc_attr( $alt ) . "\">\n";
+    echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
+    echo "<meta name=\"twitter:image\" content=\"{$img}\">\n";
+    echo "<meta name=\"twitter:image:alt\" content=\"" . esc_attr( $alt ) . "\">\n";
+}, 1 );
+
+// ── Favicons + Apple touch icon + PWA icons. Output via wp_head so the
+// tags cover every page regardless of which header template is active.
+add_action( 'wp_head', function() {
+    $u = get_stylesheet_directory_uri() . '/assets/images';
+    echo "<link rel=\"icon\" type=\"image/svg+xml\" href=\"{$u}/favicon.svg\">\n";
+    echo "<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"{$u}/favicon-32.png\">\n";
+    echo "<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"{$u}/favicon-16.png\">\n";
+    echo "<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"{$u}/favicon-180.png\">\n";
+    echo "<link rel=\"icon\" type=\"image/png\" sizes=\"192x192\" href=\"{$u}/favicon-192.png\">\n";
+    echo "<link rel=\"icon\" type=\"image/png\" sizes=\"512x512\" href=\"{$u}/favicon-512.png\">\n";
+}, 2 );
+
 // ── Search query: never surface drafts/private/pending posts on the
 // frontend, even when the viewer is logged in as admin. WP's default
 // includes those statuses for editors/admins, which is what was causing
@@ -25,19 +56,6 @@ add_action( 'pre_get_posts', function( $query ) {
     }
     $query->set( 'post_status', 'publish' );
 } );
-
-// ── Theme (light/dark): inline <head> script sets [data-theme] BEFORE
-// first paint so there's no flash of the wrong palette.
-//   • Light is the default for everyone — first-time visitors AND anyone
-//     whose stale localStorage from a previous visit still says 'dark'.
-//   • A version flag (ssThemeV) gates the one-time reset: when the
-//     stored version doesn't match the current one (bump it to force a
-//     reset for the whole user base), the saved theme is wiped.
-//   • After that, the toggle button still lets users opt into dark and
-//     their choice persists via localStorage as normal.
-add_action( 'wp_head', function() {
-    echo "<script>(function(){try{var V='1';if(localStorage.getItem('ssThemeV')!==V){localStorage.removeItem('ssTheme');localStorage.setItem('ssThemeV',V);}var s=localStorage.getItem('ssTheme')||'light';document.documentElement.setAttribute('data-theme',s);}catch(e){}})();</script>\n";
-}, 0 );
 
 // ── Page fade-in: inline <head> script gates the animation to the first
 // navigation in a session. Runs before any paint to avoid a flash.

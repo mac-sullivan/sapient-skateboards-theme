@@ -2,19 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // ─── Theme toggle (light / dark) ───────────────────────────
-  // Initial theme is set by the inline <head> script in functions.php
-  // (pt_inline_theme_init). This handler just flips the value on click,
-  // writes the choice to localStorage, and updates <html data-theme>.
-  document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var current = document.documentElement.getAttribute('data-theme');
-      var next    = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('ssTheme', next); } catch (e) {}
-    });
-  });
-
   // ─── Countdown clock ───────────────────────────────────────
   // Drives any [data-countdown] section. Reads target datetime from
   // data-target (ISO 8601), updates the four data-d/h/m/s slots every
