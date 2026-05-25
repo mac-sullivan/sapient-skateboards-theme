@@ -3,7 +3,7 @@
 // ─── Section ──────────────────────────────────────────────────
 .section-suppliers {
   background: $bone;
-  padding: 0 0 clamp(4rem, 7vw, 6rem);
+  padding: 0 0 clamp(4.5rem, 7vw, 3.5rem);
 }
 
 // ─── Table ────────────────────────────────────────────────────
@@ -20,7 +20,7 @@
 
   thead th {
     font-family: $font-label;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -84,7 +84,7 @@
       align-items: baseline;
       padding: 0.45rem 0;
       border-bottom: 1px solid rgba($black, 0.06);
-      font-size: 1.125rem;
+      font-size: 1rem; // tighter than the 1.125rem default — table rows need density
       text-align: right;
 
       &:last-child { border-bottom: none; }
@@ -92,7 +92,7 @@
       &::before {
         content: attr(data-label);
         font-family: $font-label;
-        font-size: 1.125rem;
+        font-size: 0.85rem; // small uppercase label for the row "key"
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.06em;
@@ -116,11 +116,11 @@
 // ─── Subheading ───────────────────────────────────────────────
 .suppliers-subheading {
   font-family: $font-label;
-  font-size: 1.125rem;
+  font-size: .95rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba($black, 0.5);
+  letter-spacing: 0.03em;
+  color: rgba($black, 0.55);
   margin: 0.35rem 0 0;
 }
 

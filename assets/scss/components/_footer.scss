@@ -395,7 +395,7 @@ max-width: 1100px;
 // "Made in Chicago, IL, USA" now lives inside the Brand column, under the
 // description. Small inline-flex of flag + text aligned to the left edge.
 .footer-made-in {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.5rem;
