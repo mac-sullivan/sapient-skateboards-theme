@@ -334,6 +334,16 @@
 }
 
 // ─── Disabled indicators ─────────────────────────────────────
+// .nav-underline-host = the presentational <li> JS wraps the underline
+// bar in (so the parent <ul> stays HTML-valid). Must take zero space.
+.nav-underline-host {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 0;
+  height: 0;
+  flex: 0 0 0;
+}
 .nav-underline { position: absolute; }
 .nav-indicator { display: none; }
 

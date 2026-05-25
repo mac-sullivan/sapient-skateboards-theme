@@ -111,7 +111,7 @@ max-width: 1100px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: rgba(#000, 0.45);
+    color: rgba(#000, 0.6);
     transition: none;
     text-decoration: none;
 
@@ -337,7 +337,7 @@ max-width: 1100px;
   transition: border-color 0.15s;
 
   &::placeholder {
-    color: rgba(#000, 0.35);
+    color: rgba(#000, 0.6);
   }
 
   &:focus {
@@ -389,7 +389,7 @@ max-width: 1100px;
   display: inline-block;
   font-family: $font-main;
   font-size: 1rem;
-  color: rgba(#000, 0.35);
+  color: rgba(#000, 0.6);
 }
 
 // "Made in Chicago, IL, USA" now lives inside the Brand column, under the
@@ -402,7 +402,7 @@ max-width: 1100px;
   font-family: $font-main;
   font-size: 1rem;
   text-transform: none;
-  color: rgba(#000, 0.35);
+  color: rgba(#000, 0.6);
 }
 
 .footer-chicago-flag {

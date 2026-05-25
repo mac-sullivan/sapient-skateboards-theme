@@ -177,14 +177,22 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ─── Nav active underline — snap, no slide ────────────────────
+// The bar sits inside a presentational <li> so the parent <ul> stays
+// HTML-valid (a <ul> may only contain <li>, <script>, or <template>).
+// aria-hidden + role="presentation" tells screen readers to ignore it.
 (function () {
   const navList = document.querySelector('#site-nav .nav-links');
   if (!navList) return;
 
+  const li = document.createElement('li');
+  li.setAttribute('role', 'presentation');
+  li.setAttribute('aria-hidden', 'true');
+  li.className = 'nav-underline-host';
   const bar = document.createElement('span');
   bar.className = 'nav-underline';
   bar.style.transition = 'none';
-  navList.appendChild(bar);
+  li.appendChild(bar);
+  navList.appendChild(li);
 
   const activeLink = navList.querySelector(
     ':scope > li.current-menu-item > a, :scope > li[aria-current="page"] > a'
