@@ -9,10 +9,114 @@ if ( ! ob_get_level() ) {
     ob_start();
 }
 
-// ── Increase upload size limit ────────────────────────────────────────────────
-@ini_set( 'upload_max_filesize', '64M' );
-@ini_set( 'post_max_size',       '64M' );
-add_filter( 'upload_size_limit', function() { return 64 * 1024 * 1024; } );
+// ── Increase upload size limit (256MB is plenty for product photos + short videos)
+@ini_set( 'upload_max_filesize', '256M' );
+@ini_set( 'post_max_size',       '256M' );
+add_filter( 'upload_size_limit', function() { return 256 * 1024 * 1024; } );
+
+// ═══════════════════════════════════════════════════════════════════
+// PERFORMANCE OPTIMIZATIONS
+// ═══════════════════════════════════════════════════════════════════
+
+// 1. Resource hints — let the browser open connections early to
+//    third-party domains we know we'll hit.
+add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
+    if ( $relation_type === 'preconnect' ) {
+        $urls[] = [ 'href' => 'https://fonts.googleapis.com', 'crossorigin' => '' ];
+        $urls[] = [ 'href' => 'https://fonts.gstatic.com',   'crossorigin' => '' ];
+    }
+    return $urls;
+}, 10, 2 );
+
+// 2. Disable WordPress emoji script (~14 KiB of JS nobody needs).
+remove_action( 'wp_head',             'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles',     'print_emoji_styles' );
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'admin_print_styles',  'print_emoji_styles' );
+remove_filter( 'the_content_feed',    'wp_staticize_emoji' );
+remove_filter( 'comment_text_rss',    'wp_staticize_emoji' );
+remove_filter( 'wp_mail',             'wp_staticize_emoji_for_email' );
+
+// 3. Disable WP's auto-loaded embed script (oEmbed JS).
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+add_action( 'init', function() {
+    wp_deregister_script( 'wp-embed' );
+} );
+
+// 4. Drop jQuery Migrate (legacy compat layer most modern themes don't need).
+add_action( 'wp_default_scripts', function( $scripts ) {
+    if ( ! is_admin() && isset( $scripts->registered['jquery'] ) ) {
+        $deps = $scripts->registered['jquery']->deps;
+        $scripts->registered['jquery']->deps = array_diff( $deps, [ 'jquery-migrate' ] );
+    }
+} );
+
+// 5. Dequeue WooCommerce frontend assets on non-WC pages — this alone
+//    can shave ~1MB off the homepage payload.
+add_action( 'wp_enqueue_scripts', function() {
+    if ( ! function_exists( 'is_woocommerce' ) ) return;
+    if ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) return;
+
+    // WooCommerce CSS/JS
+    wp_dequeue_style( 'wc-blocks-style' );
+    wp_dequeue_style( 'wc-block-style' );
+    wp_dequeue_style( 'woocommerce-layout' );
+    wp_dequeue_style( 'woocommerce-smallscreen' );
+    wp_dequeue_style( 'woocommerce-general' );
+    wp_dequeue_style( 'woocommerce-inline' );
+    wp_dequeue_script( 'wc-cart-fragments' );
+    wp_dequeue_script( 'woocommerce' );
+    wp_dequeue_script( 'wc-add-to-cart' );
+    wp_dequeue_script( 'jquery-blockui' );
+    wp_dequeue_script( 'js-cookie' );
+}, 99 );
+
+// 6. Defer non-critical JS (skip jQuery + admin-bar so nothing breaks).
+add_filter( 'script_loader_tag', function( $tag, $handle ) {
+    if ( is_admin() || is_user_logged_in() ) return $tag;
+    $skip = [ 'jquery-core', 'jquery', 'admin-bar' ];
+    if ( in_array( $handle, $skip, true ) ) return $tag;
+    if ( strpos( $tag, ' defer' ) === false && strpos( $tag, ' async' ) === false ) {
+        $tag = str_replace( ' src=', ' defer src=', $tag );
+    }
+    return $tag;
+}, 10, 2 );
+
+// 7. Preload the homepage hero image (LCP candidate) — fixes the
+//    "LCP request discovery" audit. Only fires on the front page where
+//    the content_and_image_ flex layout renders the hero.
+add_action( 'wp_head', function() {
+    if ( ! is_front_page() ) return;
+    if ( ! function_exists( 'have_rows' ) ) return;
+    $post_id = (int) get_option( 'page_on_front' );
+    if ( ! $post_id ) return;
+    if ( have_rows( 'page_sections', $post_id ) ) {
+        while ( have_rows( 'page_sections', $post_id ) ) {
+            the_row();
+            if ( get_row_layout() === 'content_and_image_' ) {
+                $img = get_sub_field( 'image' );
+                if ( ! empty( $img['ID'] ) ) {
+                    $src    = wp_get_attachment_image_url( (int) $img['ID'], 'large' );
+                    $srcset = wp_get_attachment_image_srcset( (int) $img['ID'], 'large' );
+                    if ( $src ) {
+                        echo "<link rel=\"preload\" as=\"image\" href=\"" . esc_url( $src ) . "\"";
+                        if ( $srcset ) {
+                            echo " imagesrcset=\"" . esc_attr( $srcset ) . "\"";
+                            echo " imagesizes=\"(max-width: 720px) 100vw, 720px\"";
+                        }
+                        echo " fetchpriority=\"high\">\n";
+                    }
+                }
+                break; // only the first cai layout
+            }
+        }
+        // Reset the row iterator so the loop in the template starts fresh.
+        if ( function_exists( 'reset_rows' ) ) reset_rows();
+    }
+}, 2 );
+
+// END PERFORMANCE OPTIMIZATIONS ════════════════════════════════════
 
 // ── Default social share image. When the URL is pasted into iMessage,
 // Slack, Facebook, Twitter/X, LinkedIn, WhatsApp, etc., this is the
