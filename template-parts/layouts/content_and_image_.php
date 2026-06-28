@@ -31,22 +31,18 @@ $is_lcp = ( $pt_cai_index === 1 );
           // Prefer wp_get_attachment_image() — it emits a full srcset
           // (multiple WP-generated sizes) plus width/height for free.
           if ( ! empty( $image['ID'] ) ) {
-              $attrs = [
-                  'alt'         => $image['alt'] ?? '',
-                  'class'       => 'cai-image-img',
-                  'decoding'    => 'async',
-                  // 'sizes' hint: the image column is roughly 100vw on
-                  // mobile and capped around 720px on desktop.
-                  'sizes'       => '(max-width: 720px) 100vw, 720px',
-              ];
-              if ( $is_lcp ) {
-                  // LCP-critical: eager + high priority, no lazy.
-                  $attrs['loading']       = 'eager';
-                  $attrs['fetchpriority'] = 'high';
-              } else {
-                  $attrs['loading']       = 'lazy';
-              }
-              echo wp_get_attachment_image( (int) $image['ID'], 'large', false, $attrs );
+              $img_url = wp_get_attachment_image_url( (int) $image['ID'], 'full' );
+              $alt = $image['alt'] ?? '';
+              ?>
+              <img
+                src="<?php echo esc_url( $img_url ); ?>"
+                alt="<?php echo esc_attr( $alt ); ?>"
+                class="cai-image-img"
+                decoding="async"
+                <?php if ( $is_lcp ) : ?>loading="eager" fetchpriority="high"<?php else : ?>loading="lazy"<?php endif; ?>
+                style="width:100%;height:auto;"
+              >
+              <?php
           } else {
               // Fallback if the field returned only a URL (older ACF formats).
               ?>
