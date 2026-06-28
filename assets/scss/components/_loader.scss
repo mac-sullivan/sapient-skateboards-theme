@@ -47,7 +47,6 @@
   font-size: clamp(3.5rem, 10vw, 9rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.03em;
   color: $bone;
   overflow: hidden;
 
@@ -90,9 +89,8 @@
 // ─── Loader tagline ────────────────────────────────────────────
 .loader-tagline {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba($bone, 0.35);
   position: relative;

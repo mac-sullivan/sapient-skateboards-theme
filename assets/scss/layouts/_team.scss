@@ -2,7 +2,7 @@
 
 // ─── Team Grid Section ────────────────────────────────────────
 .section-team-grid {
-  padding: 6rem 0;
+  padding: 0 0 clamp(6rem, 10vw, 9rem);
 }
 
 .team-grid-header {
@@ -16,10 +16,42 @@
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   line-height: 1;
   color: $charcoal;
   margin: 0;
+}
+
+// ─── Category Filter ──────────────────────────────────────────
+.team-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.team-filter-btn {
+  font-family: $font-label;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba($charcoal, 0.45);
+  background: transparent;
+  border: 1px solid rgba($charcoal, 0.2);
+  padding: 0.45rem 1.25rem;
+  cursor: pointer;
+  border-radius: $radius;
+  transition: none;
+
+  &:hover {
+    border-color: $charcoal;
+    color: $charcoal;
+  }
+
+  &.is-active {
+    background: $charcoal;
+    color: $white;
+    border-color: $charcoal;
+  }
 }
 
 // ─── Grid ─────────────────────────────────────────────────────
@@ -30,126 +62,82 @@
 
   @include desktop { grid-template-columns: repeat(3, 1fr); }
   @include tablet  { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  @include mobile  { grid-template-columns: 1fr; }
+  @include mobile  { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
 }
 
 // ─── Card ─────────────────────────────────────────────────────
 .team-card {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
+  text-align: center;
   position: relative;
-
-  &:hover .team-card-photo img { transform: scale(1.04); }
-
-  &:hover .team-card-name { color: $ochre; }
+  cursor: pointer;
 }
 
-// Stretched invisible link covering the whole card
 .team-card-link {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  text-decoration: none;
+  z-index: 3;
+  display: block;
 }
 
-// Social links sit above the stretched card link
-.team-social-link {
-  position: relative;
-  z-index: 2;
-  color: rgba($charcoal, 0.3);
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: none;
-
-  &:hover { color: $charcoal; text-decoration: none; }
-}
-
-// ─── Photo / skull ───────────────────────────────────────────
-.team-card-photo {
+// ─── GIF / Media ─────────────────────────────────────────────
+.team-card-media {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
-  background: $charcoal;
-  position: relative;
+  background: $black;
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
-    transition: none;
-    padding: 2rem;
-    filter: invert(1);
-    opacity: 0.15;
   }
 }
 
-.team-card-skull {
-  object-fit: contain !important;
-  padding: 2.5rem !important;
-  opacity: 0.18 !important;
-  filter: invert(1) !important;
-}
-
-
-// ─── Card body ────────────────────────────────────────────────
-.team-card-body {
-  display: flex;
-  gap: 0.75rem;
-  align-items: baseline;
-  justify-content: space-between;
-
-  .team-card-socials {
-    margin-right: .5rem;
-  }
-}
-
-.team-card-meta {
+// ─── Name + Handle ───────────────────────────────────────────
+.team-card-info {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .team-card-name {
   font-family: $font-heading;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
   color: $charcoal;
   margin: 0;
-  transition: none;
 }
 
 .team-card-position {
   font-family: $font-label;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-size: 1.125rem;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
 }
 
-.team-card-socials {
-  display: flex;
-  gap: 0.75rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.team-card-handle {
+  font-family: $font-main;
+  font-size: 1.125rem;
+  color: rgba($charcoal, 0.5);
+  text-decoration: none;
+  position: relative;
+  z-index: 4;
 
-  a, span {
-    color: rgba($charcoal, 0.3);
-    display: flex;
-    align-items: center;
+  &:hover {
+    color: $charcoal;
+    text-decoration: none;
   }
 }
 
 .team-empty {
   font-family: $font-label;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
+  font-size: 1.125rem;
   color: rgba($charcoal, 0.4);
   a { color: $charcoal; }
 }
@@ -166,9 +154,8 @@
 .single-team-back {
   display: inline-block;
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($bone, 0.35);
   text-decoration: none;
@@ -180,12 +167,17 @@
 
 .single-team-body {
   background: $bone;
-  padding: calc(var(--header-h, 4rem) + 4rem) 0 8rem;
+  padding: clamp(2rem, 4vw, 1.5rem) 0 clamp(6rem, 10vw, 10rem);
+
+  // Breadcrumb row sits flush at top, grid follows with breathing room
+  & > .container:first-child {
+    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
 }
 
 .single-team-inner {
   display: grid;
-  grid-template-columns: 420px 1fr;
+  grid-template-columns: 1fr 420px;
   gap: 6rem;
   align-items: start;
 
@@ -194,6 +186,10 @@
     gap: 3rem;
   }
 }
+
+// ─── Info col first (left), photo col second (right) ─────────
+.single-team-info    { order: 1; }
+.single-team-photo-col { order: 2; }
 
 // ─── Photo col ────────────────────────────────────────────────
 .single-team-photo-col {
@@ -262,23 +258,21 @@
     align-items: center;
     gap: 0.75rem;
     font-family: $font-label;
-    font-size: 0.7rem;
+    font-size: 1.125rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba($charcoal, 0.45);
     text-decoration: none;
     transition: none;
 
-    &:hover { color: $charcoal; text-decoration: none; }
+    &:hover { text-decoration: none; }
   }
 }
 
 // ─── Info col ─────────────────────────────────────────────────
 .single-team-name-block {
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba($charcoal, 0.1);
+  margin-bottom: 1rem;
+  // padding-bottom: 1rem;
+  // border-bottom: 1px solid rgba($charcoal, 0.1);
 }
 
 .single-team-name {
@@ -286,7 +280,6 @@
   font-size: clamp(2.5rem, 5vw, 5rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
   line-height: 0.95;
   color: $charcoal;
   margin: 0 0 0.75rem;
@@ -294,11 +287,26 @@
 
 .single-team-position {
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: $ochre;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.single-team-ig {
+  display: inline-block;
+  font-family: $font-main;
+  font-size: 1.125rem;
+  color: rgba($charcoal, 0.4);
+  text-decoration: none;
+  transition: color $transition;
+
+  &:hover {
+    color: $ochre;
+    text-decoration: none;
+  }
 }
 
 .single-team-bio {
@@ -306,7 +314,7 @@
   font-size: 1.05rem;
   line-height: 1.8;
   color: rgba($charcoal, 0.7);
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 
   p { margin: 0 0 1.25em; &:last-child { margin: 0; } }
 }
@@ -315,14 +323,13 @@
   display: inline-flex;
   align-items: center;
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
   text-decoration: none;
   transition: none;
-  border-top: 1px solid rgba($charcoal, 0.1);
+  // border-top: 1px solid rgba($charcoal, 0.1);
   padding-top: 2rem;
   margin-top: 1rem;
 

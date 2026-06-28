@@ -38,7 +38,6 @@
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: 800;
     margin-bottom: 3.5rem;
-    letter-spacing: -0.02em;
   }
 
   .stats-grid {
@@ -81,7 +80,6 @@
     font-size: clamp(3rem, 7vw, 5.5rem);
     font-weight: 800;
     line-height: 1;
-    letter-spacing: -0.04em;
     background: $grad-ochre;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -95,10 +93,9 @@
   }
 
   .stat-label {
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
     opacity: 0.5;
     font-family: $font-main;
   }

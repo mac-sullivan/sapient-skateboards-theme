@@ -3,15 +3,16 @@
  * Template Name: FAQ Page
  * Slug: faq
  */
-get_header();
+get_header( sapient_get_active_header() );
 ?>
 
 <main id="main-content">
 
   <div class="blog-archive-header">
     <div class="container">
+      <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
       <span class="blog-eyebrow section-eyebrow">Support</span>
-      <h1 class="blog-archive-title">FAQ.</h1>
+      <h1 class="blog-archive-title">FAQ</h1>
     </div>
   </div>
 

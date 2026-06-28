@@ -9,139 +9,134 @@
 <?php wp_body_open(); ?>
 
 <header id="site-header">
-  <div class="shop-banner">There is a 1.5 week lead time on all orders. Thank you for your support!</div>
-
-  <!-- Row 1: Logo / Search / Actions -->
-  <div class="header-top">
-    <div class="container header-top-inner">
-
-      <div class="nav-logo">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Sapient Manufacturing Co.">
-          <img
-            src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sapient-manufacturing-logo.webp"
-            alt="Sapient Manufacturing Co."
-            class="ss-logo ss-logo--manufacturing"
-            width="260"
-            height="63"
-          >
-        </a>
-      </div>
-
-      <div>
-      
-     <nav id="site-nav" class="nav-links-desktop" aria-label="Primary navigation">
-        <?php
-        $nav_pages = [
-          'HOME'    => '/',
-          'SHOP'    => '/shop',
-          'PROCESS' => '/process',
-          'ABOUT'   => '/about',
-          'ARCHIVE' => '/archive',
-          'CONTACT' => '/contact',
-        ];
-        wp_nav_menu( [
-          'theme_location' => 'primary',
-          'container'      => false,
-          'menu_class'     => 'nav-links',
-          'fallback_cb'    => function() use ( $nav_pages ) {
-            echo '<ul class="nav-links">';
-            foreach ( $nav_pages as $label => $path ) {
-              $url     = home_url( $path );
-              $current = untrailingslashit( $url ) === untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-              $active  = $current ? ' class="current-menu-item" aria-current="page"' : '';
-              echo '<li' . $active . '><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></li>';
-            }
-            echo '</ul>';
-          },
-        ] );
+<div class="header-inner">
+  <!-- Row 1: Centered logo -->
+  <div class="header-brand">
+    <div class="header-brand-inner">
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo" aria-label="Sapient Manufacturing Co.">
+        <img
+          src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sapient-skateboard-co-logo.svg"
+          alt="Sapient Skateboard Co."
+          class="ss-logo"
+          width="535"
+          height="134"
+        >
+      </a>
+              <?php if ( false && function_exists( 'WC' ) ) : // cart temporarily hidden — flip back to function_exists('WC') to re-enable
+          $cart       = WC()->cart;
+          $count      = $cart ? $cart->get_cart_contents_count() : 0;
+          $cart_items = $cart ? $cart->get_cart() : [];
         ?>
-      </nav>
-    </div>
-
-
-
-      <div class="nav-cta-wrap">
-        <div class="search-inline">
-          <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="search-inline-form">
-            <input type="search" name="s" placeholder="Search..." value="<?php echo get_search_query(); ?>" autocomplete="off">
-          </form>
-          <button class="search-toggle" aria-label="Search" aria-expanded="false">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
+        <div class="nav-cart-wrap">
+          <button class="nav-cart" aria-label="Cart" aria-expanded="false" data-cart-toggle>
+            <span class="cart-label">Cart</span>
+            <span class="cart-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ?: 0 ); ?></span>
           </button>
-        </div>
 
-        <?php if ( function_exists( 'WC' ) && WC()->cart ) : $count = WC()->cart->get_cart_contents_count(); ?>
-        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="nav-cart" aria-label="Cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 01-8 0"/>
-          </svg>
-          <span class="cart-count<?php echo $count ? ' has-items' : ''; ?>"><?php echo esc_html( $count ); ?></span>
-        </a>
-        <?php elseif ( function_exists( 'WC' ) ) : ?>
-        <a href="<?php echo esc_url( home_url( '/cart' ) ); ?>" class="nav-cart" aria-label="Cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 01-8 0"/>
-          </svg>
-          <span class="cart-count">0</span>
-        </a>
+          <div class="cart-preview" data-cart-preview>
+            <?php if ( empty( $cart_items ) ) : ?>
+              <p class="cart-preview-empty">Your cart is empty.</p>
+            <?php else : ?>
+              <table class="cart-preview-table">
+                <thead>
+                  <tr>
+                    <th class="cpt-img"></th>
+                    <th class="cpt-name">Product</th>
+                    <th class="cpt-qty">Qty</th>
+                    <th class="cpt-price">Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ( $cart_items as $item ) :
+                    $product  = $item['data'];
+                    $img_id   = $product->get_image_id();
+                    $img_url  = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : wc_placeholder_img_src();
+                  ?>
+                  <tr class="cpt-row">
+                    <td class="cpt-img"><img src="<?php echo esc_url( $img_url ); ?>" loading="lazy" decoding="async" alt="<?php echo esc_attr( $product->get_name() ); ?>"></td>
+                    <td class="cpt-name"><?php echo esc_html( $product->get_name() ); ?></td>
+                    <td class="cpt-qty"><?php echo esc_html( $item['quantity'] ); ?></td>
+                    <td class="cpt-price"><?php echo wc_price( $product->get_price() ); ?></td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+              <div class="cart-preview-footer">
+                <span class="cart-preview-total">Total: <?php echo WC()->cart->get_cart_total(); ?></span>
+                <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="btn-primary cart-preview-btn">View Cart</a>
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
         <?php endif; ?>
 
         <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
-      </div>
-
-      
-
     </div>
   </div>
 
+  <!-- Row 2: Navigation bar -->
+  <div class="header-nav">
+    <div class="header-nav-inner">
+
+      <nav id="site-nav" class="nav-links-desktop" aria-label="Primary navigation">
+        <?php wp_nav_menu( [
+          'theme_location' => 'primary',
+          'menu_class'     => 'nav-links',
+          'container'      => false,
+          'fallback_cb'    => false,
+          'depth'          => 2,
+        ] ); ?>
+      </nav>
+
+      <div class="nav-utilities">
+        <div class="search-inline" data-search>
+          <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="search-inline-form">
+            <input class="search-input" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" autocomplete="off" tabindex="-1" aria-label="Search">
+          </form>
+          <button type="button" class="search-toggle-btn" aria-label="Search" aria-expanded="false" data-search-toggle>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
 </header>
 
-<!-- Mobile nav overlay — outside <header> so header z-index always wins -->
+<!-- Mobile nav overlay -->
 <nav id="site-nav-mobile" class="nav-mobile-overlay" aria-label="Mobile navigation">
-  <?php
-  wp_nav_menu( [
+  <?php wp_nav_menu( [
     'theme_location' => 'primary',
-    'container'      => false,
     'menu_class'     => 'nav-links-mobile-list',
-    'fallback_cb'    => function() use ( $nav_pages ) {
-      echo '<ul class="nav-links-mobile-list">';
-      foreach ( $nav_pages as $label => $path ) {
-        $url     = home_url( $path );
-        $current = untrailingslashit( $url ) === untrailingslashit( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-        $active  = $current ? ' class="current-menu-item" aria-current="page"' : '';
-        echo '<li' . $active . '><a href="' . esc_url( $url ) . '">' . esc_html( $label ) . '</a></li>';
-      }
-      echo '</ul>';
-    },
-  ] );
-  ?>
-  <a href="<?php echo esc_url( home_url( '/shop' ) ); ?>" class="btn-nav-cta mobile-cta">SHOP</a>
+    'container'      => false,
+    'fallback_cb'    => false,
+    'depth'          => 2,
+  ] ); ?>
 </nav>
 
 <script>
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var overlay = document.getElementById('site-nav-mobile');
-
-  // Glassmorphism on scroll
   var header = document.getElementById('site-header');
-  if (header) {
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 10) {
-        header.classList.add('is-scrolled');
-      } else {
-        header.classList.remove('is-scrolled');
-      }
-    }, { passive: true });
+
+  // Set --header-offset so CSS can push content below the fixed header
+  function setHeaderOffset() {
+    if (!header) return;
+    var rect = header.getBoundingClientRect();
+    var offset = rect.bottom + 30;
+    document.body.style.setProperty('--header-offset', offset + 'px');
+    document.body.style.setProperty('--header-h', header.offsetHeight + 'px');
   }
+  setHeaderOffset();
+  window.addEventListener('resize', setHeaderOffset, { passive: true });
+  // Recalculate after fonts/images load
+  window.addEventListener('load', setHeaderOffset);
 
   // Mobile toggle
   if (toggle && overlay) {
@@ -152,58 +147,8 @@
     });
   }
 
-  // Inline search expand
-  var searchInline = document.querySelector('.search-inline');
-  var searchToggle = document.querySelector('.search-toggle');
-  var searchInput = searchInline ? searchInline.querySelector('input[type="search"]') : null;
 
-  function openSearch() {
-    searchInline.classList.add('is-open');
-    searchToggle.setAttribute('aria-expanded', 'true');
-    setTimeout(function () { if (searchInput) searchInput.focus(); }, 300);
-  }
-
-  function closeSearch() {
-    searchInline.classList.remove('is-open');
-    searchToggle.setAttribute('aria-expanded', 'false');
-    if (searchInput) searchInput.value = '';
-  }
-
-  if (searchToggle && searchInline) {
-    searchToggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      var isOpen = searchInline.classList.contains('is-open');
-      if (isOpen && searchInput && searchInput.value.trim()) {
-        searchInline.querySelector('form').submit();
-      } else if (isOpen) {
-        closeSearch();
-      } else {
-        openSearch();
-      }
-    });
-
-    // Close on Escape
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && searchInline.classList.contains('is-open')) closeSearch();
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', function (e) {
-      if (searchInline.classList.contains('is-open') && !searchInline.contains(e.target)) {
-        closeSearch();
-      }
-    });
-  }
-
-  // ── Dropdown menus ────────────────────────────────────────
-  document.querySelectorAll('.nav-links .menu-item-has-children').forEach(function(item) {
-    // Desktop: click toggles (for touch devices)
-    item.addEventListener('click', function(e) {
-      if (window.innerWidth > 768) return; // let CSS :hover handle desktop
-    });
-  });
-
-  // Mobile sub-menu toggles
+  // Dropdown menus — mobile sub-menu toggles
   document.querySelectorAll('.nav-links-mobile-list .menu-item-has-children > a').forEach(function(link) {
     link.addEventListener('click', function(e) {
       var parent = link.parentElement;
@@ -214,91 +159,5 @@
       sub.classList.toggle('is-open', open);
     });
   });
-
-  // ── Sliding nav indicator (animates between pages) ─────────
-  var navList = document.querySelector('.nav-links-desktop .nav-links');
-  if (!navList) return;
-
-  var indicator = document.createElement('span');
-  indicator.className = 'nav-indicator';
-  navList.appendChild(indicator);
-
-  var allLinks = navList.querySelectorAll('li');
-  var activeLi = navList.querySelector(':scope > li.current-menu-item') ||
-                 navList.querySelector(':scope > li[aria-current="page"]');
-
-  function getMetrics(el) {
-    if (!el) return null;
-    var a = el.querySelector('a');
-    if (!a) return null;
-    var listRect = navList.getBoundingClientRect();
-    var linkRect = a.getBoundingClientRect();
-    return {
-      left: linkRect.left - listRect.left,
-      width: linkRect.width
-    };
-  }
-
-  function setIndicator(left, width) {
-    indicator.style.left = left + 'px';
-    indicator.style.width = width + 'px';
-    indicator.classList.add('is-visible');
-  }
-
-  var activeIndex = -1;
-  allLinks.forEach(function (li, i) {
-    if (li === activeLi) activeIndex = i;
-  });
-
-  // localStorage no longer used for position — always derive from server state
-  var prev = null;
-
-  if (activeLi) {
-    var current = getMetrics(activeLi);
-    if (!current) return;
-
-    // Always use the server-determined active item — ignore stale localStorage
-    indicator.style.transition = 'none';
-    setIndicator(current.left, current.width);
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        indicator.style.transition = '';
-      });
-    });
-
-    try {
-      localStorage.setItem('sapient_nav_indicator', JSON.stringify({
-        left: current.left,
-        width: current.width,
-        index: activeIndex
-      }));
-    } catch (e) {}
-  } else {
-    // No active item — clear indicator
-    try { localStorage.removeItem('sapient_nav_indicator'); } catch(e) {}
-  }
-
-  allLinks.forEach(function (li) {
-    li.addEventListener('click', function () {
-      if (!activeLi) return;
-      var m = getMetrics(activeLi);
-      if (m) {
-        try {
-          localStorage.setItem('sapient_nav_indicator', JSON.stringify({
-            left: m.left,
-            width: m.width,
-            index: activeIndex
-          }));
-        } catch (e) {}
-      }
-    });
-  });
-
-  window.addEventListener('resize', function () {
-    if (activeLi) {
-      var m = getMetrics(activeLi);
-      if (m) setIndicator(m.left, m.width);
-    }
-  }, { passive: true });
 })();
 </script>

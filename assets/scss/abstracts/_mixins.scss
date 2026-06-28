@@ -32,9 +32,8 @@
 // Reusable: "SAPIENT MANUFACTURING CO." style uppercase labels
 @mixin eyebrow {
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 300;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: $crete;
   display: block;
@@ -45,7 +44,6 @@
   font-family: $font-heading;
   font-size: clamp(2rem, 4vw, 4rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
   line-height: 1;
   text-transform: uppercase;
   color: $charcoal;
@@ -54,9 +52,8 @@
 // ─── Spec Label (technical manual style) ─────────────────────
 @mixin spec-label {
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 300;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: $crete;
 }
@@ -109,4 +106,24 @@
 
   .eyebrow { color: $crete; }
   p { color: rgba($bone, 0.65); }
+}
+
+// ─── Animated underline ──────────────────────────────────────
+// Subtle left-to-right line wipe on hover. Uses a background-image
+// linear-gradient (not ::after) so it works on inline <a> tags that
+// wrap across lines. $offset gives the line breathing room below the
+// text baseline (otherwise it touches descenders like 'g', 'p', 'f').
+@mixin link-underline-wipe($duration: 0.25s, $thickness: 1px, $offset: 4px) {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 $thickness;
+  padding-bottom: $offset;
+  transition: background-size $duration ease;
+
+  &:hover {
+    text-decoration: none;
+    background-size: 100% $thickness;
+  }
 }

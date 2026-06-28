@@ -3,27 +3,43 @@
 
 // ─── Intro / Splash Page ──────────────────────────────────────
 
-.intro-wrap {
-  position: fixed;
-  inset: 0;
+html.intro-page,
+body.intro-page {
+  margin: 0 !important;
+  padding: 0 !important;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  background: $charcoal;
+  background: $black;
 }
 
-// ── Video ────────────────────────────────────────────────────
+.intro-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+// ── Full-screen background video ──────────────────────────────
 
 .intro-video {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  display: block;
+  background: $black;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
 
   &--img {
     background-size: cover;
@@ -31,112 +47,112 @@
   }
 }
 
-// ── Dark overlay ─────────────────────────────────────────────
+// ── Centered overlay: logo + enter button ─────────────────────
 
 .intro-overlay {
   position: absolute;
-  inset: 0;
-  background: rgba($charcoal, 0.45);
-  pointer-events: none;
-}
-
-// ── Content ──────────────────────────────────────────────────
-
-.intro-content {
-  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
-  text-align: center;
-  padding: 2rem;
+  justify-content: center;
+  gap: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.3);
+
+  // Dark scrim behind just the content — keeps grit, lifts legibility
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 55% at 50% 50%,
+      rgba(#000, 0.6) 0%,
+      rgba(#000, 0.1) 100%
+    );
+    pointer-events: none;
+  }
 }
 
-// ── Logo ─────────────────────────────────────────────────────
+// ── Logo ──────────────────────────────────────────────────────
 
 .intro-logo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
   svg, img {
     width: auto;
-    height: clamp(8rem,13vw,13rem);
+    height: clamp(7rem, 14vw, 16rem);
     display: block;
   }
 
-  // Make sure SVG paths are white
   svg path, svg rect, svg polygon, svg g {
-    fill: $bone !important;
+    fill: $white !important;
   }
 }
 
-// ── WYSIWYG content ──────────────────────────────────────────
+// ── Video controls (bottom-right) ─────────────────────────────
 
-.intro-wysiwyg {
-  color: rgba(#fff, 0.85);
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-  line-height: 1.7;
-  max-width: 52ch;
-  text-align: center;
-
-  h1, h2, h3 {
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    color: #fff;
-    margin: 0 0 0.5em;
-  }
-
-  h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
-  h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
-  h3 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); }
-
-  h4, h5, h6 {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.75rem;
-    color: rgba(#fff, 0.55);
-    margin: 0 0 0.5em;
-  }
-
-  p {
-    margin: 0 0 0.75em;
-    &:last-child { margin-bottom: 0; }
-  }
-
-  a { color: $ochre; }
-  strong { color: #fff; font-weight: 700; }
+.intro-video-controls {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 3;
 }
 
-// ── Enter button ──────────────────────────────────────────────
+.intro-btn-mute,
+.intro-btn-fullscreen {
+  background: rgba($black, 0.5);
+  border: none;
+  color: $white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0;
+
+  &:hover {
+    background: rgba($black, 0.85);
+  }
+}
+
+// ── Enter button ─────────────────────────────────────────────
 
 .intro-enter-btn {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  padding: 1.1rem 2.75rem;
-  font-family: $font-main;
-  font-size: 0.75rem;
-  font-weight: 700;
+  padding: .8rem 2.5rem;
+  font-family: $font-heading;
+  font-size: clamp(1.125rem, 2vw, 1.3rem);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: $charcoal;
-  background: $bone;
-  border: 2px solid $bone;
+  color: #000;
+  background: transparent;
+  border: 2px solid #000;
   text-decoration: none;
   cursor: pointer;
-  border-radius: $radius;
+  border-radius: 0;
+  letter-spacing: .2rem;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 
   &:hover {
-    background: $ochre;
-    border-color: $ochre;
-    color: $bone;
-  }
-
-  .intro-arrow {
-    display: block;
-    flex-shrink: 0;
+    background: $black;
+    color: $white;
+    border-color: $black;
+    text-decoration: none;
   }
 }
-

@@ -22,7 +22,7 @@ $sponsors = get_posts( [ 'post_type' => 'pt_sponsor', 'numberposts' => -1, 'orde
             <?php if ( $url ) : ?>
               <a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener">
             <?php endif; ?>
-              <img src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( $sponsor->post_title ); ?>">
+              <img src="<?php echo esc_url( $logo ); ?>" loading="lazy" decoding="async" alt="<?php echo esc_attr( $sponsor->post_title ); ?>">
             <?php if ( $url ) : ?>
               </a>
             <?php endif; ?>

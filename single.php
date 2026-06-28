@@ -1,21 +1,16 @@
-<?php get_header(); the_post();
+<?php get_header( sapient_get_active_header() ); the_post();
 $thumb    = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 $cats     = get_the_category();
 $cat_name = $cats ? esc_html($cats[0]->name) : '';
 $cat_url  = $cats ? get_category_link($cats[0]->term_id) : '';
 ?>
 
-<article class="single-post">
+<article class="single-post container">
 
   <!-- Hero -->
-  <div class="blog-archive-header single-post-hero<?php echo $thumb ? ' has-image' : ''; ?>">
-    <?php if ($thumb) : ?>
-      <div class="single-hero-img-wrap">
-        <img src="<?php echo esc_url($thumb); ?>" alt="<?php the_title_attribute(); ?>" loading="eager">
-        <div class="single-hero-overlay"></div>
-      </div>
-    <?php endif; ?>
+  <div class="blog-archive-header single-post-hero">
     <div class="container single-hero-content">
+      <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
       <?php if ($cat_name) : ?>
         <a href="<?php echo esc_url($cat_url); ?>" class="blog-eyebrow single-post-cat"><?php echo $cat_name; ?></a>
       <?php endif; ?>
@@ -79,7 +74,7 @@ $cat_url  = $cats ? get_category_link($cats[0]->term_id) : '';
           ?>
           <?php if ($sidebar_img) : ?>
             <div class="sidebar-image">
-              <img src="<?php echo esc_url($sidebar_img); ?>" alt="">
+              <img src="<?php echo esc_url($sidebar_img); ?>" loading="lazy" decoding="async" alt="">
             </div>
           <?php endif; ?>
 

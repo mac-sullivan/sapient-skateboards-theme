@@ -41,6 +41,9 @@ if ( $post_mode === 'manual' && ! empty( $manual_posts ) ) {
         'order'          => $order,
     ] );
 }
+// Get all categories that have posts (for filter bar)
+$all_cats = get_categories( [ 'hide_empty' => true, 'orderby' => 'name', 'order' => 'ASC' ] );
+$active_cat = is_category() ? get_queried_object() : null;
 ?>
 
 <section class="section-blog-posts <?php echo pt_spacing_classes(); ?>">
@@ -48,17 +51,36 @@ if ( $post_mode === 'manual' && ! empty( $manual_posts ) ) {
   <!-- Header -->
   <div class="blog-archive-header">
     <div class="container">
+      <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
       <?php if ( $eyebrow ) : ?>
         <span class="blog-eyebrow section-eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
       <?php endif; ?>
       <?php if ( $heading ) : ?>
         <h1 class="blog-archive-title"><?php echo esc_html( $heading ); ?></h1>
       <?php endif; ?>
-      <?php if ( $subtext ) : ?>
-        <p class="blog-archive-sub"><?php echo esc_html( $subtext ); ?></p>
-      <?php endif; ?>
+
     </div>
   </div>
+
+  <!-- Category Filter -->
+  <?php if ( ! empty( $all_cats ) ) : ?>
+  <div class="blog-filter-wrap">
+    <div class="container">
+      <div class="blog-filter" role="group" aria-label="Filter by category">
+        <a href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>"
+           class="blog-filter-btn<?php echo ! $active_cat ? ' is-active' : ''; ?>">
+          All
+        </a>
+        <?php foreach ( $all_cats as $cat ) : ?>
+          <a href="<?php echo esc_url( get_category_link( $cat->term_id ) ); ?>"
+             class="blog-filter-btn<?php echo ( $active_cat && $active_cat->term_id === $cat->term_id ) ? ' is-active' : ''; ?>">
+            <?php echo esc_html( $cat->name ); ?>
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+  <?php endif; ?>
 
   <!-- Grid -->
   <div class="blog-archive-body">
@@ -72,6 +94,7 @@ if ( $post_mode === 'manual' && ! empty( $manual_posts ) ) {
             $excerpt  = get_the_excerpt();
           ?>
           <article class="blog-card">
+            <a href="<?php the_permalink(); ?>" class="blog-card-link" aria-label="<?php the_title_attribute(); ?>"></a>
             <a href="<?php the_permalink(); ?>" class="blog-card-img-link" tabindex="-1" aria-hidden="true">
               <div class="blog-card-img">
                 <?php if ( $thumb ) : ?>
@@ -80,21 +103,16 @@ if ( $post_mode === 'manual' && ! empty( $manual_posts ) ) {
                   <div class="blog-card-img-placeholder"></div>
                 <?php endif; ?>
               </div>
-              <?php if ( $cat_name ) : ?>
-                <span class="blog-card-cat-overlay"><?php echo $cat_name; ?></span>
-              <?php endif; ?>
             </a>
             <div class="blog-card-body">
               <h2 class="blog-card-title">
                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
               </h2>
-              <p class="blog-card-excerpt"><?php echo wp_trim_words( $excerpt, 22, '…' ); ?></p>
               <div class="blog-card-meta">
                 <span class="blog-card-date"><?php echo get_the_date( 'M j, Y' ); ?></span>
-                <a href="<?php the_permalink(); ?>" class="blog-card-read-more">
-                  Read story
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
+                <?php if ( $cat_name ) : ?>
+                  <span class="blog-card-cat"><?php echo esc_html( $cat_name ); ?></span>
+                <?php endif; ?>
               </div>
             </div>
           </article>

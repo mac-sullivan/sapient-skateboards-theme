@@ -20,7 +20,7 @@ $image      = get_sub_field('mission_image');
     <!-- Right: image panel -->
     <div class="mission-image-panel">
       <?php if ($image) : ?>
-        <img
+        <img loading="lazy" decoding="async"
           src="<?php echo esc_url($image['url']); ?>"
           alt="<?php echo esc_attr($image['alt']); ?>"
           class="mission-img"

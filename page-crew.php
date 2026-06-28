@@ -3,15 +3,16 @@
  * Template Name: Crew Page
  * Slug: crew
  */
-get_header();
+get_header( sapient_get_active_header() );
 ?>
 
 <main id="main-content">
 
   <div class="blog-archive-header">
     <div class="container">
+      <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
       <span class="blog-eyebrow section-eyebrow">Meet the Team</span>
-      <h1 class="blog-archive-title">The<br>Crew.</h1>
+      <h1 class="blog-archive-title">The Crew</h1>
     </div>
   </div>
 

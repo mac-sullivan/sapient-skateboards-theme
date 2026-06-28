@@ -2,13 +2,24 @@
 /**
  * Single Team Member page — /team/{slug}/
  */
-get_header();
+get_header( sapient_get_active_header() );
 
 while ( have_posts() ) : the_post();
-    $position = get_field( 'team_position' );
-    $bio      = get_field( 'team_description' );
-    $photo    = get_field( 'team_image' );
-    $socials  = get_field( 'team_socials' );
+    $position  = get_field( 'team_position' );
+    $bio       = get_field( 'team_description' );
+    $photo     = get_field( 'team_image' );
+    $socials   = get_field( 'team_socials' );
+    $ig_url    = '';
+    $ig_handle = '';
+    if ( $socials ) {
+        foreach ( $socials as $link ) {
+            if ( ( $link['platform'] ?? '' ) === 'instagram' && ! empty( $link['url'] ) ) {
+                $ig_url    = $link['url'];
+                $ig_handle = '@' . trim( parse_url( $link['url'], PHP_URL_PATH ), '/' );
+                break;
+            }
+        }
+    }
 
 
     $social_icons = [
@@ -25,39 +36,24 @@ while ( have_posts() ) : the_post();
 
   <!-- ── Profile body ───────────────────────────────────────── -->
   <div class="single-team-body">
+    <div class="container">
+      <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
+    </div>
     <div class="container single-team-inner">
 
       <!-- Photo -->
       <div class="single-team-photo-col">
         <?php if ( $photo ) : ?>
           <div class="single-team-photo">
-            <img src="<?php echo esc_url( $photo['url'] ); ?>"
+            <img src="<?php echo esc_url( $photo['url'] ); ?>" loading="lazy" decoding="async"
                  alt="<?php echo esc_attr( $photo['alt'] ?: get_the_title() ); ?>">
           </div>
         <?php else : ?>
           <div class="single-team-photo single-team-photo--empty">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/skull.svg"
+                 loading="lazy" decoding="async"
                  alt="<?php the_title(); ?>" class="single-team-skull-placeholder">
           </div>
-        <?php endif; ?>
-
-        <?php if ( $socials ) : ?>
-          <ul class="single-team-socials">
-            <?php foreach ( $socials as $link ) :
-              $platform = $link['platform'] ?? '';
-              $url      = $link['url'] ?? '';
-              if ( ! $url ) continue;
-              $icon = $social_icons[ $platform ] ?? $social_icons['website'];
-            ?>
-              <li>
-                <a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener"
-                   aria-label="<?php echo esc_attr( ucfirst( $platform ) ); ?>">
-                  <?php echo $icon; ?>
-                  <span><?php echo esc_html( ucfirst( $platform ) ); ?></span>
-                </a>
-              </li>
-            <?php endforeach; ?>
-          </ul>
         <?php endif; ?>
       </div>
 
@@ -67,6 +63,9 @@ while ( have_posts() ) : the_post();
           <h1 class="single-team-name"><?php the_title(); ?></h1>
           <?php if ( $position ) : ?>
             <span class="single-team-position"><?php echo esc_html( $position ); ?></span>
+          <?php endif; ?>
+          <?php if ( $ig_handle && $ig_url ) : ?>
+            <a href="<?php echo esc_url( $ig_url ); ?>" class="single-team-ig" target="_blank" rel="noopener"><?php echo esc_html( $ig_handle ); ?></a>
           <?php endif; ?>
         </div>
 

@@ -15,24 +15,142 @@
 
 // ─── WooCommerce generic pages (cart, checkout, account) ────
 .wc-page-section {
-  padding: calc($nav-height + 4rem) 0 $section-pad;
+  padding: calc($nav-height) 0 $section-pad;
   background: $bone;
 }
 
 .wc-page-heading {
   font-family: $font-heading;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2rem, 4vw, 2.25rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   color: $charcoal;
   margin: 0 0 2rem;
+}
+
+// ─── Cart page fixes ─────────────────────────────────────────
+.woocommerce-cart {
+  .entry-title,
+  .woocommerce-cart-title,
+  h1 {
+    font-family: $font-heading;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 1.5rem;
+  }
+
+  // Hide coupon code
+  .coupon { display: none !important; }
+
+  // Hide "Quantity" label in cart
+  .quantity-wrap > .product-option-label { display: none; }
+
+  // Clean up quantity in cart
+  .quantity-wrap {
+    gap: 0 !important;
+  }
+
+  .sapient-qty,
+  .quantity {
+    border: 1px solid rgba($black, 0.15) !important;
+    display: inline-flex !important;
+    align-items: center;
+  }
+
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+    border: none !important;
+  }
+
+  .qty {
+    width: 36px;
+    height: 32px;
+    font-size: 0.85rem;
+    border: none !important;
+    border-left: 1px solid rgba($black, 0.1) !important;
+    border-right: 1px solid rgba($black, 0.1) !important;
+  }
+
+  // Tighter cart table
+  .shop_table {
+    td, th {
+      padding: 1rem 0.75rem;
+      vertical-align: middle;
+    }
+  }
+
+  .actions {
+    .button {
+      margin-top: 0;
+    }
+  }
 }
 
 .wc-page-content {
   font-family: $font-main;
   color: $charcoal;
-  line-height: 1.65;
+  line-height: 1.7;
+  font-size: 1.125rem;
+  max-width: 70ch;
+
+  h2, .wp-block-heading {
+    font-family: $font-heading;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: $charcoal;
+    margin: 2.5rem 0 1rem;
+    line-height: 1.2;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  h3 {
+    font-family: $font-heading;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $charcoal;
+    margin: 2rem 0 0.75rem;
+  }
+
+  p {
+    margin: 0 0 1.25rem;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  a {
+    color: #0066cc;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover { text-decoration: none; }
+  }
+
+  // Bullet/number markers need padding-left on the list so they render
+  // INSIDE the visible content area (not in the outer margin where
+  // they can get visually clipped). Explicit list-style for safety.
+  ul, ol {
+    margin: 0 0 1.25rem 0;
+    padding-left: 1.5rem;
+
+    li { margin-bottom: 0.5rem; }
+  }
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+
+  // Hide WordPress's "Suggested text:" tutorial prompts on the
+  // auto-generated Privacy Policy page.
+  .privacy-policy-tutorial { display: none; }
+}
+
+.wc-page-empty {
+  font-style: italic;
+  color: rgba($charcoal, 0.6);
 }
 
 .shop-hero-heading {
@@ -40,7 +158,6 @@
   font-size: clamp(3rem, 7vw, 6rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   line-height: 1;
   color: $charcoal;
   margin: 0 0 1rem;
@@ -72,15 +189,14 @@
 
   .woocommerce-result-count {
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: rgba($charcoal, 0.5);
     margin: 0;
   }
 
   .woocommerce-ordering select {
     font-family: $font-label;
-    font-size: 1rem;
-    letter-spacing: 0.1em;
+    font-size: 1.125rem;
     text-transform: uppercase;
     color: $charcoal;
     background: transparent;
@@ -99,7 +215,6 @@
 
 // ─── Image-only Grid (archive-product.php) ─────────────────
 .shop-main {
-  padding: 4rem 0 10rem;
   background: $bone;
 
   .container {
@@ -129,10 +244,9 @@
   border-right: 1px solid rgba($charcoal, 0.12);
   padding: 0.9rem 1.75rem;
   font-family: $font-main;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
   line-height: 1;
   color: rgba($charcoal, 0.4);
   cursor: pointer;
@@ -155,10 +269,10 @@
 }
 
 .shop-img-grid {
-  padding-top: 3rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  margin: 0 0 4rem;
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
@@ -172,25 +286,63 @@
 
 .shop-img-link {
   display: block;
-  overflow: hidden;
   border-radius: $radius;
-  transition: none;
-
-  &:hover {
-    transform: translateY(-3px);
-  }
+  text-decoration: none;
+  color: $charcoal;
 }
 
 .shop-board-img {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
-  transition: none;
+  transition: transform 0.5s ease;
+}
 
-  .shop-img-link:hover & {
-    transform: scale(1.04);
-  }
+.shop-img-link:hover .shop-board-img,
+.shop-img-link:focus .shop-board-img {
+  transform: scale(1.04);
+}
+
+// Non-skateboard products — cap image height site-wide
+.shop-img-link--non-board .shop-board-img {
+  max-height: 20rem;
+  width: auto;
+  margin: 0 auto;
+}
+
+.shop-product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.75rem 0;
+}
+
+.shop-product-name {
+  font-family: $font-heading;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $charcoal;
+}
+
+.shop-product-price {
+  font-family: $font-main;
+  font-size: 1.125rem;
+  color: rgba($charcoal, 0.6);
+}
+
+.shop-product-stock {
+  font-family: $font-label;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.15rem;
+
+  &--ok { color: rgba($black, 0.35); }
+  &--low { color: #c0392b; }
+  &--out { color: rgba($black, 0.3); }
 }
 
 // ─── Product Grid ───────────────────────────────────────────
@@ -231,16 +383,22 @@
 }
 
 .product-card-image {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
-  background: $bone-dark;
+  background: $charcoal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .product-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     display: block;
-    transition: none;
+    transition: transform 0.4s ease;
+    padding: 0.75rem;
+    box-sizing: border-box;
   }
 
   .product-card:hover & .product-img {
@@ -266,15 +424,13 @@
   font-size: 1.1rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
   line-height: 1.2;
   margin: 0;
 }
 
 .product-colorway {
   font-family: $font-label;
-  font-size: 1rem;
-  letter-spacing: 0.15em;
+  font-size: 1.125rem;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
 }
@@ -291,9 +447,8 @@
   display: inline-block;
   margin-top: 0.75rem;
   font-family: $font-label;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 400;
-  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: $olive;
   border: 1px solid $olive;
@@ -323,7 +478,7 @@
         width: 40px;
         height: 40px;
         font-family: $font-main;
-        font-size: 1rem;
+        font-size: 1.125rem;
         font-weight: 600;
         color: $charcoal;
         border: 1px solid $bone-dark;
@@ -348,10 +503,14 @@
 
 // ─── Single Product Page ─────────────────────────────────────
 .product-single-page {
-  padding-top: var(--header-h, 6rem);
-  padding-bottom: 6rem;
+  padding-top: var(--header-h, #{$nav-height});
+  padding-bottom: 3rem;
   background: $bone;
-  min-height: 80vh;
+
+  @include mobile {
+    padding-top: var(--header-h, #{$nav-height});
+    padding-bottom: 2rem;
+  }
 
   // When flex sections follow, reduce bottom padding — sections bring their own spacing
   &:has(+ .product-flex-sections) {
@@ -368,10 +527,14 @@
   grid-template-columns: 1.1fr 1fr;
   gap: 5rem;
   align-items: start;
-  padding-top: 4rem;
 
   @include tablet {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @include mobile {
+    gap: 1.5rem;
   }
 }
 
@@ -389,12 +552,139 @@
   justify-content: center;
 }
 
+// Zoom trigger wraps the image
+.product-zoom-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.product-zoom-icon {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  background: rgba(#000, 0.45);
+  color: #fff;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: background 0.2s;
+
+  .product-zoom-trigger:hover & {
+    background: rgba(#000, 0.7);
+  }
+}
+
 .product-gallery-main-img {
   width: 100%;
   max-height: 75vh;
   object-fit: contain;
   display: block;
   transition: none;
+}
+
+// ── Lightbox ──────────────────────────────────────────────────
+.product-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(#000, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.product-lightbox-inner {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.1s ease;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.product-lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(#fff, 0.1);
+  border: none;
+  color: #fff;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(#fff, 0.2); }
+}
+
+.product-lightbox-prev,
+.product-lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(#fff, 0.1);
+  border: none;
+  color: #fff;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s;
+
+  &:hover { background: rgba(#fff, 0.25); }
+}
+
+.product-lightbox-prev { left: 1.25rem; }
+.product-lightbox-next { right: 1.25rem; }
+
+.product-lightbox-counter {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(#fff, 0.5);
+  font-family: $font-label;
+  font-size: 1.125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .product-gallery-thumbs {
@@ -433,12 +723,12 @@
   padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
   position: sticky;
   top: calc(var(--header-h, 6rem) + 2rem);
 
   @include tablet {
-    padding: 2rem 1.5rem;
+    padding: 2rem 0rem;
     border-left: none;
     border-top: 1px solid rgba($charcoal, 0.1);
   }
@@ -450,16 +740,13 @@
   flex-wrap: wrap;
   gap: 0.35rem;
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: .8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 0;
+  margin-bottom: .5rem;
 
   a {
-    color: rgba($charcoal, 0.4);
     text-decoration: none;
-    &:hover { color: $charcoal; }
   }
 
   .breadcrumb-sep { color: rgba($charcoal, 0.2); }
@@ -471,7 +758,6 @@
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
   color: $charcoal;
   line-height: 1.1;
   margin: 0;
@@ -479,8 +765,7 @@
 
 .product-single-sku {
   font-family: $font-label;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 1.125rem;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
 }
@@ -490,17 +775,16 @@
   font-size: 1.75rem;
   font-weight: 800;
   color: $charcoal;
+  line-height: normal;
 
   .woocommerce-Price-amount { color: $charcoal; }
 }
 
 .product-single-short-desc {
   font-family: $font-main;
-  font-size: 0.95rem;
-  color: rgba($charcoal, 0.6);
+  font-size: 1.125rem;
+  color: $charcoal;
   line-height: 1.75;
-  border-top: 1px solid rgba($charcoal, 0.1);
-  padding-top: 1.25rem;
   text-wrap: balance;
 
   p { margin: 0; }
@@ -508,7 +792,7 @@
 
 // WooCommerce add to cart
 .product-single-details {
-  .cart { display: flex; flex-direction: column; gap: 0.75rem; }
+  .cart { display: flex; flex-direction: column; gap: 1.25rem; }
 
   .quantity {
     display: flex;
@@ -519,11 +803,19 @@
     &.hidden { display: none; }
   }
 
+  .quantity-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
   .sapient-qty {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0;
     width: fit-content;
+    margin: 0;
+    border: 1px solid $black;
   }
 
   .qty-btn {
@@ -550,15 +842,18 @@
     width: 48px;
     height: 48px;
     padding: 0;
-    border: 1.5px solid $charcoal;
+    border: none;
+    border-left: 1px solid $black;
+    border-right: 1px solid $black;
     background: transparent;
     font-family: $font-heading;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: $charcoal;
     text-align: center;
     outline: none;
     -moz-appearance: textfield;
+    appearance: textfield;
     transition: none;
 
     &::-webkit-outer-spin-button,
@@ -574,16 +869,16 @@
     border: 1.5px solid $charcoal;
     padding: 1rem 2rem;
     font-family: $font-label;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     transition: none;
 
     &:hover {
-      background: $charcoal;
-      color: $bone;
+      background: $amber;
+      border-color: $amber;
+      color: $charcoal;
     }
   }
 
@@ -596,9 +891,8 @@
 
 .product-sold-out {
   font-family: $font-label;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
   border: 1px solid rgba($charcoal, 0.2);
@@ -607,23 +901,105 @@
   align-self: flex-start;
 }
 
+// Hide default WooCommerce stock text
+.product-single-details .stock { display: none; }
+
+.product-availability-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.product-availability-value {
+  font-family: $font-main;
+  font-size: 1rem;
+  color: $charcoal;
+
+  &.product-availability--low {
+    color: #c0392b;
+  }
+}
+
+// ─── Waitlist form (out of stock) ──────────────────────────────
+.product-waitlist {
+  margin-top: 1rem;
+
+  .waitlist-text {
+    font-family: $font-main;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba($black, 0.5);
+    margin: 0 0 0.6rem;
+  }
+
+  .waitlist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .waitlist-email {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid rgba($black, 0.2);
+    font-family: $font-main;
+    font-size: 0.85rem;
+    outline: none;
+    background: #fff;
+
+    &:focus {
+      border-color: $black;
+    }
+
+    &::placeholder {
+      color: rgba($black, 0.35);
+    }
+  }
+
+  .waitlist-btn {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    background: $black;
+    color: #fff;
+    border: 1px solid $black;
+    font-family: $font-label;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+
+    &:hover {
+      background: $charcoal;
+    }
+  }
+
+  .waitlist-success {
+    font-family: $font-main;
+    font-size: 0.85rem;
+    color: rgba($black, 0.5);
+    margin: 0.5rem 0 0;
+  }
+}
+
 .product-single-description {
   font-family: $font-main;
-  font-size: 0.9rem;
-  color: rgba($charcoal, 0.55);
+  font-size: 1.125rem;
+  color: $charcoal;
   line-height: 1.75;
-  border-top: 1px solid rgba($charcoal, 0.1);
-  padding-top: 1.25rem;
+  padding-top: 0;
 
-  p { margin: 0 0 0.75rem; }
+  p { 
+    margin: 0 0 0.75rem;
+    color: $charcoal;
+   }
 
   h1, h2, h3, h4 {
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
     color: $charcoal;
     margin: 1rem 0 0.4rem;
-    font-size: 0.85rem;
+    font-size: 1.125rem;
   }
 
   ul, ol {
@@ -641,6 +1017,110 @@
 
   strong, b { color: $charcoal; font-weight: 700; }
   a { color: $ochre; text-decoration: underline; }
+
+  // ── Specs table ───────────────────────────────────────────
+  .product-specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    border: 1px solid $black;
+
+    thead th {
+      font-family: $font-label;
+      font-size: 1.125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba($black, 0.4);
+      padding: 0.75rem 1rem 0.25rem;
+      text-align: left;
+      border-right: 1px solid rgba($black, 0.1);
+
+      &:last-child { border-right: none; }
+    }
+
+    tbody td {
+      font-family: $font-main;
+      font-size: 1rem;
+      font-weight: 400;
+      color: $black;
+      padding: 0.15rem 1rem 0.75rem;
+      border-right: 1px solid rgba($black, 0.1);
+
+      &:last-child { border-right: none; }
+    }
+  }
+
+  .product-specs-dropdown {
+    border-top: 1px solid rgba($black, 0.15);
+
+    &:last-child {
+      border-bottom: 1px solid rgba($black, 0.15);
+    }
+
+    .product-specs-toggle {
+      font-family: $font-label;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 1rem 0;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+
+      &::after {
+        content: '+';
+        font-size: 1.1rem;
+        font-weight: 300;
+        line-height: 1;
+        color: rgba($black, 0.5);
+        transition: transform 0.2s ease;
+      }
+
+      &::-webkit-details-marker { display: none; }
+    }
+
+    &[open] .product-specs-toggle::after {
+      content: '−';
+    }
+
+    .product-specs-content {
+      padding: 0 0 1rem;
+    }
+
+    .product-specs-table {
+      margin-top: 0;
+      border: none;
+      width: 100%;
+      border-collapse: collapse;
+
+      tbody tr {
+        border-bottom: 1px solid rgba($black, 0.08);
+
+        &:last-child { border-bottom: none; }
+      }
+
+      tbody td {
+        padding: 0.55rem 0;
+        border-right: none;
+        font-size: 0.9rem;
+
+        &:first-child {
+          color: rgba($black, 0.5);
+          width: 55%;
+        }
+
+        &:last-child {
+          font-weight: 600;
+          text-align: right;
+        }
+      }
+    }
+  }
 }
 
 .product-single-meta {
@@ -653,9 +1133,8 @@
 
   span {
     font-family: $font-label;
-    font-size: 0.65rem;
+    font-size: 1.125rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: rgba($charcoal, 0.3);
 
@@ -685,16 +1164,15 @@
 
 .product-attr-label {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.4);
 }
 
 .product-attr-value {
   font-family: $font-main;
-  font-size: 0.85rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: $charcoal;
 }
@@ -713,29 +1191,34 @@
   width: 100% !important;
   padding: 1rem 2rem !important;
   font-family: $font-label !important;
-  font-size: 0.75rem !important;
+  font-size: 1.125rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   cursor: pointer !important;
   box-shadow: none !important;
   transition: none;
 
   &:hover {
-    background: $ochre !important;
-    background-color: $ochre !important;
-    color: $bone !important;
+    background: $amber !important;
+    background-color: $amber !important;
+    border-color: $amber !important;
+    color: $charcoal !important;
   }
 }
 
-// ─── Griptape option ─────────────────────────────────────────
+// ─── Option labels (Color, Griptape, Size) ───────────────────
 .product-option-label {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba($charcoal, 0.4);
+  letter-spacing: 0.12em;
+  color: rgba($black, 0.4);
+  display: block;
+}
+
+.product-size-choices .size-btn {
+    color: rgba($charcoal, 0.4);
 }
 
 .product-griptape-option {
@@ -756,9 +1239,8 @@
   border: 1px solid rgba($charcoal, 0.2);
   padding: 0.55rem 1rem;
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
   transition: none;
@@ -774,11 +1256,11 @@
   }
 
   &.is-active {
-    background: $charcoal;
-    color: $bone;
-    border-color: $charcoal;
+    background: $amber;
+    color: $charcoal;
+    border-color: $amber;
 
-    span { opacity: 0.6; }
+    span { opacity: 0.8; }
   }
 }
 
@@ -802,28 +1284,99 @@
   padding: 0.55rem 0.9rem;
   min-width: 3rem;
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
   transition: none;
   text-align: center;
 
-  &:hover { border-color: $charcoal; }
+  &:hover {
+    background: $amber;
+    border-color: $amber;
+    color: $charcoal;
+  }
 
   &.is-active {
-    background: $charcoal;
-    color: $bone;
-    border-color: $charcoal;
+    background: $amber;
+    color: $charcoal;
+    border-color: $amber;
   }
+}
+
+// ─── Color swatches ──────────────────────────────────────────
+.product-color-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.product-color-choices {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.color-swatch-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.color-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-color: var(--swatch);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  position: relative;
+  transition: none;
+  outline-offset: 2px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
+
+  &:hover {
+    border-color: rgba(0,0,0,0.4);
+  }
+
+  &.is-active {
+    border-color: $black;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $black;
+  }
+}
+
+.color-swatch-label {
+  font-family: $font-label;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba($charcoal, 0.55);
+  text-align: center;
+  max-width: 52px;
+  line-height: 1.3;
+
+  .color-btn.is-active ~ & {
+    color: $black;
+  }
+}
+
+.color-required-msg {
+  font-family: $font-label;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: $ochre;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 .size-required-msg {
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
   color: $ochre;
   text-transform: uppercase;
   margin: 0;
@@ -832,7 +1385,7 @@
 // ─── WYSIWYG / Rich text in product descriptions ─────────────
 .wysiwyg {
   font-family: $font-main;
-  font-size: 0.9rem;
+  font-size: 1.125rem;
   line-height: 1.7;
   color: $charcoal;
 
@@ -842,14 +1395,13 @@
     font-family: $font-heading;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: -0.01em;
     margin: 1.5em 0 0.5em;
     line-height: 1.1;
     color: $charcoal;
   }
   h2 { font-size: 1.4rem; }
   h3 { font-size: 1.1rem; }
-  h4 { font-size: 0.9rem; }
+  h4 { font-size: 1.125rem; }
 
   strong, b { font-weight: 700; }
   em, i { font-style: italic; }
@@ -863,7 +1415,6 @@
   ol { list-style: decimal; }
 
   a {
-    color: $charcoal;
     text-decoration: underline;
     text-underline-offset: 3px;
     &:hover { opacity: 0.6; }
@@ -887,5 +1438,72 @@
     max-width: 100%;
     height: auto;
     display: block;
+  }
+}
+
+// ─── Category page — crumb only, no big header ────────────────
+.shop-cat-crumb {
+  padding: clamp(2rem, 4vw, 3.5rem) 0 1rem;
+}
+
+// ─── Inline cart added message ────────────────────────────────
+.cart-added-inline {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba($black, 0.04);
+  border: 1px solid rgba($black, 0.1);
+  font-family: $font-main;
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: none;
+  color: $charcoal;
+
+  svg { color: $charcoal; flex-shrink: 0; }
+
+  a {
+    color: $charcoal;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  &.is-visible { display: flex; }
+}
+
+
+  .woocommerce .blog-archive-header {
+    display: none;
+  }
+
+
+  body.term-apparel.woocommerce img, 
+  body.term-apparel.woocommerce-page img {
+    max-height: 20rem;
+    object-fit: contain;
+  }
+
+  body.term-apparel.woocommerce .shop-img-grid {
+    margin: 4rem 0;
+  }
+
+// ─── No-image placeholder ──────────────────────────────────
+.shop-img-placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-family: $font-label;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba($black, 0.3);
   }
 }

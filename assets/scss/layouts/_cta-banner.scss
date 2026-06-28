@@ -61,9 +61,8 @@
   align-items: center;
   gap: 0.75rem;
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: $ochre-light;
   margin-bottom: 1.5rem;
@@ -90,7 +89,6 @@
   text-transform: uppercase;
   color: $bone;
   line-height: 0.92;
-  letter-spacing: -0.03em;
   margin: 0 0 1.5rem;
 
   em {
@@ -101,7 +99,7 @@
 
 // ─── Subtext ──────────────────────────────────────────────────
 .cta-banner-sub {
-  font-size: 0.9rem;
+  font-size: 1.125rem;
   color: rgba($bone, 0.4);
   max-width: 44ch;
   line-height: 1.75;
@@ -127,9 +125,8 @@
   align-items: center;
   gap: 0.75rem;
   font-family: $font-label;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   background: $ochre;
   color: $bone;
@@ -150,9 +147,8 @@
 
 .btn-ghost {
   font-family: $font-label;
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba($bone, 0.45);
   text-decoration: none;

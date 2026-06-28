@@ -1,7 +1,7 @@
 <?php
 $video_field = get_field('hero_video');
 $video_url   = is_array($video_field) ? ($video_field['url'] ?? '') : $video_field;
-$heading     = get_field('hero_heading') ?: "BUILT IN\nCHICAGO.";
+$heading     = get_field('hero_heading') ?: "BUILT IN\nCHICAGO";
 $subtext     = get_field('hero_subtext') ?: 'Handmade decks. Chicago, IL. Start to finish.';
 $cta1_text   = get_field('hero_cta_primary_text') ?: 'SHOP BOARDS';
 $cta1_url    = get_field('hero_cta_primary_url') ?: home_url('/shop');

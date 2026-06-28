@@ -1,0 +1,59 @@
+{
+    "key": "group_suppliers_cta",
+    "title": "Suppliers \u2014 Bottom CTA",
+    "fields": [
+        {
+            "key": "field_691a649075e2cc",
+            "label": "Bottom CTA Title",
+            "name": "supplier_cta_title",
+            "type": "text",
+            "instructions": "Heading shown at the bottom of the Suppliers page (defaults to \"Become a Supplier\").",
+            "required": 0,
+            "default_value": "",
+            "placeholder": "Become a Supplier",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_308269c2caec0e",
+            "label": "Bottom CTA Body",
+            "name": "supplier_cta_body",
+            "type": "wysiwyg",
+            "instructions": "The body content shown under the heading at the bottom of the Suppliers page.",
+            "required": 0,
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-suppliers.php"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Editable content for the bottom CTA of the Suppliers page (does not affect the suppliers list above).",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1778716267
+}

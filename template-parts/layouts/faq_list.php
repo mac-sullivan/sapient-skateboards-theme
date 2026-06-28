@@ -20,17 +20,6 @@ $faqs = get_posts( [
 <section class="faq-section <?php echo esc_attr( $spacing ); ?>">
   <div class="container">
 
-    <?php if ( $eyebrow || $heading ) : ?>
-    <div class="faq-header">
-      <?php if ( $eyebrow ) : ?>
-        <span class="section-eyebrow faq-eyebrow"><?php echo esc_html( $eyebrow ); ?></span>
-      <?php endif; ?>
-      <?php if ( $heading ) : ?>
-        <h2 class="faq-title"><?php echo esc_html( $heading ); ?></h2>
-      <?php endif; ?>
-    </div>
-    <?php endif; ?>
-
     <?php if ( ! empty( $faqs ) ) : ?>
     <div class="faq-list" role="list">
       <?php foreach ( $faqs as $i => $faq ) :

@@ -31,7 +31,7 @@ $theme    = get_sub_field( 'theme' ) ?: 'white';
 
       <?php if ( $image ) : ?>
       <div class="tis-image">
-        <img
+        <img loading="lazy" decoding="async"
           src="<?php echo esc_url( $image['url'] ); ?>"
           alt="<?php echo esc_attr( $image['alt'] ?? '' ); ?>"
           <?php if ( ! empty( $image['width'] ) ) : ?>width="<?php echo esc_attr( $image['width'] ); ?>"<?php endif; ?>

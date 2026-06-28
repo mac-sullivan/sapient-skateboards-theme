@@ -1,4 +1,4 @@
-<?php get_header(); ?>
+<?php get_header( sapient_get_active_header() ); ?>
 <main id="main-content">
   <?php if ( have_rows( 'page_sections' ) ) : ?>
 
@@ -18,7 +18,6 @@
     <section class="wc-cart-page">
       <div class="container">
         <div class="cart-page-header">
-          <span class="section-eyebrow"><?php echo is_checkout() ? 'Almost There' : 'Your Order'; ?></span>
           <h1 class="cart-page-title"><?php echo is_checkout() ? 'Checkout' : 'Cart'; ?></h1>
         </div>
         <?php woocommerce_output_all_notices(); ?>
@@ -32,8 +31,16 @@
     <section class="wc-page-section">
       <div class="container">
         <?php while ( have_posts() ) : the_post(); ?>
+          <h1 class="wc-page-heading"><?php the_title(); ?></h1>
           <div class="wc-page-content">
-            <?php the_content(); ?>
+            <?php
+            $page_content = trim( get_the_content() );
+            if ( $page_content !== '' ) {
+                the_content();
+            } else {
+                echo '<p class="wc-page-empty">This page is being finalized. Please check back soon, or <a href="' . esc_url( home_url( '/contact-us/' ) ) . '">contact us</a> for any questions.</p>';
+            }
+            ?>
           </div>
         <?php endwhile; ?>
       </div>

@@ -69,9 +69,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: $ochre-light;
   margin-bottom: 1.25rem;
@@ -84,13 +83,12 @@
   font-size: clamp(3rem, 6.5vw, 6.5rem);
   font-weight: 800;
   color: $bone;
-  letter-spacing: -0.04em;
   line-height: 1.0;
   margin: 0 0 1.25rem;
 }
 
 .donate-hero-sub {
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: clamp(1.125rem, 1.5vw, 1.15rem);
   color: rgba($bone, 0.55);
   max-width: 40ch;
   line-height: 1.7;
@@ -107,7 +105,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: rgba($bone, 0.6);
   border: 1px solid rgba($bone, 0.15);
@@ -115,7 +113,6 @@
   padding: 0.35rem 0.85rem;
   background: rgba($bone, 0.06);
   backdrop-filter: blur(8px);
-  letter-spacing: 0.05em;
 
   svg { flex-shrink: 0; opacity: 0.7; }
 }
@@ -141,9 +138,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: $ochre;
   margin-bottom: 1rem;
@@ -156,7 +152,6 @@
   font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: 800;
   color: $charcoal;
-  letter-spacing: -0.04em;
   line-height: 1.1;
   margin: 0 0 2.5rem;
 }
@@ -194,7 +189,6 @@
   color: $ochre;
   min-width: 64px;
   flex-shrink: 0;
-  letter-spacing: -0.02em;
 }
 
 .donate-tier-info {
@@ -203,21 +197,21 @@
   gap: 0.2rem;
 
   strong {
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: $charcoal;
     font-family: $font-main;
   }
 
   span {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: #888;
     line-height: 1.5;
   }
 }
 
 .donate-legal {
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #aaa;
   line-height: 1.7;
   padding-top: 1.5rem;
@@ -239,7 +233,6 @@
     font-size: 1.5rem;
     font-weight: 800;
     margin: 0 0 1.75rem;
-    letter-spacing: -0.02em;
     color: $charcoal;
   }
 }
@@ -275,9 +268,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: $ochre-light;
     margin-bottom: 1rem;
@@ -291,14 +283,13 @@
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 800;
   color: $bone;
-  letter-spacing: -0.04em;
   line-height: 1.1;
   margin: 0 0 1rem;
 }
 
 .donate-breakdown-header p {
   color: rgba($bone, 0.45);
-  font-size: 1rem;
+  font-size: 1.125rem;
   max-width: 44ch;
   line-height: 1.7;
 }
@@ -324,17 +315,15 @@
 
 .donate-bar-label {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: rgba($bone, 0.75);
-  letter-spacing: 0.02em;
 }
 
 .donate-bar-pct {
   font-family: $font-heading;
   font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
   background: linear-gradient(135deg, $bone 0%, rgba($bone, 0.5) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -374,7 +363,6 @@
   font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: 800;
   color: $charcoal;
-  letter-spacing: -0.04em;
   line-height: 1.1;
   margin: 0;
 }
@@ -408,12 +396,11 @@
     font-size: 1.3rem;
     font-weight: 700;
     color: $charcoal;
-    letter-spacing: -0.02em;
     margin: 0;
   }
 
   p {
-    font-size: 1rem;
+    font-size: 1.125rem;
     line-height: 1.7;
     color: #666;
     margin: 0;
@@ -434,13 +421,11 @@
 }
 
 .donate-other-link {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: $ochre;
   font-family: $font-main;
-  letter-spacing: 0.01em;
   margin-top: 0.25rem;
   transition: none;
 
-  &:hover { text-decoration: none; letter-spacing: 0.04em; }
 }

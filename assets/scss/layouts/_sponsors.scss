@@ -48,7 +48,6 @@
   font-size: clamp(2.5rem, 5vw, 4.25rem);
   font-weight: 800;
   color: $charcoal;
-  letter-spacing: -0.04em;
   line-height: 1.05;
   margin: 0 0 1.25rem;
   display: block;
@@ -93,7 +92,6 @@
     font-family: $font-heading;
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 800;
-    letter-spacing: -0.03em;
     background: linear-gradient(135deg, $ochre 0%, $ochre-light 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -103,10 +101,9 @@
 
   .impact-label {
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: #888;
   }
 }
@@ -161,9 +158,8 @@
   background: linear-gradient(135deg, $ochre 0%, $ochre-light 100%);
   color: $bone;
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 0.3rem 0.75rem;
   border-radius: 100px;
@@ -181,10 +177,9 @@
 
 .tier-label {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
   color: #888;
 }
 
@@ -193,7 +188,6 @@
   font-size: 2rem;
   font-weight: 800;
   color: $charcoal;
-  letter-spacing: -0.03em;
   line-height: 1;
 }
 
@@ -210,7 +204,7 @@
     align-items: flex-start;
     gap: 0.6rem;
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: #4a4a4a;
     line-height: 1.5;
 
@@ -232,7 +226,7 @@
 }
 
 .sponsors-cta-btn {
-  font-size: 1rem;
+  font-size: 1.125rem;
   padding: 1rem 2.5rem;
   box-shadow: 0 4px 24px rgba($ochre, 0.35);
 
@@ -241,7 +235,7 @@
 }
 
 .sponsors-cta-note {
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: #888;
   margin: 0;
   font-family: $font-main;

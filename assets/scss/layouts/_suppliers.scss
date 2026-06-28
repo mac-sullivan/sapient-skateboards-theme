@@ -1,0 +1,185 @@
+@use '../abstracts' as *;
+
+// ─── Section ──────────────────────────────────────────────────
+.section-suppliers {
+  background: $bone;
+  padding: 0 0 clamp(4.5rem, 7vw, 3.5rem);
+}
+
+// ─── Table ────────────────────────────────────────────────────
+.suppliers-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  // ── Header
+  thead {
+    border-top: 1px solid $black;
+    border-bottom: 1px solid $black;
+    background: rgba($black, 0.04);
+  }
+
+  thead th {
+    font-family: $font-label;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba($black, 0.4);
+    padding: 0.65rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+
+    &:last-child { text-align: right; }
+  }
+
+  // ── Body rows
+  tbody tr {
+    border-bottom: 1px solid rgba($black, 0.08);
+    transition: background 0.12s ease;
+    &:hover { background: rgba($black, 0.02); }
+  }
+
+  tbody td {
+    padding: 0.9rem 1rem;
+    vertical-align: middle;
+    font-family: $font-main;
+    font-size: 1.125rem;
+    color: $black;
+
+    &:last-child { text-align: right; }
+  }
+
+  // ── Links — shop names render in black (overrides global yellow)
+  a {
+    color: $black;
+    text-decoration: none;
+    &:hover { opacity: 0.55; }
+  }
+
+  .supplier-url {
+    color: $black;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: $black;
+  }
+
+  .supplier-none { color: rgba($black, 0.2); }
+
+  // ── Mobile: stack each row as label/value pairs
+  @include mobile {
+    thead { display: none; }
+
+    tbody tr {
+      display: block;
+      position: relative;
+      border-bottom: 2px solid rgba($black, 0.12);
+      padding: 0.75rem 1rem 0.5rem;
+
+      &:first-child { border-top: 1px solid rgba($black, 0.12); }
+    }
+
+    tbody td {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba($black, 0.06);
+      font-size: 1rem; // tighter than the 1.125rem default — table rows need density
+      text-align: right;
+
+      &:last-child { border-bottom: none; }
+
+      &::before {
+        content: attr(data-label);
+        font-family: $font-label;
+        font-size: 0.85rem; // small uppercase label for the row "key"
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: rgba($black, 0.4);
+        flex-shrink: 0;
+        margin-right: 1rem;
+        text-align: left;
+      }
+    }
+  }
+}
+
+// ─── Empty state ──────────────────────────────────────────────
+.suppliers-empty {
+  font-family: $font-main;
+  font-size: 1.125rem;
+  color: rgba($black, 0.3);
+  padding: 3rem 0;
+}
+
+// ─── Subheading ───────────────────────────────────────────────
+.suppliers-subheading {
+  font-family: $font-label;
+  font-size: .95rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: rgba($black, 0.55);
+  margin: 0.35rem 0 0;
+}
+
+// ─── Supplier CTA ─────────────────────────────────────────────
+.section-supplier-cta {
+  padding: 1.5rem 0 4rem;
+  background: $bone;
+}
+
+// .supplier-cta-inner {
+//   display: grid;
+//   grid-template-columns: 1fr 1.6fr;
+//   gap: 4rem;
+//   align-items: start;
+
+//   @media (max-width: 768px) {
+//     grid-template-columns: 1fr;
+//     gap: 2rem;
+//   }
+// }
+
+.supplier-cta-image {
+  .supplier-cta-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.supplier-cta-title {
+  font-family: $font-heading;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $black;
+  margin: 0 0 1.5rem;
+  text-align: left;
+
+  @include mobile {
+    margin: 0 0 1.75rem;
+  }
+}
+
+.supplier-cta-body {
+  p {
+    font-family: $font-main;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: rgba($black, 0.75);
+    margin: 0 0 1.1rem;
+    text-align: left;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  a {
+    font-weight: 600;
+
+    &:hover { opacity: 0.6; }
+  }
+}

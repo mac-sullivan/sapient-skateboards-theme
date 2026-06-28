@@ -54,13 +54,12 @@
       margin: 0 0 0.5rem;
 
       a {
-        color: $charcoal;
-        &:hover { color: $ochre; text-decoration: none; }
+        &:hover { text-decoration: none; }
       }
     }
 
     p {
-      font-size: 1rem;
+      font-size: 1.125rem;
       color: $crete;
       line-height: 1.6;
       margin: 0 0 1rem;
@@ -68,17 +67,16 @@
   }
 
   .event-date {
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: $ochre;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
     margin: 0 0 0.4rem;
     display: block;
   }
 
   .event-location {
-    font-size: 1rem;
+    font-size: 1.125rem;
     color: $crete;
     margin: 0 0 0.75rem;
     display: block;

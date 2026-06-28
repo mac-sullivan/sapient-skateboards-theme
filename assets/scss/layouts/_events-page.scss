@@ -1,0 +1,213 @@
+@use '../abstracts' as *;
+
+// ─── Events Page ─────────────────────────────────────────────
+// Scoped styles that build on the .cai-content (Content + Image)
+// flex layout. Applied via the `.page-events` body class.
+
+.page-events {
+
+  // ── Tighten container width so long lines don't get unreadable
+  .section-cai .container {
+    max-width: 920px;
+  }
+
+  // ── Hero image: cap height and crop nicely
+  .cai-image {
+    img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+
+    @include mobile {
+      img { max-height: 360px; }
+    }
+  }
+
+  .cai-content {
+    text-align: center;
+
+    // ── Top hero block: title + date + time + location ─────────
+    > h1:first-child {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin: 0 0 2rem;
+      text-wrap: balance;
+    }
+
+    // Date — h2 right after the title acts as the prominent date line
+    > h1:first-child + h2 {
+      font-family: $font-heading;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba($charcoal, 0.85);
+      margin: 0 0 0.5rem;
+    }
+
+    // Time + Address — the h3s that follow the date
+    > h1:first-child + h2 + h3,
+    > h1:first-child + h2 + h3 + h3 {
+      font-family: $font-label;
+      font-size: 1.125rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba($charcoal, 0.6);
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      text-align: center;
+
+      br { line-height: 1.6; }
+    }
+
+    // Address (second hero h3) — sits below time, then a small decorative
+    // accent finishes the hero block. Replaces any browser default
+    // underline-looking artifact.
+    > h1:first-child + h2 + h3 + h3 {
+      margin: 0.25rem 0 1.5rem;
+      position: relative;
+      padding-bottom: 1.5rem;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 1px;
+        background: rgba($charcoal, 0.3);
+      }
+    }
+
+    // ── Intro paragraphs (centered) ────────────────────────────
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 0 0 1rem;
+      max-width: 64ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    // ── "Event Details" section heading — acts as a divider ────
+    > h2 {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin: 2rem 0;
+      position: relative;
+      padding-top: 2rem;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 48px;
+        height: 2px;
+        background: $charcoal;
+      }
+    }
+
+    // ── Schedule items (Open House / Video Premiere / etc.) ───
+    // Each h3 + its following content is a "card" with breathing room.
+    // Top margin and padding-top match so the divider has equal space
+    // above and below.
+    > h3 {
+      font-family: $font-heading;
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      text-align: left;
+      margin: 2rem 0 0.25rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba($charcoal, 0.12);
+
+      // first body h3 (which is actually the time h3 in the hero
+      // block) is already handled above. This rule targets any h3
+      // that's not in the hero, since hero h3s have the
+      // first-child + h2 + h3 chain selector above.
+    }
+
+    // ── Time pill immediately after a schedule h3 ──────────────
+    > h3 + p:first-of-type,
+    > h3 + p {
+      // Bold time line under each schedule heading
+      strong:only-child {
+        display: inline-block;
+        font-family: $font-label;
+        font-size: 1.125rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba($charcoal, 0.65);
+        padding: 0.25rem 0;
+      }
+    }
+
+    // ── Body paragraphs in detail sections (left aligned) ──────
+    > h3 ~ p,
+    > h3 ~ ul {
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+    }
+
+    // ── Lists ──────────────────────────────────────────────────
+    > h3 ~ ul,
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0 1.25rem;
+
+      li {
+        position: relative;
+        padding-left: 1.25rem;
+        line-height: 1.7;
+        margin: 0.4rem 0;
+        font-size: 1.05rem;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0.7em;
+          width: 8px;
+          height: 1px;
+          background: $charcoal;
+        }
+      }
+    }
+
+    // ── Trailing italic disclaimer ─────────────────────────────
+    > p:last-child em {
+      display: block;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba($charcoal, 0.12);
+      font-style: italic;
+      font-size: 1.125rem;
+      color: rgba($charcoal, 0.55);
+    }
+
+    // ── Mobile tweaks ──────────────────────────────────────────
+    @include mobile {
+      > h1:first-child { font-size: 2rem; }
+      > h2 { font-size: 1.75rem; margin: 3rem 0 2rem; }
+      > h3 { font-size: 1.25rem; margin-top: 1.5rem; padding-top: 1.5rem; }
+
+      p, > h3 ~ ul li { font-size: 1.125rem; }
+    }
+  }
+}

@@ -2,6 +2,98 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  // ─── Countdown clock ───────────────────────────────────────
+  // Drives any [data-countdown] section. Reads target datetime from
+  // data-target (ISO 8601), updates the four data-d/h/m/s slots every
+  // second. Stops at 00:00:00:00 when the deadline passes.
+  document.querySelectorAll('[data-countdown]').forEach(function (el) {
+    var target = new Date(el.getAttribute('data-target'));
+    if (isNaN(target.getTime())) return;
+    var dEl = el.querySelector('[data-d]');
+    var hEl = el.querySelector('[data-h]');
+    var mEl = el.querySelector('[data-m]');
+    var sEl = el.querySelector('[data-s]');
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+    var timer;
+    function tick() {
+      var diff = Math.max(0, target - new Date());
+      var secs = Math.floor(diff / 1000);
+      var days = Math.floor(secs / 86400);
+      var hrs  = Math.floor((secs % 86400) / 3600);
+      var mins = Math.floor((secs % 3600) / 60);
+      var s    = secs % 60;
+      if (dEl) dEl.textContent = pad(days);
+      if (hEl) hEl.textContent = pad(hrs);
+      if (mEl) mEl.textContent = pad(mins);
+      if (sEl) sEl.textContent = pad(s);
+      if (diff === 0 && timer) clearInterval(timer);
+    }
+    tick();
+    timer = setInterval(tick, 1000);
+  });
+
+  // ─── Page fade-in ──────────────────────────────────────────
+  // Only runs on the first navigation in a session — the inline <head>
+  // script (see pt_inline_fade_in_init in functions.php) adds the
+  // `fade-in` class to <html> on first visit. We flip `.loaded` here on
+  // a paint boundary so the transition plays smoothly.
+  requestAnimationFrame(function () { document.documentElement.classList.add('loaded'); });
+
+  // ─── Expandable search ─────────────────────────────────────
+  // Behavior: icon click is the only thing that toggles state.
+  //   - closed              → open + focus input
+  //   - open + has text     → submit the form
+  //   - open + empty input  → close
+  document.querySelectorAll('[data-search-toggle]').forEach(function (btn) {
+    var wrap = btn.closest('[data-search]');
+    if (!wrap) return;
+    var input = wrap.querySelector('.search-input');
+    var form  = wrap.querySelector('form');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+
+      // If the mobile menu is open, close it first so search can take focus.
+      var navOverlay = document.getElementById('site-nav-mobile');
+      if (navOverlay && navOverlay.classList.contains('open')) {
+        navOverlay.classList.remove('open');
+        var navBtn = document.querySelector('.nav-toggle');
+        if (navBtn) {
+          navBtn.classList.remove('is-open');
+          navBtn.setAttribute('aria-expanded', 'false');
+          var navLabel = navBtn.querySelector('.nav-toggle-label');
+          if (navLabel && navLabel.getAttribute('data-open')) {
+            navLabel.textContent = navLabel.getAttribute('data-open');
+          }
+        }
+      }
+
+      var open = wrap.classList.contains('is-open');
+      if (!open) {
+        wrap.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        if (input) {
+          // Focus must be SYNCHRONOUS within the user-gesture handler
+          // for iOS Safari to open the on-screen keyboard.
+          input.removeAttribute('tabindex');
+          input.focus();
+        }
+        return;
+      }
+      // Already open: submit if there's a query, otherwise close.
+      if (input && input.value.trim() !== '') {
+        if (form) form.submit();
+        return;
+      }
+      wrap.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (input) {
+        input.setAttribute('tabindex', '-1');
+        input.blur();
+      }
+    });
+  });
+
+
   // ─── Mobile nav toggle ─────────────────────────────────────
   const toggle      = document.querySelector('.nav-toggle');
   const mobileLinks = document.querySelector('.nav-links--mobile');
@@ -53,6 +145,24 @@ document.addEventListener('DOMContentLoaded', function () {
     input.dispatchEvent(new Event('change', { bubbles: true }));
   });
 
+  // ─── Desktop nav: parent items navigate on click; dropdown on hover (CSS) ──
+  // Clicking a parent nav link navigates directly — no preventDefault
+  // Dropdown open/close is handled by CSS :hover and mouseleave cleanup
+  document.querySelectorAll('.nav-links-desktop .menu-item-has-children').forEach(function (item) {
+    item.addEventListener('mouseleave', function () {
+      item.classList.remove('is-open');
+    });
+  });
+
+  // Close desktop dropdown on outside click
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-links-desktop')) {
+      document.querySelectorAll('.nav-links-desktop .menu-item-has-children.is-open').forEach(function (el) {
+        el.classList.remove('is-open');
+      });
+    }
+  });
+
   // ─── Griptape toggle buttons ───────────────────────────────
   document.addEventListener('click', function (e) {
     const btn = e.target.closest('.griptape-btn');
@@ -67,14 +177,22 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ─── Nav active underline — snap, no slide ────────────────────
+// The bar sits inside a presentational <li> so the parent <ul> stays
+// HTML-valid (a <ul> may only contain <li>, <script>, or <template>).
+// aria-hidden + role="presentation" tells screen readers to ignore it.
 (function () {
   const navList = document.querySelector('#site-nav .nav-links');
   if (!navList) return;
 
+  const li = document.createElement('li');
+  li.setAttribute('role', 'presentation');
+  li.setAttribute('aria-hidden', 'true');
+  li.className = 'nav-underline-host';
   const bar = document.createElement('span');
   bar.className = 'nav-underline';
   bar.style.transition = 'none';
-  navList.appendChild(bar);
+  li.appendChild(bar);
+  navList.appendChild(li);
 
   const activeLink = navList.querySelector(
     ':scope > li.current-menu-item > a, :scope > li[aria-current="page"] > a'
@@ -87,3 +205,181 @@ document.addEventListener('DOMContentLoaded', function () {
   bar.style.width   = rect.width + 'px';
   bar.style.opacity = '1';
 })();
+
+// ── Cart preview dropdown ─────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function () {
+  const toggles = document.querySelectorAll('[data-cart-toggle]');
+
+  toggles.forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const preview = btn.closest('.nav-cart-wrap').querySelector('[data-cart-preview]');
+      if (!preview) return;
+      const isOpen = preview.classList.contains('is-open');
+
+      // Close all other open previews
+      document.querySelectorAll('[data-cart-preview].is-open').forEach(function (p) {
+        p.classList.remove('is-open');
+        p.closest('.nav-cart-wrap').querySelector('[data-cart-toggle]').setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        preview.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', function () {
+    document.querySelectorAll('[data-cart-preview].is-open').forEach(function (p) {
+      p.classList.remove('is-open');
+      p.closest('.nav-cart-wrap').querySelector('[data-cart-toggle]').setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.querySelectorAll('[data-cart-preview]').forEach(function (p) {
+    p.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+});
+
+
+// ── Cart added notification ───────────────────────────────────
+(function ($) {
+
+  function showInlineMsg() {
+    var msg = document.getElementById('cart-added-inline');
+    if (!msg) return;
+    msg.classList.add('is-visible');
+  }
+
+  function showToast() {
+    var toast = document.getElementById('cart-toast');
+    if (!toast) return;
+    toast.classList.add('is-visible');
+    setTimeout(function () { toast.classList.remove('is-visible'); }, 4500);
+  }
+
+  function updateCartCount(count) {
+    document.querySelectorAll('.cart-count, .money-bag-count').forEach(function (el) {
+      el.textContent = count;
+      el.classList.toggle('has-items', count > 0);
+    });
+  }
+
+  // Single product page — AJAX via custom WP handler
+  $(document).on('submit', 'form.cart', function (e) {
+    var $form = $(this);
+    var productId = $form.find('[name="add-to-cart"]').val();
+    if (!productId) return; // no product ID yet (variation not chosen) — let WC handle
+
+    e.preventDefault();
+
+    var ajaxUrl = (typeof sapientAjax !== 'undefined') ? sapientAjax.url : '/wp-admin/admin-ajax.php';
+
+    var data = {
+      action:       'sapient_add_to_cart',
+      product_id:   productId,
+      quantity:     $form.find('[name="quantity"]').val() || 1,
+      variation_id: $form.find('[name="variation_id"]').val() || 0,
+    };
+
+    // Include variation attributes
+    $form.find('[name^="attribute_"]').each(function () {
+      data[$(this).attr('name')] = $(this).val();
+    });
+
+    $.post(ajaxUrl, data)
+      .done(function (response) {
+        if (response && response.success) {
+          showInlineMsg();
+          updateCartCount(response.data.count);
+          // Swap all cart preview dropdowns with fresh HTML
+          if (response.data.preview_html) {
+            document.querySelectorAll('[data-cart-preview]').forEach(function (el) {
+              el.innerHTML = response.data.preview_html;
+            });
+          }
+        } else {
+          $form.off('submit').submit();
+        }
+      })
+      .fail(function () {
+        $form.off('submit').submit();
+      });
+  });
+
+  // Shop/archive pages — WooCommerce native AJAX event
+  $(document).on('added_to_cart', function () { showToast(); });
+
+  // Toast dismiss
+  $(document).on('click', '.cart-toast-close', function () {
+    var toast = document.getElementById('cart-toast');
+    if (toast) toast.classList.remove('is-visible');
+  });
+
+  // ── Newsletter signup form ────────────────────────────────
+  $('#footer-newsletter-form').on('submit', function (e) {
+    e.preventDefault();
+    var $form = $(this);
+    var $btn  = $form.find('.fnf-btn');
+    var $msg  = $form.find('.fnf-msg');
+
+    $btn.prop('disabled', true).text('Sending…');
+    $msg.removeClass('is-success is-error').text('');
+
+    $.post(sapientAjax.url, {
+      action: 'sapient_newsletter',
+      nonce:  sapientAjax.newsletter_nonce,
+      email:  $form.find('#fnf-email').val(),
+      phone:  $form.find('#fnf-phone').val(),
+    })
+    .done(function (res) {
+      if (res && res.success) {
+        $msg.addClass('is-success').text(res.data.message);
+        $form.find('.fnf-input').val('');
+      } else {
+        $msg.addClass('is-error').text(res.data ? res.data.message : 'Something went wrong.');
+      }
+    })
+    .fail(function () {
+      $msg.addClass('is-error').text('Could not connect. Please try again.');
+    })
+    .always(function () {
+      $btn.prop('disabled', false).text('Subscribe');
+    });
+  });
+
+}(jQuery));
+
+// ─── Listing card stagger animation ─────────────────────────
+// Must be in its own DOMContentLoaded so WooCommerce product
+// cards are in the DOM before we query and observe them.
+document.addEventListener('DOMContentLoaded', function () {
+  var cards = document.querySelectorAll('.blog-card, .team-card, .product-card:not(.product-card--placeholder), .shop-img-link');
+  if (!cards.length) return;
+
+  // Assign stagger index per card within its parent grid
+  var grids = new Map();
+  cards.forEach(function (card) {
+    var parent = card.parentElement;
+    if (!grids.has(parent)) grids.set(parent, []);
+    grids.get(parent).push(card);
+  });
+  grids.forEach(function (gridCards) {
+    gridCards.forEach(function (card, i) {
+      card.style.setProperty('--stagger-i', i);
+    });
+  });
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('card-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px 400px 0px' });
+
+  cards.forEach(function (card) { observer.observe(card); });
+});

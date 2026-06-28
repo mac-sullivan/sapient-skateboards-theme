@@ -2,10 +2,8 @@
 
 // ─── Contact Section ──────────────────────────────────────────
 .section-contact {
-  padding-top: calc(var(--header-h, 6rem) + 5rem);
-  padding-bottom: 10rem;
-  min-height: 100vh;
   box-sizing: border-box;
+  padding: clamp(2rem, 4vw, 2rem) 0 clamp(4rem, 7vw, 6rem);
 }
 
 .contact-layout {
@@ -24,9 +22,8 @@
 .contact-eyebrow {
   display: block;
   font-family: $font-label;
-  font-size: 0.65rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba($charcoal, 0.35);
   margin-bottom: 1rem;
@@ -34,22 +31,28 @@
 
 .contact-title {
   font-family: $font-heading;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.25rem, 5vw, 2.25rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   line-height: 1;
   color: $charcoal;
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.5rem;
+  white-space: nowrap;
 }
 
 .contact-sub {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.65;
   color: rgba($charcoal, 0.55);
-  margin: 0 0 3rem;
+  margin: 0 0 1rem;
   max-width: 32ch;
+}
+
+.contact-content {
+  margin: 0 0 1rem;
+
+  p:last-child { margin-bottom: 0; }
 }
 
 .contact-details-list {
@@ -64,24 +67,77 @@
     gap: 0.2rem;
     padding: 1rem 0;
     border-bottom: 1px solid rgba($charcoal, 0.1);
+
+    &:last-child { border-bottom: none; }
   }
 
   .detail-label {
     font-family: $font-label;
-    font-size: 0.6rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba($charcoal, 0.35);
+    color: $charcoal;
+    text-decoration: none !important; // never underline the small heading
   }
 
-  a, span {
+  span:not(.detail-label) {
     font-family: $font-main;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     color: $charcoal;
     text-decoration: none;
+  }
 
-    &:hover { text-decoration: underline; text-underline-offset: 3px; }
+  // Email/phone links — explicit blue (matches the global main a rule).
+  // No hover underline rule here — the global link-underline-wipe handles
+  // it cleanly; adding text-decoration on top causes a doubled underline.
+  // align-self: flex-start prevents the link from stretching to the full
+  // row width (parent <li> is flex-direction: column), which would make
+  // the underline span the entire row instead of just the text.
+  a {
+    font-family: $font-main;
+    font-size: 1.125rem;
+    color: #0066cc;
+    align-self: flex-start;
+  }
+}
+
+// ─── Social links ─────────────────────────────────────────────
+.contact-social {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba($charcoal, 0.2);
+    color: rgba($charcoal, 0.5);
+    text-decoration: none;
+    transition: none;
+
+    svg { display: block; }
+
+    &:hover {
+      border-color: $charcoal;
+      color: $charcoal;
+    }
+  }
+}
+
+// ─── Response note ────────────────────────────────────────────
+.contact-response-note {
+  margin-top: 1.5rem;
+  font-family: $font-main;
+  font-size: 1.125rem;
+  color: rgba($charcoal, 0.4);
+  line-height: 1.6;
+
+  strong {
+    font-weight: 700;
+    color: rgba($charcoal, 0.6);
   }
 }
 
@@ -110,11 +166,11 @@
   input[type="email"],
   textarea {
     width: 100%;
-    background: transparent;
+    background: #f4f4f4;
     border: 1.5px solid rgba($charcoal, 0.3);
     padding: 0.9rem 1rem;
     font-family: $font-main;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     color: $charcoal;
     outline: none;
     display: block;
@@ -132,31 +188,29 @@
 
   input[type="submit"],
   .wpcf7-submit {
-    margin-top: 2.5rem;
     width: 100%;
     background: transparent;
     color: $charcoal;
     border: 1.5px solid $charcoal;
     padding: 1rem 2rem;
     font-family: $font-label;
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     transition: none;
     display: block;
 
     &:hover {
-      background: $charcoal;
-      color: $bone;
+      background: $amber;
+      border-color: $amber;
+      color: $charcoal;
     }
   }
 
   .wpcf7-not-valid-tip {
     font-family: $font-label;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
+    font-size: 1.125rem;
     color: #c0392b;
     margin-top: 0.25rem;
     display: block;
@@ -166,8 +220,7 @@
     margin-top: 1.5rem;
     padding: 1rem;
     font-family: $font-label;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
+    font-size: 1.125rem;
     border: 1.5px solid rgba($charcoal, 0.2);
     color: $charcoal;
     border-radius: 0;

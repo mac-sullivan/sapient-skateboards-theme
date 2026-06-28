@@ -97,7 +97,6 @@
     font-weight: 800;
     color: $bone;
     line-height: 1;
-    letter-spacing: -0.04em;
     background: linear-gradient(135deg, $bone 0%, rgba($bone, 0.7) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -106,10 +105,9 @@
 
   .badge-label {
     font-family: $font-main;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
     color: rgba($bone, 0.55);
   }
 }
@@ -136,9 +134,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    letter-spacing: 0.22em;
     text-transform: uppercase;
     margin-bottom: 1.25rem;
 
@@ -160,7 +157,6 @@
     font-size: clamp(2.25rem, 3.5vw, 3.5rem);
     font-weight: 800;
     line-height: 1.05;
-    letter-spacing: -0.04em;
     margin: 0 0 1.5rem;
 
     .section-two-col--dark & { color: $bone; }
@@ -168,7 +164,7 @@
 
   .two-col-content {
     p {
-      font-size: 1rem;
+      font-size: 1.125rem;
       line-height: 1.8;
       margin-bottom: 1.1rem;
 

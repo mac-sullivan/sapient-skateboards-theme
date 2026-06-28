@@ -1,6 +1,7 @@
 @use '../abstracts' as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+// Note: Engravers Gothic BT requires self-hosting or a licensed font service.
+// Times New Roman is a system font — no import needed.
 
 // ─── Global Type Scale ────────────────────────────────────────
 //
@@ -16,19 +17,23 @@
 //
 // ─────────────────────────────────────────────────────────────
 
+// Global orphan-prevention: text-wrap: pretty modifies the last line of
+// every paragraph so a single word never ends up alone (browser-side hint).
+// Headings get text-wrap: balance for visually even line lengths.
+// Both properties are gracefully ignored in older browsers.
+p   { text-wrap: pretty; }
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-heading;
   line-height: 1.05;
-  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: $charcoal;
   margin: 0;
+  text-wrap: balance;
 }
 
 h1 {
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 900;
-  letter-spacing: -0.03em;
 }
 
 h2 {
@@ -39,33 +44,29 @@ h2 {
 h3 {
   font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: 700;
-  letter-spacing: -0.01em;
 }
 
 h4 {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
   line-height: 1.3;
 }
 
 h5 {
-  font-size: 0.85rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
   line-height: 1.3;
 }
 
 h6 {
-  font-size: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
   line-height: 1.3;
 }
 
 p {
   font-family: $font-main;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.75;
   color: $charcoal;
@@ -82,7 +83,7 @@ p {
 }
 
 small, .text-small {
-  font-size: 0.8rem;
+  font-size: 1.125rem;
   line-height: 1.5;
 }
 
@@ -90,17 +91,16 @@ small, .text-small {
 
 .section-eyebrow {
   font-family: $font-label;
-  font-size: 0.7rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: $ochre;
+  color: $black;
   display: block;
   margin-bottom: 1rem;
 
   &::before {
     content: '— ';
-    opacity: 0.6;
+    opacity: 0.4;
   }
 }
 
@@ -122,13 +122,9 @@ h1 em, h2 em, h3 em {
 // ─── Utility ──────────────────────────────────────────────────
 
 .text-gradient {
-  background: $grad-ochre;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: $black;
 }
 
-.text-muted  { color: rgba($charcoal, 0.45); }
-.text-ochre  { color: $ochre; }
-.text-white  { color: $bone; }
-.text-upper  { text-transform: uppercase; letter-spacing: 0.08em; }
+.text-muted  { color: rgba($black, 0.45); }
+.text-ochre  { color: $black; }
+.text-white  { color: $white; }

@@ -1,0 +1,142 @@
+@use '../abstracts' as *;
+
+// ─── Countdown clock ──────────────────────────────────────────
+// Bold digit cards, centered, prominent. Driven by [data-countdown]
+// in main.js — pulls the target datetime from data-target on the section.
+.section-countdown {
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 5vw, 5rem);
+  background: $bone;
+  text-align: center;
+
+  // When the countdown is nested inside a Content+Image grid (homepage
+  // countdown variant), drop its outer paddings + container so it sits
+  // flush as one row of the parent stack.
+  .cai-grid & {
+    padding: 0;
+    background: transparent;
+
+    .container { padding: 0; max-width: none; }
+  }
+}
+
+.countdown-eyebrow {
+  display: block;
+  font-family: $font-label;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba($charcoal, 0.5);
+  margin-bottom: 0.6rem;
+}
+
+.countdown-heading {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $charcoal;
+  margin: 0 0 2.5rem;
+  line-height: 1.05;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.75rem 0.5rem 1.25rem;
+  border: 1px solid rgba($charcoal, 0.15);
+  background: rgba($charcoal, 0.025);
+}
+
+.countdown-value {
+  font-family: $font-heading;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
+  color: $charcoal;
+  font-variant-numeric: tabular-nums; // prevents digit-width jitter as it ticks
+  letter-spacing: -0.02em;
+}
+
+.countdown-label {
+  font-family: $font-label;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba($charcoal, 0.55);
+  margin-top: 0.85rem;
+}
+
+// Reads as a heading: brand heading font, uppercase, weighted, color
+// matches the main heading. Applied via the .countdown-meta class OR by
+// being a bare h3 inside .section-countdown (anything that isn't the
+// main .countdown-heading).
+.countdown-meta,
+.section-countdown h3:not(.countdown-heading) {
+  font-family: $font-heading;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: $charcoal;
+  line-height: 1.2;
+  margin: 2.25rem 0 0;
+}
+
+// ─── Page-scoped nav override ────────────────────────────────
+// On the countdown variant of the homepage, test a clean black
+// underline-wipe on header nav links instead of the default yellow
+// hover/active fills. Scoped to body.page-template-page-homepage-countdown
+// so the rest of the site keeps the yellow buttons.
+body.page-template-page-homepage-countdown {
+
+  // ::after pseudo-element instead of the background-image wipe — gives
+  // precise control over BOTH horizontal trim (text-width only, not the
+  // link's padding) AND vertical gap below the text baseline.
+  .nav-links > li > a {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    color: $charcoal !important;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0.75rem;   // matches the .nav-links a horizontal padding
+      right: 0.75rem;
+      bottom: 0.15rem; // a little breathing room below text baseline
+      height: 2.5px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s ease;
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      transform: scaleX(1);
+    }
+  }
+
+  // Current page: underline visible at rest (no hover required)
+  .nav-links li.current-menu-item > a::after,
+  .nav-links li[aria-current="page"] > a::after {
+    transform: scaleX(1);
+  }
+}

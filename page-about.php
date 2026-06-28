@@ -3,15 +3,16 @@
  * Template Name: About Page
  * Slug: about
  */
-get_header();
+get_header( sapient_get_active_header() );
 ?>
 
 <main id="main-content">
 
   <div class="blog-archive-header">
     <div class="container">
+      <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
       <span class="blog-eyebrow section-eyebrow">Who We Are</span>
-      <h1 class="blog-archive-title">Sapient<br>Skateboards.</h1>
+      <h1 class="blog-archive-title">Sapient Skateboards</h1>
     </div>
   </div>
 

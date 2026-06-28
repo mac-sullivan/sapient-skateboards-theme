@@ -2,3 +2,11 @@ node_modules/
 *.log
 .DS_Store
 assets/css/main.css.map
+
+# Personal / per-machine — never commit
+.claude/
+.idea/
+.vscode/
+*.bak
+*.bak.*
+_*.php

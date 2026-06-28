@@ -14,6 +14,8 @@
 // Components
 @use 'components/buttons';
 @use 'components/nav';
+@use 'components/header-one';
+@use 'components/header-two';
 @use 'components/footer';
 @use 'components/cursor';
 @use 'components/marquee';
@@ -45,7 +47,13 @@
 @use 'layouts/shop';
 @use 'layouts/search';
 @use 'layouts/text-image-split';
+@use 'layouts/content-image';
+@use 'layouts/events-page';
 @use 'layouts/team';
 @use 'layouts/cart';
 @use 'layouts/faq';
 @use 'layouts/intro';
+@use 'layouts/suppliers';
+@use 'layouts/404' as page404;
+@use 'layouts/process-page';
+@use 'layouts/countdown';

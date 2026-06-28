@@ -1,0 +1,255 @@
+@use '../abstracts' as *;
+
+// ─── Tokens ───────────────────────────────────────────────────
+$proc-bg:      #f5f4f2;
+$proc-bg-alt:  #eeece9;
+$proc-text:    #141414;
+$proc-muted:   rgba(#141414, 0.5);
+$proc-rule:    rgba(#141414, 0.1);
+$proc-accent:  #FF4500;
+$proc-font-h:  'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+$proc-font-b:  'Barlow', system-ui, sans-serif;
+
+// ─── Page shell ───────────────────────────────────────────────
+.process-page {
+  background: $proc-bg;
+  color: $proc-text;
+}
+
+// ─── Fixed vertical label ─────────────────────────────────────
+.process-page::after {
+  content: 'THE PROCESS';
+  position: fixed;
+  right: -2.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: $proc-font-h;
+  font-size: 1.125rem;
+  color: rgba(#141414, 0.08);
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+  @include mobile { display: none; }
+}
+
+// ─── Hero — contained layout ──────────────────────────────────
+.process-hero {
+  position: relative;
+  background: #0d0d0d;
+  overflow: hidden;
+  padding: clamp(8rem, 13vw, 11rem) 0;
+
+  .container { max-width: 1200px; position: relative; z-index: 2; width: 100%; }
+
+  .product-breadcrumb {
+    a, .breadcrumb-sep { color: rgba(#fff, 0.35); }
+    .breadcrumb-current { color: rgba(#fff, 0.6); }
+  }
+}
+
+// Full-bleed image
+.process-hero-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(#000, 0.75) 0%,
+      rgba(#000, 0.45) 55%,
+      rgba(#000, 0.1) 100%
+    );
+    z-index: 1;
+  }
+}
+
+.process-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+// Text over image
+.process-hero-bottom {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.process-hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 700px;
+
+  .product-breadcrumb { margin-bottom: 0.5rem; }
+}
+
+.process-hero-right { display: none; }
+
+.process-hero-headline {
+  font-family: $proc-font-h;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: #fff;
+  margin: 0;
+  max-width: 14ch;
+}
+
+.process-hero-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    #1a1a1a 0, #1a1a1a 10px,
+    #1f1f1f 10px, #1f1f1f 20px
+  );
+}
+
+.process-hero-eyebrow {
+  display: none;
+}
+
+.process-hero-sub {
+  font-family: $proc-font-b;
+  font-size: clamp(1.125rem, 1.4vw, 1.15rem);
+  font-weight: 400;
+  color: rgba(#fff, 0.65);
+  margin: 0;
+  line-height: 1.7;
+  max-width: 52ch;
+}
+
+// ─── Steps wrapper ────────────────────────────────────────────
+.process-steps { background: $proc-bg; }
+
+// ─── Single step ──────────────────────────────────────────────
+.process-step {
+  border-top: 1px solid $proc-rule;
+  // padding: clamp(3rem, 6vw, 5rem) 0;
+  padding: 2rem 0;
+
+  &:nth-child(even) { background: $proc-bg-alt; }
+}
+
+.process-step-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+
+  .process-step--flip & {
+    .process-step-media { order: 2; }
+    .process-step-text  { order: 1; }
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    .process-step--flip & {
+      .process-step-media,
+      .process-step-text { order: unset; }
+    }
+  }
+
+  @include mobile {
+    gap: 0;
+  }
+}
+
+// ─── Image side ───────────────────────────────────────────────
+.process-step-media {
+  position: relative;
+  overflow: hidden;
+  background: #ddd;
+  aspect-ratio: 4 / 3;
+}
+
+.process-step-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.process-step-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    #e0ddd8 0, #e0ddd8 10px,
+    #d5d2cd 10px, #d5d2cd 20px
+  );
+}
+
+.process-step-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.75rem 1rem;
+  font-family: $proc-font-b;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: rgba(#fff, 0.65);
+  background: linear-gradient(to top, rgba(#000, 0.55), transparent);
+  margin: 0;
+}
+
+// ─── Text side ────────────────────────────────────────────────
+.process-step-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1rem, 2vw, 2rem) 0;
+
+  @include mobile {
+    padding-top: 2.5rem;
+  }
+}
+
+.process-step-eyebrow {
+  font-family: $proc-font-h;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1;
+  color: $proc-text;
+  margin: 0 0 0.5rem;
+}
+
+.process-step-headline {
+  display: none;
+}
+
+.process-step-body {
+  font-family: $proc-font-b;
+  font-size: clamp(1.125rem, 1.05vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.8;
+  color: $proc-muted;
+  max-width: 52ch;
+
+  p { margin: 0 0 1em; &:last-child { margin: 0; } }
+  strong { color: $proc-text; font-weight: 500; }
+}
+
+.product-process-heading {
+  font-family: $proc-font-h;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: $proc-text;
+  margin: 0 0 clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $proc-rule;
+}

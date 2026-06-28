@@ -4,7 +4,7 @@
 // ─── FAQ Section ─────────────────────────────────────────────────────────────
 
 .faq-section {
-  padding: 6rem 0 8rem;
+  padding: 1rem 0 5rem;
   background: $bone;
 }
 
@@ -21,7 +21,6 @@
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   color: $charcoal;
   line-height: 1;
   margin: 0;
@@ -70,12 +69,11 @@
   font-size: 1.05rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
   line-height: 1.3;
   transition: none;
 
   @include mobile {
-    font-size: 0.95rem;
+    font-size: 1.125rem;
   }
 }
 
@@ -107,7 +105,7 @@
   padding: 0 0 2rem;
   padding-right: 4rem;
   color: rgba($charcoal, 0.75);
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.75;
   max-width: 100ch;
 

@@ -24,6 +24,21 @@
       "placement": "top"
     },
     {
+      "key": "field_footer_social_display",
+      "label": "Display Style",
+      "name": "footer_social_display",
+      "type": "radio",
+      "instructions": "How the social links render in the footer.",
+      "choices": {
+        "icons": "Icons (SVG logos)",
+        "short": "Short text (FB / IG / YT)",
+        "full":  "Full text (Facebook / Instagram / YouTube)"
+      },
+      "default_value": "icons",
+      "layout": "horizontal",
+      "return_format": "value"
+    },
+    {
       "key": "field_footer_instagram",
       "label": "Instagram URL",
       "name": "footer_instagram",
@@ -31,6 +46,37 @@
       "instructions": "Full URL e.g. https://instagram.com/sapientskateboards",
       "default_value": "https://instagram.com/sapientskateboards",
       "placeholder": "https://instagram.com/..."
+    },
+    {
+      "key": "field_footer_facebook",
+      "label": "Facebook URL",
+      "name": "footer_facebook",
+      "type": "url",
+      "default_value": "",
+      "placeholder": "https://facebook.com/..."
+    },
+    {
+      "key": "field_footer_youtube",
+      "label": "YouTube URL",
+      "name": "footer_youtube",
+      "type": "url",
+      "default_value": "",
+      "placeholder": "https://youtube.com/..."
+    },
+    {
+      "key": "field_footer_tab_newsletter",
+      "label": "Newsletter Banner",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_footer_newsletter_video",
+      "label": "Background Video URL",
+      "name": "footer_newsletter_video",
+      "type": "url",
+      "instructions": "MP4 video URL for the newsletter banner background. Can be a WordPress media URL or external link.",
+      "default_value": "",
+      "placeholder": "https://..."
     },
     {
       "key": "field_footer_tab_contact",
@@ -49,22 +95,12 @@
       "key": "field_footer_contact_location",
       "label": "Location",
       "name": "footer_contact_location",
-      "type": "text",
-      "default_value": "Chicago, IL"
-    },
-    {
-      "key": "field_footer_facebook",
-      "label": "Facebook URL",
-      "name": "footer_facebook",
-      "type": "url",
-      "default_value": ""
-    },
-    {
-      "key": "field_footer_youtube",
-      "label": "YouTube URL",
-      "name": "footer_youtube",
-      "type": "url",
-      "default_value": ""
+      "type": "wysiwyg",
+      "default_value": "",
+      "tabs": "all",
+      "toolbar": "basic",
+      "media_upload": 0,
+      "delay": 0
     }
   ],
   "location": [
