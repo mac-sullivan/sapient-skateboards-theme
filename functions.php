@@ -1545,6 +1545,32 @@ add_action( 'wp_head', function() {
     }
 } );
 
+// ── Conditional shipping: boards vs apparel ───────────────────
+// Board in cart  → show "Standard Shipping (Boards)" $20, hide apparel rate.
+// Apparel only   → show "Flat Rate (Apparel Only)" $6.50, hide boards rate.
+// Board + shirt  → show boards rate only (shirt ships with the board).
+add_filter( 'woocommerce_package_rates', function( $rates, $package ) {
+    $has_board   = false;
+    $has_apparel = false;
+
+    foreach ( $package['contents'] as $item ) {
+        $product = $item['data'];
+        $class   = $product->get_shipping_class();
+        if ( $class === 'boards' )  $has_board   = true;
+        if ( $class === 'apparel' ) $has_apparel = true;
+    }
+
+    if ( $has_board ) {
+        // Board in cart — remove the apparel-only rate.
+        unset( $rates['flat_rate:7'] );
+    } else if ( $has_apparel ) {
+        // Apparel only — remove the boards rate.
+        unset( $rates['flat_rate:3'] );
+    }
+
+    return $rates;
+}, 10, 2 );
+
 // ── Newsletter signup handler ──────────────────────────────────
 add_action( 'wp_ajax_sapient_newsletter',        'sapient_newsletter_handler' );
 add_action( 'wp_ajax_nopriv_sapient_newsletter', 'sapient_newsletter_handler' );
