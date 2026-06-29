@@ -91,6 +91,7 @@ $products = new WP_Query( $query_args );
           <?php endif; ?>
           <div class="shop-product-info">
             <span class="shop-product-name"><?php the_title(); ?></span>
+            <span class="shop-product-price"><?php echo wc_get_product( get_the_ID() )->get_price_html(); ?></span>
           </div>
         </a>
       <?php endforeach; wp_reset_postdata(); ?>
@@ -112,6 +113,7 @@ $products = new WP_Query( $query_args );
           <?php endif; ?>
           <div class="shop-product-info">
             <span class="shop-product-name"><?php the_title(); ?></span>
+            <span class="shop-product-price"><?php echo wc_get_product( get_the_ID() )->get_price_html(); ?></span>
           </div>
         </a>
       <?php endforeach; wp_reset_postdata(); ?>
