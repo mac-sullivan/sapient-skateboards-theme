@@ -978,6 +978,12 @@
   }
 }
 
+// Hide Stripe Express Checkout buttons (Apple Pay, Google Pay, Link)
+.wc-stripe-express-checkout-element,
+.wc-stripe-payment-request-wrapper,
+#wc-stripe-express-checkout-element,
+#wc-stripe-payment-request-wrapper { display: none !important; }
+
 .product-sold-out {
   font-family: $font-label;
   font-size: 1.125rem;
