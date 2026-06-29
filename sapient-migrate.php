@@ -13,6 +13,18 @@ if ( ! current_user_can('manage_options') ) {
 echo '<pre>';
 echo "=== Sapient Migration Script ===\n\n";
 
+// ── 0. List all products on this site ─────────────────────────
+echo "── Existing products ──\n";
+$all = get_posts([
+    'post_type' => 'product',
+    'post_status' => 'publish',
+    'posts_per_page' => -1,
+]);
+foreach ( $all as $p ) {
+    echo "  ID={$p->ID}  slug={$p->post_name}  title={$p->post_title}\n";
+}
+echo "\n";
+
 // ── 1. Ensure categories exist ────────────────────────────────
 $skateboards_id = term_exists('skateboards', 'product_cat');
 if ( ! $skateboards_id ) {
@@ -26,7 +38,7 @@ if ( ! $apparel_id ) {
 }
 $apparel_id = is_array($apparel_id) ? $apparel_id['term_id'] : $apparel_id;
 
-echo "Categories: Skateboards={$skateboards_id}, Apparel={$apparel_id}\n";
+echo "Categories: Skateboards={$skateboards_id}, Apparel={$apparel_id}\n\n";
 
 // ── 2. Material specs (same for all boards) ───────────────────
 $materials = '<details class="product-specs-dropdown">
@@ -43,9 +55,9 @@ $materials = '<details class="product-specs-dropdown">
 </div>
 </details>';
 
-// ── 3. Per-product dimensions ─────────────────────────────────
+// ── 3. Per-product dimensions (keyed by TITLE, case-insensitive) ──
 $products = [
-    'p800' => [
+    'P800' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '8.00"', 'Length' => '32.00"', 'Thickness' => '0.400"',
@@ -55,7 +67,7 @@ $products = [
             'Nose Concave Radius' => '80.1"', 'Tail Concave Radius' => '80.1"',
         ],
     ],
-    'p825' => [
+    'P825' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '8.25"', 'Length' => '32.00"', 'Thickness' => '0.400"',
@@ -65,7 +77,7 @@ $products = [
             'Nose Concave Radius' => '80.1"', 'Tail Concave Radius' => '80.1"',
         ],
     ],
-    'p850' => [
+    'P850' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '8.50"', 'Length' => '32.00"', 'Thickness' => '0.400"',
@@ -75,7 +87,7 @@ $products = [
             'Nose Concave Radius' => '80.1"', 'Tail Concave Radius' => '80.1"',
         ],
     ],
-    'p875' => [
+    'P875' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '8.75"', 'Length' => '32.00"', 'Thickness' => '0.400"',
@@ -85,7 +97,7 @@ $products = [
             'Nose Concave Radius' => '80.1"', 'Tail Concave Radius' => '80.1"',
         ],
     ],
-    'p900' => [
+    'P900' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '9.00"', 'Length' => '32.00"', 'Thickness' => '0.400"',
@@ -95,7 +107,7 @@ $products = [
             'Nose Concave Radius' => '80.1"', 'Tail Concave Radius' => '80.1"',
         ],
     ],
-    'pxl' => [
+    'PXL' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '9.50"', 'Length' => '32.00"', 'Thickness' => '0.400"',
@@ -105,7 +117,7 @@ $products = [
             'Nose Concave Radius' => '80.1"', 'Tail Concave Radius' => '80.1"',
         ],
     ],
-    'pxxl' => [
+    'PXXL' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '10.00"', 'Length' => '32.00"', 'Thickness' => '0.400"',
@@ -115,7 +127,7 @@ $products = [
             'Nose Concave Radius' => '80.1"', 'Tail Concave Radius' => '80.1"',
         ],
     ],
-    's850' => [
+    'S850' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '8.50"', 'Length' => '31.75"', 'Thickness' => '0.400"',
@@ -125,7 +137,7 @@ $products = [
             'Nose Concave Radius' => '45.4"', 'Tail Concave Radius' => '45.4"',
         ],
     ],
-    's900' => [
+    'S900' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '9.00"', 'Length' => '31.75"', 'Thickness' => '0.400"',
@@ -135,7 +147,7 @@ $products = [
             'Nose Concave Radius' => '45.4"', 'Tail Concave Radius' => '45.4"',
         ],
     ],
-    'g-board' => [
+    'G' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '10.00"', 'Length' => '32.125"', 'Thickness' => '0.400"',
@@ -145,7 +157,7 @@ $products = [
             'Nose Concave Radius' => '45.4"', 'Tail Concave Radius' => '45.4"',
         ],
     ],
-    'basher' => [
+    'BASHER' => [
         'cat' => 'board',
         'dims' => [
             'Width' => '10.00"', 'Length' => '29.875"', 'Thickness' => '0.400"',
@@ -155,22 +167,30 @@ $products = [
             'Nose Concave Radius' => '67.8"', 'Tail Concave Radius' => '67.8"',
         ],
     ],
-    'bleached-logo-t-shirt' => ['cat' => 'apparel', 'dims' => null],
-    'sapient-train-t-shirt-black' => ['cat' => 'apparel', 'dims' => null],
-    'sapient-train-t-shirt' => ['cat' => 'apparel', 'dims' => null],
 ];
 
-foreach ( $products as $slug => $data ) {
-    $post = get_page_by_path( $slug, OBJECT, 'product' );
+// Also match apparel by partial title
+$apparel_keywords = ['t-shirt', 'tee', 'shirt', 'hoodie', 'hat', 'cap'];
+
+// Build a title→post lookup from all products
+$title_map = [];
+foreach ( $all as $p ) {
+    $title_map[ strtolower( trim($p->post_title) ) ] = $p;
+}
+
+foreach ( $products as $title => $data ) {
+    $key = strtolower( trim($title) );
+    $post = $title_map[$key] ?? null;
+
     if ( ! $post ) {
-        echo "SKIP: {$slug} — not found\n";
+        echo "SKIP: {$title} — not found\n";
         continue;
     }
 
     // Assign category
     $cat_id = $data['cat'] === 'board' ? $skateboards_id : $apparel_id;
     wp_set_object_terms( $post->ID, [(int)$cat_id], 'product_cat', true );
-    echo "CAT:  {$slug} → {$data['cat']}\n";
+    echo "CAT:  {$title} (ID {$post->ID}) → {$data['cat']}\n";
 
     // Update description with spec accordions (boards only)
     if ( $data['dims'] ) {
@@ -194,7 +214,19 @@ foreach ( $products as $slug => $data ) {
             'ID' => $post->ID,
             'post_content' => $content,
         ]);
-        echo "SPEC: {$slug} — description updated\n";
+        echo "SPEC: {$title} — description updated\n";
+    }
+}
+
+// ── Assign any remaining apparel products ─────────────────────
+foreach ( $all as $p ) {
+    $t = strtolower($p->post_title);
+    foreach ( $apparel_keywords as $kw ) {
+        if ( strpos($t, $kw) !== false ) {
+            wp_set_object_terms( $p->ID, [(int)$apparel_id], 'product_cat', true );
+            echo "CAT:  {$p->post_title} (ID {$p->ID}) → apparel (auto)\n";
+            break;
+        }
     }
 }
 
