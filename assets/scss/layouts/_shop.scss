@@ -271,7 +271,7 @@
 .shop-img-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 2rem 1rem;
   margin: 0 0 4rem;
 
   @include tablet {
@@ -289,12 +289,14 @@
   border-radius: $radius;
   text-decoration: none;
   color: $charcoal;
+  overflow: hidden;
 }
 
 .shop-board-img {
-  width: 100%;
+  width: 130%;
   height: auto;
   display: block;
+  margin: 0 -15%;
   transition: transform 0.5s ease;
 }
 
@@ -305,7 +307,7 @@
 
 // Non-skateboard products — cap image height site-wide
 .shop-img-link--non-board .shop-board-img {
-  max-height: 20rem;
+  max-height: 28rem;
   width: auto;
   margin: 0 auto;
 }
@@ -918,6 +920,33 @@
   &.product-availability--low {
     color: #c0392b;
   }
+}
+
+// ─── Made to Order notice ──────────────────────────────────────
+.product-made-to-order {
+  margin: 0.5rem 0 1rem;
+  padding: 1rem;
+  background: rgba($ochre, 0.08);
+  border-left: 3px solid $ochre;
+}
+
+.product-made-to-order-badge {
+  display: block;
+  font-family: $font-label;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $ochre;
+  margin-bottom: 0.4rem;
+}
+
+.product-made-to-order-text {
+  font-family: $font-main;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba($black, 0.6);
+  margin: 0;
 }
 
 // ─── Waitlist form (out of stock) ──────────────────────────────

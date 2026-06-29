@@ -128,8 +128,19 @@ while ( have_posts() ) : the_post();
         </div>
       <?php endif; ?>
 
-      <?php if ($in_stock) : ?>
-        <?php $stock_qty = $product->get_stock_quantity(); ?>
+      <?php
+      $stock_qty = $product->get_stock_quantity();
+      $is_backorder = ( $stock_qty !== null && $stock_qty <= 0 );
+      ?>
+
+      <?php if ($in_stock || $is_backorder) : ?>
+
+        <?php if ( $is_backorder ) : ?>
+        <div class="product-made-to-order">
+          <span class="product-made-to-order-badge">Made to Order</span>
+          <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
+        </div>
+        <?php endif; ?>
 
         <!-- ── Size selector ──────────────────────────── -->
         <?php
@@ -195,6 +206,7 @@ while ( have_posts() ) : the_post();
         </div>
         <?php endif; ?>
 
+        <?php if ( ! $is_backorder ) : ?>
         <div class="product-availability-option">
           <span class="product-option-label">Availability</span>
           <?php if ( $stock_qty === 1 ) : ?>
@@ -207,6 +219,7 @@ while ( have_posts() ) : the_post();
             <span class="product-availability-value">In Stock</span>
           <?php endif; ?>
         </div>
+        <?php endif; ?>
 
         <?php woocommerce_template_single_add_to_cart(); ?>
         <div class="cart-added-inline" id="cart-added-inline" aria-live="polite">
@@ -214,15 +227,11 @@ while ( have_posts() ) : the_post();
           Item added to your cart — <a href="<?php echo esc_url( wc_get_cart_url() ); ?>">click here to view cart</a>
         </div>
       <?php else : ?>
-        <div class="product-sold-out">Sold Out</div>
-        <div class="product-waitlist">
-          <p class="waitlist-text">Get notified when this is back in stock.</p>
-          <form class="waitlist-form" data-product-id="<?php echo get_the_ID(); ?>" data-product-name="<?php echo esc_attr($title); ?>">
-            <input type="email" class="waitlist-email" placeholder="Enter your email" required>
-            <button type="submit" class="waitlist-btn">Notify Me</button>
-          </form>
-          <p class="waitlist-success" style="display:none;">You're on the list! We'll email you when it's available.</p>
+        <div class="product-made-to-order">
+          <span class="product-made-to-order-badge">Made to Order</span>
+          <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
         </div>
+        <?php woocommerce_template_single_add_to_cart(); ?>
       <?php endif; ?>
 
 

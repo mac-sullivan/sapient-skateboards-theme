@@ -14,6 +14,9 @@ if ( ! ob_get_level() ) {
 @ini_set( 'post_max_size',       '256M' );
 add_filter( 'upload_size_limit', function() { return 256 * 1024 * 1024; } );
 
+// ── Hide WooCommerce default backorder notice (we show our own "Made to Order" badge)
+add_filter( 'woocommerce_product_backorders_notification', '__return_empty_string' );
+
 // ── Disable third-party express checkout buttons (Amazon Pay, Stripe Link, etc.)
 add_filter( 'wc_stripe_show_payment_request_on_product_page', '__return_false' );
 add_filter( 'wc_stripe_show_payment_request_on_cart', '__return_false' );
