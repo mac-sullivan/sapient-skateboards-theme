@@ -31,7 +31,7 @@ while ( have_posts() ) : the_post();
         <div class="product-gallery-main">
           <button class="product-zoom-trigger" id="product-zoom-trigger" aria-label="Enlarge image">
             <img
-              src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'large') ); ?>"
+              src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'full') ); ?>"
               alt="<?php echo esc_attr($title); ?>"
               loading="eager" fetchpriority="high" decoding="async" class="product-gallery-main-img"
               id="product-main-img"
@@ -78,7 +78,7 @@ while ( have_posts() ) : the_post();
           <div class="product-gallery-thumbs">
             <?php foreach ($all_images as $i => $img_id) : ?>
               <button class="product-thumb-btn <?php echo $i === 0 ? 'is-active' : ''; ?>"
-                data-src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'large') ); ?>"
+                data-src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'full') ); ?>"
                 aria-label="View image <?php echo $i + 1; ?>">
                 <img src="<?php echo esc_url( wp_get_attachment_image_url($img_id, 'thumbnail') ); ?>" loading="lazy" decoding="async" alt="">
               </button>
@@ -138,7 +138,11 @@ while ( have_posts() ) : the_post();
         <?php if ( $is_backorder ) : ?>
         <div class="product-made-to-order">
           <span class="product-made-to-order-badge">Made to Order</span>
-          <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
+          <?php if ( has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) : ?>
+            <p class="product-made-to-order-text">This item is currently made to order. Please allow approximately 1.5 weeks before your order ships.</p>
+          <?php else : ?>
+            <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
+          <?php endif; ?>
         </div>
         <?php endif; ?>
 
@@ -193,7 +197,7 @@ while ( have_posts() ) : the_post();
         <!-- ── Griptape Option (Boards only) ──────── -->
         <?php
         $hide_griptape = get_field( 'hide_griptape', get_the_ID() );
-        if ( ! $hide_griptape && ! has_term( 'softgoods', 'product_cat', get_the_ID() ) ) :
+        if ( ! $hide_griptape && ! has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) :
         ?>
         <div class="product-griptape-option">
           <span class="product-option-label">Griptape</span>
@@ -229,7 +233,11 @@ while ( have_posts() ) : the_post();
       <?php else : ?>
         <div class="product-made-to-order">
           <span class="product-made-to-order-badge">Made to Order</span>
-          <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
+          <?php if ( has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) : ?>
+            <p class="product-made-to-order-text">This item is currently made to order. Please allow approximately 1.5 weeks before your order ships.</p>
+          <?php else : ?>
+            <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
+          <?php endif; ?>
         </div>
         <?php woocommerce_template_single_add_to_cart(); ?>
       <?php endif; ?>

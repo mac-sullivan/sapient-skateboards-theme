@@ -293,11 +293,18 @@
 }
 
 .shop-board-img {
-  width: 130%;
-  height: auto;
   display: block;
-  margin: 0 -15%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 2;
+  object-fit: cover;
+  object-position: center;
+  margin: 0;
   transition: transform 0.5s ease;
+
+  @include mobile {
+    aspect-ratio: 2 / 5;
+  }
 }
 
 .shop-img-link:hover .shop-board-img,
@@ -305,11 +312,10 @@
   transform: scale(1.04);
 }
 
-// Non-skateboard products — cap image height site-wide
+// Non-skateboard products — less aggressive crop
 .shop-img-link--non-board .shop-board-img {
-  max-height: 28rem;
-  width: auto;
-  margin: 0 auto;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
 }
 
 .shop-product-info {
@@ -526,8 +532,8 @@
 
 .product-single-inner {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 5rem;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
   align-items: start;
 
   @include tablet {
@@ -587,11 +593,11 @@
 }
 
 .product-gallery-main-img {
-  width: 115%;
-  max-height: 75vh;
+  width: 100%;
+  max-height: 85vh;
   object-fit: contain;
   display: block;
-  margin: 0 -7.5%;
+  margin: 0;
   transition: none;
 }
 
@@ -864,6 +870,83 @@
     &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
     &:focus { border-color: $charcoal; }
+  }
+
+  // WooCommerce variation selects (Size, etc.)
+  .variations {
+    width: 100%;
+    border-collapse: collapse;
+
+    td, th { padding: 0; }
+
+    td.label {
+      display: none; // hide the default "Size" label row
+    }
+
+    td.value {
+      display: block;
+      width: 100%;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      font-family: $font-label;
+      font-size: 1.125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: $charcoal;
+      background: transparent;
+      border: 1px solid rgba($charcoal, 0.2);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23333' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+
+      &:focus {
+        border-color: $charcoal;
+        outline: none;
+      }
+    }
+  }
+
+  .variations_button {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  // Label above the variation select
+  .variations td.label label {
+    font-family: $font-label;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba($black, 0.4);
+  }
+
+  // Show label as block above select
+  .variations tr {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    td.label {
+      display: block;
+    }
+  }
+
+  // Reset link
+  .reset_variations {
+    font-family: $font-label;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: rgba($charcoal, 0.4);
+    margin-top: 0.25rem;
   }
 
   .single_add_to_cart_button {
@@ -1139,14 +1222,16 @@
         padding: 0.55rem 0;
         border-right: none;
         font-size: 0.9rem;
+        text-wrap: balance;
 
         &:first-child {
-          color: rgba($black, 0.5);
+          color: $black;
+          font-weight: 600;
           width: 55%;
         }
 
         &:last-child {
-          font-weight: 600;
+          font-weight: 400;
           text-align: right;
         }
       }

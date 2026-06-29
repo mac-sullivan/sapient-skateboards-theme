@@ -12,7 +12,7 @@ get_header( sapient_get_active_header() );
     <div class="container">
       <?php get_template_part( 'template-parts/breadcrumbs' ); ?>
       <span class="blog-eyebrow section-eyebrow">Meet the Team</span>
-      <h1 class="blog-archive-title">The Crew</h1>
+      <h1 class="blog-archive-title">Crew</h1>
     </div>
   </div>
 

@@ -60,44 +60,67 @@ $products = new WP_Query( $query_args );
 
 
 
-    <div class="shop-img-grid<?php if ( is_product_category( 'softgoods' ) ) echo ' shop-img-grid--apparel'; ?>">
-      <?php if ( $products->have_posts() ) : ?>
-        <?php while ( $products->have_posts() ) : $products->the_post();
-          // Get category slugs for this product
-          $p_cats = get_the_terms( get_the_ID(), 'product_cat' );
-          $cat_slugs = [];
-          if ( $p_cats && ! is_wp_error( $p_cats ) ) {
-            foreach ( $p_cats as $pc ) {
-              if ( $pc->slug !== 'uncategorized' ) $cat_slugs[] = $pc->slug;
-            }
-          }
-          // Products in Uncategorized only → treat as 'boards' for filtering
-          if ( empty( $cat_slugs ) ) $cat_slugs[] = 'boards';
-          $data_cats = implode( ' ', $cat_slugs );
-        ?>
-          <?php $is_board = has_term( 'skateboards', 'product_cat', get_the_ID() ); ?>
-          <a
-            href="<?php the_permalink(); ?>"
-            class="shop-img-link<?php echo ! $is_board ? ' shop-img-link--non-board' : ''; ?>"
-            data-cats="<?php echo esc_attr( $data_cats ); ?>"
-          >
-            <?php if ( has_post_thumbnail() ) : ?>
-              <?php the_post_thumbnail( 'large', [ 'class' => 'shop-board-img', 'alt' => get_the_title() ] ); ?>
-            <?php else : ?>
-              <div class="shop-img-placeholder"><span>Photo Coming Soon</span></div>
-            <?php endif; ?>
-            <div class="shop-product-info">
-              <span class="shop-product-name"><?php the_title(); ?></span>
-              <?php $product = wc_get_product( get_the_ID() ); if ( $product ) : ?>
-                <span class="shop-product-price"><?php echo $product->get_price_html(); ?></span>
-              <?php endif; ?>
-            </div>
-          </a>
-        <?php endwhile; wp_reset_postdata(); ?>
-      <?php else : ?>
-        <p class="shop-empty">No products found.</p>
-      <?php endif; ?>
+    <?php
+    // Split products into boards and apparel
+    $boards = [];
+    $apparel = [];
+    if ( $products->have_posts() ) :
+      while ( $products->have_posts() ) : $products->the_post();
+        if ( has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) {
+          $apparel[] = get_the_ID();
+        } else {
+          $boards[] = get_the_ID();
+        }
+      endwhile;
+      wp_reset_postdata();
+    endif;
+    ?>
+
+    <?php if ( ! empty( $boards ) ) : ?>
+    <div class="shop-img-grid">
+      <?php foreach ( $boards as $pid ) : setup_postdata( $GLOBALS['post'] =& get_post( $pid ) ); ?>
+        <a href="<?php the_permalink(); ?>" class="shop-img-link" data-cats="boards">
+          <?php if ( has_post_thumbnail() ) : ?>
+            <?php
+              $thumb_id = get_post_thumbnail_id();
+              $img_url  = wp_get_attachment_image_url( $thumb_id, 'full' );
+            ?>
+            <img src="<?php echo esc_url( $img_url ); ?>" class="shop-board-img" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
+          <?php else : ?>
+            <div class="shop-img-placeholder"><span>Photo Coming Soon</span></div>
+          <?php endif; ?>
+          <div class="shop-product-info">
+            <span class="shop-product-name"><?php the_title(); ?></span>
+          </div>
+        </a>
+      <?php endforeach; wp_reset_postdata(); ?>
     </div>
+    <?php endif; ?>
+
+    <?php if ( ! empty( $apparel ) ) : ?>
+    <div class="shop-img-grid shop-img-grid--apparel">
+      <?php foreach ( $apparel as $pid ) : setup_postdata( $GLOBALS['post'] =& get_post( $pid ) ); ?>
+        <a href="<?php the_permalink(); ?>" class="shop-img-link shop-img-link--non-board" data-cats="apparel">
+          <?php if ( has_post_thumbnail() ) : ?>
+            <?php
+              $thumb_id = get_post_thumbnail_id();
+              $img_url  = wp_get_attachment_image_url( $thumb_id, 'full' );
+            ?>
+            <img src="<?php echo esc_url( $img_url ); ?>" class="shop-board-img" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
+          <?php else : ?>
+            <div class="shop-img-placeholder"><span>Photo Coming Soon</span></div>
+          <?php endif; ?>
+          <div class="shop-product-info">
+            <span class="shop-product-name"><?php the_title(); ?></span>
+          </div>
+        </a>
+      <?php endforeach; wp_reset_postdata(); ?>
+    </div>
+    <?php endif; ?>
+
+    <?php if ( empty( $boards ) && empty( $apparel ) ) : ?>
+      <p class="shop-empty">No products found.</p>
+    <?php endif; ?>
 
   </div>
 </main>
