@@ -552,6 +552,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 // Zoom trigger wraps the image
@@ -586,10 +587,11 @@
 }
 
 .product-gallery-main-img {
-  width: 100%;
+  width: 115%;
   max-height: 75vh;
   object-fit: contain;
   display: block;
+  margin: 0 -7.5%;
   transition: none;
 }
 
