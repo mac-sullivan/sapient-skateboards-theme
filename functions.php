@@ -867,6 +867,11 @@ add_action( 'acf/init', function() {
     ] );
 } );
 
+// ── Hide product attributes from cart/checkout order summary ─────────────────
+add_filter( 'woocommerce_display_item_meta', function( $html, $item, $args ) {
+    return ''; // Don't show dimension attributes in cart/checkout
+}, 10, 3 );
+
 // ── Color add-on: save to cart ────────────────────────────────────────────────
 add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $product_id, $variation_id ) {
     if ( ! empty( $_POST['sapient_color'] ) ) {
