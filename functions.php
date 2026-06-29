@@ -139,13 +139,13 @@ add_action( 'wp_head', function() {
 // SEO Framework or another plugin) will still take precedence on those
 // platforms that respect last-tag-wins; the rest get this fallback.
 add_action( 'wp_head', function() {
-    $img = get_stylesheet_directory_uri() . '/assets/images/sapient-share-image.jpg';
+    $img = get_stylesheet_directory_uri() . '/assets/images/sapient-share-image.webp';
     $alt = 'Sapient Skateboards — Handcrafted boards made in Chicago';
     echo "<meta property=\"og:image\" content=\"{$img}\">\n";
     echo "<meta property=\"og:image:secure_url\" content=\"{$img}\">\n";
-    echo "<meta property=\"og:image:type\" content=\"image/jpeg\">\n";
-    echo "<meta property=\"og:image:width\" content=\"1080\">\n";
-    echo "<meta property=\"og:image:height\" content=\"864\">\n";
+    echo "<meta property=\"og:image:type\" content=\"image/webp\">\n";
+    echo "<meta property=\"og:image:width\" content=\"1728\">\n";
+    echo "<meta property=\"og:image:height\" content=\"972\">\n";
     echo "<meta property=\"og:image:alt\" content=\"" . esc_attr( $alt ) . "\">\n";
     echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
     echo "<meta name=\"twitter:image\" content=\"{$img}\">\n";
@@ -923,6 +923,26 @@ add_action( 'wp_head', function() {
     }
 } );
 
+// Force Size label to match Availability/Quantity heading style on product pages
+add_action( 'wp_head', function() {
+    if ( is_product() ) {
+        echo '<style>
+            .product-single-details .variations td.label,
+            .product-single-details .variations td.label label,
+            .product-single-details label[for^="pa_"] {
+                font-family: "Engravers Gothic BT", Futura, "Century Gothic", Helvetica, sans-serif !important;
+                font-size: 1.125rem !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.12em !important;
+                color: rgba(0,0,0,0.4) !important;
+                text-align: left !important;
+                display: block !important;
+            }
+        </style>';
+    }
+} );
+
 // ── Color add-on: save to cart ────────────────────────────────────────────────
 add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $product_id, $variation_id ) {
     if ( ! empty( $_POST['sapient_color'] ) ) {
@@ -1573,14 +1593,28 @@ add_action( 'add_meta_boxes', function() {
         'sapient_sort_order',
         'Shop Display Order',
         function( $post ) {
-            $order = $post->menu_order;
+            $order = get_post_meta( $post->ID, '_sapient_sort_order', true );
+            if ( $order === '' ) $order = $post->menu_order;
             wp_nonce_field( 'sapient_sort_order', 'sapient_sort_nonce' );
-            echo '<p><label for="sapient_menu_order">Position number (lower = shows first on shop page):</label></p>';
-            echo '<input type="number" id="sapient_menu_order" name="menu_order" value="' . esc_attr( $order ) . '" style="width:100px;font-size:16px;padding:6px" min="0">';
-            echo '<p class="description">Set the display order for the products page. Products with lower numbers appear first.</p>';
+            echo '<p><label for="sapient_sort_order_field">Position number (lower = shows first):</label></p>';
+            echo '<input type="number" id="sapient_sort_order_field" name="sapient_sort_order" value="' . esc_attr( $order ) . '" style="width:100px;font-size:16px;padding:6px" min="0">';
+            echo '<p class="description">Set the display order for the products page.</p>';
         },
         'product',
         'side',
         'high'
     );
+} );
+
+add_action( 'save_post_product', function( $post_id ) {
+    if ( ! isset( $_POST['sapient_sort_nonce'] ) || ! wp_verify_nonce( $_POST['sapient_sort_nonce'], 'sapient_sort_order' ) ) return;
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+    if ( isset( $_POST['sapient_sort_order'] ) ) {
+        $order = intval( $_POST['sapient_sort_order'] );
+        update_post_meta( $post_id, '_sapient_sort_order', $order );
+        // Also update menu_order directly via DB to avoid WooCommerce overwriting it
+        global $wpdb;
+        $wpdb->update( $wpdb->posts, [ 'menu_order' => $order ], [ 'ID' => $post_id ] );
+    }
 } );
