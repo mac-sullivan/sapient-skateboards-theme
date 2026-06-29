@@ -919,15 +919,16 @@
     gap: 1rem;
   }
 
-  // Label above the variation select
+  // Label above the variation select — match Availability/Quantity heading style
   .variations td.label label {
     font-family: $font-label;
     font-size: 1.125rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgba($black, 0.4);
+    color: rgba($charcoal, 0.4);
     text-align: left;
+    display: block;
   }
 
   // Show label as block above select
