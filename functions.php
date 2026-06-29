@@ -1537,9 +1537,6 @@ add_action( 'wp_enqueue_scripts', function() {
 } );
 
 // ── Hide shipping from cart (show only at checkout) ───────────
-add_filter( 'woocommerce_cart_ready_to_calc_shipping', function( $ready ) {
-    return is_cart() ? false : $ready;
-} );
 add_filter( 'woocommerce_shipping_show_delivery_times',  '__return_false' );
 remove_action( 'woocommerce_cart_totals_after_order_total', 'woocommerce_shipping_calculator' );
 add_action( 'wp_head', function() {
