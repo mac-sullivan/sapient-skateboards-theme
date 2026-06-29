@@ -53,7 +53,7 @@ $footer_social_links = [
         </a>
 
         <?php if ( $footer_description ) : ?>
-        <p class="footer-description"><?php echo esc_html( $footer_description ); ?></p>
+        <p class="footer-description"><?php echo nl2br( esc_html( $footer_description ) ); ?></p>
         <?php endif; ?>
 
         <span class="footer-made-in">

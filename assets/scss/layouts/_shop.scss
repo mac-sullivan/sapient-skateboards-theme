@@ -312,10 +312,11 @@
   transform: scale(1.04);
 }
 
-// Non-skateboard products — less aggressive crop
+// Non-skateboard products — scaled up to match board visual weight
 .shop-img-link--non-board .shop-board-img {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 2;
   object-fit: contain;
+  padding: 1.5rem;
 }
 
 .shop-product-info {
@@ -926,6 +927,7 @@
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: rgba($black, 0.4);
+    text-align: left;
   }
 
   // Show label as block above select
@@ -1331,6 +1333,7 @@
   letter-spacing: 0.12em;
   color: rgba($black, 0.4);
   display: block;
+  text-align: left;
 }
 
 .product-size-choices .size-btn {

@@ -13,10 +13,10 @@ add_action('admin_init', function() {
     echo "=== Sapient Migration ===\n\n";
 
     // Get ALL products directly from DB
-    $rows = $wpdb->get_results("SELECT ID, post_title, post_name FROM {$wpdb->posts} WHERE post_type='product' AND post_status='publish'");
+    $rows = $wpdb->get_results("SELECT ID, post_title, post_name, post_status FROM {$wpdb->posts} WHERE post_type='product'");
     echo "Found " . count($rows) . " products:\n";
     foreach ($rows as $r) {
-        echo "  ID={$r->ID}  slug={$r->post_name}  title={$r->post_title}\n";
+        echo "  ID={$r->ID}  slug={$r->post_name}  status={$r->post_status}  title={$r->post_title}\n";
     }
     echo "\n";
 

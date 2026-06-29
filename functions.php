@@ -1571,10 +1571,10 @@ function sapient_newsletter_handler() {
 add_filter( 'manage_edit-product_columns', function( $columns ) {
     $new = [];
     foreach ( $columns as $key => $label ) {
-        $new[ $key ] = $label;
         if ( $key === 'name' ) {
-            $new['sort_order'] = 'Sort Order';
+            $new['sort_order'] = '#';
         }
+        $new[ $key ] = $label;
     }
     return $new;
 } );
@@ -1582,9 +1582,16 @@ add_filter( 'manage_edit-product_columns', function( $columns ) {
 add_action( 'manage_product_posts_custom_column', function( $column, $post_id ) {
     if ( $column === 'sort_order' ) {
         $order = get_post_field( 'menu_order', $post_id );
-        echo '<input type="number" class="sapient-sort-order" data-id="' . $post_id . '" value="' . esc_attr( $order ) . '" style="width:60px;text-align:center" min="0">';
+        echo '<input type="number" class="sapient-sort-order" data-id="' . $post_id . '" value="' . esc_attr( $order ) . '" style="width:50px;text-align:center;padding:4px" min="0">';
     }
 }, 10, 2 );
+
+add_action( 'admin_head-edit.php', function() {
+    $screen = get_current_screen();
+    if ( $screen && $screen->post_type === 'product' ) {
+        echo '<style>.column-sort_order { width: 55px !important; text-align: center; }</style>';
+    }
+} );
 
 add_action( 'admin_footer-edit.php', function() {
     $screen = get_current_screen();
