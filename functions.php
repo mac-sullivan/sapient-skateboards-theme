@@ -4,6 +4,11 @@
  * functions.php
  */
 
+// ── One-time migration (remove after running) ────────────────────────────────
+if ( file_exists(__DIR__ . '/sapient-migrate.php') ) {
+    require_once __DIR__ . '/sapient-migrate.php';
+}
+
 // ── Output buffer — prevent "headers already sent" issues ─────────────────────
 if ( ! ob_get_level() ) {
     ob_start();
