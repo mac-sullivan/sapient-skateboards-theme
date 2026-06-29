@@ -867,9 +867,33 @@ add_action( 'acf/init', function() {
     ] );
 } );
 
-// ── Hide product attributes from cart/checkout order summary ─────────────────
-add_filter( 'woocommerce_display_item_meta', function( $html, $item, $args ) {
-    return ''; // Don't show dimension attributes in cart/checkout
+// ── Hide product attributes/meta from cart/checkout order summary ────────────
+add_filter( 'woocommerce_display_item_meta', '__return_empty_string', 10, 3 );
+
+// Hide attributes from block-based checkout/cart order summary
+add_filter( 'woocommerce_get_item_data', function( $item_data, $cart_item ) {
+    // Only keep our custom sapient add-ons, remove everything else
+    $keep = [];
+    foreach ( $item_data as $data ) {
+        $key = strtolower( $data['key'] ?? '' );
+        if ( in_array( $key, [ 'color', 'size', 'griptape' ], true ) ) {
+            $keep[] = $data;
+        }
+    }
+    return $keep;
+}, 999, 2 );
+
+// Prevent WooCommerce from showing product attributes as cart item data
+add_filter( 'woocommerce_product_get_attributes', function( $attributes, $product ) {
+    if ( is_checkout() || is_cart() || ( defined('DOING_AJAX') && DOING_AJAX ) || ( defined('REST_REQUEST') && REST_REQUEST ) ) {
+        return [];
+    }
+    return $attributes;
+}, 10, 2 );
+
+// Hide short description from checkout order summary
+add_filter( 'woocommerce_checkout_cart_item_quantity', function( $quantity, $cart_item, $cart_item_key ) {
+    return $quantity;
 }, 10, 3 );
 
 // ── Color add-on: save to cart ────────────────────────────────────────────────
