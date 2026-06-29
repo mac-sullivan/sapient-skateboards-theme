@@ -35,6 +35,7 @@ get_header( sapient_get_active_header() );
             <?php
             while ( have_posts() ) : the_post();
               global $product;
+              $product = wc_get_product( get_the_ID() );
             ?>
               <a href="<?php the_permalink(); ?>" class="product-card">
                 <div class="product-card-image">

@@ -870,9 +870,8 @@ add_action( 'acf/init', function() {
 // ── Hide product attributes/meta from cart/checkout order summary ────────────
 add_filter( 'woocommerce_display_item_meta', '__return_empty_string', 10, 3 );
 
-// Hide attributes from block-based checkout/cart order summary
+// Hide attributes from block-based checkout via Store API
 add_filter( 'woocommerce_get_item_data', function( $item_data, $cart_item ) {
-    // Only keep our custom sapient add-ons, remove everything else
     $keep = [];
     foreach ( $item_data as $data ) {
         $key = strtolower( $data['key'] ?? '' );
@@ -883,18 +882,46 @@ add_filter( 'woocommerce_get_item_data', function( $item_data, $cart_item ) {
     return $keep;
 }, 999, 2 );
 
-// Prevent WooCommerce from showing product attributes as cart item data
-add_filter( 'woocommerce_product_get_attributes', function( $attributes, $product ) {
-    if ( is_checkout() || is_cart() || ( defined('DOING_AJAX') && DOING_AJAX ) || ( defined('REST_REQUEST') && REST_REQUEST ) ) {
-        return [];
+// Strip attributes and short description from Store API cart responses
+add_filter( 'rest_request_after_callbacks', function( $response, $handler, $request ) {
+    if ( ! ( $response instanceof WP_REST_Response ) ) return $response;
+    $route = $request->get_route();
+    if ( strpos( $route, 'wc/store' ) === false ) return $response;
+    $data = $response->get_data();
+    // Handle cart endpoint
+    if ( isset( $data['items'] ) && is_array( $data['items'] ) ) {
+        foreach ( $data['items'] as &$item ) {
+            $item['short_description'] = '';
+            $item['description'] = '';
+            $item['item_data'] = [];
+            if ( isset( $item['extensions'] ) ) {
+                $item['extensions'] = (object) [];
+            }
+        }
+        $response->set_data( $data );
     }
-    return $attributes;
-}, 10, 2 );
-
-// Hide short description from checkout order summary
-add_filter( 'woocommerce_checkout_cart_item_quantity', function( $quantity, $cart_item, $cart_item_key ) {
-    return $quantity;
+    return $response;
 }, 10, 3 );
+
+// CSS to hide metadata/attributes in block checkout but keep product name visible
+add_action( 'wp_head', function() {
+    if ( is_checkout() || is_cart() ) {
+        echo '<style>
+            .wc-block-components-product-metadata,
+            .wc-block-components-order-summary-item__individual-prices { display: none !important; }
+            .wc-block-components-order-summary-item__description { display: block !important; }
+            .wc-block-components-product-name { display: block !important; }
+            .wc-block-checkout,
+            .wc-block-checkout input,
+            .wc-block-checkout select,
+            .wc-block-checkout textarea,
+            .wc-block-checkout label,
+            .wc-block-checkout .wc-block-components-text-input input,
+            .wc-block-checkout .wc-block-components-combobox input { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; }
+            .wc-block-components-checkout-place-order-button { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; font-size: 18px !important; }
+        </style>';
+    }
+} );
 
 // ── Color add-on: save to cart ────────────────────────────────────────────────
 add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $product_id, $variation_id ) {
