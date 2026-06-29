@@ -139,13 +139,13 @@ add_action( 'wp_head', function() {
 // SEO Framework or another plugin) will still take precedence on those
 // platforms that respect last-tag-wins; the rest get this fallback.
 add_action( 'wp_head', function() {
-    $img = get_stylesheet_directory_uri() . '/assets/images/sapient-share-image.webp';
+    $img = content_url( '/uploads/2026/06/sapient-train-share-image.webp' );
     $alt = 'Sapient Skateboards — Handcrafted boards made in Chicago';
     echo "<meta property=\"og:image\" content=\"{$img}\">\n";
     echo "<meta property=\"og:image:secure_url\" content=\"{$img}\">\n";
     echo "<meta property=\"og:image:type\" content=\"image/webp\">\n";
-    echo "<meta property=\"og:image:width\" content=\"1728\">\n";
-    echo "<meta property=\"og:image:height\" content=\"972\">\n";
+    echo "<meta property=\"og:image:width\" content=\"1993\">\n";
+    echo "<meta property=\"og:image:height\" content=\"1122\">\n";
     echo "<meta property=\"og:image:alt\" content=\"" . esc_attr( $alt ) . "\">\n";
     echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
     echo "<meta name=\"twitter:image\" content=\"{$img}\">\n";
@@ -1537,7 +1537,9 @@ add_action( 'wp_enqueue_scripts', function() {
 } );
 
 // ── Hide shipping from cart (show only at checkout) ───────────
-add_filter( 'woocommerce_cart_ready_to_calc_shipping', '__return_false' );
+add_filter( 'woocommerce_cart_ready_to_calc_shipping', function( $ready ) {
+    return is_cart() ? false : $ready;
+} );
 add_filter( 'woocommerce_shipping_show_delivery_times',  '__return_false' );
 remove_action( 'woocommerce_cart_totals_after_order_total', 'woocommerce_shipping_calculator' );
 add_action( 'wp_head', function() {
