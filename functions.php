@@ -1566,3 +1566,50 @@ function sapient_newsletter_handler() {
 
     wp_send_json_success( [ 'message' => "You're in! Thanks for signing up." ] );
 }
+
+// ── Editable Sort Order column for Products ─────────────────────────────────
+add_filter( 'manage_edit-product_columns', function( $columns ) {
+    $new = [];
+    foreach ( $columns as $key => $label ) {
+        $new[ $key ] = $label;
+        if ( $key === 'name' ) {
+            $new['sort_order'] = 'Sort Order';
+        }
+    }
+    return $new;
+} );
+
+add_action( 'manage_product_posts_custom_column', function( $column, $post_id ) {
+    if ( $column === 'sort_order' ) {
+        $order = get_post_field( 'menu_order', $post_id );
+        echo '<input type="number" class="sapient-sort-order" data-id="' . $post_id . '" value="' . esc_attr( $order ) . '" style="width:60px;text-align:center" min="0">';
+    }
+}, 10, 2 );
+
+add_action( 'admin_footer-edit.php', function() {
+    $screen = get_current_screen();
+    if ( $screen && $screen->post_type === 'product' ) :
+    ?>
+    <script>
+    jQuery(function($){
+        $(document).on('change', '.sapient-sort-order', function(){
+            var $el = $(this), id = $el.data('id'), val = $el.val();
+            $.post(ajaxurl, { action: 'sapient_update_sort_order', id: id, order: val, nonce: '<?php echo wp_create_nonce("sapient_sort"); ?>' }, function(r){
+                $el.css('border-color', r.success ? '#46b450' : '#dc3232');
+                setTimeout(function(){ $el.css('border-color',''); }, 1500);
+            });
+        });
+    });
+    </script>
+    <?php
+    endif;
+} );
+
+add_action( 'wp_ajax_sapient_update_sort_order', function() {
+    check_ajax_referer( 'sapient_sort', 'nonce' );
+    if ( ! current_user_can( 'edit_products' ) ) wp_send_json_error();
+    $id    = intval( $_POST['id'] );
+    $order = intval( $_POST['order'] );
+    wp_update_post( [ 'ID' => $id, 'menu_order' => $order ] );
+    wp_send_json_success();
+} );
