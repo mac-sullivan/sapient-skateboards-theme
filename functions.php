@@ -1572,14 +1572,14 @@ function sapient_ajax_update_cart() {
     ] );
 }
 
-// Localise AJAX url for front-end
+// Localise AJAX url for front-end (priority 20 so script is already registered)
 add_action( 'wp_enqueue_scripts', function() {
     wp_localize_script( 'sapient-skateboards-js', 'sapientAjax', [
         'url'              => admin_url( 'admin-ajax.php' ),
         'newsletter_nonce' => wp_create_nonce( 'sapient_newsletter' ),
         'cart_nonce'       => wp_create_nonce( 'sapient_cart' ),
     ] );
-} );
+}, 20 );
 
 // ── Hide shipping from cart (show only at checkout) ───────────
 add_filter( 'woocommerce_shipping_show_delivery_times',  '__return_false' );
