@@ -7,9 +7,10 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: $white;
   box-shadow: 0 4px 18px -8px rgba(0, 0, 0, 0.18);
   transition: none;
+  z-index: 9;
+  background-color: #fff;
 
   &.is-scrolled {
     background: rgba(255,255,255,0.92);
@@ -712,80 +713,104 @@
   padding: 0.6rem 1.25rem;
 }
 
-// ─── Cart toast ───────────────────────────────────────────────
-.cart-toast {
+// ─── Cart added lightbox ─────────────────────────────────────
+.cart-lightbox {
+  display: none;
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 9999;
-  transform: translateY(120%);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  pointer-events: none;
-
-  &.is-visible {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  @include mobile {
-    left: 1rem;
-    right: 1rem;
-    bottom: 1rem;
-  }
-}
-
-.cart-toast-inner {
-  display: flex;
+  inset: 0;
+  z-index: 10000;
   align-items: center;
-  gap: 0.75rem;
-  background: $charcoal;
-  color: $bone;
-  padding: 1rem 1.25rem;
-  border-left: 3px solid $amber;
-  min-width: 280px;
-  max-width: 380px;
+  justify-content: center;
 
-  svg {
-    flex-shrink: 0;
-    color: $amber;
-  }
+  &.is-visible { display: flex; }
 }
 
-.cart-toast-msg {
-  font-family: $font-label;
-  font-size: 1.125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: $bone;
-  flex: 1;
+.cart-lightbox-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba($black, 0.55);
+  cursor: pointer;
 }
 
-.cart-toast-link {
-  font-family: $font-label;
-  font-size: 1.125rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: $amber;
-  text-decoration: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-
-  &:hover { color: $bone; text-decoration: none; }
+.cart-lightbox-box {
+  position: relative;
+  background: $white;
+  border: 2px solid $black;
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  width: 90%;
+  max-width: 420px;
+  z-index: 1;
 }
 
-.cart-toast-close {
+.cart-lightbox-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
   background: none;
   border: none;
-  color: rgba($bone, 0.4);
-  cursor: pointer;
-  font-size: 1.125rem;
-  padding: 0;
+  font-size: 1.75rem;
   line-height: 1;
-  flex-shrink: 0;
+  cursor: pointer;
+  color: $black;
+  padding: 0;
 
-  &:hover { color: $bone; }
+  &:hover { opacity: 0.6; }
+}
+
+.cart-lightbox-check {
+  display: block;
+  margin: 0 auto 0.75rem;
+  color: $black;
+}
+
+.cart-lightbox-msg {
+  font-family: $font-label;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $black;
+  margin: 0 0 1.5rem;
+}
+
+.cart-lightbox-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cart-lightbox-btn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  font-family: $font-label;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid $black;
+}
+
+.cart-lightbox-view {
+  background: $black;
+  color: $white;
+
+  &:hover {
+    background: $white;
+    color: $black;
+  }
+}
+
+.cart-lightbox-continue {
+  background: $white;
+  color: $black;
+
+  &:hover {
+    background: $black;
+    color: $white;
+  }
 }
 
 .sr-only {

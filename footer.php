@@ -150,5 +150,8 @@ $footer_social_links = [
 </footer>
 
 <?php wp_footer(); ?>
+
+<!-- Website designed and built by Mac Sullivan - You can reach me at macsullivan.com -->
+
 </body>
 </html>

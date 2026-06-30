@@ -1572,32 +1572,8 @@
   padding: clamp(2rem, 4vw, 3.5rem) 0 1rem;
 }
 
-// ─── Inline cart added message ────────────────────────────────
-.cart-added-inline {
-  display: none;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  background: rgba($black, 0.04);
-  border: 1px solid rgba($black, 0.1);
-  font-family: $font-main;
-  font-size: 0.9rem;
-  font-weight: 400;
-  text-transform: none;
-  color: $charcoal;
-
-  svg { color: $charcoal; flex-shrink: 0; }
-
-  a {
-    color: $charcoal;
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  &.is-visible { display: flex; }
-}
+// ─── Cart added lightbox ─────────────────────────────────────
+// Styles moved to components/_nav.scss with other cart UI
 
 
   .woocommerce .blog-archive-header {

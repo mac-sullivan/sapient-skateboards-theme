@@ -33,7 +33,7 @@ do_action( 'woocommerce_before_cart' );
         if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) :
           $product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
       ?>
-        <tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
+        <tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>" data-cart-key="<?php echo esc_attr( $cart_item_key ); ?>">
 
           <!-- Image -->
           <td class="product-thumbnail">
@@ -127,7 +127,8 @@ do_action( 'woocommerce_before_cart' );
               </div>
             <?php endif; ?>
 
-            <button type="submit" class="button cart-update-btn" name="update_cart" value="Update cart">Update cart</button>
+            <?php // Update Cart button hidden — quantities auto-update via AJAX ?>
+            <button type="submit" class="button cart-update-btn" name="update_cart" value="Update cart" style="display:none">Update cart</button>
 
             <?php do_action( 'woocommerce_cart_actions' ); ?>
             <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>

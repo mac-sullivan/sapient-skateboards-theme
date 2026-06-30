@@ -366,6 +366,7 @@ add_filter( 'woocommerce_add_to_cart_fragments', 'pt_cart_count_fragment' );
 function pt_cart_count_fragment( $fragments ) {
     $count = WC()->cart->get_cart_contents_count();
     $fragments['.cart-count'] = '<span class="cart-count' . ( $count ? ' has-items' : '' ) . '">' . esc_html( $count ) . '</span>';
+    $fragments['.h2-cart-count'] = '<span class="h2-cart-count' . ( $count ? ' has-items' : '' ) . '" id="header-cart-count">' . esc_html( $count ) . '</span>';
     return $fragments;
 }
 
@@ -1452,16 +1453,19 @@ add_action( 'registered_taxonomy', function( $taxonomy ) {
 }, 99 );
 
 
-// ── Cart toast HTML ───────────────────────────────────────────
+// ── Cart added lightbox ──────────────────────────────────────
 add_action( 'wp_footer', function() {
     $cart_url = function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart');
     ?>
-    <div id="cart-toast" class="cart-toast" role="alert" aria-live="polite">
-      <div class="cart-toast-inner">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="cart-toast-msg">Item added to your cart</span>
-        <a href="<?php echo esc_url( $cart_url ); ?>" class="cart-toast-link">View Cart →</a>
-        <button class="cart-toast-close" aria-label="Dismiss">✕</button>
+    <div id="cart-lightbox" class="cart-lightbox" role="dialog" aria-modal="true" aria-label="Item added to cart">
+      <div class="cart-lightbox-overlay"></div>
+      <div class="cart-lightbox-box">
+        <button class="cart-lightbox-close" aria-label="Close">&times;</button>
+        <p class="cart-lightbox-msg">Item added to your cart</p>
+        <div class="cart-lightbox-actions">
+          <a href="<?php echo esc_url( $cart_url ); ?>" class="cart-lightbox-btn cart-lightbox-view">VIEW CART</a>
+          <button class="cart-lightbox-btn cart-lightbox-continue">CONTINUE SHOPPING</button>
+        </div>
       </div>
     </div>
     <?php
@@ -1471,6 +1475,10 @@ add_action( 'wp_footer', function() {
 add_action( 'wp_ajax_nopriv_sapient_add_to_cart', 'sapient_ajax_add_to_cart' );
 add_action( 'wp_ajax_sapient_add_to_cart',        'sapient_ajax_add_to_cart' );
 function sapient_ajax_add_to_cart() {
+    if ( ! check_ajax_referer( 'sapient_cart', 'nonce', false ) ) {
+        wp_send_json_error( [ 'message' => 'Security check failed.' ], 403 );
+    }
+
     $product_id   = intval( $_POST['product_id'] ?? 0 );
     $quantity     = max( 1, intval( $_POST['quantity'] ?? 1 ) );
     $variation_id = intval( $_POST['variation_id'] ?? 0 );
@@ -1486,6 +1494,7 @@ function sapient_ajax_add_to_cart() {
 
     if ( $added ) {
         WC()->cart->calculate_totals();
+        WC()->cart->maybe_set_cart_cookies();
         do_action( 'woocommerce_ajax_added_to_cart', $product_id );
 
         $count      = WC()->cart->get_cart_contents_count();
@@ -1528,11 +1537,47 @@ function sapient_ajax_add_to_cart() {
     }
 }
 
+// ── AJAX update cart quantity ─────────────────────────────────
+add_action( 'wp_ajax_nopriv_sapient_update_cart', 'sapient_ajax_update_cart' );
+add_action( 'wp_ajax_sapient_update_cart',        'sapient_ajax_update_cart' );
+function sapient_ajax_update_cart() {
+    if ( ! check_ajax_referer( 'sapient_cart', 'nonce', false ) ) {
+        wp_send_json_error( [ 'message' => 'Security check failed.' ], 403 );
+    }
+
+    $cart_key = sanitize_text_field( $_POST['cart_key'] ?? '' );
+    $quantity = intval( $_POST['quantity'] ?? 1 );
+
+    if ( ! $cart_key ) {
+        wp_send_json_error( [ 'message' => 'Invalid cart item.' ] );
+    }
+
+    if ( $quantity <= 0 ) {
+        WC()->cart->remove_cart_item( $cart_key );
+    } else {
+        WC()->cart->set_quantity( $cart_key, $quantity );
+    }
+
+    WC()->cart->calculate_totals();
+    WC()->cart->maybe_set_cart_cookies();
+
+    $count = WC()->cart->get_cart_contents_count();
+    $cart  = WC()->cart;
+
+    wp_send_json_success( [
+        'count'    => $count,
+        'subtotal' => $cart->get_cart_subtotal(),
+        'total'    => $cart->get_cart_total(),
+        'empty'    => $count === 0,
+    ] );
+}
+
 // Localise AJAX url for front-end
 add_action( 'wp_enqueue_scripts', function() {
-    wp_localize_script( 'sapient-main', 'sapientAjax', [
+    wp_localize_script( 'sapient-skateboards-js', 'sapientAjax', [
         'url'              => admin_url( 'admin-ajax.php' ),
         'newsletter_nonce' => wp_create_nonce( 'sapient_newsletter' ),
+        'cart_nonce'       => wp_create_nonce( 'sapient_cart' ),
     ] );
 } );
 

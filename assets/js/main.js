@@ -247,21 +247,22 @@ document.addEventListener('DOMContentLoaded', function () {
 // ── Cart added notification ───────────────────────────────────
 (function ($) {
 
-  function showInlineMsg() {
-    var msg = document.getElementById('cart-added-inline');
-    if (!msg) return;
-    msg.classList.add('is-visible');
+  function showLightbox() {
+    var lb = document.getElementById('cart-lightbox');
+    if (!lb) return;
+    lb.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
   }
 
-  function showToast() {
-    var toast = document.getElementById('cart-toast');
-    if (!toast) return;
-    toast.classList.add('is-visible');
-    setTimeout(function () { toast.classList.remove('is-visible'); }, 4500);
+  function closeLightbox() {
+    var lb = document.getElementById('cart-lightbox');
+    if (!lb) return;
+    lb.classList.remove('is-visible');
+    document.body.style.overflow = '';
   }
 
   function updateCartCount(count) {
-    document.querySelectorAll('.cart-count, .money-bag-count').forEach(function (el) {
+    document.querySelectorAll('.cart-count, .h2-cart-count, .money-bag-count').forEach(function (el) {
       el.textContent = count;
       el.classList.toggle('has-items', count > 0);
     });
@@ -279,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var data = {
       action:       'sapient_add_to_cart',
+      nonce:        (typeof sapientAjax !== 'undefined') ? sapientAjax.cart_nonce : '',
       product_id:   productId,
       quantity:     $form.find('[name="quantity"]').val() || 1,
       variation_id: $form.find('[name="variation_id"]').val() || 0,
@@ -292,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $.post(ajaxUrl, data)
       .done(function (response) {
         if (response && response.success) {
-          showInlineMsg();
+          showLightbox();
           updateCartCount(response.data.count);
           // Swap all cart preview dropdowns with fresh HTML
           if (response.data.preview_html) {
@@ -310,12 +312,80 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Shop/archive pages — WooCommerce native AJAX event
-  $(document).on('added_to_cart', function () { showToast(); });
+  $(document).on('added_to_cart', function (e, fragments) {
+    showLightbox();
+    // Update count from WC fragments if available
+    if (fragments && fragments['.cart-count']) {
+      var tmp = document.createElement('span');
+      tmp.innerHTML = fragments['.cart-count'];
+      var count = parseInt(tmp.textContent, 10) || 0;
+      updateCartCount(count);
+    }
+  });
 
-  // Toast dismiss
-  $(document).on('click', '.cart-toast-close', function () {
-    var toast = document.getElementById('cart-toast');
-    if (toast) toast.classList.remove('is-visible');
+  // Lightbox dismiss — close button, continue shopping, or overlay click
+  $(document).on('click', '.cart-lightbox-close, .cart-lightbox-continue, .cart-lightbox-overlay', function () {
+    closeLightbox();
+  });
+  // Dismiss on Escape key
+  $(document).on('keydown', function (e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ── Cart page: auto-update quantity via AJAX ──────────────
+  var cartUpdateTimer = null;
+
+  function ajaxUpdateCart(cartKey, qty) {
+    var ajaxUrl = (typeof sapientAjax !== 'undefined') ? sapientAjax.url : '/wp-admin/admin-ajax.php';
+    $.post(ajaxUrl, {
+      action:   'sapient_update_cart',
+      nonce:    (typeof sapientAjax !== 'undefined') ? sapientAjax.cart_nonce : '',
+      cart_key: cartKey,
+      quantity: qty,
+    }).done(function (response) {
+      if (response && response.success) {
+        var d = response.data;
+        updateCartCount(d.count);
+        // Update totals on page
+        $('.cart_totals .cart-subtotal td').html(d.subtotal);
+        $('.cart_totals .order-total td').html(d.total);
+        if (d.empty) {
+          location.reload();
+        } else {
+          // Update the row subtotal by triggering WC native update
+          $('[name="update_cart"]').prop('disabled', false).trigger('click');
+        }
+      }
+    });
+  }
+
+  // Quantity +/- buttons on cart page
+  $(document).on('click', '.woocommerce-cart-form .qty-btn', function () {
+    var $row = $(this).closest('tr[data-cart-key]');
+    if (!$row.length) return;
+    var cartKey = $row.data('cart-key');
+    var qty = parseInt($row.find('.qty').val(), 10) || 1;
+    clearTimeout(cartUpdateTimer);
+    cartUpdateTimer = setTimeout(function () { ajaxUpdateCart(cartKey, qty); }, 400);
+  });
+
+  // Manual quantity input change on cart page
+  $(document).on('change', '.woocommerce-cart-form .qty', function () {
+    var $row = $(this).closest('tr[data-cart-key]');
+    if (!$row.length) return;
+    var cartKey = $row.data('cart-key');
+    var qty = parseInt($(this).val(), 10) || 1;
+    ajaxUpdateCart(cartKey, qty);
+  });
+
+  // Remove item — intercept and do via AJAX
+  $(document).on('click', '.woocommerce-cart-form a.remove', function (e) {
+    e.preventDefault();
+    var $row = $(this).closest('tr[data-cart-key]');
+    if (!$row.length) return;
+    var cartKey = $row.data('cart-key');
+    $row.css('opacity', '0.4');
+    ajaxUpdateCart(cartKey, 0);
   });
 
   // ── Newsletter signup form ────────────────────────────────
