@@ -1625,6 +1625,12 @@
     }
   }
 }
-.form-row.woocommerce-SavedPaymentMethods-saveNew.woocommerce-validated {
-  display: none;
+.woocommerce-SavedPaymentMethods-saveNew {
+  display: none !important;
+}
+
+// Tighten gap before Place Order button
+#payment .place-order {
+  margin-top: 0.5rem !important;
+  padding-top: 0 !important;
 }
