@@ -9,10 +9,7 @@ if ( file_exists(__DIR__ . '/sapient-migrate.php') ) {
     require_once __DIR__ . '/sapient-migrate.php';
 }
 
-// ── Output buffer — prevent "headers already sent" issues ─────────────────────
-if ( ! ob_get_level() ) {
-    ob_start();
-}
+// ── Output buffer removed — was interfering with WC session cookies on AJAX ──
 
 // ── Increase upload size limit (256MB is plenty for product photos + short videos)
 @ini_set( 'upload_max_filesize', '256M' );
@@ -888,13 +885,17 @@ add_filter( 'rest_request_after_callbacks', function( $response, $handler, $requ
     if ( ! ( $response instanceof WP_REST_Response ) ) return $response;
     $route = $request->get_route();
     if ( strpos( $route, 'wc/store' ) === false ) return $response;
+
+    // Never cache Store API cart responses
+    $response->header( 'Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0' );
+
     $data = $response->get_data();
-    // Handle cart endpoint
+    // Strip only visual metadata, preserve item_data for checkout functionality
     if ( isset( $data['items'] ) && is_array( $data['items'] ) ) {
         foreach ( $data['items'] as &$item ) {
             $item['short_description'] = '';
             $item['description'] = '';
-            $item['item_data'] = [];
+            // Keep item_data — checkout needs it for cart validation
             if ( isset( $item['extensions'] ) ) {
                 $item['extensions'] = (object) [];
             }
@@ -1495,6 +1496,10 @@ function sapient_ajax_add_to_cart() {
     if ( $added ) {
         WC()->cart->calculate_totals();
         WC()->cart->maybe_set_cart_cookies();
+        // Force session write so Block checkout (Store API) picks it up
+        if ( WC()->session ) {
+            WC()->session->save_data();
+        }
         do_action( 'woocommerce_ajax_added_to_cart', $product_id );
 
         $count      = WC()->cart->get_cart_contents_count();
@@ -1560,6 +1565,9 @@ function sapient_ajax_update_cart() {
 
     WC()->cart->calculate_totals();
     WC()->cart->maybe_set_cart_cookies();
+    if ( WC()->session ) {
+        WC()->session->save_data();
+    }
 
     $count = WC()->cart->get_cart_contents_count();
     $cart  = WC()->cart;
