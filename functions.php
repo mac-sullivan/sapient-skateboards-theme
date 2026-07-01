@@ -1451,80 +1451,15 @@ add_action( 'wp_footer', function() {
     <?php
 } );
 
-// ── AJAX add to cart (single product page) ────────────────────
-add_action( 'wp_ajax_nopriv_sapient_add_to_cart', 'sapient_ajax_add_to_cart' );
-add_action( 'wp_ajax_sapient_add_to_cart',        'sapient_ajax_add_to_cart' );
-function sapient_ajax_add_to_cart() {
-    if ( ! check_ajax_referer( 'sapient_cart', 'nonce', false ) ) {
-        wp_send_json_error( [ 'message' => 'Security check failed.' ], 403 );
+// ── Add to cart: redirect back to product page with lightbox trigger ──────────
+// We use WooCommerce's native add-to-cart (no custom AJAX) to preserve
+// session/cookie handling required by Block checkout / Store API.
+add_filter( 'woocommerce_add_to_cart_redirect', function( $url ) {
+    if ( isset( $_REQUEST['add-to-cart'] ) && wp_get_referer() ) {
+        return add_query_arg( 'added_to_cart', '1', wp_get_referer() );
     }
-
-    // Ensure WC session cookie is set (critical for Block checkout / Store API)
-    if ( WC()->session && ! WC()->session->has_session() ) {
-        WC()->session->set_customer_session_cookie( true );
-    }
-
-    $product_id   = intval( $_POST['product_id'] ?? 0 );
-    $quantity     = max( 1, intval( $_POST['quantity'] ?? 1 ) );
-    $variation_id = intval( $_POST['variation_id'] ?? 0 );
-    $variation    = [];
-
-    foreach ( $_POST as $key => $val ) {
-        if ( strpos( $key, 'attribute_' ) === 0 ) {
-            $variation[ sanitize_text_field( $key ) ] = sanitize_text_field( $val );
-        }
-    }
-
-    $added = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation );
-
-    if ( $added ) {
-        WC()->cart->calculate_totals();
-        WC()->cart->maybe_set_cart_cookies();
-        // Force session write so Block checkout (Store API) picks it up
-        if ( WC()->session ) {
-            WC()->session->save_data();
-        }
-        do_action( 'woocommerce_ajax_added_to_cart', $product_id );
-
-        $count      = WC()->cart->get_cart_contents_count();
-        $cart_items = WC()->cart->get_cart();
-
-        // Build cart preview HTML
-        ob_start();
-        if ( empty( $cart_items ) ) {
-            echo '<p class="cart-preview-empty">Your cart is empty.</p>';
-        } else {
-            echo '<table class="cart-preview-table"><thead><tr>';
-            echo '<th class="cpt-img"></th><th class="cpt-name">Product</th><th class="cpt-qty">Qty</th><th class="cpt-price">Price</th>';
-            echo '</tr></thead><tbody>';
-            foreach ( $cart_items as $item ) {
-                $p       = $item['data'];
-                $img_id  = $p->get_image_id();
-                $img_url = $img_id ? wp_get_attachment_image_url( $img_id, 'thumbnail' ) : wc_placeholder_img_src();
-                echo '<tr class="cpt-row">';
-                echo '<td class="cpt-img"><img src="' . esc_url( $img_url ) . '" alt="' . esc_attr( $p->get_name() ) . '"></td>';
-                echo '<td class="cpt-name">' . esc_html( $p->get_name() ) . '</td>';
-                echo '<td class="cpt-qty">' . esc_html( $item['quantity'] ) . '</td>';
-                echo '<td class="cpt-price">' . wc_price( $p->get_price() ) . '</td>';
-                echo '</tr>';
-            }
-            echo '</tbody></table>';
-            echo '<div class="cart-preview-footer">';
-            echo '<span class="cart-preview-total">Total: ' . WC()->cart->get_cart_total() . '</span>';
-            echo '<a href="' . esc_url( wc_get_cart_url() ) . '" class="btn-primary cart-preview-btn">View Cart</a>';
-            echo '</div>';
-        }
-        $preview_html = ob_get_clean();
-
-        wp_send_json_success( [
-            'count'        => $count,
-            'cart_hash'    => WC()->cart->get_cart_hash(),
-            'preview_html' => $preview_html,
-        ] );
-    } else {
-        wp_send_json_error( [ 'message' => 'Could not add item to cart.' ] );
-    }
-}
+    return $url;
+} );
 
 // ── AJAX update cart quantity ─────────────────────────────────
 add_action( 'wp_ajax_nopriv_sapient_update_cart', 'sapient_ajax_update_cart' );

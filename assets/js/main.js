@@ -268,48 +268,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Single product page — AJAX via custom WP handler
-  $(document).on('submit', 'form.cart', function (e) {
-    var $form = $(this);
-    var productId = $form.find('[name="add-to-cart"]').val();
-    if (!productId) return; // no product ID yet (variation not chosen) — let WC handle
-
-    e.preventDefault();
-
-    var ajaxUrl = (typeof sapientAjax !== 'undefined') ? sapientAjax.url : '/wp-admin/admin-ajax.php';
-
-    var data = {
-      action:       'sapient_add_to_cart',
-      nonce:        (typeof sapientAjax !== 'undefined') ? sapientAjax.cart_nonce : '',
-      product_id:   productId,
-      quantity:     $form.find('[name="quantity"]').val() || 1,
-      variation_id: $form.find('[name="variation_id"]').val() || 0,
-    };
-
-    // Include variation attributes
-    $form.find('[name^="attribute_"]').each(function () {
-      data[$(this).attr('name')] = $(this).val();
-    });
-
-    $.post(ajaxUrl, data)
-      .done(function (response) {
-        if (response && response.success) {
-          showLightbox();
-          updateCartCount(response.data.count);
-          // Swap all cart preview dropdowns with fresh HTML
-          if (response.data.preview_html) {
-            document.querySelectorAll('[data-cart-preview]').forEach(function (el) {
-              el.innerHTML = response.data.preview_html;
-            });
-          }
-        } else {
-          $form.off('submit').submit();
-        }
-      })
-      .fail(function () {
-        $form.off('submit').submit();
-      });
-  });
+  // Single product page — let WooCommerce handle add-to-cart natively
+  // (preserves WC session/cookies for Block checkout compatibility).
+  // Show lightbox after redirect back using WC notice detection.
+  if (document.querySelector('.woocommerce-message') || window.location.search.indexOf('added_to_cart') !== -1) {
+    showLightbox();
+  }
 
   // Shop/archive pages — WooCommerce native AJAX event
   $(document).on('added_to_cart', function (e, fragments) {
