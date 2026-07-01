@@ -884,24 +884,23 @@ add_filter( 'woocommerce_get_item_data', function( $item_data, $cart_item ) {
 }, 999, 2 );
 
 // Strip attributes and short description from Store API cart responses
+// Strip visual metadata from Store API cart (descriptions clutter the mini-cart).
+// IMPORTANT: only target GET /wc/store/v1/cart — do NOT touch checkout or batch endpoints.
 add_filter( 'rest_request_after_callbacks', function( $response, $handler, $request ) {
     if ( ! ( $response instanceof WP_REST_Response ) ) return $response;
-    $route = $request->get_route();
-    if ( strpos( $route, 'wc/store' ) === false ) return $response;
+    $route  = $request->get_route();
+    $method = $request->get_method();
 
-    // Never cache Store API cart responses
-    $response->header( 'Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0' );
+    // Only modify GET requests to the cart endpoint — leave checkout, batch, etc. alone
+    if ( $method !== 'GET' || ! preg_match( '#wc/store/v\d+/cart$#', $route ) ) {
+        return $response;
+    }
 
     $data = $response->get_data();
-    // Strip only visual metadata, preserve item_data for checkout functionality
     if ( isset( $data['items'] ) && is_array( $data['items'] ) ) {
         foreach ( $data['items'] as &$item ) {
             $item['short_description'] = '';
             $item['description'] = '';
-            // Keep item_data — checkout needs it for cart validation
-            if ( isset( $item['extensions'] ) ) {
-                $item['extensions'] = (object) [];
-            }
         }
         $response->set_data( $data );
     }
