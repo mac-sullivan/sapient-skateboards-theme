@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const wrap = btn.closest('.product-griptape-choices');
     wrap.querySelectorAll('.griptape-btn').forEach(b => b.classList.remove('is-active'));
     btn.classList.add('is-active');
-    const hidden = wrap.querySelector('#sapient_griptape_val');
+    var hidden = document.getElementById('sapient_griptape_input');
     if (hidden) hidden.value = btn.dataset.value;
   });
 

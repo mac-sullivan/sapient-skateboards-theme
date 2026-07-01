@@ -154,7 +154,6 @@ while ( have_posts() ) : the_post();
         <div class="product-size-option">
           <span class="product-option-label">Size</span>
           <div class="product-size-choices">
-            <input type="hidden" name="sapient_size" id="sapient_size_val" value="">
             <?php foreach ( $available_sizes as $row ) :
                 $size = esc_attr( $row['size_value'] );
               ?>
@@ -175,7 +174,6 @@ while ( have_posts() ) : the_post();
         <div class="product-color-option">
           <span class="product-option-label">Color</span>
           <div class="product-color-choices">
-            <input type="hidden" name="sapient_color" id="sapient_color_val" value="">
             <?php foreach ( $available_colors as $row ) :
               $name = esc_attr( $row['color_name'] );
               $hex  = esc_attr( $row['color_hex'] );
@@ -202,7 +200,6 @@ while ( have_posts() ) : the_post();
         <div class="product-griptape-option">
           <span class="product-option-label">Griptape</span>
           <div class="product-griptape-choices">
-            <input type="hidden" name="sapient_griptape" id="sapient_griptape_val" value="None">
             <button type="button" class="griptape-btn is-active" data-value="None">None</button>
             <button type="button" class="griptape-btn" data-value="Black (Applied) +$5">Black (Applied) <span>+$5</span></button>
             <button type="button" class="griptape-btn" data-value="Black (On Side) +$5">Black (On Side) <span>+$5</span></button>
@@ -403,63 +400,59 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === '-') { scale = Math.max(scale - 0.25, 1); if(scale===1){panX=0;panY=0;} applyTransform(); }
   });
 
-  // Size selector
+  // Size selector — syncs visual buttons to the hidden input inside form.cart
   const sizeBtns = document.querySelectorAll('.size-btn');
-  const sizeVal  = document.getElementById('sapient_size_val');
-  const sizeMsg  = document.querySelector('.size-required-msg');
+  const sizeInput = document.getElementById('sapient_size_input');
+  const sizeMsg   = document.querySelector('.size-required-msg');
   sizeBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       sizeBtns.forEach(function(b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
-      if (sizeVal) sizeVal.value = btn.dataset.value;
+      if (sizeInput) sizeInput.value = btn.dataset.value;
       if (sizeMsg) sizeMsg.style.display = 'none';
     });
   });
 
   // Color selector
   const colorBtns = document.querySelectorAll('.color-btn');
-  const colorVal  = document.getElementById('sapient_color_val');
-  const colorMsg  = document.querySelector('.color-required-msg');
+  const colorInput = document.getElementById('sapient_color_input');
+  const colorMsg   = document.querySelector('.color-required-msg');
   colorBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       colorBtns.forEach(function(b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
-      if (colorVal) colorVal.value = btn.dataset.value;
+      if (colorInput) colorInput.value = btn.dataset.value;
       if (colorMsg) colorMsg.style.display = 'none';
     });
   });
 
   // Griptape selector
-  const gripBtns = document.querySelectorAll('.griptape-btn');
-  const gripVal  = document.getElementById('sapient_griptape_val');
+  const gripBtns  = document.querySelectorAll('.griptape-btn');
+  const gripInput = document.getElementById('sapient_griptape_input');
   gripBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       gripBtns.forEach(function(b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
-      if (gripVal) gripVal.value = btn.dataset.value;
+      if (gripInput) gripInput.value = btn.dataset.value;
     });
   });
 
-  // Block add-to-cart if size not chosen
+  // Block add-to-cart if required option not chosen
   const form = document.querySelector('form.cart');
   if (form) {
     form.addEventListener('submit', function(e) {
-      let blocked = false;
-
-      if (sizeBtns.length && (!sizeVal || !sizeVal.value)) {
+      if (sizeBtns.length && (!sizeInput || !sizeInput.value)) {
         e.preventDefault();
-        blocked = true;
         if (sizeMsg) sizeMsg.style.display = 'block';
         document.querySelector('.product-size-option')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
       }
 
-      if (colorBtns.length && (!colorVal || !colorVal.value)) {
+      if (colorBtns.length && (!colorInput || !colorInput.value)) {
         e.preventDefault();
-        blocked = true;
         if (colorMsg) colorMsg.style.display = 'block';
-        if (!sizeBtns.length || (sizeVal && sizeVal.value)) {
-          document.querySelector('.product-color-option')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        document.querySelector('.product-color-option')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
       }
     });
   }

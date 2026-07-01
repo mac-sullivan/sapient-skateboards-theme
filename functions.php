@@ -303,7 +303,7 @@ function pt_enqueue_styles() {
     wp_enqueue_script(
         'sapient-skateboards-js',
         get_stylesheet_directory_uri() . '/assets/js/main.js',
-        [ 'swiper' ],
+        [ 'jquery', 'swiper' ],
         filemtime( get_stylesheet_directory() . '/assets/js/main.js' ),
         true
     );
@@ -1451,14 +1451,51 @@ add_action( 'wp_footer', function() {
     <?php
 } );
 
+// ── Inject custom option hidden inputs INSIDE form.cart ──────────────────────
+// Size / color / griptape selectors are rendered in the template above the form
+// for visual layout. These hidden inputs must live inside the form so their
+// values are included in the POST. The inline JS syncs button clicks to them.
+add_action( 'woocommerce_before_add_to_cart_quantity', function() {
+    global $product;
+    if ( ! $product ) return;
+
+    $available_sizes  = function_exists('get_field') ? get_field( 'product_sizes', $product->get_id() ) : null;
+    $available_colors = function_exists('get_field') ? get_field( 'product_colors', $product->get_id() ) : null;
+    $hide_griptape    = function_exists('get_field') ? get_field( 'hide_griptape', $product->get_id() ) : false;
+    $is_board         = ! has_term( array( 'softgoods', 'apparel' ), 'product_cat', $product->get_id() );
+
+    if ( ! empty( $available_sizes ) ) {
+        echo '<input type="hidden" name="sapient_size" id="sapient_size_input" value="">';
+    }
+    if ( ! empty( $available_colors ) ) {
+        echo '<input type="hidden" name="sapient_color" id="sapient_color_input" value="">';
+    }
+    if ( ! $hide_griptape && $is_board ) {
+        echo '<input type="hidden" name="sapient_griptape" id="sapient_griptape_input" value="None">';
+    }
+} );
+
 // ── Add to cart: redirect back to product page with lightbox trigger ──────────
 // We use WooCommerce's native add-to-cart (no custom AJAX) to preserve
 // session/cookie handling required by Block checkout / Store API.
 add_filter( 'woocommerce_add_to_cart_redirect', function( $url ) {
-    if ( isset( $_REQUEST['add-to-cart'] ) && wp_get_referer() ) {
-        return add_query_arg( 'added_to_cart', '1', wp_get_referer() );
+    if ( isset( $_REQUEST['add-to-cart'] ) ) {
+        $product_id = absint( $_REQUEST['add-to-cart'] );
+        $permalink  = get_permalink( $product_id );
+        if ( $permalink ) {
+            return add_query_arg( 'added_to_cart', '1', $permalink );
+        }
     }
     return $url;
+} );
+
+// ── Ensure WC session is started on cart/checkout pages for Block checkout ────
+// Block checkout's Store API needs an active session cookie to locate the cart.
+add_action( 'wp', function() {
+    if ( is_admin() || ! function_exists( 'WC' ) ) return;
+    if ( ( is_cart() || is_checkout() ) && WC()->session && ! WC()->session->has_session() ) {
+        WC()->session->set_customer_session_cookie( true );
+    }
 } );
 
 // ── AJAX update cart quantity ─────────────────────────────────
