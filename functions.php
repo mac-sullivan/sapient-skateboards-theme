@@ -1017,14 +1017,13 @@ h3#ship-to-different-address label,
 .woocommerce-checkout-review-order-table thead th {
     text-align: left !important; font-size: 0.68rem !important; text-transform: uppercase !important;
     letter-spacing: 0.06em !important; font-weight: 700 !important; color: #999 !important;
-    padding: 0.5rem 0.5rem 0.5rem 0 !important; border-bottom: 1px solid #ddd !important;
+    padding: 0.5rem 0.75rem !important; border-bottom: 1px solid #ddd !important;
 }
-.woocommerce-checkout-review-order-table thead th:last-child { text-align: right !important; padding-right: 0 !important; }
+.woocommerce-checkout-review-order-table thead th:last-child { text-align: right !important; }
 .woocommerce-checkout-review-order-table td, .woocommerce-checkout-review-order-table th {
-    padding: 0.55rem 0.5rem 0.55rem 0 !important; border-bottom: 1px solid #eee !important;
+    padding: 0.6rem 0.75rem !important; border-bottom: 1px solid #eee !important;
     color: #333 !important; vertical-align: top !important;
 }
-.woocommerce-checkout-review-order-table td:last-child, .woocommerce-checkout-review-order-table th:last-child { padding-right: 0 !important; }
 .woocommerce-checkout-review-order-table td.product-total,
 .woocommerce-checkout-review-order-table .cart-subtotal td,
 .woocommerce-checkout-review-order-table .shipping td,
