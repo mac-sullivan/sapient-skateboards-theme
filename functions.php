@@ -884,29 +884,6 @@ add_filter( 'woocommerce_get_item_data', function( $item_data, $cart_item ) {
 }, 999, 2 );
 
 // Strip attributes and short description from Store API cart responses
-// Strip visual metadata from Store API cart (descriptions clutter the mini-cart).
-// IMPORTANT: only target GET /wc/store/v1/cart — do NOT touch checkout or batch endpoints.
-add_filter( 'rest_request_after_callbacks', function( $response, $handler, $request ) {
-    if ( ! ( $response instanceof WP_REST_Response ) ) return $response;
-    $route  = $request->get_route();
-    $method = $request->get_method();
-
-    // Only modify GET requests to the cart endpoint — leave checkout, batch, etc. alone
-    if ( $method !== 'GET' || ! preg_match( '#wc/store/v\d+/cart$#', $route ) ) {
-        return $response;
-    }
-
-    $data = $response->get_data();
-    if ( isset( $data['items'] ) && is_array( $data['items'] ) ) {
-        foreach ( $data['items'] as &$item ) {
-            $item['short_description'] = '';
-            $item['description'] = '';
-        }
-        $response->set_data( $data );
-    }
-    return $response;
-}, 10, 3 );
-
 // CSS to hide metadata/attributes in block checkout but keep product name visible
 add_action( 'wp_head', function() {
     if ( is_checkout() || is_cart() ) {
