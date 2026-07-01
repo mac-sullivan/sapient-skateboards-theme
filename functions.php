@@ -10,7 +10,9 @@ if ( file_exists(__DIR__ . '/sapient-migrate.php') ) {
 }
 
 // ── Output buffer — prevent "headers already sent" issues ─────────────────────
-if ( ! ob_get_level() ) {
+// Skip for REST API requests (Store API) so JSON responses aren't corrupted.
+$is_rest_req = isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], '/wp-json/' ) !== false;
+if ( ! ob_get_level() && ! $is_rest_req ) {
     ob_start();
 }
 
@@ -1489,13 +1491,25 @@ add_filter( 'woocommerce_add_to_cart_redirect', function( $url ) {
     return $url;
 } );
 
-// ── Ensure WC session is started on cart/checkout pages for Block checkout ────
-// Block checkout's Store API needs an active session cookie to locate the cart.
+// ── Ensure WC session is started on cart/checkout pages ──────────────────────
 add_action( 'wp', function() {
     if ( is_admin() || ! function_exists( 'WC' ) ) return;
     if ( ( is_cart() || is_checkout() ) && WC()->session && ! WC()->session->has_session() ) {
         WC()->session->set_customer_session_cookie( true );
     }
+} );
+
+// ── Use Classic Checkout instead of Block Checkout ──────────────────────────
+// Block checkout's Store API has persistent session/nonce issues with this theme.
+// Classic checkout uses the WC session directly and is fully reliable.
+add_action( 'wp', function() {
+    if ( ! is_checkout() || is_wc_endpoint_url() ) return;
+    add_filter( 'the_content', function( $content ) {
+        if ( has_block( 'woocommerce/checkout', $content ) ) {
+            return do_shortcode( '[woocommerce_checkout]' );
+        }
+        return $content;
+    }, 1 );
 } );
 
 // ── AJAX update cart quantity ─────────────────────────────────
