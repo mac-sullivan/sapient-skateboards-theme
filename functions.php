@@ -885,25 +885,158 @@ add_filter( 'woocommerce_get_item_data', function( $item_data, $cart_item ) {
     return $keep;
 }, 999, 2 );
 
-// Strip attributes and short description from Store API cart responses
-// CSS to hide metadata/attributes in block checkout but keep product name visible
+// ── Classic Checkout styling ─────────────────────────────────────────────────
 add_action( 'wp_head', function() {
-    if ( is_checkout() || is_cart() ) {
-        echo '<style>
-            .wc-block-components-product-metadata,
-            .wc-block-components-order-summary-item__individual-prices { display: none !important; }
-            .wc-block-components-order-summary-item__description { display: block !important; }
-            .wc-block-components-product-name { display: block !important; }
-            .wc-block-checkout,
-            .wc-block-checkout input,
-            .wc-block-checkout select,
-            .wc-block-checkout textarea,
-            .wc-block-checkout label,
-            .wc-block-checkout .wc-block-components-text-input input,
-            .wc-block-checkout .wc-block-components-combobox input { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; }
-            .wc-block-components-checkout-place-order-button { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; font-size: 18px !important; }
-        </style>';
-    }
+    if ( ! is_checkout() ) return;
+    echo '<style>
+/* ── Layout ───────────────────────────────────────────────── */
+.woocommerce-checkout { max-width: 1100px; margin: 0 auto; }
+.woocommerce-checkout .col2-set { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+.woocommerce-checkout .col2-set .col-1,
+.woocommerce-checkout .col2-set .col-2 { width: 100%; }
+
+/* ── Typography ───────────────────────────────────────────── */
+.woocommerce-checkout h3,
+.woocommerce-checkout .order-review-heading {
+    font-family: "Engravers Gothic BT", Futura, "Century Gothic", Helvetica, sans-serif;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 1.1rem; color: #141414; margin-bottom: 1.25rem; padding-bottom: 0.5rem;
+    border-bottom: 2px solid #141414;
+}
+.woocommerce-checkout label {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.85rem; font-weight: 600; color: #333; text-transform: uppercase;
+    letter-spacing: 0.04em; margin-bottom: 0.3rem; display: block;
+}
+.woocommerce-checkout label .optional { font-weight: 400; color: #999; text-transform: none; font-size: 0.8rem; }
+.woocommerce-checkout label .required { color: #C8962D; }
+
+/* ── Form fields ──────────────────────────────────────────── */
+.woocommerce-checkout .form-row { margin-bottom: 1rem; }
+.woocommerce-checkout input[type="text"],
+.woocommerce-checkout input[type="email"],
+.woocommerce-checkout input[type="tel"],
+.woocommerce-checkout input[type="number"],
+.woocommerce-checkout input[type="password"],
+.woocommerce-checkout textarea,
+.woocommerce-checkout select,
+.woocommerce-checkout .select2-container .select2-selection--single {
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px;
+    font-size: 0.95rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: border-color 0.2s; background: #fff; color: #141414;
+    -webkit-appearance: none; appearance: none; box-sizing: border-box;
+}
+.woocommerce-checkout input:focus,
+.woocommerce-checkout textarea:focus,
+.woocommerce-checkout select:focus {
+    outline: none; border-color: #C8962D; box-shadow: 0 0 0 2px rgba(200,150,45,0.15);
+}
+.woocommerce-checkout .select2-container .select2-selection--single {
+    height: auto; min-height: 46px; display: flex; align-items: center;
+}
+.woocommerce-checkout .select2-container .select2-selection__rendered {
+    padding: 0; line-height: normal; color: #141414;
+}
+.woocommerce-checkout .select2-container .select2-selection__arrow { top: 50%; transform: translateY(-50%); right: 10px; }
+.woocommerce-checkout textarea { min-height: 80px; resize: vertical; }
+
+/* ── Coupon bar ───────────────────────────────────────────── */
+.woocommerce-checkout .woocommerce-form-coupon-toggle .woocommerce-info {
+    background: #f8f8f8; border: 1px solid #e5e5e5; border-left: none; padding: 0.9rem 1.25rem;
+    border-radius: 6px; color: #555; font-size: 0.9rem; margin-bottom: 2rem;
+}
+.woocommerce-checkout .woocommerce-form-coupon-toggle .woocommerce-info::before { display: none; }
+.woocommerce-checkout .woocommerce-form-coupon-toggle .woocommerce-info a { color: #141414; font-weight: 600; }
+.woocommerce-checkout .checkout_coupon { background: #f8f8f8; border: 1px solid #e5e5e5; border-radius: 6px; padding: 1.25rem; margin-bottom: 2rem; }
+.woocommerce-checkout .checkout_coupon .button {
+    background: #141414; color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 6px;
+    font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem;
+}
+
+/* ── Order review table ───────────────────────────────────── */
+.woocommerce-checkout #order_review_heading {
+    font-family: "Engravers Gothic BT", Futura, "Century Gothic", Helvetica, sans-serif;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 1.1rem; color: #141414; margin-bottom: 1.25rem; padding-bottom: 0.5rem;
+    border-bottom: 2px solid #141414;
+}
+.woocommerce-checkout-review-order-table {
+    width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.woocommerce-checkout-review-order-table th {
+    text-align: left; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
+    font-weight: 700; color: #555; padding: 0.6rem 0; border-bottom: 1px solid #e5e5e5;
+}
+.woocommerce-checkout-review-order-table td {
+    padding: 0.75rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; color: #333;
+}
+.woocommerce-checkout-review-order-table td.product-total { text-align: right; font-weight: 600; }
+.woocommerce-checkout-review-order-table th:last-child { text-align: right; }
+.woocommerce-checkout-review-order-table .cart-subtotal td,
+.woocommerce-checkout-review-order-table .order-total td { text-align: right; }
+.woocommerce-checkout-review-order-table .order-total td {
+    font-weight: 700; font-size: 1.1rem; color: #141414; border-top: 2px solid #141414;
+}
+.woocommerce-checkout-review-order-table .order-total th { border-top: 2px solid #141414; }
+.woocommerce-checkout-review-order-table .cart_item .variation { display: block; font-size: 0.8rem; color: #888; margin-top: 2px; }
+.woocommerce-checkout-review-order-table .cart_item .variation dt { display: inline; font-weight: 600; }
+.woocommerce-checkout-review-order-table .cart_item .variation dd { display: inline; margin: 0; }
+.woocommerce-checkout-review-order-table .cart_item .variation p { margin: 0; }
+
+/* ── Shipping methods in order review ─────────────────────── */
+.woocommerce-checkout .woocommerce-shipping-methods { list-style: none; padding: 0; margin: 0; }
+.woocommerce-checkout .woocommerce-shipping-methods li { margin-bottom: 0.3rem; font-size: 0.9rem; }
+.woocommerce-checkout .woocommerce-shipping-methods label { display: inline; text-transform: none; font-weight: 400; font-size: 0.9rem; }
+
+/* ── Payment box ──────────────────────────────────────────── */
+.woocommerce-checkout #payment {
+    background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px;
+    padding: 1.5rem; margin-top: 1.5rem;
+}
+.woocommerce-checkout #payment .payment_methods { list-style: none; padding: 0; margin: 0 0 1rem; border: none; }
+.woocommerce-checkout #payment .payment_methods li { margin-bottom: 0.5rem; }
+.woocommerce-checkout #payment .payment_methods li label { font-weight: 600; text-transform: none; font-size: 0.95rem; cursor: pointer; }
+.woocommerce-checkout #payment .payment_box { padding: 1rem 0 0.5rem; font-size: 0.9rem; color: #555; background: transparent !important; }
+.woocommerce-checkout #payment .payment_box::before { display: none; }
+
+/* ── Place order button ───────────────────────────────────── */
+.woocommerce-checkout #place_order {
+    background: #C8962D; color: #fff; border: none; width: 100%; padding: 1rem;
+    font-family: "Engravers Gothic BT", Futura, "Century Gothic", Helvetica, sans-serif;
+    font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+    border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem;
+}
+.woocommerce-checkout #place_order:hover { background: #b5872a; }
+
+/* ── Privacy text ─────────────────────────────────────────── */
+.woocommerce-checkout .woocommerce-terms-and-conditions-wrapper { font-size: 0.8rem; color: #888; margin-top: 1rem; line-height: 1.5; }
+.woocommerce-checkout .woocommerce-privacy-policy-text p { margin: 0; }
+
+/* ── Alerts ───────────────────────────────────────────────── */
+.woocommerce-checkout .woocommerce-error,
+.woocommerce-checkout .woocommerce-message {
+    border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.9rem;
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .woocommerce-checkout .col2-set { grid-template-columns: 1fr; gap: 1.5rem; }
+    .woocommerce-checkout { padding: 0 0.5rem; }
+    .woocommerce-checkout h3,
+    .woocommerce-checkout #order_review_heading { font-size: 1rem; }
+    .woocommerce-checkout #payment { padding: 1rem; }
+    .woocommerce-checkout .form-row-first,
+    .woocommerce-checkout .form-row-last { float: none !important; width: 100% !important; }
+}
+
+/* ── Inline first/last name side-by-side on desktop ───────── */
+@media (min-width: 769px) {
+    .woocommerce-checkout .form-row-first { float: left; width: 48% !important; }
+    .woocommerce-checkout .form-row-last { float: right; width: 48% !important; }
+    .woocommerce-checkout .form-row-wide { clear: both; }
+}
+</style>';
 } );
 
 // Force Size label to match Availability/Quantity heading style on product pages
