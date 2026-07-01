@@ -268,10 +268,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Single product page — let WooCommerce handle add-to-cart natively
-  // (preserves WC session/cookies for Block checkout compatibility).
-  // Show lightbox after redirect back using WC notice detection.
-  if (document.querySelector('.woocommerce-message') || window.location.search.indexOf('added_to_cart') !== -1) {
+  // Single product page — show lightbox after add-to-cart redirect.
+  // Only on product pages (body.single-product) to avoid triggering on cart/checkout.
+  if (document.body.classList.contains('single-product') &&
+      (document.querySelector('.woocommerce-message') || window.location.search.indexOf('added_to_cart') !== -1)) {
     showLightbox();
   }
 
