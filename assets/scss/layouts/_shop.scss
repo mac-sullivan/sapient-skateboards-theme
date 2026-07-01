@@ -1609,3 +1609,19 @@
     color: rgba($black, 0.3);
   }
 }
+
+.woocommerce-privacy-policy-text {
+  display: none;
+}
+
+.woocommerce-form-coupon-toggle {
+  display: none;
+}
+
+#customer_details {
+  .col-1 {
+    p {
+      display: none;
+    }
+  }
+}
