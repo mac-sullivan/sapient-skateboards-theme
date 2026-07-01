@@ -9,7 +9,10 @@ if ( file_exists(__DIR__ . '/sapient-migrate.php') ) {
     require_once __DIR__ . '/sapient-migrate.php';
 }
 
-// ── Output buffer removed — was interfering with WC session cookies on AJAX ──
+// ── Output buffer — prevent "headers already sent" issues ─────────────────────
+if ( ! ob_get_level() ) {
+    ob_start();
+}
 
 // ── Increase upload size limit (256MB is plenty for product photos + short videos)
 @ini_set( 'upload_max_filesize', '256M' );
@@ -1480,6 +1483,11 @@ function sapient_ajax_add_to_cart() {
         wp_send_json_error( [ 'message' => 'Security check failed.' ], 403 );
     }
 
+    // Ensure WC session cookie is set (critical for Block checkout / Store API)
+    if ( WC()->session && ! WC()->session->has_session() ) {
+        WC()->session->set_customer_session_cookie( true );
+    }
+
     $product_id   = intval( $_POST['product_id'] ?? 0 );
     $quantity     = max( 1, intval( $_POST['quantity'] ?? 1 ) );
     $variation_id = intval( $_POST['variation_id'] ?? 0 );
@@ -1548,6 +1556,10 @@ add_action( 'wp_ajax_sapient_update_cart',        'sapient_ajax_update_cart' );
 function sapient_ajax_update_cart() {
     if ( ! check_ajax_referer( 'sapient_cart', 'nonce', false ) ) {
         wp_send_json_error( [ 'message' => 'Security check failed.' ], 403 );
+    }
+
+    if ( WC()->session && ! WC()->session->has_session() ) {
+        WC()->session->set_customer_session_cookie( true );
     }
 
     $cart_key = sanitize_text_field( $_POST['cart_key'] ?? '' );
