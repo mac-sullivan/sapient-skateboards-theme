@@ -151,7 +151,7 @@ $footer_social_links = [
 
 <?php wp_footer(); ?>
 
-<!-- 1.0.1 Website designed and built by Mac Sullivan - You can reach me at macsullivan.com -->
+<!-- 1.0.2 Website designed and built by Mac Sullivan - You can reach me at macsullivan.com -->
 
 </body>
 </html>
