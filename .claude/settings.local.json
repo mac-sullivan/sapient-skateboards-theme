@@ -52,7 +52,11 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(find /Users/msullivan/sapient-skateboards-theme -name cart.php -o -name checkout.php -o -name *cart* -o -name *checkout*)"
+      "Bash(find /Users/msullivan/sapient-skateboards-theme -name cart.php -o -name checkout.php -o -name *cart* -o -name *checkout*)",
+      "Bash(ls:*)",
+      "Bash(git config:*)",
+      "WebFetch(domain:sapientskateboards.com)",
+      "Bash(git checkout:*)"
     ]
   }
 }

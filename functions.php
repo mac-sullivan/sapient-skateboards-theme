@@ -964,7 +964,7 @@ h3#ship-to-different-address label,
 .woocommerce-checkout textarea,
 .woocommerce-checkout select {
     width: 100% !important; padding: 0.7rem 0.85rem !important; border: 1.5px solid #ddd !important;
-    border-radius: 4px !important; font-size: 0.88rem !important;
+    border-radius: 4px !important; font-size: 16px !important;
     transition: border-color 0.2s !important; background: #fff !important; color: #141414 !important;
     box-sizing: border-box !important;
 }
@@ -980,7 +980,7 @@ h3#ship-to-different-address label,
     border: 1.5px solid #ddd !important; border-radius: 4px !important; padding: 0.3rem 0.85rem !important;
 }
 .woocommerce-checkout .select2-container--open .select2-selection--single { border-color: #141414 !important; }
-.woocommerce-checkout .select2-container .select2-selection__rendered { padding: 0 !important; line-height: normal !important; color: #141414 !important; font-size: 0.88rem !important; }
+.woocommerce-checkout .select2-container .select2-selection__rendered { padding: 0 !important; line-height: normal !important; color: #141414 !important; font-size: 16px !important; }
 .woocommerce-checkout .select2-container .select2-selection__arrow { top: 50% !important; transform: translateY(-50%) !important; right: 10px !important; }
 .woocommerce-checkout textarea { min-height: 80px !important; resize: vertical !important; }
 
