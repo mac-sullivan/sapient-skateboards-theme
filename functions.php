@@ -1111,10 +1111,13 @@ h3#ship-to-different-address label,
         width: 100% !important; float: none !important; padding-right: 0 !important;
     }
     .woocommerce #customer_details { padding-right: 0 !important; padding-left: 0 !important; }
-    .woocommerce #order_review { position: static !important; margin-top: 2rem !important; }
+    .woocommerce #order_review { position: static !important; margin-top: 2rem !important; max-width: 100% !important; box-sizing: border-box !important; overflow: hidden !important; }
+    .woocommerce #order_review table { table-layout: fixed !important; width: 100% !important; max-width: 100% !important; }
     .woocommerce-checkout .form-row-first,
     .woocommerce-checkout .form-row-last { float: none !important; width: 100% !important; }
     .woocommerce .col2-set .col-1, .woocommerce .col2-set .col-2 { width: 100% !important; float: none !important; padding: 0 !important; position: relative !important; max-width: 100% !important; box-sizing: border-box !important; overflow: hidden !important; }
+    .woocommerce-checkout #payment { max-width: 100% !important; box-sizing: border-box !important; }
+    .wc-cart-page, .wc-cart-page .container, .woocommerce-checkout form.checkout { max-width: 100vw !important; overflow-x: hidden !important; }
 }
 </style>';
 } );
