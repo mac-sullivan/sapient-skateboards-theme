@@ -1048,7 +1048,7 @@ h3#ship-to-different-address label,
 .woocommerce-checkout-review-order-table .variation * { font-size: 0.72rem !important; color: #888 !important; }
 .woocommerce-checkout-review-order-table dl.variation dt { display: inline !important; font-weight: 600 !important; }
 .woocommerce-checkout-review-order-table dl.variation dd { display: inline !important; margin: 0 0.3rem 0 0 !important; }
-.woocommerce-checkout-review-order-table dl.variation p { margin: 0 !important; }
+.woocommerce-checkout-review-order-table dl.variation p { display: inline !important; margin: 0 !important; }
 
 /* ── Shipping methods ─────────────────────────────────────── */
 .woocommerce-checkout .woocommerce-shipping-methods { list-style: none !important; padding: 0 !important; margin: 0.2rem 0 !important; }
@@ -1098,6 +1098,11 @@ h3#ship-to-different-address label,
 /* ── Clear floats ─────────────────────────────────────────── */
 .woocommerce-checkout form.checkout::after { content: ""; display: table; clear: both; }
 
+/* ── Overflow prevention ──────────────────────────────────── */
+.woocommerce-checkout,
+.woocommerce-checkout form.checkout,
+.wc-cart-page { overflow-x: hidden !important; max-width: 100% !important; box-sizing: border-box !important; }
+
 /* ── Mobile ───────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .woocommerce #customer_details,
@@ -1105,10 +1110,11 @@ h3#ship-to-different-address label,
     .woocommerce #order_review {
         width: 100% !important; float: none !important; padding-right: 0 !important;
     }
+    .woocommerce #customer_details { padding-right: 0 !important; padding-left: 0 !important; }
     .woocommerce #order_review { position: static !important; margin-top: 2rem !important; }
     .woocommerce-checkout .form-row-first,
     .woocommerce-checkout .form-row-last { float: none !important; width: 100% !important; }
-    .woocommerce .col2-set .col-1, .woocommerce .col2-set .col-2 { width: 100% !important; float: none !important; padding: 0 !important; }
+    .woocommerce .col2-set .col-1, .woocommerce .col2-set .col-2 { width: 100% !important; float: none !important; padding: 0 !important; position: relative !important; max-width: 100% !important; box-sizing: border-box !important; overflow: hidden !important; }
 }
 </style>';
 } );
