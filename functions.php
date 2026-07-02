@@ -1008,7 +1008,7 @@ h3#ship-to-different-address label,
 }
 .woocommerce-checkout #order_review {
     background: #f7f7f7 !important; border: 1px solid #e5e5e5 !important;
-    border-radius: 8px !important; padding: 1.5rem !important;
+    border-radius: 8px !important; padding: 0 !important;
 }
 
 /* ── Order review table ───────────────────────────────────── */

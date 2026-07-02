@@ -5,6 +5,10 @@
   padding-top: 2rem;
   padding-bottom: 10rem;
   min-height: 80vh;
+
+  .woocommerce-notices-wrapper {
+    display: none !important;
+  }
 }
 
 .cart-page-header {
@@ -99,7 +103,7 @@
         font-size: 1.125rem;
         color: rgba($charcoal, 0.4);
 
-        dt, dd { display: inline; margin: 0; }
+        dt, dd { display: inline; margin: 0 .5rem 0 0;  p {font-size: 1rem;}}
         dd::after { content: ' '; }
         p { margin: 0; font-size: 1.125rem; }
       }
@@ -586,4 +590,3 @@
     }
   }
 }
-
