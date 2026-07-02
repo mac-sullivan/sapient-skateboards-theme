@@ -1113,6 +1113,11 @@ h3#ship-to-different-address label,
     .woocommerce #customer_details { padding-right: 0 !important; padding-left: 0 !important; }
     .woocommerce #order_review { position: static !important; margin-top: 2rem !important; max-width: 100% !important; box-sizing: border-box !important; overflow: hidden !important; }
     .woocommerce #order_review table { table-layout: fixed !important; width: 100% !important; max-width: 100% !important; }
+    .woocommerce-checkout-review-order-table td,
+    .woocommerce-checkout-review-order-table th,
+    .woocommerce-checkout-review-order-table label,
+    .woocommerce-checkout-review-order-table li { white-space: normal !important; word-wrap: break-word !important; overflow-wrap: break-word !important; }
+    .woocommerce-checkout .woocommerce-shipping-methods label { font-size: 0.72rem !important; }
     .woocommerce-checkout .form-row-first,
     .woocommerce-checkout .form-row-last { float: none !important; width: 100% !important; }
     .woocommerce .col2-set .col-1, .woocommerce .col2-set .col-2 { width: 100% !important; float: none !important; padding: 0 !important; position: relative !important; max-width: 100% !important; box-sizing: border-box !important; overflow: hidden !important; }
