@@ -96,16 +96,22 @@
         &:hover { opacity: 0.6; }
       }
 
+      // Item options (e.g. "Griptape: Black (On Side) +$5") — small secondary
+      // line under the name; one typeface so it doesn't compete with the title
       .variation,
       dl.variation {
-        margin-top: 0.35rem;
+        margin-top: 0.3rem;
         font-family: $font-label;
-        font-size: 1.125rem;
-        color: rgba($charcoal, 0.4);
+        font-size: 0.8125rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: rgba($charcoal, 0.55);
 
-        dt, dd { display: inline; margin: 0 .5rem 0 0;  p {font-size: 1rem;}}
+        dt, dd { display: inline; margin: 0 0.3rem 0 0; }
+        dt { font-weight: 600; }
+        dd { font-weight: 400; }
         dd::after { content: ' '; }
-        p { margin: 0; font-size: 1.125rem; }
+        p { display: inline; margin: 0; font: inherit; }
       }
     }
 
@@ -421,6 +427,7 @@
       td.product-remove {
         grid-column: 1 / -1;
         grid-row: 4;
+        width: auto !important; // desktop's fixed 44px column width shrank this cell to the left edge
         padding-top: 0.5rem;
         text-align: right !important;
 

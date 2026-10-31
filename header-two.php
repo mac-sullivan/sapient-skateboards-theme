@@ -78,19 +78,6 @@
 <!-- Mobile nav overlay -->
 <nav id="site-nav-mobile" class="nav-mobile-overlay" aria-label="Mobile navigation">
 
-  <!-- Search lives in the menu on mobile (header icon is desktop-only) -->
-  <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-search-form">
-    <svg class="mobile-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </svg>
-    <input class="mobile-search-input" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="Search" aria-label="Search" autocomplete="off">
-    <button type="submit" class="mobile-search-btn" aria-label="Submit search">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-      </svg>
-    </button>
-  </form>
-
   <?php wp_nav_menu( [
     'theme_location' => 'primary',
     'menu_class'     => 'nav-links-mobile-list',

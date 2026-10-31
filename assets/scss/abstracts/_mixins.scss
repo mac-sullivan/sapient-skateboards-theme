@@ -18,6 +18,12 @@
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+
+  // 16px gutters on mobile — matches the header
+  @include mobile {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 // ─── Section Padding ──────────────────────────────────────────
@@ -26,6 +32,11 @@
   padding-bottom: $section-pad;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+
+  @include mobile {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 // ─── Section Eyebrow Label ────────────────────────────────────

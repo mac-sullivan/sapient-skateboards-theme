@@ -277,8 +277,7 @@
   align-items: center;
   color: $black;
   text-decoration: none;
-  padding: 0.4rem;
-  margin-left: 0.25rem;
+  padding: 0.4rem 0.4rem 0.4rem 0; // no left padding: the utilities gap alone sets the search→cart spacing
 
   &:hover { opacity: 0.6; }
 
@@ -454,55 +453,6 @@
   }
 }
 
-// ─── Mobile search (top of the menu) ─────────────────────────
-.mobile-search-form {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin: 1.25rem 1.5rem 0.5rem;
-  padding: 0.7rem 0.85rem;
-  border: 1.5px solid $black;
-  background: $white;
-  color: $black;
-
-  &:focus-within { box-shadow: 0 0 0 3px rgba($amber, 0.45); }
-}
-
-.mobile-search-icon { flex-shrink: 0; opacity: 0.5; }
-
-.mobile-search-input {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  font-family: $font-label !important;
-  font-size: 1.125rem; // ≥16px so iOS doesn't zoom on focus
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: $black;
-  padding: 0.1rem 0;
-  outline: none;
-
-  &::placeholder {
-    color: rgba($black, 0.4);
-    text-transform: uppercase;
-    opacity: 1;
-  }
-  &::-webkit-search-cancel-button,
-  &::-webkit-search-decoration { -webkit-appearance: none; }
-}
-
-.mobile-search-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.15rem;
-  color: $black;
-  display: flex;
-  align-items: center;
-}
-
 .nav-links-mobile-list {
   list-style: none;
   margin: 0;
@@ -614,10 +564,10 @@
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: rgba($black, 0.6);
+    color: $black;
     text-decoration: none;
 
-    &:hover, &:focus-visible { color: $black; }
+    &:hover, &:focus-visible { opacity: 0.6; }
   }
 }
 

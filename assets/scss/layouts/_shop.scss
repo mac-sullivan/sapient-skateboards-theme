@@ -315,9 +315,21 @@
 // Apparel shots have ~10% white margin; portrait tee photos get cropped to square
 .shop-img-link--non-board .shop-board-img {
   --shop-crop: 1.12;
-  --shop-zoom: 2.4;  // into the chest/print so no white shows around the garment
+  --shop-zoom: 2.7;  // into the chest/print so no white shows in the corners
   transform-origin: 50% 55%;
   object-position: 50% 40%;
+}
+
+// Boards are tall and narrow, so a square tile leaves them small. A portrait
+// tile crops the empty white at the sides and lets the deck fill the height:
+// 3:4 on desktop, taller 2:3 on mobile where the columns are narrow.
+.shop-img-link:not(.shop-img-link--non-board) .shop-board-img {
+  --shop-zoom: 2.8; // deck already fills more of the tile, so less zoom to fill it
+  aspect-ratio: 3 / 4;
+
+  @include mobile {
+    aspect-ratio: 2 / 3;
+  }
 }
 
 .shop-img-link--portrait .shop-board-img {
