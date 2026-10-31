@@ -1215,6 +1215,16 @@ add_action( 'woocommerce_checkout_create_order_line_item', function( $item, $car
     }
 }, 10, 4 );
 
+// ── Griptape add-on: apply $5 surcharge to cart item price ────────────────────
+add_action( 'woocommerce_before_calculate_totals', function( $cart ) {
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
+    foreach ( $cart->get_cart() as $cart_item ) {
+        if ( ! empty( $cart_item['sapient_griptape'] ) && strpos( $cart_item['sapient_griptape'], '+$5' ) !== false ) {
+            $cart_item['data']->set_price( $cart_item['data']->get_regular_price() + 5 );
+        }
+    }
+}, 20, 1 );
+
 // ── Intro Page ACF Fields ─────────────────────────────────────
 add_action( 'acf/init', function() {
     if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
