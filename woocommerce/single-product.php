@@ -29,7 +29,7 @@ while ( have_posts() ) : the_post();
     <div class="product-single-gallery">
       <?php if ( ! empty($all_images) ) : ?>
         <div class="product-gallery-main">
-          <button class="product-zoom-trigger" id="product-zoom-trigger" aria-label="Enlarge image">
+          <button class="product-zoom-trigger" id="product-zoom-trigger" aria-label="Zoom image" aria-pressed="false">
             <img
               src="<?php echo esc_url( wp_get_attachment_image_url($all_images[0], 'full') ); ?>"
               alt="<?php echo esc_attr($title); ?>"
@@ -45,35 +45,6 @@ while ( have_posts() ) : the_post();
           </button>
         </div>
 
-        <!-- Lightbox -->
-        <?php
-        $lightbox_imgs = [];
-        foreach ( $all_images as $img_id ) {
-          $lightbox_imgs[] = wp_get_attachment_image_url( $img_id, 'full' );
-        }
-        ?>
-        <div class="product-lightbox" id="product-lightbox" role="dialog" aria-modal="true" aria-label="Image enlarged"
-             data-images="<?php echo esc_attr( json_encode( $lightbox_imgs ) ); ?>">
-          <button class="product-lightbox-close" id="product-lightbox-close" aria-label="Close">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-          <button class="product-lightbox-prev" id="product-lightbox-prev" aria-label="Previous image">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
-          </button>
-          <div class="product-lightbox-inner">
-            <img src="" alt="" class="product-lightbox-img" id="product-lightbox-img" loading="lazy" decoding="async">
-          </div>
-          <button class="product-lightbox-next" id="product-lightbox-next" aria-label="Next image">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </button>
-          <div class="product-lightbox-counter" id="product-lightbox-counter"></div>
-        </div>
         <?php if ( count($all_images) > 1 ) : ?>
           <div class="product-gallery-thumbs">
             <?php foreach ($all_images as $i => $img_id) : ?>
@@ -257,148 +228,62 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Lightbox with carousel + zoom + pan
-  var lightbox    = document.getElementById('product-lightbox');
-  var lightboxImg = document.getElementById('product-lightbox-img');
+  // In-place zoom (mouse and touch): click/tap zooms into that spot; moving the
+  // mouse or dragging a finger pans; click/tap again, Esc, or leaving exits.
   var zoomTrigger = document.getElementById('product-zoom-trigger');
-  var closeBtn    = document.getElementById('product-lightbox-close');
-  var prevBtn     = document.getElementById('product-lightbox-prev');
-  var nextBtn     = document.getElementById('product-lightbox-next');
-  var counter     = document.getElementById('product-lightbox-counter');
+  var galleryMain = zoomTrigger ? zoomTrigger.closest('.product-gallery-main') : null;
+  var touchMoved  = false;
 
-  var images   = lightbox ? JSON.parse(lightbox.dataset.images || '[]') : [];
-  var curIndex = 0;
-
-  var scale = 1, isDragging = false, dragStartX = 0, dragStartY = 0, panX = 0, panY = 0;
-
-  function applyTransform() {
-    lightboxImg.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
+  function isZoomed() { return galleryMain.classList.contains('is-zoomed'); }
+  function setZoomOrigin(x, y) {
+    // Measure the unscaled frame — the image's own rect grows once it's zoomed
+    var r = zoomTrigger.getBoundingClientRect();
+    var px = Math.min(Math.max((x - r.left) / r.width, 0), 1) * 100;
+    var py = Math.min(Math.max((y - r.top) / r.height, 0), 1) * 100;
+    mainImg.style.transformOrigin = px + '% ' + py + '%';
   }
-  function resetZoom() {
-    scale = 1; panX = 0; panY = 0;
-    lightboxImg.style.cursor = 'default';
-    applyTransform();
+  function enterInlineZoom(e) {
+    // Zoom to the photo's real resolution, kept between 2x and 3x
+    var natural = mainImg.naturalWidth / zoomTrigger.getBoundingClientRect().width;
+    var zoom = Math.min(Math.max(natural || 2, 2), 3);
+    if (e && e.detail) { setZoomOrigin(e.clientX, e.clientY); } else { mainImg.style.transformOrigin = '50% 50%'; }
+    mainImg.style.transform = 'scale(' + zoom + ')';
+    galleryMain.classList.add('is-zoomed');
+    zoomTrigger.setAttribute('aria-pressed', 'true');
+    zoomTrigger.setAttribute('aria-label', 'Zoom out');
   }
-  function updateCounter() {
-    if (counter) counter.textContent = (curIndex + 1) + ' / ' + images.length;
-    if (prevBtn) prevBtn.style.display = images.length > 1 ? '' : 'none';
-    if (nextBtn) nextBtn.style.display = images.length > 1 ? '' : 'none';
-  }
-  function goTo(index) {
-    curIndex = (index + images.length) % images.length;
-    lightboxImg.src = images[curIndex];
-    resetZoom();
-    updateCounter();
-  }
-
-  function openLightbox(startIndex) {
-    curIndex = startIndex || 0;
-    lightboxImg.src = images[curIndex];
-    resetZoom();
-    updateCounter();
-    lightbox.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    lightbox.classList.remove('is-open');
-    document.body.style.overflow = '';
-    setTimeout(resetZoom, 250);
+  function exitInlineZoom() {
+    if (!galleryMain || !isZoomed()) return;
+    mainImg.style.transform = '';
+    mainImg.style.transformOrigin = '';
+    galleryMain.classList.remove('is-zoomed');
+    zoomTrigger.setAttribute('aria-pressed', 'false');
+    zoomTrigger.setAttribute('aria-label', 'Zoom image');
   }
 
-  // Open from main image — find its index
   if (zoomTrigger) {
-    zoomTrigger.addEventListener('click', function() {
-      var idx = images.indexOf(mainImg.src);
-      openLightbox(idx >= 0 ? idx : 0);
+    zoomTrigger.addEventListener('click', function(e) {
+      // A finger drag that ends on the image shouldn't count as a tap-to-exit
+      if (touchMoved) { touchMoved = false; return; }
+      isZoomed() ? exitInlineZoom() : enterInlineZoom(e);
     });
-  }
-
-  // Open from thumbs — pass index
-  thumbBtns.forEach(function(btn, i) {
-    btn.addEventListener('dblclick', function() { openLightbox(i); });
-  });
-
-  // Nav arrows
-  if (prevBtn) prevBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(curIndex - 1); });
-  if (nextBtn) nextBtn.addEventListener('click', function(e) { e.stopPropagation(); goTo(curIndex + 1); });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-
-  // Click backdrop to close
-  if (lightbox) {
-    lightbox.addEventListener('click', function(e) {
-      if (e.target === lightbox) closeLightbox();
+    zoomTrigger.addEventListener('mousemove', function(e) {
+      if (isZoomed()) setZoomOrigin(e.clientX, e.clientY);
     });
-
-    // Scroll to zoom
-    lightbox.addEventListener('wheel', function(e) {
-      e.preventDefault();
-      var delta = e.deltaY > 0 ? -0.15 : 0.15;
-      scale = Math.min(Math.max(scale + delta, 1), 5);
-      lightboxImg.style.cursor = scale > 1 ? 'grab' : 'default';
-      if (scale === 1) { panX = 0; panY = 0; }
-      applyTransform();
+    zoomTrigger.addEventListener('touchstart', function() { touchMoved = false; }, { passive: true });
+    zoomTrigger.addEventListener('touchmove', function(e) {
+      if (!isZoomed() || e.touches.length !== 1) return;
+      e.preventDefault(); // pan the photo, not the page
+      touchMoved = true;
+      setZoomOrigin(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: false });
-
-    // Drag to pan
-    lightbox.addEventListener('mousedown', function(e) {
-      if (e.target === closeBtn || e.target === prevBtn || e.target === nextBtn || scale === 1) return;
-      isDragging = true;
-      dragStartX = e.clientX - panX;
-      dragStartY = e.clientY - panY;
-      lightboxImg.style.cursor = 'grabbing';
+    zoomTrigger.addEventListener('mouseleave', exitInlineZoom);
+    zoomTrigger.addEventListener('blur', exitInlineZoom);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') exitInlineZoom();
     });
-    window.addEventListener('mousemove', function(e) {
-      if (!isDragging) return;
-      panX = e.clientX - dragStartX;
-      panY = e.clientY - dragStartY;
-      applyTransform();
-    });
-    window.addEventListener('mouseup', function() {
-      if (!isDragging) return;
-      isDragging = false;
-      lightboxImg.style.cursor = scale > 1 ? 'grab' : 'default';
-    });
-
-    // Double-click to toggle zoom
-    lightboxImg.addEventListener('dblclick', function() {
-      if (scale > 1) { resetZoom(); } else { scale = 2.5; lightboxImg.style.cursor = 'grab'; applyTransform(); }
-    });
-
-    // Touch pinch-to-zoom + swipe to navigate
-    var lastDist = 0, touchStartX = 0;
-    lightbox.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 2) {
-        lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-      } else if (e.touches.length === 1) {
-        touchStartX = e.touches[0].clientX;
-      }
-    }, { passive: true });
-    lightbox.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 2) {
-        e.preventDefault();
-        var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-        scale = Math.min(Math.max(scale + (dist - lastDist) * 0.01, 1), 5);
-        lastDist = dist;
-        applyTransform();
-      }
-    }, { passive: false });
-    lightbox.addEventListener('touchend', function(e) {
-      if (scale === 1 && e.changedTouches.length === 1) {
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 50) goTo(dx < 0 ? curIndex + 1 : curIndex - 1);
-      }
-    }, { passive: true });
+    thumbBtns.forEach(function(btn) { btn.addEventListener('click', exitInlineZoom); });
   }
-
-  document.addEventListener('keydown', function(e) {
-    if (!lightbox || !lightbox.classList.contains('is-open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') goTo(curIndex + 1);
-    if (e.key === 'ArrowLeft')  goTo(curIndex - 1);
-    if (e.key === '=' || e.key === '+') { scale = Math.min(scale + 0.25, 5); applyTransform(); }
-    if (e.key === '-') { scale = Math.max(scale - 0.25, 1); if(scale===1){panX=0;panY=0;} applyTransform(); }
-  });
 
   // Size selector — syncs visual buttons to the hidden input inside form.cart
   const sizeBtns = document.querySelectorAll('.size-btn');

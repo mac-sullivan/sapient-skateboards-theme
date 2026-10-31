@@ -218,7 +218,7 @@
   background: $bone;
 
   .container {
-    max-width: 1080px;
+    max-width: 1240px;
   }
 }
 
@@ -271,16 +271,17 @@
 .shop-img-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem 1rem;
-  margin: 0 0 4rem;
+  gap: 1.75rem 1rem;
+  margin: 0 0 1.75rem;
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.25rem;
   }
 
   @include mobile {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1.5rem 0.75rem;
   }
 }
 
@@ -293,7 +294,12 @@
   overflow: hidden;
 }
 
+// Product on a square white tile (GX1000-style), cropped in slightly to trim
+// the photo's white margin. On hover/focus it hard-cuts (no animation) to a
+// zoomed-in shot that fills the tile, washed out behind the name + price.
 .shop-board-img {
+  --shop-crop: 1.05; // boards already fill the frame's height
+  --shop-zoom: 3.4;  // boards span ~31% of the frame width — zoom until the deck fills the tile
   display: block;
   width: 100%;
   height: auto;
@@ -301,19 +307,28 @@
   object-fit: cover;
   object-position: center;
   margin: 0;
-  transition: transform 0.5s ease;
+  background: $bone;
+  transform: scale(var(--shop-crop));
+  transform-origin: 50% 50%;
+}
+
+// Apparel shots have ~10% white margin; portrait tee photos get cropped to square
+.shop-img-link--non-board .shop-board-img {
+  --shop-crop: 1.12;
+  --shop-zoom: 2.4;  // into the chest/print so no white shows around the garment
+  transform-origin: 50% 55%;
+  object-position: 50% 40%;
+}
+
+.shop-img-link--portrait .shop-board-img {
+  --shop-crop: 1;
+  transform-origin: 50% 24%; // tee prints sit high on the chest
 }
 
 .shop-img-link:hover .shop-board-img,
-.shop-img-link:focus .shop-board-img {
-  transform: scale(1.04);
-}
-
-// Non-skateboard products — scaled up to match board visual weight
-.shop-img-link--non-board .shop-board-img {
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  padding: 1.5rem;
+.shop-img-link:focus-visible .shop-board-img {
+  transform: scale(var(--shop-zoom));
+  opacity: 0.3;
 }
 
 .shop-product-info {
@@ -322,47 +337,60 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.2rem;
+  justify-content: center;
+  gap: 0.35rem;
   padding: 1.25rem;
-  background: linear-gradient(
-    to top,
-    rgba($black, 0.55) 0%,
-    rgba($black, 0.15) 40%,
-    transparent 100%
-  );
+  text-align: center;
+  text-wrap: balance;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  // Box is tile-sized, so 20% of its height drops the text from 50% to ~70% down the tile
+  transform: translateY(20%);
 
   .shop-img-link:hover &,
-  .shop-img-link:focus & {
+  .shop-img-link:focus-visible & {
     opacity: 1;
   }
 
-  // Always visible on mobile (no hover)
+  // No hover on touch — show name + price under the image instead
   @include mobile {
+    position: static;
     opacity: 1;
-    background: linear-gradient(
-      to top,
-      rgba($black, 0.5) 0%,
-      rgba($black, 0.1) 40%,
-      transparent 100%
-    );
+    transform: none;
+    padding: 0.6rem 0 0;
   }
 }
 
 .shop-product-name {
   font-family: $font-heading;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: #fff;
+  color: $charcoal;
+
+  @include mobile {
+    font-size: 0.875rem;
+  }
 }
 
+// Same face as the name, full black — the thin gray serif got lost over the washed-out image
 .shop-product-price {
-  font-family: $font-main;
-  font-size: 1.125rem;
-  color: rgba(#fff, 0.75);
+  font-family: $font-heading;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: $charcoal;
+
+  @include mobile {
+    font-size: 0.875rem;
+  }
+}
+
+@include mobile {
+  .shop-img-link:hover .shop-board-img,
+  .shop-img-link:focus-visible .shop-board-img {
+    transform: scale(var(--shop-crop));
+    opacity: 1;
+  }
 }
 
 .shop-product-stock {
@@ -615,6 +643,18 @@
   .product-zoom-trigger:hover & {
     background: rgba(#000, 0.7);
   }
+
+  // Zoomed: icon turns into a minus (hide the vertical stroke of the plus)
+  .is-zoomed & line:nth-of-type(2) {
+    display: none;
+  }
+}
+
+// In-place zoom (mouse + touch) — JS sets the scale and moves transform-origin
+// with the cursor/finger. While zoomed, a one-finger drag pans instead of scrolling.
+.product-gallery-main.is-zoomed .product-zoom-trigger {
+  cursor: zoom-out;
+  touch-action: none;
 }
 
 .product-gallery-main-img {
@@ -624,102 +664,6 @@
   display: block;
   margin: 0;
   transition: none;
-}
-
-// ── Lightbox ──────────────────────────────────────────────────
-.product-lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 100000;
-  background: rgba(#000, 0.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-
-  &.is-open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-.product-lightbox-inner {
-  max-width: 90vw;
-  max-height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.product-lightbox-img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  display: block;
-  transform-origin: center center;
-  transition: transform 0.1s ease;
-  will-change: transform;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-.product-lightbox-close {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: rgba(#fff, 0.1);
-  border: none;
-  color: #fff;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2;
-  transition: background 0.2s;
-
-  &:hover { background: rgba(#fff, 0.2); }
-}
-
-.product-lightbox-prev,
-.product-lightbox-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(#fff, 0.1);
-  border: none;
-  color: #fff;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2;
-  transition: background 0.2s;
-
-  &:hover { background: rgba(#fff, 0.25); }
-}
-
-.product-lightbox-prev { left: 1.25rem; }
-.product-lightbox-next { right: 1.25rem; }
-
-.product-lightbox-counter {
-  position: absolute;
-  bottom: 1.25rem;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(#fff, 0.5);
-  font-family: $font-label;
-  font-size: 1.125rem;
-  font-weight: 500;
-  white-space: nowrap;
-  pointer-events: none;
 }
 
 .product-gallery-thumbs {
@@ -765,7 +709,6 @@
   @include tablet {
     padding: 2rem 0rem;
     border-left: none;
-    border-top: 1px solid rgba($charcoal, 0.1);
   }
 }
 

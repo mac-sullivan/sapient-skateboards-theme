@@ -122,7 +122,18 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: rgba($black, 0.55);
-  margin: 0.35rem 0 0;
+  margin: 0;
+}
+
+// Room before the table so the tagline groups with the title. Scoped to the
+// header so it beats the global `p:last-child { margin-bottom: 0 }`.
+.blog-archive-header .suppliers-subheading {
+  margin-bottom: 2.25rem;
+}
+
+// Tagline belongs to the title — pull it up from the title's default 1.5rem/2rem gap
+.blog-archive-title:has(+ .suppliers-subheading) {
+  margin-bottom: 0.75rem;
 }
 
 // ─── Supplier CTA ─────────────────────────────────────────────

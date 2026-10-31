@@ -78,7 +78,7 @@
   }
 
   .h2-utilities {
-    gap: 0.5rem; // tighter than desktop's 1rem — search + menu sit close together
+    gap: 0.5rem; // tighter than desktop's 1rem — menu + cart sit close together
   }
 
   // Tighten the search icon's padding so it nests right next to the menu button.
@@ -89,9 +89,8 @@
   .nav-toggle { padding: 0.25rem 0.55rem; }
 
   .h2-nav      { display: none; }
-  // .h2-search stays visible on mobile — icon is in the header utilities
-  .h2-search     { order: 1; }
-  .nav-toggle    { display: flex; order: 2; }
-  .nav-cart-wrap { order: 3; }
+  // Mobile header: MENU + cart (far right). Search moves into the menu overlay.
+  .h2-search   { display: none; }
+  .nav-toggle  { display: flex; }
 }
 

@@ -37,8 +37,13 @@
       ] ); ?>
     </nav>
 
-    <!-- Utilities: Search + Cart + mobile toggle -->
+    <!-- Utilities: mobile toggle + Search + Cart (cart sits far right) -->
     <div class="h2-utilities">
+
+      <!-- Mobile menu button -->
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="nav-toggle-label" data-open="MENU" data-close="CLOSE">MENU</span>
+      </button>
 
       <!-- Search -->
       <div class="h2-search search-inline" data-search>
@@ -64,11 +69,6 @@
       </a>
       <?php endif; ?>
 
-      <!-- Mobile menu button -->
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span class="nav-toggle-label" data-open="MENU" data-close="CLOSE">MENU</span>
-      </button>
-
     </div>
 
   </div>
@@ -78,6 +78,19 @@
 <!-- Mobile nav overlay -->
 <nav id="site-nav-mobile" class="nav-mobile-overlay" aria-label="Mobile navigation">
 
+  <!-- Search lives in the menu on mobile (header icon is desktop-only) -->
+  <form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-search-form">
+    <svg class="mobile-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input class="mobile-search-input" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="Search" aria-label="Search" autocomplete="off">
+    <button type="submit" class="mobile-search-btn" aria-label="Submit search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+      </svg>
+    </button>
+  </form>
+
   <?php wp_nav_menu( [
     'theme_location' => 'primary',
     'menu_class'     => 'nav-links-mobile-list',
@@ -86,6 +99,14 @@
     'depth'          => 2,
   ] ); ?>
 
+  <?php
+  $mobile_email     = ( function_exists( 'get_field' ) ? get_field( 'footer_contact_email', 'option' ) : '' ) ?: 'info@sapientskateboards.com';
+  $mobile_instagram = ( function_exists( 'get_field' ) ? get_field( 'footer_instagram', 'option' ) : '' ) ?: 'https://www.instagram.com/sapientskateboards/';
+  ?>
+  <div class="mobile-nav-footer">
+    <a href="mailto:<?php echo esc_attr( $mobile_email ); ?>"><?php echo esc_html( $mobile_email ); ?></a>
+    <a href="<?php echo esc_url( $mobile_instagram ); ?>" target="_blank" rel="noopener">Instagram</a>
+  </div>
 
 </nav>
 
@@ -108,15 +129,28 @@
 
   if (toggle && overlay) {
     var toggleLabel = toggle.querySelector('.nav-toggle-label');
-    toggle.addEventListener('click', function () {
-      var open = overlay.classList.toggle('open');
+    function setMenu(open) {
+      overlay.classList.toggle('open', open);
       toggle.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      // Lock the page behind the menu so only the menu scrolls
+      document.documentElement.classList.toggle('nav-mobile-open', open);
       if (toggleLabel) {
         toggleLabel.textContent = open
           ? toggleLabel.getAttribute('data-close')
           : toggleLabel.getAttribute('data-open');
       }
+    }
+    toggle.addEventListener('click', function () {
+      setMenu(!overlay.classList.contains('open'));
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) { setMenu(false); toggle.focus(); }
+    });
+    // Following a link (not a submenu toggle) closes the menu
+    overlay.addEventListener('click', function (e) {
+      var link = e.target.closest('a');
+      if (link && !link.parentElement.classList.contains('menu-item-has-children')) setMenu(false);
     });
   }
 

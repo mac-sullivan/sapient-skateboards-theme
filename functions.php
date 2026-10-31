@@ -1805,7 +1805,7 @@ add_action( 'wp_head', function() {
 
 // ── Conditional shipping: boards vs apparel ───────────────────
 // Board in cart  → show "Standard Shipping (Boards)" $20, hide apparel rate.
-// Apparel only   → show "Flat Rate (Apparel Only)" $6.50, hide boards rate.
+// Apparel only   → show "Flat Rate (Apparel Only)" $8, hide boards rate.
 // Board + shirt  → show boards rate only (shirt ships with the board).
 add_filter( 'woocommerce_package_rates', function( $rates, $package ) {
     $has_board   = false;

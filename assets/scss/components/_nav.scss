@@ -297,14 +297,20 @@
   height: 16px;
   line-height: 16px;
   text-align: center;
-  border-radius: 50%;
-  margin-left: 0.2rem;
+  border-radius: 999px;
   color: rgba($black, 0.4);
+  // Sits on the icon's top-right corner, slightly overlapping the basket
+  position: absolute;
+  top: 0;
+  right: -0.2rem;
+  display: none; // empty cart shows just the icon
 
   &.has-items {
+    display: block;
     background: $black;
     color: #fff;
     padding: 0 4px;
+    box-shadow: 0 0 0 2px $white; // knock-out ring so it reads over the icon stroke
   }
 }
 
@@ -448,34 +454,38 @@
   }
 }
 
-// ─── Mobile search ────────────────────────────────────────────
+// ─── Mobile search (top of the menu) ─────────────────────────
 .mobile-search-form {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0;
-  border-top: 1px solid rgba($black, 0.08);
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-  background: #fff;
-  padding: 1.25rem 1.5rem;
+  gap: 0.6rem;
+  margin: 1.25rem 1.5rem 0.5rem;
+  padding: 0.7rem 0.85rem;
+  border: 1.5px solid $black;
+  background: $white;
+  color: $black;
+
+  &:focus-within { box-shadow: 0 0 0 3px rgba($amber, 0.45); }
 }
+
+.mobile-search-icon { flex-shrink: 0; opacity: 0.5; }
 
 .mobile-search-input {
   flex: 1;
+  min-width: 0;
   border: none;
   background: transparent;
   font-family: $font-label !important;
-  font-size: 1.125rem;
-  font-weight: 500;
+  font-size: 1.125rem; // ≥16px so iOS doesn't zoom on focus
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: $black;
-  padding: 0.2rem 0;
+  padding: 0.1rem 0;
   outline: none;
 
   &::placeholder {
-    color: $black;
+    color: rgba($black, 0.4);
     text-transform: uppercase;
     opacity: 1;
   }
@@ -487,7 +497,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 0.15rem;
   color: $black;
   display: flex;
   align-items: center;
@@ -500,31 +510,48 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex: 1;
 
   li { width: 100%; }
 
-  // top-level links
+  padding-top: 0.75rem;
+
+  // top-level links — same heavy face as page titles so the menu feels like the site
   > li > a {
-    font-family: $font-label;
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-family: $font-heading;
+    font-size: 1.75rem;
+    font-weight: 900;
+    line-height: 1;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.01em;
     color: $black;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
     text-decoration: none;
     border-bottom: 1px solid rgba($black, 0.08);
 
     &:active { background: rgba($black, 0.04); }
   }
 
-  li.current-menu-item > a,
-  li[aria-current="page"] > a {
+  // Right chevron on plain links (dropdown parents keep their down chevron)
+  > li:not(.menu-item-has-children) > a::after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    opacity: 0.3;
+  }
+
+  // Current page: amber bar, matching the desktop nav highlight
+  > li.current-menu-item > a,
+  > li[aria-current="page"] > a {
     color: $black;
+    box-shadow: inset 6px 0 0 $amber;
   }
 
   .menu-item-has-children > a {
@@ -569,6 +596,35 @@
       border-bottom: 1px solid rgba($black, 0.06);
     }
   }
+}
+
+// Email + Instagram pinned to the bottom of the menu
+.mobile-nav-footer {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 1.5rem;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+
+  a {
+    font-family: $font-label;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba($black, 0.6);
+    text-decoration: none;
+
+    &:hover, &:focus-visible { color: $black; }
+  }
+}
+
+// Page behind the open menu doesn't scroll
+html.nav-mobile-open,
+html.nav-mobile-open body {
+  overflow: hidden;
 }
 
 .mobile-cta { display: none; }

@@ -61,12 +61,15 @@ $products = new WP_Query( $query_args );
 
 
     <?php
-    // Split products into boards and apparel
+    // Split products: featured (new drops) first, then apparel, then boards
+    $featured = [];
     $boards = [];
     $apparel = [];
     if ( $products->have_posts() ) :
       while ( $products->have_posts() ) : $products->the_post();
-        if ( has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) {
+        if ( wc_get_product( get_the_ID() )->is_featured() ) {
+          $featured[] = get_the_ID();
+        } elseif ( has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) {
           $apparel[] = get_the_ID();
         } else {
           $boards[] = get_the_ID();
@@ -74,53 +77,41 @@ $products = new WP_Query( $query_args );
       endwhile;
       wp_reset_postdata();
     endif;
+
+    $render_card = function ( $pid ) {
+      $product  = wc_get_product( $pid );
+      $is_board = ! has_term( array( 'softgoods', 'apparel' ), 'product_cat', $pid );
+      $img      = has_post_thumbnail( $pid ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $pid ), 'full' ) : false;
+      $img_url  = $img ? $img[0] : '';
+      // Portrait photos are already enlarged by the square crop — CSS skips the extra crop-in
+      $classes  = 'shop-img-link' . ( $is_board ? '' : ' shop-img-link--non-board' ) . ( $img && $img[2] > $img[1] * 1.1 ? ' shop-img-link--portrait' : '' );
+      ?>
+        <a href="<?php echo esc_url( get_permalink( $pid ) ); ?>" class="<?php echo esc_attr( $classes ); ?>" data-cats="<?php echo $is_board ? 'boards' : 'apparel'; ?>">
+          <?php if ( $img_url ) : ?>
+            <img src="<?php echo esc_url( $img_url ); ?>" class="shop-board-img" alt="<?php echo esc_attr( get_the_title( $pid ) ); ?>" loading="lazy" decoding="async">
+          <?php else : ?>
+            <div class="shop-img-placeholder"><span>Photo Coming Soon</span></div>
+          <?php endif; ?>
+          <div class="shop-product-info">
+            <span class="shop-product-name"><?php echo esc_html( get_the_title( $pid ) ); ?></span>
+            <span class="shop-product-price"><?php echo $product->get_price_html(); ?></span>
+          </div>
+        </a>
+      <?php
+    };
     ?>
 
-    <?php if ( ! empty( $boards ) ) : ?>
+    <?php
+    // One continuous grid (featured → apparel → boards) so rows always fill —
+    // separate grids left a hole whenever a group had an odd count on mobile.
+    $ordered = array_merge( $featured, $apparel, $boards );
+    if ( ! empty( $ordered ) ) : ?>
     <div class="shop-img-grid">
-      <?php foreach ( $boards as $pid ) : setup_postdata( $GLOBALS['post'] =& get_post( $pid ) ); ?>
-        <a href="<?php the_permalink(); ?>" class="shop-img-link" data-cats="boards">
-          <?php if ( has_post_thumbnail() ) : ?>
-            <?php
-              $thumb_id = get_post_thumbnail_id();
-              $img_url  = wp_get_attachment_image_url( $thumb_id, 'full' );
-            ?>
-            <img src="<?php echo esc_url( $img_url ); ?>" class="shop-board-img" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
-          <?php else : ?>
-            <div class="shop-img-placeholder"><span>Photo Coming Soon</span></div>
-          <?php endif; ?>
-          <div class="shop-product-info">
-            <span class="shop-product-name"><?php the_title(); ?></span>
-            <span class="shop-product-price"><?php echo wc_get_product( get_the_ID() )->get_price_html(); ?></span>
-          </div>
-        </a>
-      <?php endforeach; wp_reset_postdata(); ?>
+      <?php foreach ( $ordered as $pid ) { $render_card( $pid ); } ?>
     </div>
     <?php endif; ?>
 
-    <?php if ( ! empty( $apparel ) ) : ?>
-    <div class="shop-img-grid shop-img-grid--apparel">
-      <?php foreach ( $apparel as $pid ) : setup_postdata( $GLOBALS['post'] =& get_post( $pid ) ); ?>
-        <a href="<?php the_permalink(); ?>" class="shop-img-link shop-img-link--non-board" data-cats="apparel">
-          <?php if ( has_post_thumbnail() ) : ?>
-            <?php
-              $thumb_id = get_post_thumbnail_id();
-              $img_url  = wp_get_attachment_image_url( $thumb_id, 'full' );
-            ?>
-            <img src="<?php echo esc_url( $img_url ); ?>" class="shop-board-img" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
-          <?php else : ?>
-            <div class="shop-img-placeholder"><span>Photo Coming Soon</span></div>
-          <?php endif; ?>
-          <div class="shop-product-info">
-            <span class="shop-product-name"><?php the_title(); ?></span>
-            <span class="shop-product-price"><?php echo wc_get_product( get_the_ID() )->get_price_html(); ?></span>
-          </div>
-        </a>
-      <?php endforeach; wp_reset_postdata(); ?>
-    </div>
-    <?php endif; ?>
-
-    <?php if ( empty( $boards ) && empty( $apparel ) ) : ?>
+    <?php if ( empty( $ordered ) ) : ?>
       <p class="shop-empty">No products found.</p>
     <?php endif; ?>
 
