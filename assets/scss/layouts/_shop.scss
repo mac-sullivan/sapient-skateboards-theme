@@ -286,6 +286,7 @@
 
 .shop-img-link {
   display: block;
+  position: relative;
   border-radius: $radius;
   text-decoration: none;
   color: $charcoal;
@@ -296,15 +297,11 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1 / 2;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center;
   margin: 0;
   transition: transform 0.5s ease;
-
-  @include mobile {
-    aspect-ratio: 2 / 5;
-  }
 }
 
 .shop-img-link:hover .shop-board-img,
@@ -314,17 +311,44 @@
 
 // Non-skateboard products — scaled up to match board visual weight
 .shop-img-link--non-board .shop-board-img {
-  aspect-ratio: 1 / 2;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
   padding: 1.5rem;
 }
 
 .shop-product-info {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.2rem;
-  padding: 0.75rem 0;
+  padding: 1.25rem;
+  background: linear-gradient(
+    to top,
+    rgba($black, 0.55) 0%,
+    rgba($black, 0.15) 40%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  .shop-img-link:hover &,
+  .shop-img-link:focus & {
+    opacity: 1;
+  }
+
+  // Always visible on mobile (no hover)
+  @include mobile {
+    opacity: 1;
+    background: linear-gradient(
+      to top,
+      rgba($black, 0.5) 0%,
+      rgba($black, 0.1) 40%,
+      transparent 100%
+    );
+  }
 }
 
 .shop-product-name {
@@ -332,13 +356,13 @@
   font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: $charcoal;
+  color: #fff;
 }
 
 .shop-product-price {
   font-family: $font-main;
   font-size: 1.125rem;
-  color: rgba($charcoal, 0.6);
+  color: rgba(#fff, 0.75);
 }
 
 .shop-product-stock {
