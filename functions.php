@@ -1803,6 +1803,14 @@ add_action( 'wp_head', function() {
     }
 } );
 
+// ── Variation dropdown placeholder: "Choose size" for apparel ──
+add_filter( 'woocommerce_dropdown_variation_attribute_options_args', function( $args ) {
+    if ( ! empty( $args['product'] ) && has_term( array( 'softgoods', 'apparel' ), 'product_cat', $args['product']->get_id() ) ) {
+        $args['show_option_none'] = __( 'Choose size', 'sapient' );
+    }
+    return $args;
+} );
+
 // ── Conditional shipping: boards vs apparel ───────────────────
 // Board in cart  → show "Standard Shipping (Boards)" $20, hide apparel rate.
 // Apparel only   → show "Flat Rate (Apparel Only)" $8, hide boards rate.

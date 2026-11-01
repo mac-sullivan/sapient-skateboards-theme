@@ -12,10 +12,17 @@ do_action( 'woocommerce_before_cart' );
   <?php do_action( 'woocommerce_before_cart_table' ); ?>
 
   <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
+    <colgroup>
+      <col class="col-thumbnail">
+      <col class="col-name">
+      <col class="col-price">
+      <col class="col-quantity">
+      <col class="col-subtotal">
+      <col class="col-remove">
+    </colgroup>
     <thead>
       <tr>
-        <th class="product-thumbnail"><span class="screen-reader-text">Image</span></th>
-        <th scope="col" class="product-name">Product</th>
+        <th scope="col" colspan="2" class="product-name">Product</th>
         <th scope="col" class="product-price">Price</th>
         <th scope="col" class="product-quantity">Qty</th>
         <th scope="col" class="product-subtotal">Subtotal</th>

@@ -36,6 +36,14 @@
     border-collapse: collapse;
     border: none;
 
+    // Column widths live on <col> so the "Product" header can span image + name.
+    col.col-thumbnail { width: calc(96px + 2rem); }
+    col.col-name      { width: 30%; }
+    col.col-price     { width: 15%; }
+    col.col-quantity  { width: 18%; }
+    col.col-subtotal  { width: 15%; }
+    col.col-remove    { width: 44px; }
+
     thead tr th {
       font-family: $font-label;
       font-size: 1.125rem;
@@ -48,12 +56,7 @@
       text-align: left;
       white-space: nowrap;
 
-      &.product-thumbnail { width: 96px;  padding-right: 2rem; }
-      &.product-name      { width: 30%; }
-      &.product-price     { width: 15%; }
-      &.product-quantity  { width: 18%; }
-      &.product-subtotal  { width: 15%; }
-      &.product-remove    { width: 44px; padding-right: 0; text-align: right; }
+      &.product-remove    { padding-right: 0; text-align: right; }
     }
 
     tbody tr {
@@ -200,12 +203,13 @@
       }
     }
 
-    // Actions row (coupon + update cart) — right-aligned
-    tr.cart_item:last-child { border-bottom: none; }
+    // Actions row (coupon + update cart) — right-aligned, no divider of its own
+    tr.cart_item:last-child,
+    tr:has(> td.actions) { border-bottom: none; }
 
     .actions {
       padding: 1.5rem 0 !important;
-      border-top: 1px solid rgba($charcoal, 0.1) !important;
+      border-top: none !important;
       width: 100% !important;
 
       &::after { content: ''; display: table; clear: both; }
@@ -361,6 +365,11 @@
 @include mobile {
   .woocommerce-cart-form table.shop_table {
 
+    // Rows become grid cards — table/tbody must be blocks or the cards
+    // shrink-wrap to their content instead of spanning the full width.
+    &, tbody { display: block; width: 100%; }
+    colgroup { display: none; }
+
     thead { display: none; }
 
     // Kill WC responsive data-title labels globally
@@ -369,7 +378,7 @@
     tbody tr.cart_item,
     tbody tr.woocommerce-cart-form__cart-item {
       display: grid;
-      grid-template-columns: 90px 1fr;
+      grid-template-columns: 120px 1fr;
       grid-template-rows: auto auto auto auto;
       gap: 0.25rem 0;
       padding: 1.5rem 0;
@@ -383,13 +392,13 @@
       td.product-thumbnail {
         grid-column: 1;
         grid-row: 1;
-        width: 90px;
+        width: 120px;
         padding: 0;
         display: block !important;
 
         img {
-          width: 90px;
-          height: 90px;
+          width: 120px;
+          height: 120px;
           object-fit: contain;
           background: rgba($charcoal, 0.03);
         }
@@ -404,20 +413,16 @@
 
         a { font-size: 1rem; }
 
-        // Fix griptape / variation display
+        // Variation line keeps the desktop label style, just right-aligned
         .variation,
         dl.variation {
-          display: flex;
-          justify-content: flex-end;
-          gap: 0.25rem;
-          font-family: $font-main;
-          font-size: 0.8rem;
-          text-transform: none;
-          margin: 0.25rem 0 0;
+          display: block;
+          text-align: right;
+          margin: 0.3rem 0 0;
 
-          dt { font-size: 0.8rem; margin: 0 !important; }
-          dd { font-size: 0.8rem; margin: 0 !important; }
-          dd p { display: inline !important; margin: 0; font-size: 0.8rem; }
+          dt, dd { float: none; margin: 0 0.3rem 0 0 !important; }
+          dd { margin-right: 0 !important; }
+          dd p { display: inline !important; margin: 0; }
         }
 
         .backorder_notification { display: none !important; }
@@ -507,6 +512,15 @@
 
   .cart_totals {
     max-width: 100%;
+
+    // Undo WooCommerce smallscreen "responsive table" (hidden th + "Label:" td::before)
+    // so totals keep the desktop label/value rows.
+    table.shop_table_responsive {
+      tr { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+      th { display: block !important; border: none !important; }
+      td { display: block; border: none !important; background: transparent !important; }
+      td::before { display: none !important; }
+    }
 
     .wc-proceed-to-checkout .checkout-button {
       font-size: 1rem !important;
