@@ -102,18 +102,16 @@ while ( have_posts() ) : the_post();
       <?php
       $stock_qty = $product->get_stock_quantity();
       $is_backorder = ( $stock_qty !== null && $stock_qty <= 0 );
+      // Apparel never shows the "Made to Order" notice — out of stock means Sold Out.
+      $is_apparel   = has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() );
       ?>
 
       <?php if ($in_stock || $is_backorder) : ?>
 
-        <?php if ( $is_backorder ) : ?>
+        <?php if ( $is_backorder && ! $is_apparel ) : ?>
         <div class="product-made-to-order">
           <span class="product-made-to-order-badge">Made to Order</span>
-          <?php if ( has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) : ?>
-            <p class="product-made-to-order-text">This item is currently made to order. Please allow approximately 1.5 weeks before your order ships.</p>
-          <?php else : ?>
-            <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
-          <?php endif; ?>
+          <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
         </div>
         <?php endif; ?>
 
@@ -195,14 +193,12 @@ while ( have_posts() ) : the_post();
 
         <?php woocommerce_template_single_add_to_cart(); ?>
         <?php // Lightbox is rendered once in wp_footer via functions.php ?>
+      <?php elseif ( $is_apparel ) : ?>
+        <span class="product-sold-out">Sold Out</span>
       <?php else : ?>
         <div class="product-made-to-order">
           <span class="product-made-to-order-badge">Made to Order</span>
-          <?php if ( has_term( array( 'softgoods', 'apparel' ), 'product_cat', get_the_ID() ) ) : ?>
-            <p class="product-made-to-order-text">This item is currently made to order. Please allow approximately 1.5 weeks before your order ships.</p>
-          <?php else : ?>
-            <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
-          <?php endif; ?>
+          <p class="product-made-to-order-text">This model is currently built to order. Every Sapient deck is pressed, shaped, and finished in our Chicago workshop. Please allow approximately 2–3 weeks for production before your order ships.</p>
         </div>
         <?php woocommerce_template_single_add_to_cart(); ?>
       <?php endif; ?>
